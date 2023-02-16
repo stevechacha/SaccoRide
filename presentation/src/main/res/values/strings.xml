@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="password_visible_content_description">Hide password</string>
+    <string name="password_hidden_content_description">Show password</string>
+    <string name="password">Password</string>
+    <string name="email_or_mobile_number">Email or Mobile Number</string>
+    <string name="email_hint">Email </string>
+    <string name="mobile_number_hint">Mobile Number</string>
+    <string name="id_number_hint">ID Number</string>
+    <string name="confirmPassword">Confirm Password</string>
+    <string name="payBillNumber">PayBill Number</string>
+    <string name="accountNumber">Account Number</string>
+    <string name="payBillAmount">Amount</string>
+    <string name="pin_hint">Create Pin</string>
+    <string name="confirmPin">Confirm Pin</string>
+    <string name="current_pin">Current Pin</string>
+    <string name="new_pin">New Pin</string>
+    <string name="confirmNewPin">Confirm New Pin</string>
+    <string name="current_password">Current Password</string>
+    <string name="confirmNewPassword">Confirm New Password</string>
+    <string name="new_password">New Password</string>
+    <string name="transaction">Transaction</string>
+    <string name="submit">Submit</string>
+    <string name="user_profile">UserProfile</string>
+    <string name="amount">Amount</string>
+    <string name="min_amount">minimum amount 5</string>
+    <string name="pay_with_sacco">Pay with RideSacco</string>
+
+</resources>

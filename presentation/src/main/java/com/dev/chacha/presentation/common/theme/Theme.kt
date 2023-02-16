@@ -1,6 +1,8 @@
 package com.dev.chacha.presentation.common.theme
 
 import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -10,31 +12,51 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
-
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
+import androidx.core.view.WindowCompat
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = PrimaryColor,
+    onPrimary = PrimaryTextColor,
+    secondary = SecondaryColor,
+    onSecondary = SecondaryTextColor,
+    tertiary = PrimaryLightColor,
+    onTertiary = PrimaryTextColor,
+    background = BackgroundLightColor,
+    onBackground = Color.Black,
+    surface = SurfaceLight,
+    onSurface = Color.Black,
+    surfaceVariant = SurfaceLight,
+    onSurfaceVariant = Color.Black,
+    secondaryContainer = PrimaryColor,
+    onSecondaryContainer = Color.White,
+    error = ErrorColor,
+    onError = OnErrorColor
+)
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+
+private val DarkColorScheme = darkColorScheme(
+    primary = PrimaryColor,
+    onPrimary = PrimaryTextColor,
+    secondary = SecondaryLightColor,
+    onSecondary = SecondaryTextColor,
+    tertiary = PrimaryLightColor,
+    onTertiary = PrimaryTextColor,
+    background = BackgroundDarkColor,
+    onBackground = Color.White,
+    surface = SurfaceDark,
+    onSurface = Color.White,
+    surfaceVariant = SurfaceDark,
+    onSurfaceVariant = Color.White,
+    secondaryContainer = PrimaryColor,
+    onSecondaryContainer = Color.White,
+    error = ErrorColor,
+    onError = OnErrorColor
 )
 
 @Composable
@@ -52,17 +74,26 @@ fun SaccoRideTheme(
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
-    val view = LocalView.current
-    if (!view.isInEditMode) {
-        SideEffect {
-            (view.context as Activity).window.statusBarColor = colorScheme.primary.toArgb()
-            ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = darkTheme
-        }
+    val systemUiController = rememberSystemUiController()
+
+    SideEffect {
+        systemUiController.setSystemBarsColor(
+            color = colorScheme.background
+        )
     }
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = AppTypography,
         content = content
     )
+}
+
+private fun Context.findActivity(): Activity {
+    var context = this
+    while (context is ContextWrapper) {
+        if (context is Activity) return context
+        context = context.baseContext
+    }
+    throw IllegalStateException("Activity absent")
 }

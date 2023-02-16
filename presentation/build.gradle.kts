@@ -88,6 +88,9 @@ dependencies {
     kapt(libs.android.hilt.androidx.compiler)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.25.1")
+    implementation ("com.google.accompanist:accompanist-pager:0.28.0")
+    implementation  ("com.google.accompanist:accompanist-pager-indicators:0.28.0")
 
     androidTestImplementation(libs.android.test.junit4)
     androidTestImplementation(libs.android.test.espresso)
@@ -111,6 +114,4 @@ kotlin {
     }
 }
 
-/**
- * Excluding the folder as it has classes from Google AOSP which don't pass most rules
- */
+

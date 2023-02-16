@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "704189195159",
+    "project_id": "saccoride",
+    "storage_bucket": "saccoride.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704189195159:android:10472c8892891ca6ef5ad2",
+        "android_client_info": {
+          "package_name": "com.dev.chacha.saccoride"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "704189195159-7e77sptcbpno0t45et0bb6cuuvseiqnt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBw7jcU_B2x0blF2CbeklPjhy_Knl76ILA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "704189195159-7e77sptcbpno0t45et0bb6cuuvseiqnt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

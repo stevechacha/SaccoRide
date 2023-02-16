@@ -26,7 +26,4 @@ mapOf(
     project(":$projectName").projectDir = File(projectPath)
 }
 rootProject.name = "SaccoRide"
-/*include ':app'
-include ':data'
-include ':domain'
-include ':presentation'*/
+

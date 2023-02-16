@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.SaccoRide" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.MySplash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/design_default_color_on_secondary</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/sessions_icon</item>
+        <item name="postSplashScreenTheme">@style/Theme.SaccoRide</item>
+    </style>
+
+</resources>
