@@ -1,6 +1,7 @@
 package com.dev.chacha.presentation.auth.create_password
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -83,8 +84,6 @@ fun CreatePasswordContent(
                         }
                     )
 
-                    /* Button */
-
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -95,7 +94,7 @@ fun CreatePasswordContent(
                             onClick = { onClickAction() },
                             modifier = Modifier
                                 .fillMaxWidth(),
-                            shape = MaterialTheme.shapes.medium,
+                            shape = RoundedCornerShape(8.dp),
                         ) {
                             Text(
                                 text = "Continue",

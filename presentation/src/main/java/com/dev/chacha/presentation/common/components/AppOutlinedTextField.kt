@@ -43,6 +43,7 @@ fun AppOutlinedTextField(
     maxLines: Int = 1,
     leadingIcon: ImageVector? = null,
     trailingIcon: (@Composable () -> Unit)? = null,
+    supportingText: (@Composable () -> Unit)? = null,
     keyboardType: KeyboardType = KeyboardType.Text,
     isPasswordToggleDisplayed: Boolean = keyboardType == KeyboardType.Password,
     isPasswordVisible: Boolean = false,
@@ -121,7 +122,8 @@ fun AppOutlinedTextField(
                     testTag = TestTags.STANDARD_TEXT_FIELD
                 }
                 .focusRequester(focusRequester = focusRequester),
-            colors = textFieldColors
+            colors = textFieldColors,
+
 
         )
         if (error.isNotEmpty()) {

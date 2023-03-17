@@ -2,21 +2,28 @@ package com.dev.chacha.presentation.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,10 +45,184 @@ fun HomeScreen(
 
             BalanceCard()
             Spacer(modifier = Modifier.height(16.dp))
-            HomeServices()
+            HomeService()
+
         }
 
     }
+}
+
+
+
+
+@Composable
+fun BalanceCard() {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+
+                    ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.sessions_icon),
+                        contentDescription = "Current Balance",
+                        modifier = Modifier
+                            .size(50.dp)
+                            .clip(CircleShape),
+                        alignment = Alignment.Center,
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
+
+                    )
+                    Spacer(modifier = Modifier.height(5.dp))
+                    Text(
+                        text = "Send money",
+                        fontSize = 12.sp,
+                        textAlign = TextAlign.Center
+
+                    )
+
+                }
+
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+
+                    ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.sessions_icon),
+                        contentDescription = "Current Balance",
+                        modifier = Modifier
+                            .size(50.dp)
+                            .clip(CircleShape)
+                            .background(color = MaterialTheme.colorScheme.onSecondaryContainer)
+                    )
+                    Spacer(modifier = Modifier.height(5.dp))
+
+                    Text(
+                        text = "PayBill",
+                        fontSize = 12.sp,
+                        textAlign = TextAlign.Center
+                    )
+
+                }
+
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+
+                    ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.sessions_icon),
+                        contentDescription = "Current Balance",
+                        modifier = Modifier
+                            .size(50.dp)
+                            .clip(CircleShape)
+                            .background(color = MaterialTheme.colorScheme.onSecondaryContainer)
+                    )
+                    Spacer(modifier = Modifier.height(5.dp))
+
+                    Text(
+                        text = "Buy goods",
+                        fontSize = 12.sp,
+                        textAlign = TextAlign.Center
+                    )
+
+                }
+
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+
+                    ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.sessions_icon),
+                        contentDescription = "Current Balance",
+                        modifier = Modifier
+                            .size(50.dp)
+                            .clip(CircleShape)
+                            .background(color = MaterialTheme.colorScheme.onSecondaryContainer)
+                    )
+                    Spacer(modifier = Modifier.height(5.dp))
+                    Text(
+                        text = "Buy airtime",
+                        fontSize = 12.sp,
+                        textAlign = TextAlign.Center
+                    )
+
+                }
+
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+
+                    ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.sessions_icon),
+                        contentDescription = "Current Balance",
+                        modifier = Modifier
+                            .size(50.dp)
+                            .clip(CircleShape)
+                            .background(color = MaterialTheme.colorScheme.onSecondaryContainer)
+                    )
+                    Spacer(modifier = Modifier.height(5.dp))
+
+                    Text(
+                        text = "Deposit",
+                        fontSize = 12.sp,
+                        textAlign = TextAlign.Center
+                    )
+
+                }
+
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+
+                    ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.sessions_icon),
+                        contentDescription = "Current Balance",
+                        modifier = Modifier
+                            .size(50.dp)
+                            .clip(CircleShape)
+                            .background(color = MaterialTheme.colorScheme.onSecondaryContainer)
+                    )
+                    Spacer(modifier = Modifier.height(5.dp))
+                    Text(
+                        text = "Withdraw",
+                        fontSize = 12.sp,
+                        textAlign = TextAlign.Center
+                    )
+
+                }
+
+            }
+
+        }
+
+    }
+
 }
 
 
@@ -64,75 +245,6 @@ fun HomeToolbar() {
             contentDescription = null
         )
     }
-}
-
-@Composable
-fun BalanceCard() {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(150.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 16.dp)
-        ) {
-            Text(
-                text = "Current Balance"
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-
-            Text(
-                text = "200000"
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-
-                Image(
-                    painter = painterResource(id = R.drawable.sessions_icon),
-                    contentDescription = "Current Balance",
-                    modifier = Modifier
-                        .size(50.dp)
-                        .clip(CircleShape)
-                        .background(color = MaterialTheme.colorScheme.onSecondaryContainer)
-                )
-
-                Image(
-                    painter = painterResource(id = R.drawable.sessions_icon),
-                    contentDescription = "Current Balance",
-                    modifier = Modifier
-                        .size(50.dp)
-                        .clip(CircleShape)
-                        .background(color = MaterialTheme.colorScheme.onSecondaryContainer)
-
-                )
-                Image(
-                    painter = painterResource(id = R.drawable.sessions_icon),
-                    contentDescription = "Current Balance",
-                    modifier = Modifier
-                        .size(50.dp)
-                        .clip(CircleShape)
-                        .background(color = MaterialTheme.colorScheme.onBackground)
-
-                )
-                Image(
-                    painter = painterResource(id = R.drawable.sessions_icon),
-                    contentDescription = "Current Balance",
-                    modifier = Modifier
-                        .size(50.dp)
-                        .clip(CircleShape)
-                        .background(color = MaterialTheme.colorScheme.onSecondaryContainer)
-                )
-            }
-        }
-
-    }
-
 }
 
 @Composable
@@ -199,19 +311,13 @@ data class User(
     val icon: Int
 )
 
-@Composable
-fun HomeServices() {
-    HomeServiceComponent()
-
-}
 
 @Composable
-fun HomeServiceComponent() {
+fun HomeService() {
     Card(
         modifier = Modifier
             .height(120.dp)
             .width(120.dp)
-            .padding(8.dp)
     ) {
         ConstraintLayout(
             modifier = Modifier

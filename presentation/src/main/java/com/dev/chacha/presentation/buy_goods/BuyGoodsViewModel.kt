@@ -1,4 +1,4 @@
-package com.dev.chacha.presentation.transaction.buy_goods
+package com.dev.chacha.presentation.buy_goods
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

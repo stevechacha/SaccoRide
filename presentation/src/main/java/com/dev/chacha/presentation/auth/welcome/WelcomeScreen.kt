@@ -13,12 +13,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.dev.chacha.presentation.R
+import com.dev.chacha.presentation.common.theme.PrimaryColor
 import kotlin.system.exitProcess
+
+
+
+
 
 @Composable
 fun WelcomeScreen(
@@ -50,11 +56,15 @@ fun WelcomeContent(
     ) {
         Column {
             Box(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .statusBarsPadding(),
                 contentAlignment = Alignment.TopStart
             ) {
+
+
                 Image(
-                    painter = painterResource(id = R.drawable.sessions_icon),
+                    painter = painterResource(id = R.drawable.main_icon),
                     contentDescription = null,
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
@@ -99,7 +109,7 @@ fun WelcomeContent(
                             .fillMaxWidth()
                             .padding(start = 8.dp, end = 8.dp),
                         colors = ButtonDefaults.outlinedButtonColors(),
-                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onBackground),
+                        border = BorderStroke(1.dp, PrimaryColor),
                         shape = RoundedCornerShape(8)
                     ) {
                         Text(
@@ -117,6 +127,7 @@ fun WelcomeContent(
     }
 
 }
+
 
 @Composable
 @Preview

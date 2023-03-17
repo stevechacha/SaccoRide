@@ -1,6 +1,8 @@
 package com.dev.chacha.presentation.auth.register
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -14,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.components.AppOutlinedTextField
 import com.dev.chacha.presentation.common.components.AppToolbar
+import com.dev.chacha.presentation.common.theme.PrimaryColor
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 
 
@@ -59,7 +62,10 @@ fun RegisterContent(
                     .fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                Column {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
 
                     AppOutlinedTextField(
                         value = email,
@@ -75,6 +81,7 @@ fun RegisterContent(
                         keyboardType = KeyboardType.Phone
                     )
                     Spacer(modifier = Modifier.height(16.dp))
+
                     AppOutlinedTextField(
                         value = idNumber,
                         onValueChange = { setIdNumber(it) },
@@ -90,7 +97,8 @@ fun RegisterContent(
                         OutlinedButton(
                             onClick = { onClick() },
                             modifier = Modifier.fillMaxWidth(),
-                            shape = MaterialTheme.shapes.medium,
+                            shape = RoundedCornerShape(8.dp),
+                            border = BorderStroke(1.dp, PrimaryColor),
                         ) {
                             Text(
                                 text = "Register",
@@ -103,8 +111,7 @@ fun RegisterContent(
                             onClick = { onLoginClick() },
                             modifier = Modifier
                                 .fillMaxWidth(),
-                            shape = MaterialTheme.shapes.medium,
-                            enabled = false
+                            shape = RoundedCornerShape(8.dp),
                         ) {
                             Text(
                                 text = "Login",

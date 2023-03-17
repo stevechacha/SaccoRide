@@ -25,5 +25,20 @@
     <string name="amount">Amount</string>
     <string name="min_amount">minimum amount 5</string>
     <string name="pay_with_sacco">Pay with RideSacco</string>
+    <string name="help_center">HELP</string>
+    <string name="app_theme">App</string>
+    <string name="turn_on_incognito">App</string>
+    <string name="app_language">Language</string>
+    <string name="settings">Setting</string>
+    <string name="drive_mode">Drive Mode</string>
+    <string name="child_mode">Chidl Note</string>
+    <string name="time_watched">Time Watch</string>
+    <string name="account_data">Account Data</string>
+    <string name="rate_us_on_play_store">Rate</string>
+    <string name="feedback">Feedbacck</string>
+    <string name="forum">Forum</string>
+    <string name="privacy_policy">Policy Privacy</string>
+    <string name="terms_of_service">Terms</string>
+    <string name="night_light">Night</string>
 
 </resources>

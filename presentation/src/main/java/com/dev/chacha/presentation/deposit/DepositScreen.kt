@@ -1,4 +1,4 @@
-package com.dev.chacha.presentation.services.deposit
+package com.dev.chacha.presentation.deposit
 
 import androidx.compose.runtime.Composable
 

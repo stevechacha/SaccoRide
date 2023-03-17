@@ -3,6 +3,8 @@ package com.dev.chacha.presentation.transaction
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
@@ -21,7 +23,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.dev.chacha.presentation.R
+import com.dev.chacha.presentation.common.components.AppToolbar
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
+
 
 
 @Composable
@@ -41,6 +45,9 @@ fun TransactionContent(
 ) {
     Scaffold(
         topBar = {
+            AppToolbar(
+                title ="Transaction"
+            )
         }
     ) { paddingValues ->
         Column(modifier = Modifier
@@ -48,60 +55,52 @@ fun TransactionContent(
             .padding(horizontal = 10.dp, vertical = 16.dp)
         ) {
 
-            Text(text = stringResource(id = R.string.pay_with_sacco))
-            Box(modifier = Modifier.fillMaxWidth()){
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    Column {
-                       IconButton(onClick = { /*TODO*/ }) {
-                           Image(
-                               painter = painterResource(id = R.drawable.about_icon),
-                               contentDescription = null
-                           )
-                       }
-                        Spacer(modifier = Modifier.height(5.dp))
-                        Text(text = "Pay Bill")
-                    }
 
-                    Column {
-                        IconButton(
-                            onClick = { /*TODO*/ },
-                            modifier = Modifier.clip(CircleShape),
-                            colors = IconButtonDefaults.iconButtonColors(
-                                containerColor = Color.Red
-                            )
+            LazyVerticalGrid(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                columns = GridCells.Fixed(3),
+                contentPadding = PaddingValues(10.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                item {
+                    SendMoneyCard()
+                    Spacer(modifier = Modifier.width(10.dp))
 
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.about_icon),
-                                contentDescription = null,
-                                modifier = Modifier.clip(CircleShape)
-                            )
-                        }
-                        Spacer(modifier = Modifier.height(5.dp))
-                        Text(text = "Pay Bill")
-                    }
+                }
+                item {
+                    WithdrawCard()
+                    Spacer(modifier = Modifier.width(10.dp))
 
-                    Column {
-                        IconButton(onClick = { /*TODO*/ }) {
-                            Image(
-                                painter = painterResource(id = R.drawable.about_icon),
-                                contentDescription = null
-                            )
-                        }
-                        Spacer(modifier = Modifier.height(5.dp))
-                        Text(text = "Pay Bill")
-                    }
+                }
+                item {
+                    BuyAirtimeCard()
+                    Spacer(modifier = Modifier.width(10.dp))
+
+                }
+
+                item {
+                    BuyGoodsCard()
+                    Spacer(modifier = Modifier.width(10.dp))
+
+                }
+                item {
+                    PayBillCard()
+                    Spacer(modifier = Modifier.width(10.dp))
+
+                }
+                item {
+                    DepositCard()
+                    Spacer(modifier = Modifier.width(10.dp))
 
                 }
 
             }
-
-
         }
+
+
 
     }
 }

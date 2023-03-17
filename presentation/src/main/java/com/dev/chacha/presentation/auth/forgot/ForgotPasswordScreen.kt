@@ -1,6 +1,7 @@
 package com.dev.chacha.presentation.auth.forgot
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -75,7 +76,7 @@ fun ForgotPasswordContent(
                             onClick = { onClick() },
                             modifier = Modifier
                                 .fillMaxWidth(),
-                            shape = MaterialTheme.shapes.medium,
+                            shape = RoundedCornerShape(8.dp),
                         ) {
                             Text(
                                 text = "Continue",

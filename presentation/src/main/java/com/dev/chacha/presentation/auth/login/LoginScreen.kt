@@ -1,5 +1,6 @@
 package com.dev.chacha.presentation.auth.login
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -13,6 +14,7 @@ import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,6 +33,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dev.chacha.presentation.common.components.AppOutlinedTextField
+import com.dev.chacha.presentation.common.theme.PrimaryColor
 
 @Composable
 fun LoginScreen(
@@ -107,6 +110,9 @@ fun LoginContent(
                 .padding(vertical = 16.dp, horizontal = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            val text by rememberSaveable { mutableStateOf("") }
+            val charLimit = 10
+
             Box(
                 modifier = Modifier
                     .fillMaxSize(),
@@ -124,6 +130,13 @@ fun LoginContent(
                             IconButton(onClick = { expanded = true }) {
                                 Icons.Filled.Home
                             }
+                        },
+                        supportingText = {
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = "Limit: ${usernameState.text.length}/$charLimit",
+                                textAlign = TextAlign.End,
+                            )
                         }
                     )
 
@@ -180,7 +193,8 @@ fun LoginContent(
                             onClick = { onSignUpClick() },
                             modifier = Modifier.fillMaxWidth(),
                             colors = ButtonDefaults.outlinedButtonColors(),
-                            shape = RoundedCornerShape(8)
+                            shape = RoundedCornerShape(8),
+                            border = BorderStroke(1.dp, PrimaryColor)
                         ) {
                             Text(
                                 modifier = Modifier

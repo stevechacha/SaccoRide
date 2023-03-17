@@ -1,24 +1,14 @@
-package com.dev.chacha.presentation.transaction.buy_goods
+package com.dev.chacha.presentation.buy_goods
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material3.Divider
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Scaffold
@@ -60,23 +50,8 @@ fun BuyGoodsScreen() {
                 onValueChange = {
                     setTillNumber(it)
                 },
+                hint = stringResource(id = R.string.amount),
                 keyboardType = KeyboardType.Phone,
-                label = {
-                    Text(
-                        text = stringResource(id = R.string.amount)
-                    )
-                },
-                placeholder = {
-                    Text(
-                        text = stringResource(id = R.string.amount)
-                    )
-                },
-                supportingText = {
-                    Text(
-                        text = stringResource(id = R.string.min_amount)
-                    )
-
-                },
                 trailingIcon = {
                     androidx.compose.material.Icon(icon, "contentDescription",
                         Modifier.clickable { expanded = !expanded })
@@ -92,24 +67,10 @@ fun BuyGoodsScreen() {
                     setAmount(it)
                 },
                 keyboardType = KeyboardType.Phone,
-                label = {
-                    Text(
-                        text = stringResource(id = R.string.amount)
-                    )
-                },
-                placeholder = {
-                    Text(
-                        text = stringResource(id = R.string.amount)
-                    )
-                },
-                supportingText = {
-                    Text(
-                        text = stringResource(id = R.string.min_amount)
-                    )
+                hint = stringResource(id = R.string.amount),
 
-                }
 
-            )
+                )
 
 
         }

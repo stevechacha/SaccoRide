@@ -5,6 +5,7 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint")
     id("io.gitlab.arturbosch.detekt")
     kotlin("kapt")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -55,6 +56,7 @@ android {
     packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes+= ("META-INF/INDEX.LIST")
             pickFirsts.add("META-INF/io.netty.versions.properties")
         }
     }
@@ -91,6 +93,11 @@ dependencies {
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.25.1")
     implementation ("com.google.accompanist:accompanist-pager:0.28.0")
     implementation  ("com.google.accompanist:accompanist-pager-indicators:0.28.0")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.25.1")
+    implementation ("com.google.accompanist:accompanist-permissions:0.21.1-beta")
+    implementation ("androidx.biometric:biometric:1.1.0")
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
 
     androidTestImplementation(libs.android.test.junit4)
     androidTestImplementation(libs.android.test.espresso)

@@ -20,11 +20,12 @@ fun RideOutlinedTextField(
     modifier: Modifier = Modifier,
     hint: String= "",
     textStyle: TextStyle = LocalTextStyle.current,
+    supportingText: (@Composable () -> Unit)? = null,
+
     label: (@Composable () -> Unit)? = null,
     placeholder: (@Composable () -> Unit)? = null,
     leadingIcon: (@Composable () -> Unit)? = null,
     trailingIcon: (@Composable () -> Unit)? = null,
-    supportingText: (@Composable () -> Unit)? = null,
     isError: Boolean = false,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = false,
@@ -60,6 +61,7 @@ fun RideOutlinedTextField(
         singleLine = true,
         maxLines = maxLines,
         textStyle  = textStyle,
+
     )
 
 }

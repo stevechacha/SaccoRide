@@ -9,6 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.dev.chacha.presentation.buy_artime.BuyAirtimeScreen
+import com.dev.chacha.presentation.buy_goods.BuyGoodsScreen
+import com.dev.chacha.presentation.paybill.PayBillScreen
 import com.dev.chacha.presentation.send_money.artel_money.ArtelMoneyScreen
 import com.dev.chacha.presentation.send_money.mpesa.MpesaScreen
 import com.dev.chacha.presentation.send_money.tkash.TkashScreen
@@ -18,7 +21,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun SavingsScreen() {
-    val tabs = listOf(TabItem.Music, TabItem.Movies, TabItem.Books)
+    val tabs = listOf(TabItem.Mpesa, TabItem.Tkash, TabItem.ArtelMoney)
     val pagerState = rememberPagerState()
     Scaffold(
         topBar = {  },
@@ -85,9 +88,8 @@ fun TabsContent(tabs: List<TabItem>, pagerState: PagerState) {
 }
 
 typealias ComposableFun = @Composable () -> Unit
-
 sealed class TabItem( var title: String, var screen: ComposableFun) {
-    object Music : TabItem( "MPesa", { MpesaScreen() })
-    object Movies : TabItem( "Tkash", { TkashScreen() })
-    object Books : TabItem( "ArtelMoney", { ArtelMoneyScreen() })
+    object Mpesa : TabItem( "MPesa", { BuyGoodsScreen() })
+    object Tkash : TabItem( "Tkash", { BuyAirtimeScreen() })
+    object ArtelMoney : TabItem( "ArtelMoney", { PayBillScreen() })
 }

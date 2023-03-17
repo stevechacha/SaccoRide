@@ -1,4 +1,4 @@
-package com.dev.chacha.presentation.transaction.buy_artime
+package com.dev.chacha.presentation.buy_artime
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -57,22 +57,7 @@ fun BuyAirtimeScreen() {
                     setAmount(it)
                 },
                 keyboardType = KeyboardType.Phone,
-                label = {
-                    Text(
-                        text = stringResource(id = R.string.amount)
-                    )
-                },
-                placeholder = {
-                    Text(
-                        text = stringResource(id = R.string.amount)
-                    )
-                },
-                supportingText = {
-                    Text(
-                        text = stringResource(id = R.string.min_amount)
-                    )
-
-                }
+                hint = stringResource(id = R.string.amount),
 
             )
 

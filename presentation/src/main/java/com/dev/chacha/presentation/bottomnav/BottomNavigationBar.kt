@@ -28,7 +28,7 @@ fun BottomNavigationBar(navController: NavHostController) {
 
     BottomNavigation(
         backgroundColor = MaterialTheme.colorScheme.background,
-        elevation = 5.dp
+        elevation = 8.dp
     ) {
         bottomNavigationItems.forEach { destination ->
             BottomNavigationItem(
@@ -47,7 +47,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                 label = {
                     Text(
                         text = destination.title,
-                        fontSize = 9.sp,
+                        fontSize = 10.sp,
                         color = if (currentDestination?.route == destination.route) {
                             MaterialTheme.colorScheme.primary
                         } else {
