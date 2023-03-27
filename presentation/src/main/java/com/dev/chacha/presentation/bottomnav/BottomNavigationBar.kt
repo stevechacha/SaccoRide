@@ -63,7 +63,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                 alwaysShowLabel = true,
                 onClick = {
                     navController.navigate(destination.route) {
-                        popUpTo(BottomBarScreen.Home.route) { inclusive = true }
+                        popUpTo(BottomBarScreen.Home.route) { inclusive = false }
                         launchSingleTop = true
                         restoreState = true
                     }

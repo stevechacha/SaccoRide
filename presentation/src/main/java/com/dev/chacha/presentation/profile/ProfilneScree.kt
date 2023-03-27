@@ -55,8 +55,6 @@ fun ProfileScreen() {
     ) {
         val state = painter.state
         if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
-
-            //text with a background circle
             Text(
                 modifier = Modifier
                     .padding(16.dp)
@@ -72,8 +70,6 @@ fun ProfileScreen() {
         } else {
             SubcomposeAsyncImageContent()
         }
-
-
     }
 }
 

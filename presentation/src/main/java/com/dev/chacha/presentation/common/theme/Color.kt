@@ -19,3 +19,10 @@ val BackgroundDarkColor = Color(0xff121212)
 
 val ErrorColor = Color(0xFFFF8989)
 val OnErrorColor = Color(0xFF000000)
+
+val mainBackground = Color(0xFF1E2329)
+val StaxCardBlue = Color(0xFF4464F6)
+val TextColorDark = Color(0xFF1E2329)
+val NavGrey = Color(0xFF3F444A)
+
+val Border = Color(0xFF535457)

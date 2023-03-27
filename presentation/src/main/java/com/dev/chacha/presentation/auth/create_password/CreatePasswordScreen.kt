@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.components.AppOutlinedTextField
 import com.dev.chacha.presentation.common.components.AppToolbar
+import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 
 
@@ -49,63 +50,44 @@ fun CreatePasswordContent(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
-                .padding(horizontal = 16.dp, vertical = 16.dp),
+                .padding(12.dp)
+                .padding(paddingValues),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Column {
-
-                    AppOutlinedTextField(
-                        value = password,
-                        onValueChange = { setPassword(it) },
-                        keyboardType = KeyboardType.Password,
-                        hint = stringResource(id = R.string.password),
-                        error = viewModel.passwordError.value,
-                        isPasswordVisible = viewModel.showPassword.value,
-                        onPasswordToggleClick = {
-                            viewModel.setShowPassword(it)
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    AppOutlinedTextField(
-                        value = password,
-                        onValueChange = { setConfirmPassword(it) },
-                        keyboardType = KeyboardType.Password,
-                        hint = stringResource(id = R.string.confirmPassword),
-                        error = viewModel.passwordError.value,
-                        isPasswordVisible = viewModel.showConfirmPassword.value,
-                        onPasswordToggleClick = {
-                            viewModel.setShowConfirmPassword(it)
-                        }
-                    )
-
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Bottom
-                    ) {
-
-                        Button(
-                            onClick = { onClickAction() },
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            shape = RoundedCornerShape(8.dp),
-                        ) {
-                            Text(
-                                text = "Continue",
-                                modifier = Modifier.padding(8.dp)
-                            )
-                        }
-                        Spacer(modifier = Modifier.height(30.dp))
-                    }
+            AppOutlinedTextField(
+                value = password,
+                onValueChange = { setPassword(it) },
+                keyboardType = KeyboardType.Password,
+                hint = stringResource(id = R.string.password),
+                error = viewModel.passwordError.value,
+                isPasswordVisible = viewModel.showPassword.value,
+                onPasswordToggleClick = {
+                    viewModel.setShowPassword(it)
                 }
-            }
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            AppOutlinedTextField(
+                value = password,
+                onValueChange = { setConfirmPassword(it) },
+                keyboardType = KeyboardType.Password,
+                hint = stringResource(id = R.string.confirmPassword),
+                error = viewModel.passwordError.value,
+                isPasswordVisible = viewModel.showConfirmPassword.value,
+                onPasswordToggleClick = {
+                    viewModel.setShowConfirmPassword(it)
+                }
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            Column(
+                verticalArrangement = Arrangement.Bottom,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                ContinueButton(
+                    text = stringResource(id = R.string.continuee),
+                    onClick = onClickAction
+                )
 
+            }
         }
     }
 }

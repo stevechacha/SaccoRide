@@ -72,6 +72,7 @@ dependencies {
     implementation(libs.android.coreKtx)
     implementation(libs.android.appCompat)
     implementation(libs.android.material)
+    implementation(libs.biometric)
     implementation(libs.bundles.compose)
     implementation(libs.lifecycle.runtimeKtx)
     implementation(libs.timber)
@@ -97,6 +98,8 @@ dependencies {
     implementation ("com.google.accompanist:accompanist-permissions:0.21.1-beta")
     implementation ("androidx.biometric:biometric:1.1.0")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
+
 
 
     androidTestImplementation(libs.android.test.junit4)

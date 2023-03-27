@@ -12,6 +12,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 
+
+
 @Composable
 fun TransactionsHistory(
     transactions: List<TransactionsItem>,
@@ -33,9 +35,30 @@ fun TransactionsHistory(
                     )
                 }
             }
-
         }
+    }
+}
 
+@Composable
+@Preview
+fun TransHistory() {
+    Column {
+        LazyColumn {
+            items(20) {
+                TransHistoryItem(
+                    transactionItem = TransactionsItem(
+                        name = "John Doe",
+                        contact = "1234567890",
+                        amount = 1000.0,
+                        date = "12/12/2021",
+                        time = "12:00 PM",
+                        image = null
+                    )
+                ) {
+
+                }
+            }
+        }
     }
 }
 
@@ -44,6 +67,14 @@ fun TransactionsHistory(
 @Preview
 fun TransactionHistoryPreview() {
     SaccoRideTheme {
+        LazyColumn(){
+            items(20){ index ->
+                TransHistoryItem(
+                    transactionItem = transactionsItem[index],
+                    onTransactionClick = {}
+                )
+            }
+        }
 
     }
 }

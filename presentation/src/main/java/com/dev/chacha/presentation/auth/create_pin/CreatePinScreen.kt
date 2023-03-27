@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.dev.chacha.presentation.common.components.AppToolbar
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.components.AppOutlinedTextField
+import com.dev.chacha.presentation.common.components.ContinueButton
 
 
 @Composable
@@ -57,7 +58,6 @@ fun CreatePinContent(
                 contentAlignment = Alignment.Center
             ) {
                 Column {
-
                     AppOutlinedTextField(
                         value = pin,
                         onValueChange = { setPin(it) },
@@ -88,17 +88,8 @@ fun CreatePinContent(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Bottom
                     ) {
-                        Button(
-                            onClick = { onClickAction() },
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            shape = MaterialTheme.shapes.medium,
-                        ) {
-                            Text(
-                                text = "Continue",
-                                modifier = Modifier.padding(8.dp)
-                            )
-                        }
+                       ContinueButton(
+                           text = stringResource(id = R.string.continuee), onClick = onClickAction)
                         Spacer(modifier = Modifier.height(30.dp))
                     }
                 }

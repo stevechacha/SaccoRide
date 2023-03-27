@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Settings
@@ -45,140 +46,125 @@ fun TransactionContent(
 ) {
     Scaffold(
         topBar = {
-            AppToolbar(
-                title ="Transaction"
-            )
+            TransactToolBar()
         }
     ) { paddingValues ->
         Column(modifier = Modifier
             .padding(paddingValues)
-            .padding(horizontal = 10.dp, vertical = 16.dp)
+            .padding(horizontal = 8.dp, vertical = 8.dp)
         ) {
-
 
             LazyVerticalGrid(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(),
                 columns = GridCells.Fixed(3),
-                contentPadding = PaddingValues(10.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp),
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                contentPadding = PaddingValues(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 item {
-                    SendMoneyCard()
-                    Spacer(modifier = Modifier.width(10.dp))
+                   HorizontalCardItem(
+                       drawable = R.drawable.ic_send_money,
+                       text = R.string.send_money,
+                       onItemClick = { onClickAction() }
+                   )
+                }
+                item {
+                    HorizontalCardItem(
+                        drawable = R.drawable.ic_send_money,
+                        text = R.string.buy_airtime,
+                    onItemClick = { onClickAction() } )
+
 
                 }
                 item {
-                    WithdrawCard()
-                    Spacer(modifier = Modifier.width(10.dp))
-
-                }
-                item {
-                    BuyAirtimeCard()
-                    Spacer(modifier = Modifier.width(10.dp))
+                    HorizontalCardItem(
+                        drawable = R.drawable.ic_send_money,
+                        text = R.string.send_money,
+                        onItemClick = { onClickAction() }
+                    )
 
                 }
 
                 item {
-                    BuyGoodsCard()
-                    Spacer(modifier = Modifier.width(10.dp))
+                    HorizontalCardItem(
+                        drawable = R.drawable.ic_send_money,
+                        text = R.string.send_money,
+                        onItemClick = { onClickAction() }
+                    )
 
                 }
                 item {
-                    PayBillCard()
-                    Spacer(modifier = Modifier.width(10.dp))
+                    HorizontalCardItem(
+                        drawable = R.drawable.ic_send_money,
+                        text = R.string.send_money,
+                        onItemClick = { onClickAction() }
+                    )
 
                 }
                 item {
-                    DepositCard()
-                    Spacer(modifier = Modifier.width(10.dp))
+                    HorizontalCardItem(
+                        drawable = R.drawable.ic_send_money,
+                        text = R.string.send_money,
+                        onItemClick = { onClickAction() }
+                    )
 
                 }
 
             }
         }
 
-
-
     }
 }
 
 @Composable
-fun SubmitButton(
-    onClickAction: () -> Unit
-) {
-    val submitButtonColor = ButtonDefaults.buttonColors(
-        containerColor = MaterialTheme.colorScheme.onBackground,
-        contentColor = MaterialTheme.colorScheme.onPrimary
+fun TransactToolBar() {
+    TopAppBar(
+        title = {
+            Text(
+                text = stringResource(id = R.string.transaction),
+            )
+        },
+        navigationIcon = {
+            Image(
+                painter = painterResource(id = R.drawable.icon_arrow_back),
+                contentDescription = "Back",
+                modifier = Modifier
+                    .padding(8.dp)
+                    .clip(CircleShape)
+                    .size(40.dp)
+            )
+        },
+        actions = {
+            Row(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(end = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.home_icon),
+                    contentDescription = "Edit",
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .clip(CircleShape)
+                        .size(40.dp)
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.ic_send_money),
+                    contentDescription = "Settings",
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .clip(CircleShape)
+                        .size(40.dp)
+                )
+            }
+        },
+        backgroundColor = MaterialTheme.colorScheme.background
     )
-    Button(
-        onClick = onClickAction,
-        modifier = Modifier.padding(16.dp),
-        colors = submitButtonColor
-    ) {
-        Text(
-            text = stringResource(id = R.string.submit),
-            modifier = Modifier.padding(5.dp)
-        )
-    }
+
 }
-
-@Composable
-fun UserProfile(
-    userProfile: UserProfile
-) {
-    Column (modifier = Modifier.padding(horizontal = 24.dp)){
-        AsyncImage(
-            model = userProfile.imageUrl,
-            contentDescription =
-            stringResource(id = R.string.user_profile),
-            modifier = Modifier
-                .padding(16.dp)
-                .align(Alignment.CenterHorizontally)
-                .size(100.dp)
-                .clip(CircleShape),
-            alignment = Alignment.Center,
-            contentScale = ContentScale.Crop
-        )
-
-        Row {
-            Text(text = userProfile.name)
-
-            IconButton(onClick = { /*TODO*/ }) {
-                   Icon(
-                    imageVector = Icons.Default.Edit,
-                    contentDescription = "Edit"
-                )
-            }
-
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = Icons.Default.Settings,
-                    contentDescription = "Settings"
-                )
-            }
-        }
-
-    }
-}
-
-data class UserProfile(
-    val imageUrl: String,
-    val name: String
-)
-
-@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
-@Composable
-fun SubmitButtonPreview() {
-    SaccoRideTheme {
-        SubmitButton(
-            onClickAction = { }
-        )
-    }
-}
-
 
 @Composable
 @Preview(name = "Light Mode")

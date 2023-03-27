@@ -71,7 +71,7 @@ fun TransHistoryItem(
             horizontalAlignment = Alignment.End
         ) {
             Text(
-                text = transactionItem.amount,
+                text = transactionItem.amount.toString(),
                 textAlign = TextAlign.End,
                 modifier = Modifier.padding(end = 10.dp)
             )
@@ -99,7 +99,7 @@ fun TransactionItemPreview() {
                     transactionItem = TransactionsItem(
                         name = "John Doe",
                         contact = "1234567890",
-                        amount = "₹ 1000",
+                        amount = 1000.0,
                         date = "12/12/2021",
                         time = "12:00 PM",
                         image = null

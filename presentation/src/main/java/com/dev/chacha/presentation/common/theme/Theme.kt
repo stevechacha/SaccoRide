@@ -77,9 +77,13 @@ fun SaccoRideTheme(
     val systemUiController = rememberSystemUiController()
 
     SideEffect {
-        systemUiController.setSystemBarsColor(
-            color = colorScheme.background
+        systemUiController.setStatusBarColor(
+            color = if(darkTheme) BackgroundDarkColor else PrimaryColor
         )
+        systemUiController.setNavigationBarColor(
+            color = if (darkTheme) BackgroundDarkColor else  BackgroundLightColor
+        )
+
     }
 
     MaterialTheme(

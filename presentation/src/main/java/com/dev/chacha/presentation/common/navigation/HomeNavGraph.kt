@@ -1,7 +1,8 @@
 package com.dev.chacha.presentation.common.navigation
 
-import android.app.Activity
+import android.os.Build
 import androidx.annotation.DrawableRes
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -12,11 +13,21 @@ import com.dev.chacha.presentation.account.AccountScreen
 import com.dev.chacha.presentation.loan.LoanScreen
 import com.dev.chacha.presentation.transaction.TransactionScreen
 import com.dev.chacha.presentation.R
+import com.dev.chacha.presentation.buy_artime.BuyAirtimeScreen
+import com.dev.chacha.presentation.buy_goods.BuyGoodsScreen
+import com.dev.chacha.presentation.deposit.DepositScreen
 import com.dev.chacha.presentation.home.HomeScreen
 import com.dev.chacha.presentation.information.Information
+import com.dev.chacha.presentation.markets.MarketScreen
 import com.dev.chacha.presentation.overview.Overview
+import com.dev.chacha.presentation.pay_with_sacco.PayWithSacco
+import com.dev.chacha.presentation.paybill.PayBillItem
+import com.dev.chacha.presentation.paybill.PayBillScreen
 import com.dev.chacha.presentation.savings.SavingsScreen
+import com.dev.chacha.presentation.send_money.SendMoneyScreen
+import com.dev.chacha.presentation.withdraw.WithdrawScreen
 
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun HomeNavGraph(
     navController: NavHostController,
@@ -27,13 +38,20 @@ fun HomeNavGraph(
         startDestination = BottomBarScreen.Home.route ,
         route = Graph.HOME
     ){
+
         composable(BottomBarScreen.Home.route){
             showBottomBar(true)
             HomeScreen(
-                onClickAction = {
-                    navController.navigate(Graph.DETAILS)
-                }
-            )
+                onSendMoneyClicked = { navController.navigate(HomeAction.SendMoney.route) },
+                onBuyAirtimeClicked = { navController.navigate(HomeAction.BuyAirtime.route) },
+                onBuyGoodsClicked = { navController.navigate(HomeAction.BuyGoods.route) },
+                onPayBillClicked = { navController.navigate(HomeAction.PayWithSacco.route) },
+                onWithdrawClicked = { navController.navigate(HomeAction.Withdraw.route) },
+                onDepositClicked = { navController.navigate(HomeAction.Deposit.route) },
+                onLoanClicked = {  navController.navigate(HomeAction.Loan.route) },
+                onMarketClicked = { navController.navigate(BottomBarScreen.OurMarket.route) },
+                onSavingsClicked = { navController.navigate(HomeAction.Savings.route) },
+        )
 
         }
         composable(BottomBarScreen.Transaction.route){
@@ -45,18 +63,52 @@ fun HomeNavGraph(
         }
         composable(BottomBarScreen.Loan.route){
             showBottomBar(true)
-            LoanScreen ()
+            LoanScreen (
+                navController = navController,
+            )
 
         }
-        composable(BottomBarScreen.Savings.route){
+        composable(BottomBarScreen.OurMarket.route){
             showBottomBar(true)
-            SavingsScreen()
-
+            MarketScreen()
         }
+
         composable(BottomBarScreen.Account.route){
             showBottomBar(true)
             AccountScreen()
 
+        }
+
+       composable(HomeAction.SendMoney.route){
+            showBottomBar(false)
+            SendMoneyScreen()
+
+        }
+        composable(HomeAction.BuyAirtime.route){
+            showBottomBar(false)
+            BuyAirtimeScreen()
+        }
+        composable(HomeAction.BuyGoods.route){
+            showBottomBar(false)
+            BuyGoodsScreen()
+        }
+
+        composable(HomeAction.Withdraw.route){
+            showBottomBar(false)
+            WithdrawScreen()
+        }
+        composable(HomeAction.Deposit.route){
+            showBottomBar(false)
+            DepositScreen()
+        }
+
+        composable(HomeAction.PayWithSacco.route){
+            showBottomBar(false)
+            PayWithSacco()
+        }
+        composable(HomeAction.Savings.route){
+            showBottomBar(false)
+            SavingsScreen()
         }
 
         detailsNavGraph(navController = navController)
@@ -65,20 +117,22 @@ fun HomeNavGraph(
 
 }
 
+
+
 fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
     navigation(
         route = Graph.DETAILS,
-        startDestination = DetailsScreen.Information.route
+        startDestination = HomeAction.SendMoney.route
     ) {
-        composable(route = DetailsScreen.Information.route) {
+        composable(route = HomeAction.SendMoney.route) {
             Information() {
-                navController.navigate(DetailsScreen.Overview.route)
+                navController.navigate(HomeAction.SendMoney.route)
             }
         }
-        composable(route = DetailsScreen.Overview.route) {
+        composable(route = HomeAction.BuyAirtime.route) {
             Overview() {
                 navController.popBackStack(
-                    route = DetailsScreen.Information.route,
+                    route = HomeAction.BuyAirtime.route,
                     inclusive = false
                 )
             }
@@ -86,16 +140,23 @@ fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
     }
 }
 
-sealed class DetailsScreen(val route: String) {
-    object Information : DetailsScreen(route = "INFORMATION")
-    object Overview : DetailsScreen(route = "OVERVIEW")
+sealed class HomeAction(val route: String) {
+    object SendMoney : HomeAction(route = "send_money")
+    object BuyGoods : HomeAction(route = "buy_goods")
+    object BuyAirtime : HomeAction(route = "buy airtime")
+    object PayBill : HomeAction(route = "paybill")
+    object PayWithSacco: HomeAction(route = "pay_with_sacco")
+    object Savings : HomeAction(route = "Saving")
+    object Withdraw : HomeAction(route = "Withdraw")
+    object Deposit: HomeAction(route = "deposit")
+    object Loan: HomeAction("Loan")
 }
 
 
 sealed class BottomBarScreen(val route: String, @DrawableRes val icon: Int, val title: String){
     object Home: BottomBarScreen("home", R.drawable.ic_home, "Home")
     object Transaction: BottomBarScreen("transaction",R.drawable.sessions_icon,"Transaction")
-    object Savings: BottomBarScreen("savings",R.drawable.about_icon,"Savings")
+    object OurMarket: BottomBarScreen("market",R.drawable.about_icon,"Market")
     object Loan: BottomBarScreen("loan",R.drawable.sessions_icon,"Loan")
     object Account: BottomBarScreen("account",R.drawable.about_icon,"Account")
 }
@@ -104,6 +165,6 @@ val bottomNavigationItems = listOf(
     BottomBarScreen.Home,
     BottomBarScreen.Transaction,
     BottomBarScreen.Loan,
-    BottomBarScreen.Savings,
+    BottomBarScreen.OurMarket,
     BottomBarScreen.Account
 )

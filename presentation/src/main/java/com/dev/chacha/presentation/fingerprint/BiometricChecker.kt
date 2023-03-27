@@ -9,19 +9,22 @@ import android.os.Build
 import android.os.CancellationSignal
 import androidx.activity.ComponentActivity
 import androidx.annotation.RequiresApi
-import androidx.biometric.BiometricManager
 import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.dev.chacha.presentation.R
+import com.dev.chacha.presentation.activity.MainActivity
 import com.dev.chacha.presentation.common.navigation.AuthScreen
-import com.dev.chacha.presentation.home.Profile
+import com.dev.chacha.presentation.common.navigation.Graph
 import timber.log.Timber
 
 @RequiresApi(Build.VERSION_CODES.P)
-class BiometricChecker(private val authListener: AuthListener, val activity: ComponentActivity): BiometricPrompt.AuthenticationCallback() {
+class BiometricChecker(
+    private val authListener: AuthListener,
+    val navController: NavController,
+    val activity: ComponentActivity
+) : BiometricPrompt.AuthenticationCallback() {
 
     private var cancellationSignal: CancellationSignal? = null
-    private val navController: NavController = NavController(activity)
 
     private val authenticationCallback = @RequiresApi(Build.VERSION_CODES.P)
     object : BiometricPrompt.AuthenticationCallback() {
@@ -36,13 +39,12 @@ class BiometricChecker(private val authListener: AuthListener, val activity: Com
 
         override fun onAuthenticationFailed() {
             super.onAuthenticationFailed()
-
+            navController.navigate(AuthScreen.PinLock.route)
         }
-
         override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult?) {
             notifyUser("Authentication Succeeded")
             super.onAuthenticationSucceeded(result)
-
+            navController.navigate(Graph.HOME)
         }
     }
 
@@ -51,27 +53,32 @@ class BiometricChecker(private val authListener: AuthListener, val activity: Com
         if (checkBiometricSupport()) {
             val biometricPrompt = BiometricPrompt
                 .Builder(activity)
-                .setTitle("Login")
-                .setSubtitle("Login to your Sacco account")
+                .setTitle(activity.getString(R.string.sacco_app))
                 .setDescription("Please use your fingerprint to login")
-                .setNegativeButton("Not Now", activity.mainExecutor) { _, _ ->
+                .setNegativeButton("CANCEL", activity.mainExecutor) { _, _ ->
                     notifyUser("Authentication cancelled")
 
                 }
                 .build()
-
-            biometricPrompt.authenticate(getCancellationSignal(), activity.mainExecutor, authenticationCallback)
+            biometricPrompt.authenticate(
+                getCancellationSignal(),
+                activity.mainExecutor,
+                authenticationCallback
+            )
         }
     }
 
     private fun checkBiometricSupport(): Boolean {
         val keyguardManager = activity.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-
         if (!keyguardManager.isDeviceSecure) {
             notifyUser("lock screen security not enabled in the setting")
             return false
         }
-        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.USE_BIOMETRIC) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(
+                activity,
+                Manifest.permission.USE_BIOMETRIC
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
             notifyUser("Finger print authentication permission not enabled")
             return false
         }
@@ -81,11 +88,8 @@ class BiometricChecker(private val authListener: AuthListener, val activity: Com
     private fun getCancellationSignal(): CancellationSignal {
         cancellationSignal = CancellationSignal()
         cancellationSignal?.setOnCancelListener {
-            navController.navigate(AuthScreen.PinLock.route)
-
             notifyUser("Auth Cancelled via Signal")
         }
-
         return cancellationSignal as CancellationSignal
     }
 

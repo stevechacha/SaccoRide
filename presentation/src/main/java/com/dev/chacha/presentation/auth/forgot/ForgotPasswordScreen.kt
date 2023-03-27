@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.components.AppOutlinedTextField
 import com.dev.chacha.presentation.common.components.AppToolbar
+import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 
 @Composable
@@ -71,18 +72,9 @@ fun ForgotPasswordContent(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Bottom
                     ) {
-
-                        Button(
-                            onClick = { onClick() },
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            shape = RoundedCornerShape(8.dp),
-                        ) {
-                            Text(
-                                text = "Continue",
-                                modifier = Modifier.padding(8.dp)
-                            )
-                        }
+                        ContinueButton(
+                            text = stringResource(id = R.string.continuee),
+                            onClick = onClick)
                         Spacer(modifier = Modifier.height(30.dp))
                     }
                 }

@@ -40,5 +40,31 @@
     <string name="privacy_policy">Policy Privacy</string>
     <string name="terms_of_service">Terms</string>
     <string name="night_light">Night</string>
+    <string name="phoneNumber">Phone Number</string>
+    <string name="buy_airtime">BUY AIRTIME</string>
+    <string name="tillNumber">Till Number</string>
+    <string name="businessNumber">Business Number</string>
+    <string name="sendMoney">Send Money</string>
+    <string name="deposit">DEPOSIT</string>
+    <string name="withdraw">WITHDRAW</string>
+    <string name="paybill">PAY BILL</string>
+    <string name="buygoods">BUY GOODS</string>
+    <string name="buy_goods">BUY GOODS</string>
+    <string name="send_money">SEND MONEY</string>
+    <string name="savings">SAVINGS</string>
+    <string name="our_market">MARKET</string>
+    <string name="loan">LOAN</string>
+
+    <string name="prompt_info_title">Sample App Authentication \n</string>
+    <string name="prompt_info_subtitle">Please login to get access</string>
+    <string name="prompt_info_description">Sample App is using Android biometric authentication</string>
+    <string name="prompt_info_use_app_password">Use app password</string>
+    <string name="continuee">Continue</string>
+    <string name="sacco_app">RideSacco</string>
+    <string name="loan_statement">Statement</string>
+    <string name="request_loan">Request Loan</string>
+    <string name="pay_loan">Pay Loan</string>
+    <string name="recent_transaction">Recent Transaction</string>
+    <string name="search">Search</string>
 
 </resources>

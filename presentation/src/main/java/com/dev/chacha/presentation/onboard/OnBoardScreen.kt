@@ -20,6 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.dev.chacha.presentation.common.navigation.AuthScreen
 import com.dev.chacha.presentation.common.navigation.Graph
+import com.dev.chacha.presentation.common.theme.PrimaryColor
 import com.google.accompanist.pager.*
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalAnimationApi::class)
@@ -49,7 +50,8 @@ fun OnBoardScreen(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .weight(1f),
-            pagerState = pagerState
+            pagerState = pagerState,
+            activeColor = PrimaryColor
         )
         FinishButton(
             modifier = Modifier.weight(1.3f),
@@ -58,7 +60,7 @@ fun OnBoardScreen(
             welcomeViewModel.saveOnBoardingState(completed = true)
             onClickAction()
             navController.popBackStack()
-            navController.navigate(AuthScreen.PinLock.route)
+            navController.navigate(AuthScreen.Welcome.route)
         }
     }
 }

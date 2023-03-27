@@ -2,6 +2,7 @@ package com.dev.chacha.presentation.pin
 
 import android.content.Context
 import android.os.Build
+import androidx.activity.ComponentActivity
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -33,27 +34,34 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.activity.MainActivity
+import com.dev.chacha.presentation.common.navigation.AuthScreen
+import com.dev.chacha.presentation.common.navigation.Graph
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 import com.dev.chacha.presentation.fingerprint.BiometricChecker
 import kotlinx.coroutines.delay
 
 const val pinSize = 4
-const val password = "1234" //sample password
+const val password = "5491" //sample password
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun PinLockScreen(
     onClickAction: () -> Unit,
+    navController: NavController
 ) {
     val inputPin = remember { mutableStateListOf<Int>() }
     val error = remember { mutableStateOf<String>("") }
     val showSuccess = remember { mutableStateOf(false) }
     val context = LocalContext.current
+
+
 
     if (inputPin.size == 4) {
         LaunchedEffect(true) {
@@ -61,7 +69,7 @@ fun PinLockScreen(
 
             if (inputPin.joinToString("") == password) {
                 showSuccess.value = true
-                error.value = ""
+                error.value = "Validating..."
                 delay(200)
                 onClickAction()
             } else {
@@ -84,15 +92,22 @@ fun PinLockScreen(
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(modifier = Modifier.height(40.dp))
-
                 Image(
                     painter = painterResource(id = R.drawable.profile_icon),
-                    contentDescription = "Logo",
+                    contentDescription = "profile image",
                     modifier = Modifier
-                        .size(100.dp)
+                        .padding(top = 40.dp)
+                        .size(60.dp)
                         .clip(CircleShape)
+                        .background(color = MaterialTheme.colorScheme.onSurface),
+                    alignment = Alignment.Center
+
                 )
+                Text(
+                    text = "Stephen Chacha",
+                    modifier = Modifier.padding(16.dp),
+                )
+                Spacer(modifier = Modifier.height(20.dp))
 
                 Text(
                     text = "Enter pin to unlock",
@@ -196,7 +211,7 @@ fun PinLockScreen(
                         modifier = Modifier
                             .size(25.dp)
                             .clickable {
-                                onClickAction()
+//                                onClickAction()
                             }
                     )
                     PinKeyItem(
@@ -215,8 +230,12 @@ fun PinLockScreen(
                             modifier = Modifier
                                 .size(25.dp)
                                 .clickable {
-//                                    showBiometric()
-                                    BiometricChecker(context as MainActivity,context as MainActivity).authenticate()
+                                   /* BiometricChecker(
+                                        context as MainActivity,
+                                        navController,
+                                        context as MainActivity
+                                    ).authenticate()*/
+//                                    navController.navigate(AuthScreen.Biometric.route)
 
                                 }
                         )
@@ -239,6 +258,11 @@ fun PinLockScreen(
                 }
             }
         }
+//        BiometricChecker(context as MainActivity,navController,context as MainActivity).authenticate()
+
+
+        // Biometric Auth
+
     }
 }
 
@@ -264,6 +288,7 @@ fun PinKeyItem(
     enabled: Boolean = true,
     shape: Shape = shapes.small.copy(CornerSize(percent = 50)),
     tonalElevation: Dp = 4.dp,
+    color: Color = Color.Transparent,
     border: BorderStroke? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
@@ -275,6 +300,7 @@ fun PinKeyItem(
         onClick = onClick,
         interactionSource = interactionSource,
         border = border,
+        color = color,
         enabled = enabled,
     ) {
         val absoluteElevation = LocalAbsoluteTonalElevation.current + tonalElevation
@@ -313,6 +339,7 @@ fun PinLockPreview() {
     SaccoRideTheme {
         PinLockScreen(
             onClickAction = { },
+            navController = rememberNavController()
         )
     }
 }

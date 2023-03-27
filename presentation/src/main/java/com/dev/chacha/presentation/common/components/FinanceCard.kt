@@ -30,7 +30,6 @@ fun FinanceCard(
     }
 }
 
-
 @Composable
 @Preview
 fun FinanceCardPreview() {

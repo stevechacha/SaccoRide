@@ -33,6 +33,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dev.chacha.presentation.common.components.AppOutlinedTextField
+import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.theme.PrimaryColor
 
 @Composable
@@ -66,7 +67,6 @@ fun LoginContent(
     val snackBarHostState = remember { SnackbarHostState() }
     val localCoroutineScope = rememberCoroutineScope()
     var expanded by remember { mutableStateOf(false) }
-
 
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
@@ -207,21 +207,10 @@ fun LoginContent(
                         }
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        Button(
-                            onClick = {
-                                viewModel.login()
-                            },
-                            modifier = Modifier.fillMaxWidth(),
-                            colors = ButtonDefaults.buttonColors(),
-                            shape = RoundedCornerShape(8)
-                        ) {
-                            Text(
-                                text = "Enter password to sign in",
-                                color = Color.Black,
-                                fontSize = 16.sp,
-                                modifier = Modifier.padding(8.dp)
-                            )
-                        }
+                        ContinueButton(
+                            text = stringResource(id = R.string.continuee),
+                            onClick = onClick
+                        )
                         Spacer(modifier = Modifier.height(30.dp))
 
                     }
