@@ -131,7 +131,7 @@ fun PieChart(
                             fontFamily = MontserratMedium
                         )
 
-/*
+                     /*
                         drawContext.canvas.nativeCanvas.apply {
                             drawText(
                                 text,
@@ -151,14 +151,15 @@ fun PieChart(
                     }
 
                     Text(
-                        text = "Total\n88,972.73\nKSH",
+                        text = "Total\n$totalSum\nKSH",
                         style = TextStyle(
-                            fontSize = 20.sp,
+                            fontSize = 16.sp,
                             color = PrimaryColor,
                             textAlign = TextAlign.Center,
                             fontFamily = MontserratMedium
                         ),
-                        modifier = Modifier.align(Alignment.Center)
+                        modifier = Modifier.align(Alignment.Center),
+                        maxLines = 3
                     )
 
 

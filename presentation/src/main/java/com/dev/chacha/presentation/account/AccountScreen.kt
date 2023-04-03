@@ -55,13 +55,14 @@ fun AccountScreen() {
                 savingAmount = "1000"
             )
             Spacer(modifier = Modifier.height(20.dp))
+            val total =670
             PieChart(
                 data = mapOf(
-                    Pair("Send Money", 150),
-                    Pair("Buy Goods", 120),
-                    Pair("Buy Airtime", 110),
-                    Pair("Pay Bill", 170),
-                    Pair("Others", 120),
+                    Pair("Send Money", 15000),
+                    Pair("Buy Goods", 12000),
+                    Pair("Buy Airtime", 11000),
+                    Pair("Pay Bill", 13440),
+                    Pair("Others", 10000),
                 )
             )
         }
