@@ -230,11 +230,11 @@ fun PinLockScreen(
                             modifier = Modifier
                                 .size(25.dp)
                                 .clickable {
-                                   /* BiometricChecker(
+                                    BiometricChecker(
                                         context as MainActivity,
                                         navController,
                                         context as MainActivity
-                                    ).authenticate()*/
+                                    ).authenticate()
 //                                    navController.navigate(AuthScreen.Biometric.route)
 
                                 }

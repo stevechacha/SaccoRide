@@ -1,6 +1,7 @@
 package com.dev.chacha.presentation.withdraw
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -13,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.dev.chacha.presentation.R
+import com.dev.chacha.presentation.pychart.PieChart
 
 @Composable
 fun WithdrawScreen() {
@@ -23,8 +25,18 @@ fun WithdrawScreen() {
     ){ paddingValues->
         Column(modifier = Modifier
             .fillMaxSize()
-            .padding(paddingValues)
+            .padding(paddingValues),
+            verticalArrangement = Arrangement.Center
         ) {
+            PieChart(
+                data = mapOf(
+                    Pair("Sample-1", 150),
+                    Pair("Sample-2", 120),
+                    Pair("Sample-3", 110),
+                    Pair("Sample-4", 170),
+                    Pair("Sample-5", 120),
+                )
+            )
 
 
         }

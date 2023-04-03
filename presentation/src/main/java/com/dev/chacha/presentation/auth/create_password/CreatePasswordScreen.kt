@@ -78,16 +78,10 @@ fun CreatePasswordContent(
                 }
             )
             Spacer(modifier = Modifier.height(20.dp))
-            Column(
-                verticalArrangement = Arrangement.Bottom,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                ContinueButton(
-                    text = stringResource(id = R.string.continuee),
-                    onClick = onClickAction
-                )
-
-            }
+            ContinueButton(
+                text = stringResource(id = R.string.continuee),
+                onClick = onClickAction
+            )
         }
     }
 }

@@ -85,4 +85,7 @@ dependencies {
 
     // SystemUi
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.25.1")
+
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
 }

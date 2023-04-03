@@ -61,84 +61,11 @@ fun LoanScreen(
             ,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(150.dp)
+            LoanTextView(
+                loanBalance = "Ksh. 1ooo" ,
+                loanLimit = "Ksh. 1ooo" ,
+                loanDueDate = "12 June,2023")
 
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Column(
-                            modifier = Modifier.padding(16.dp),
-                            verticalArrangement = Arrangement.Center,
-                            ) {
-                            Text(
-                                text = "LOAN",
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
-                            Spacer(modifier = Modifier.height(12.dp))
-                            Text(
-                                text = "Balance:",
-                                fontSize = 14.sp,
-                            )
-                            Spacer(modifier = Modifier.height(5.dp))
-
-                            Text(
-                                text = "Limit:",
-                                fontSize = 14.sp,
-                                )
-                            Spacer(modifier = Modifier.height(5.dp))
-
-                            Text(
-                                text = "Due Date:",
-                                fontSize = 14.sp,
-                                )
-                            Spacer(modifier = Modifier.height(5.dp))
-
-                        }
-
-                        Spacer(modifier = Modifier.width(16.dp))
-
-                        Column(
-                            modifier = Modifier.padding(16.dp),
-                            verticalArrangement = Arrangement.Center,
-                        ) {
-                            Text(
-                                text = " ",
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
-                            Spacer(modifier = Modifier.height(8.dp))
-                            Text(
-                                text = "Ksh 0.00",
-                                fontSize = 14.sp,
-                            )
-                            Spacer(modifier = Modifier.height(5.dp))
-                            Text(
-                                text = "Ksh 0.00",
-                                fontSize = 14.sp,
-
-                                )
-                            Spacer(modifier = Modifier.height(5.dp))
-
-                            Text(
-                                text = "Ksh 0.00",
-                                fontSize = 14.sp,
-                            )
-                        }
-                    }
-
-                }
-
-            }
             Spacer(modifier = Modifier.height(20.dp))
 
             LoansService(

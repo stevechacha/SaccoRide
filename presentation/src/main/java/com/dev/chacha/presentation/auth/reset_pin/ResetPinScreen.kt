@@ -15,6 +15,7 @@ import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.auth.create_password.CreatePasswordViewModel
 import com.dev.chacha.presentation.common.components.AppOutlinedTextField
 import com.dev.chacha.presentation.common.components.AppToolbar
+import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 
 @Composable
@@ -51,73 +52,49 @@ fun ResetPinContent(
                 .padding(horizontal = 16.dp, vertical = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Column {
 
-                    AppOutlinedTextField(
-                        value = pin,
-                        onValueChange = { setPin(it) },
-                        hint = stringResource(id = R.string.current_pin),
-                        keyboardType = KeyboardType.NumberPassword,
-                        error = viewModel.passwordError.value,
-                        isPasswordVisible = viewModel.showPassword.value,
-                        onPasswordToggleClick = {
-                            viewModel.setShowPassword(it)
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    AppOutlinedTextField(
-                        value = newPin,
-                        onValueChange = { setNewPin(it) },
-                        keyboardType = KeyboardType.NumberPassword,
-                        hint = stringResource(id = R.string.new_pin),
-                        error = viewModel.passwordError.value,
-                        isPasswordVisible = viewModel.showPassword.value,
-                        onPasswordToggleClick = {
-                            viewModel.setShowPassword(it)
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    AppOutlinedTextField(
-                        value = confirmNewPin,
-                        onValueChange = { setConfirmNewPin(it) },
-                        keyboardType = KeyboardType.NumberPassword,
-                        hint = stringResource(id = R.string.confirmNewPin),
-                        error = viewModel.passwordError.value,
-                        isPasswordVisible = viewModel.showConfirmPassword.value,
-                        onPasswordToggleClick = {
-                            viewModel.setShowConfirmPassword(it)
-                        }
-                    )
-
-                    /* Button */
-
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Bottom
-                    ) {
-
-                        Button(
-                            onClick = { onClickAction() },
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            shape = MaterialTheme.shapes.medium,
-                        ) {
-                            Text(
-                                text = "Continue",
-                                modifier = Modifier.padding(8.dp)
-                            )
-                        }
-                        Spacer(modifier = Modifier.height(30.dp))
-                    }
+            AppOutlinedTextField(
+                value = pin,
+                onValueChange = { setPin(it) },
+                hint = stringResource(id = R.string.current_pin),
+                keyboardType = KeyboardType.NumberPassword,
+                error = viewModel.passwordError.value,
+                isPasswordVisible = viewModel.showPassword.value,
+                onPasswordToggleClick = {
+                    viewModel.setShowPassword(it)
                 }
-            }
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            AppOutlinedTextField(
+                value = newPin,
+                onValueChange = { setNewPin(it) },
+                keyboardType = KeyboardType.NumberPassword,
+                hint = stringResource(id = R.string.new_pin),
+                error = viewModel.passwordError.value,
+                isPasswordVisible = viewModel.showPassword.value,
+                onPasswordToggleClick = {
+                    viewModel.setShowPassword(it)
+                }
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            AppOutlinedTextField(
+                value = confirmNewPin,
+                onValueChange = { setConfirmNewPin(it) },
+                keyboardType = KeyboardType.NumberPassword,
+                hint = stringResource(id = R.string.confirmNewPin),
+                error = viewModel.passwordError.value,
+                isPasswordVisible = viewModel.showConfirmPassword.value,
+                onPasswordToggleClick = {
+                    viewModel.setShowConfirmPassword(it)
+                }
+            )
+
+            ContinueButton(
+                text = stringResource(id = R.string.continuee),
+                onClick = onClickAction
+            )
+
 
         }
     }

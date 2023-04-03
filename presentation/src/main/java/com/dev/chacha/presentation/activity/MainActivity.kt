@@ -40,11 +40,12 @@ class MainActivity : ComponentActivity(),BiometricChecker.AuthListener {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    RootNavGraph(navController = navController)
                     lifecycleScope.launchWhenStarted{
 //                        BiometricHelper(this@MainActivity,this@MainActivity).activity
                         BiometricChecker(this@MainActivity, navController,this@MainActivity).authenticate()
                     }
+                    RootNavGraph(navController = navController)
+
                 }
             }
         }

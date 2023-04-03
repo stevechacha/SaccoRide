@@ -66,5 +66,20 @@
     <string name="pay_loan">Pay Loan</string>
     <string name="recent_transaction">Recent Transaction</string>
     <string name="search">Search</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="dont_have_an_account">Don\'t have an account?</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="login">Login</string>
+    <string name="your_balane">Your Balance</string>
+    <string name="check_all_transaction">See all transactions</string>
+    <string name="manage_pin">Manage Pin</string>
+    <string name="check_sacco_statement">Sacco Statement</string>
+    <string name="electronics">Electronics</string>
+    <string name="loan_balance">Balance:</string>
+    <string name="limit">Limit</string>
+    <string name="due_date">Due Date</string>
+    <string name="sign_in">Sign In</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

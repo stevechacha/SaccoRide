@@ -1,7 +1,6 @@
 package com.dev.chacha.presentation.auth.forgot
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -53,32 +52,20 @@ fun ForgotPasswordContent(
                 .padding(horizontal = 16.dp, vertical = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Column {
-                    AppOutlinedTextField(
-                        value = email,
-                        onValueChange = { setEmail(it) },
-                        hint = stringResource(id = R.string.email_hint),
-                        keyboardType = KeyboardType.Email
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
+            AppOutlinedTextField(
+                value = email,
+                onValueChange = { setEmail(it) },
+                hint = stringResource(id = R.string.email_hint),
+                keyboardType = KeyboardType.Email
+            )
+            Spacer(modifier = Modifier.height(16.dp))
 
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Bottom
-                    ) {
-                        ContinueButton(
-                            text = stringResource(id = R.string.continuee),
-                            onClick = onClick)
-                        Spacer(modifier = Modifier.height(30.dp))
-                    }
-                }
-            }
+            ContinueButton(
+                text = stringResource(id = R.string.continuee),
+                onClick = onClick
+            )
+            Spacer(modifier = Modifier.height(30.dp))
+
 
         }
     }

@@ -11,6 +11,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -19,6 +20,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.dev.chacha.presentation.R
+import com.dev.chacha.presentation.common.components.AppOutlinedButton
+import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.theme.PrimaryColor
 import kotlin.system.exitProcess
 
@@ -61,8 +64,6 @@ fun WelcomeContent(
                     .statusBarsPadding(),
                 contentAlignment = Alignment.TopStart
             ) {
-
-
                 Image(
                     painter = painterResource(id = R.drawable.main_icon),
                     contentDescription = null,
@@ -85,41 +86,17 @@ fun WelcomeContent(
                         text = "Make your shopping enjoyable with us"
                     )
                     Spacer(modifier = Modifier.height(32.dp))
-                    Button(
-                        onClick = {onLogin()},
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 8.dp, end = 8.dp),
-                        shape = RoundedCornerShape(8)
-
-                    ) {
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(8.dp),
-                            textAlign = TextAlign.Center,
-                            text = "Sign In"
-                        )
-                    }
+                    ContinueButton(
+                        text =  stringResource(id = R.string.sign_in),
+                        onClick = onLogin
+                    )
 
                     Spacer(modifier = Modifier.height(24.dp))
-                    OutlinedButton(
-                        onClick = {onSignUp()},
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 8.dp, end = 8.dp),
-                        colors = ButtonDefaults.outlinedButtonColors(),
-                        border = BorderStroke(1.dp, PrimaryColor),
-                        shape = RoundedCornerShape(8)
-                    ) {
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(8.dp),
-                            textAlign = TextAlign.Center,
-                            text = "Sign Up"
-                        )
-                    }
+                    AppOutlinedButton(
+                        onClick = { onSignUp()},
+                        text = R.string.sign_up
+                    )
+
                     Spacer(modifier = Modifier.height(42.dp))
                 }
             }

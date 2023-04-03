@@ -57,6 +57,7 @@ class BiometricChecker(
                 .setDescription("Please use your fingerprint to login")
                 .setNegativeButton("CANCEL", activity.mainExecutor) { _, _ ->
                     notifyUser("Authentication cancelled")
+                    navController.navigate(AuthScreen.PinLock.route)
 
                 }
                 .build()

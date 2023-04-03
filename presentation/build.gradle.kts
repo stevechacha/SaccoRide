@@ -51,6 +51,7 @@ android {
 
     buildFeatures {
         compose = true
+        viewBinding = true
     }
 
     packagingOptions {
@@ -99,6 +100,8 @@ dependencies {
     implementation ("androidx.biometric:biometric:1.1.0")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
 
 
 
@@ -112,6 +115,37 @@ dependencies {
     testImplementation(libs.android.test.espresso)
     testImplementation(libs.test.navigation)
     testImplementation(libs.test.mockk)
+
+    implementation ("androidx.appcompat:appcompat:1.6.1")
+    implementation ("com.google.android.material:material:1.9.0-alpha02")
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.5.3")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.5.3")
+    implementation ("androidx.legacy:legacy-support-v4:1.0.0")
+
+    //viewpager2
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
+    //indicator
+    implementation ("me.relex:circleindicator:2.1.6")
+    //lottie
+    implementation ("com.airbnb.android:lottie:5.0.3")
+    implementation("io.github.amrdeveloper:lottiedialog:1.0.0")
+    // SplashScreen Api
+    implementation ("androidx.core:core-splashscreen:1.0.0")
+    implementation ("com.google.guava:guava:30.1-jre")
+    // Accompanist - ViewPager
+    implementation ("com.google.accompanist:accompanist-pager:0.23.1")
+    implementation ("com.google.accompanist:accompanist-pager-indicators:0.23.1")
+    //Navigation
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.5.3")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.5.3")
+    implementation ("androidx.navigation:navigation-dynamic-features-fragment:2.5.3")
+    // Saved state module for ViewModel
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
+    implementation ("androidx.lifecycle:lifecycle-common-java8:2.5.1")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
 }
 
 kotlin {

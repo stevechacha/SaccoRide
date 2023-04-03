@@ -14,8 +14,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dev.chacha.presentation.R
+import com.dev.chacha.presentation.auth.component.SignUpInText
+import com.dev.chacha.presentation.auth.component.SignupText
 import com.dev.chacha.presentation.common.components.AppOutlinedTextField
 import com.dev.chacha.presentation.common.components.AppToolbar
+import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.theme.PrimaryColor
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 
@@ -57,71 +60,43 @@ fun RegisterContent(
                 .padding(horizontal = 16.dp, vertical = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                ) {
 
-                    AppOutlinedTextField(
-                        value = email,
-                        onValueChange = { setEmail(it) },
-                        hint = stringResource(id = R.string.email_hint),
-                        keyboardType = KeyboardType.Email
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    AppOutlinedTextField(
-                        value = mobileNumber,
-                        onValueChange = { setMobileNumber(it) },
-                        hint = stringResource(id = R.string.mobile_number_hint),
-                        keyboardType = KeyboardType.Phone
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
+            AppOutlinedTextField(
+                value = email,
+                onValueChange = { setEmail(it) },
+                hint = stringResource(id = R.string.email_hint),
+                keyboardType = KeyboardType.Email
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            AppOutlinedTextField(
+                value = mobileNumber,
+                onValueChange = { setMobileNumber(it) },
+                hint = stringResource(id = R.string.mobile_number_hint),
+                keyboardType = KeyboardType.Phone
+            )
+            Spacer(modifier = Modifier.height(16.dp))
 
-                    AppOutlinedTextField(
-                        value = idNumber,
-                        onValueChange = { setIdNumber(it) },
-                        hint = stringResource(id = R.string.id_number_hint),
-                        keyboardType = KeyboardType.Number
-                    )
+            AppOutlinedTextField(
+                value = idNumber,
+                onValueChange = { setIdNumber(it) },
+                hint = stringResource(id = R.string.id_number_hint),
+                keyboardType = KeyboardType.Number
+            )
 
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Bottom
-                    ) {
-                        OutlinedButton(
-                            onClick = { onClick() },
-                            modifier = Modifier.fillMaxWidth(),
-                            shape = RoundedCornerShape(8.dp),
-                            border = BorderStroke(1.dp, PrimaryColor),
-                        ) {
-                            Text(
-                                text = "Register",
-                                modifier = Modifier.padding(8.dp)
-                            )
-                        }
-                        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+            ContinueButton(
+                onClick = { onClick() },
+                text = stringResource(id = R.string.continuee)
+            )
 
-                        Button(
-                            onClick = { onLoginClick() },
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            shape = RoundedCornerShape(8.dp),
-                        ) {
-                            Text(
-                                text = "Login",
-                                modifier = Modifier.padding(8.dp)
-                            )
-                        }
-                        Spacer(modifier = Modifier.height(30.dp))
-                    }
-                }
-            }
+            Spacer(modifier = Modifier.height(16.dp))
+
+            SignUpInText(
+                onClick = { onLoginClick()},
+                text = R.string.already_have_an_account ,
+                signUpText = R.string.login
+            )
+
         }
     }
 }

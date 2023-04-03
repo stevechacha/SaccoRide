@@ -1,5 +1,6 @@
 package com.dev.chacha.presentation.send_money
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Tab
@@ -22,9 +23,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dev.chacha.presentation.R
+import com.dev.chacha.presentation.common.components.AppToolbar
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 import com.dev.chacha.presentation.send_money.artel_money.ArtelMoneyScreen
 import com.dev.chacha.presentation.send_money.mpesa.MpesaScreen
@@ -39,13 +45,9 @@ fun SendMoneyScreen() {
     val pagerState = rememberPagerState()
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = "Send Money")
-                },
-                backgroundColor = MaterialTheme.colorScheme.background,
-                contentColor = MaterialTheme.colorScheme.onBackground,
-                elevation = 0.dp
+            AppToolbar(
+                title = stringResource(id = R.string.send_money),
+                showBackArrow = true
             )
         },
     ) { padding ->

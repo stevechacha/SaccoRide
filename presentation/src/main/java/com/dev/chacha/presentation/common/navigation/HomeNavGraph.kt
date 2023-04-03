@@ -14,6 +14,7 @@ import com.dev.chacha.presentation.loan.LoanScreen
 import com.dev.chacha.presentation.transaction.TransactionScreen
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.buy_artime.BuyAirtimeScreen
+import com.dev.chacha.presentation.buy_goods.BuyGoods
 import com.dev.chacha.presentation.buy_goods.BuyGoodsScreen
 import com.dev.chacha.presentation.deposit.DepositScreen
 import com.dev.chacha.presentation.home.HomeScreen
@@ -23,6 +24,7 @@ import com.dev.chacha.presentation.overview.Overview
 import com.dev.chacha.presentation.pay_with_sacco.PayWithSacco
 import com.dev.chacha.presentation.paybill.PayBillItem
 import com.dev.chacha.presentation.paybill.PayBillScreen
+import com.dev.chacha.presentation.pin.PinLockScreen
 import com.dev.chacha.presentation.savings.SavingsScreen
 import com.dev.chacha.presentation.send_money.SendMoneyScreen
 import com.dev.chacha.presentation.withdraw.WithdrawScreen
@@ -38,6 +40,13 @@ fun HomeNavGraph(
         startDestination = BottomBarScreen.Home.route ,
         route = Graph.HOME
     ){
+        /*composable(BottomBarScreen.PinLock.route){
+            showBottomBar(false)
+            PinLockScreen(
+                onClickAction = { *//*TODO*//* },
+                navController = navController
+            )
+        }*/
 
         composable(BottomBarScreen.Home.route){
             showBottomBar(true)
@@ -90,7 +99,7 @@ fun HomeNavGraph(
         }
         composable(HomeAction.BuyGoods.route){
             showBottomBar(false)
-            BuyGoodsScreen()
+            BuyGoods()
         }
 
         composable(HomeAction.Withdraw.route){
@@ -141,6 +150,8 @@ fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
 }
 
 sealed class HomeAction(val route: String) {
+
+    object PinLock: HomeAction("pinlock")
     object SendMoney : HomeAction(route = "send_money")
     object BuyGoods : HomeAction(route = "buy_goods")
     object BuyAirtime : HomeAction(route = "buy airtime")
@@ -154,6 +165,8 @@ sealed class HomeAction(val route: String) {
 
 
 sealed class BottomBarScreen(val route: String, @DrawableRes val icon: Int, val title: String){
+
+    object PinLock: BottomBarScreen("pinlock",R.drawable.about_icon,"PInlock")
     object Home: BottomBarScreen("home", R.drawable.ic_home, "Home")
     object Transaction: BottomBarScreen("transaction",R.drawable.sessions_icon,"Transaction")
     object OurMarket: BottomBarScreen("market",R.drawable.about_icon,"Market")

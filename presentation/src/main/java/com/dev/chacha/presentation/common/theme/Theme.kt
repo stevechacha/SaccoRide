@@ -78,7 +78,7 @@ fun SaccoRideTheme(
 
     SideEffect {
         systemUiController.setStatusBarColor(
-            color = if(darkTheme) BackgroundDarkColor else PrimaryColor
+            color = if(darkTheme) BackgroundDarkColor else BackgroundLightColor,
         )
         systemUiController.setNavigationBarColor(
             color = if (darkTheme) BackgroundDarkColor else  BackgroundLightColor
