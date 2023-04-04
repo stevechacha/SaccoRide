@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -30,7 +31,7 @@ fun VerticalTextImageView(
     Card(
         modifier = Modifier
             .height(100.dp)
-            .width(100.dp)
+            .width(110.dp)
             .clickable(onClick = onItemClick)
     ) {
         ConstraintLayout(
@@ -61,7 +62,7 @@ fun VerticalTextImageView(
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                     },
-                fontSize = 14.sp
+                style = MaterialTheme.typography.labelSmall
 
             )
 

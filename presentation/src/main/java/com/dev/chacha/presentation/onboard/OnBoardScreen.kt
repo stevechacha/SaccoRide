@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -91,7 +92,7 @@ fun PagerScreen(onBoardingPage: OnBoardingPage) {
         Text(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 40.dp)
+                .padding(horizontal = 20.dp)
                 .padding(top = 20.dp),
             text = onBoardingPage.description,
             fontWeight = FontWeight.Medium,
@@ -111,7 +112,7 @@ fun FinishButton(
 ) {
     Row(
         modifier = modifier
-            .padding(horizontal = 40.dp),
+            .padding(horizontal = 20.dp),
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.Center
     ) {
@@ -126,7 +127,10 @@ fun FinishButton(
                     contentColor = Color.White
                 )
             ) {
-                Text(text = "CONTINUE", fontSize = 16.sp)
+                Text(
+                    text = "CONTINUE",
+                    style = MaterialTheme.typography.labelSmall
+                )
             }
         }
     }

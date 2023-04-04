@@ -82,7 +82,8 @@ fun PinLockScreen(
     Column(
         modifier = Modifier
             .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         Box(
             modifier = Modifier.fillMaxSize()
@@ -105,13 +106,16 @@ fun PinLockScreen(
                 )
                 Text(
                     text = "Stephen Chacha",
-                    modifier = Modifier.padding(16.dp),
+                    style = MaterialTheme.typography.labelSmall
+
+
                 )
                 Spacer(modifier = Modifier.height(20.dp))
 
                 Text(
                     text = "Enter pin to unlock",
-                    modifier = Modifier.padding(16.dp),
+                    style = MaterialTheme.typography.labelSmall
+
                 )
 
                 Spacer(modifier = Modifier.height(30.dp))

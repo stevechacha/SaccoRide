@@ -81,32 +81,39 @@ fun LoanScreen(
 fun LoansService(
     navController: NavController
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        LoanVerticalCard(
-            drawable = R.drawable.ic_send_money,
-            text = R.string.loan_statement,
-            onItemClick = {  }
-        )
+    Box(
+        modifier = Modifier.fillMaxWidth(),
+        contentAlignment = Alignment.Center
+    ){
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            LoanVerticalCard(
+                drawable = R.drawable.ic_send_money,
+                text = R.string.loan_statement,
+                onItemClick = {  }
+            )
 
 
-        LoanVerticalCard(
-            drawable = R.drawable.ic_send_money,
-            text = R.string.request_loan,
-            onItemClick = {  }
-        )
+            LoanVerticalCard(
+                drawable = R.drawable.ic_send_money,
+                text = R.string.request_loan,
+                onItemClick = {  }
+            )
 
-        LoanVerticalCard(
-            drawable = R.drawable.ic_send_money,
-            text = R.string.pay_loan,
-            onItemClick = {  }
-        )
+            LoanVerticalCard(
+                drawable = R.drawable.ic_send_money,
+                text = R.string.pay_loan,
+                onItemClick = {  }
+            )
+
+        }
 
     }
+
 
 }
 

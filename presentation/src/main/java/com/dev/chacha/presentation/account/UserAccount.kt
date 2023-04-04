@@ -24,7 +24,7 @@ fun UserAccountVerticalCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(160.dp)
+            .height(180.dp)
     ) {
         Column(
             modifier = Modifier
@@ -35,21 +35,18 @@ fun UserAccountVerticalCard(
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth()
-                    .padding(start = 16.dp, end = 16.dp)
-                ,
+                    .padding(start = 16.dp, end = 16.dp),
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = stringResource(id = R.string.savings),
-                    fontSize = 16.sp,
-
-
+                    style = MaterialTheme.typography.labelSmall
                     )
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
                     text = savingAmount,
-                    fontSize = 16.sp,
+                    style = MaterialTheme.typography.labelSmall
 
                     )
 
@@ -76,25 +73,25 @@ fun UserAccountVerticalCard(
                     Text(
                         text = stringResource(id = R.string.loan),
                         color = MaterialTheme.colorScheme.onSurface,
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall
 
                         )
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
                         text = stringResource(id = R.string.loan_balance),
-                        fontSize = 12.sp,
+                        style = MaterialTheme.typography.labelSmall
                     )
                     Spacer(modifier = Modifier.height(5.dp))
 
                     Text(
                         text = stringResource(id = R.string.limit),
-                        fontSize = 12.sp,
+                        style = MaterialTheme.typography.labelSmall
                     )
                     Spacer(modifier = Modifier.height(5.dp))
 
                     Text(
                         text = stringResource(id = R.string.due_date),
-                        fontSize = 12.sp,
+                        style = MaterialTheme.typography.labelSmall
                     )
                 }
                 Spacer(modifier = Modifier.width(16.dp))
@@ -106,19 +103,19 @@ fun UserAccountVerticalCard(
                     Text(
                         text = " ",
                         color = MaterialTheme.colorScheme.onSurface,
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall
 
                         )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = loanBalance,
-                        fontSize = 12.sp,
+                        style = MaterialTheme.typography.labelSmall,
                         textAlign = TextAlign.End
                     )
                     Spacer(modifier = Modifier.height(5.dp))
                     Text(
                         text = loanLimit,
-                        fontSize = 12.sp,
+                        style = MaterialTheme.typography.labelSmall,
                         textAlign = TextAlign.End
 
 
@@ -127,8 +124,9 @@ fun UserAccountVerticalCard(
 
                     Text(
                         text = loanDueDate,
-                        fontSize = 12.sp,
-                        textAlign = TextAlign.End
+                        textAlign = TextAlign.End,
+                        style = MaterialTheme.typography.labelSmall
+
                     )
                 }
 
@@ -146,25 +144,25 @@ fun UserAccountVerticalCard(
                     Text(
                         text = stringResource(id = R.string.loan),
                         color = MaterialTheme.colorScheme.onSurface,
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall
 
                         )
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
                         text = stringResource(id = R.string.loan_balance),
-                        fontSize = 12.sp,
+                        style = MaterialTheme.typography.labelSmall
                     )
                     Spacer(modifier = Modifier.height(5.dp))
 
                     Text(
                         text = stringResource(id = R.string.limit),
-                        fontSize = 12.sp,
+                        style = MaterialTheme.typography.labelSmall
                     )
                     Spacer(modifier = Modifier.height(5.dp))
 
                     Text(
                         text = stringResource(id = R.string.due_date),
-                        fontSize = 12.sp,
+                        style = MaterialTheme.typography.labelSmall
                     )
 
                 }
@@ -177,20 +175,24 @@ fun UserAccountVerticalCard(
                 ) {
                     Text(
                         text = " ",
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.labelSmall
+
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = loanBalance,
-                        fontSize = 12.sp,
-                        textAlign = TextAlign.End
+                        textAlign = TextAlign.End,
+                        style = MaterialTheme.typography.labelSmall
+
 
                     )
                     Spacer(modifier = Modifier.height(5.dp))
                     Text(
                         text = loanLimit,
-                        fontSize = 12.sp,
-                        textAlign = TextAlign.End
+                        textAlign = TextAlign.End,
+                        style = MaterialTheme.typography.labelSmall
+
 
 
                     )
@@ -198,8 +200,9 @@ fun UserAccountVerticalCard(
 
                     Text(
                         text = loanDueDate,
-                        fontSize = 12.sp,
-                        textAlign = TextAlign.End
+                        textAlign = TextAlign.End,
+                        style = MaterialTheme.typography.labelSmall
+
 
                     )
                 }

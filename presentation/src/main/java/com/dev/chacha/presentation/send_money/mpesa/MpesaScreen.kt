@@ -1,21 +1,15 @@
 package com.dev.chacha.presentation.send_money.mpesa
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import com.dev.chacha.presentation.R
+import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.components.RideOutlinedTextField
 
 @Composable
@@ -28,7 +22,6 @@ fun MpesaScreen() {
         val (mobileNumber, setMobileNumber) = rememberSaveable { mutableStateOf("") }
         val (amount, setAmount) = rememberSaveable { mutableStateOf("") }
 
-
         RideOutlinedTextField(
             value = mobileNumber,
             onValueChange = {
@@ -39,7 +32,6 @@ fun MpesaScreen() {
 
             )
         Spacer(modifier = Modifier.height(12.dp))
-
 
         RideOutlinedTextField(
             value = amount,
@@ -53,19 +45,10 @@ fun MpesaScreen() {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-
-        Button(
-            onClick = {},
-            colors = ButtonDefaults.buttonColors(
-                contentColor = Color.White
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
-
-
-        ) {
-            Text(text = "Continue")
-        }
+        ContinueButton(
+            text = stringResource(id = R.string.continuee),
+            onClick = {}
+        )
 
 
     }

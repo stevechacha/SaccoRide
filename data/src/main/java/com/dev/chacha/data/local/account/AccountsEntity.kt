@@ -1,4 +1,4 @@
-package com.dev.chacha.data.db.model
+package com.dev.chacha.data.local.account
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

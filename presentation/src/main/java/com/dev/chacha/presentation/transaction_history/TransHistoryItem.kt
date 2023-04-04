@@ -3,6 +3,7 @@ package com.dev.chacha.presentation.transaction_history
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,8 +23,7 @@ fun TransHistoryItem(
 ) {
     Row(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(5.dp),
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (transactionItem.image != null) {
@@ -49,7 +49,7 @@ fun TransHistoryItem(
                     text = initials,
                     fontWeight = FontWeight.Normal,
                     textAlign = TextAlign.Center,
-                    fontSize = 26.sp
+                    fontSize = 22.sp
                 )
 
             }
@@ -59,10 +59,12 @@ fun TransHistoryItem(
             modifier = Modifier.padding(start = 10.dp)
         ) {
             Text(
-                text = transactionItem.name
+                text = transactionItem.name,
+                style = MaterialTheme.typography.labelSmall
             )
             Text(
-                text = transactionItem.contact
+                text = transactionItem.contact,
+                style = MaterialTheme.typography.labelSmall
             )
         }
         Spacer(modifier = Modifier.weight(1f))
@@ -73,13 +75,14 @@ fun TransHistoryItem(
             Text(
                 text = transactionItem.amount.toString(),
                 textAlign = TextAlign.End,
-                modifier = Modifier.padding(end = 10.dp)
+                style = MaterialTheme.typography.labelSmall
+
             )
             Text(
                 text = "${transactionItem.date} ${transactionItem.time}",
-                fontSize = 12.sp,
                 textAlign = TextAlign.End,
-                modifier = Modifier.padding(end = 10.dp)
+                style = MaterialTheme.typography.labelSmall
+
 
             )
         }

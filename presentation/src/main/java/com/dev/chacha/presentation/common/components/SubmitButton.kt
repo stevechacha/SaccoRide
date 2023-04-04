@@ -30,7 +30,9 @@ fun SubmitButton(
     ) {
         Text(
             text = stringResource(id = R.string.submit),
-            modifier = Modifier.padding(5.dp)
+            modifier = Modifier.padding(5.dp),
+            style = MaterialTheme.typography.labelSmall
+
         )
     }
 }

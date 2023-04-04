@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 
 
@@ -28,7 +29,8 @@ fun AppToolbar(
             Text(
                 text = title,
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme.typography.labelSmall
             )
         }, navigationIcon = {
             if (showBackArrow) {

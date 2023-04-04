@@ -68,10 +68,16 @@ fun AppOutlinedTextField(
                 Text(
                     text = hint,
                     textAlign = TextAlign.Start,
+                    style = MaterialTheme.typography.labelSmall
+
                 )
             },
             label = {
-                Text(text = hint)
+                Text(
+                    text = hint,
+                    style = MaterialTheme.typography.labelSmall
+
+                )
             },
             isError = error != "",
             keyboardOptions = KeyboardOptions(
@@ -129,9 +135,9 @@ fun AppOutlinedTextField(
         if (error.isNotEmpty()) {
             Text(
                 text = error,
-
-                textAlign = TextAlign.End, modifier = Modifier.fillMaxWidth()
-
+                textAlign = TextAlign.End,
+                modifier = Modifier.fillMaxWidth(),
+                style = MaterialTheme.typography.labelSmall
             )
 
         }

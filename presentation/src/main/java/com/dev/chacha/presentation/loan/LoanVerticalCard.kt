@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,8 +28,8 @@ fun LoanVerticalCard(
 ) {
     Card(
         modifier = Modifier
-            .height(110.dp)
-            .width(110.dp)
+            .height(100.dp)
+            .width(120.dp)
             .clickable(onClick = onItemClick)
     ){
         Column(
@@ -42,16 +43,16 @@ fun LoanVerticalCard(
                 painter =  painterResource(id = drawable),
                 contentDescription = null,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(40.dp),
+                    .size(25.dp),
                 colorFilter = ColorFilter.tint(PrimaryColor)
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = stringResource(id = text),
                 modifier = Modifier.fillMaxWidth(),
-                fontSize = 12.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.labelSmall
+
             )
         }
 

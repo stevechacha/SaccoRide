@@ -12,11 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
-import coil.compose.AsyncImage
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 import com.dev.chacha.presentation.transaction_history.TransHistoryItem
@@ -45,7 +44,7 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(horizontal = 16.dp, vertical = 16.dp)
+                .padding(horizontal = 16.dp)
         ) {
 
             TransactionCard(
@@ -63,11 +62,6 @@ fun HomeScreen(
                 onLoanClicked = onLoanClicked,
                 onMarketClicked = onMarketClicked,
                 onSavingsClicked = onSavingsClicked
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = stringResource(id = R.string.recent_transaction),
-                fontSize = 18.sp
             )
             Spacer(modifier = Modifier.height(16.dp))
             RecentTransactions()
@@ -192,23 +186,28 @@ fun PayWithRideSacco(
 
 @Composable
 fun RecentTransactions() {
-    Column {
-        LazyColumn {
-            items(20) {
-                TransHistoryItem(
-                    transactionItem = TransactionsItem(
-                        name = "Stephen Chacha",
-                        contact = "0746656813",
-                        amount = 1000.0,
-                        date = "12/12/2021",
-                        time = "12:00 PM",
-                        image = null
-                    )
-                ) {
+    Text(
+        text = stringResource(id = R.string.recent_transaction),
+        style = MaterialTheme.typography.labelSmall,
+        fontWeight = FontWeight.Bold
+    )
+    Spacer(modifier = Modifier.height(16.dp))
+    LazyColumn() {
+        items(20) {
+            TransHistoryItem(
+                transactionItem = TransactionsItem(
+                    name = "Stephen Chacha",
+                    contact = "0746656813",
+                    amount = 1000.0,
+                    date = "12/12/2021",
+                    time = "12:00 PM",
+                    image = null
+                )
+            ) {
 
-                }
             }
         }
+
     }
 
 }
@@ -224,8 +223,16 @@ fun HomeToolbar() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column {
-            Text(text = "Welcome Back !")
-            Text(text = "Stephen Chacha")
+            Text(
+                text = "Welcome Back !",
+                style = MaterialTheme.typography.labelSmall
+
+            )
+            Text(
+                text = "Stephen Chacha",
+                style = MaterialTheme.typography.labelSmall
+
+            )
         }
         Spacer(modifier = Modifier.weight(1f))
         Image(

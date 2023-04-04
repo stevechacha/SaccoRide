@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
 
 @Composable
@@ -29,7 +30,7 @@ fun MarketScreen() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(paddingValues)
-                .padding(16.dp)
+                .padding(12.dp)
         ) {
             ShopContent()
         }
@@ -42,7 +43,10 @@ fun MarketScreen() {
 fun MarketTopBar() {
     TopAppBar(
         title = {
-            Text(text = "Market")
+            Text(
+                text = "Market",
+                style = MaterialTheme.typography.labelSmall
+            )
         },
         modifier = Modifier.fillMaxWidth(),
         navigationIcon = {
@@ -80,8 +84,15 @@ fun ShopContent() {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            Text(text =   "Shop for")
-            Text(text = "See All")
+            Text(
+                text =   "Shop for",
+                style = MaterialTheme.typography.labelSmall
+            )
+            Text(
+                text = "See All",
+                style = MaterialTheme.typography.labelSmall
+
+            )
         }
         Spacer(modifier = Modifier.height(24.dp))
 

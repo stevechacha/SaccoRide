@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.dev.chacha.presentation.R
+import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.components.RideOutlinedTextField
 
 @Composable
@@ -50,18 +51,10 @@ fun Telkom() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
-            onClick = { /*TODO*/ },
-            colors = ButtonDefaults.buttonColors(
-                contentColor = Color.White
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
-
-
-        ) {
-            Text(text = "Buy Airtime")
-        }
+        ContinueButton(
+            text = stringResource(id = R.string.continuee),
+            onClick = {}
+        )
 
 
     }

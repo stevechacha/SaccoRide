@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.R
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -16,6 +17,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.common.theme.PrimaryColor
 
 @Composable
@@ -30,13 +32,16 @@ fun SignUpInText(
         verticalAlignment = Alignment.CenterVertically
     ){
         Text(
-            text = stringResource(id = text)
+            text = stringResource(id = text),
+            style = MaterialTheme.typography.labelSmall
+
         )
         Text(
             text = stringResource(id = signUpText),
             textDecoration = TextDecoration.Underline,
             modifier = Modifier.clickable(onClick = onClick),
-            color = PrimaryColor
+            color = PrimaryColor,
+            style = MaterialTheme.typography.labelSmall
         )
 
     }

@@ -1,6 +1,5 @@
 package com.dev.chacha.presentation.pychart
 
-import android.graphics.Paint
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -16,10 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.nativeCanvas
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -65,7 +61,7 @@ fun PieChart(
 
     // it is the diameter value of the Pie
     val animateSize by animateFloatAsState(
-        targetValue = if (animationPlayed) radiusOuter.value * 2f else 0f,
+        targetValue = if (animationPlayed) radiusOuter.value * 1.5f else 0f,
         animationSpec = tween(
             durationMillis = animDuration,
             delayMillis = 0,
@@ -90,83 +86,58 @@ fun PieChart(
     }
 
     Card(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start
         ) {
-            Column {
-                Box(
-                    modifier = Modifier.size(animateSize.dp),
-                    contentAlignment = Alignment.Center
+            Box(
+                modifier = Modifier.size(animateSize.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Canvas(
+                    modifier = Modifier
+                        .size(radiusOuter * 1.2f)
+                        .align(Alignment.Center)
                 ) {
-                    Canvas(
-                        modifier = Modifier
-                            .size(radiusOuter * 1.6f)
-                            .align(Alignment.Center)
-                    ) {
-                        // draw each Arc for each data entry in Pie Chart
-                        floatValue.forEachIndexed { index, value ->
-                            drawArc(
-                                color = colors[index],
-                                lastValue,
-                                value,
-                                useCenter = false,
-                                style = Stroke(chartBarWidth.toPx(), cap = StrokeCap.Butt)
-                            )
-                            lastValue += value
-                        }
-
-                        // add text inside the Canvas
-                        val centerX = size.width / 2f
-                        val centerY = size.height / 2f
-                        val text = "Total\n88,972.73\nKSH"
-                        val textStyle = TextStyle(
-                            fontSize = 20.sp,
-                            color = PrimaryColor,
-                            textAlign = TextAlign.Center,
-                            fontFamily = MontserratMedium
+                    // draw each Arc for each data entry in Pie Chart
+                    floatValue.forEachIndexed { index, value ->
+                        drawArc(
+                            color = colors[index],
+                            lastValue,
+                            value,
+                            useCenter = false,
+                            style = Stroke(chartBarWidth.toPx(), cap = StrokeCap.Butt)
                         )
-
-                     /*
-                        drawContext.canvas.nativeCanvas.apply {
-                            drawText(
-                                text,
-                                centerX,
-                                centerY + (textStyle.fontSize.toPx() / 1.5f),
-                                Paint().apply {
-                                    textSize = 16.sp.toPx()
-                                    textAlign = Paint.Align.CENTER
-                                    color = Color.Black.toArgb()
-                                    isFakeBoldText = true
-
-                                }
-                            )
-                        }
-*/
-
+                        lastValue += value
                     }
-
-                    Text(
-                        text = "Total\n$totalSum\nKSH",
-                        style = TextStyle(
-                            fontSize = 16.sp,
-                            color = PrimaryColor,
-                            textAlign = TextAlign.Center,
-                            fontFamily = MontserratMedium
-                        ),
-                        modifier = Modifier.align(Alignment.Center),
-                        maxLines = 3
-                    )
-
 
 
                 }
+
+                Text(
+                    text = "Total\n$totalSum\nKSH",
+                    style = TextStyle(
+                        fontSize = 12.sp,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        textAlign = TextAlign.Center,
+                        fontFamily = MontserratMedium
+                    ),
+                    modifier = Modifier.align(Alignment.Center),
+                    maxLines = 3
+                )
+
+
             }
-            Column(modifier = Modifier.padding(start = 12.dp)) {
+            Column(modifier = Modifier
+                .fillMaxWidth()
+            ) {
                 // To see the data in more structured way
                 // Compose Function in which Items are showing data
                 DetailsPieChart(
@@ -208,11 +179,11 @@ fun DetailsPieChart(
 fun DetailsPieChartItem(
     data: Pair<String, Int>,
     color: Color,
-    radiusOuter: Dp = 60.dp
+    radiusOuter: Dp = 40.dp
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(vertical = 3.dp)
+        modifier = Modifier.padding(vertical = 1.dp)
     ) {
         Canvas(modifier = Modifier.size(radiusOuter * 0.2f)) {
             drawArc(
@@ -220,21 +191,20 @@ fun DetailsPieChartItem(
                 startAngle = 0f,
                 sweepAngle = 360f,
                 useCenter = false,
-                style = Stroke(width = 5.dp.toPx(), cap = StrokeCap.Butt)
+                style = Stroke(width = 2.dp.toPx(), cap = StrokeCap.Butt)
             )
         }
+        Spacer(modifier = Modifier.width(10.dp))
         Text(
-            modifier = Modifier.padding(start = 15.dp),
             text = data.first,
-            fontWeight = FontWeight.Medium,
-            fontSize = 14.sp
+            fontSize = 11.sp
         )
         Spacer(modifier = Modifier.weight(1f))
         Text(
-            modifier = Modifier.padding(start = 15.dp),
             text = data.second.toString(),
-            fontWeight = FontWeight.Medium,
-            fontSize = 14.sp
+            textAlign = TextAlign.End,
+            fontSize = 11.sp
+
         )
 
     }

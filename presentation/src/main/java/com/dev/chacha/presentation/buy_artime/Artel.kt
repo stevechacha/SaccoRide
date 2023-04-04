@@ -45,24 +45,6 @@ fun Artel() {
         val (amount, setAmount) = rememberSaveable { mutableStateOf("") }
 
 
-        /*val context = LocalContext.current
-        val permissionState = rememberPermissionState(android.Manifest.permission.READ_CONTACTS)
-
-        val contactLauncher = rememberLauncherForActivityResult(
-            contract = ActivityResultContracts.PickContact()
-        ) { contactUri ->
-            // Get the contact details from the contactUri
-            val cursor = contactUri?.let { context.contentResolver.query(it, null, null, null, null) }
-            if (cursor != null && cursor.moveToFirst()) {
-                val name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                val number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-                // Use the contact name and number as the new text value
-                onValueChange("$name ($number)")
-            }
-            cursor?.close()
-        }*/
-
-
         RideOutlinedTextField(
             value = mobileNumber,
             onValueChange = {

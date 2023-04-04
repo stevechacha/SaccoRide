@@ -41,8 +41,7 @@ fun TextImageItem(
             modifier = Modifier
                 .clip(CircleShape)
                 .size(48.dp)
-                .background(MaterialTheme.colorScheme.background)
-            ,
+                .background(MaterialTheme.colorScheme.background),
             contentAlignment = Alignment.Center
 
         ){
@@ -59,7 +58,7 @@ fun TextImageItem(
         Text(
             text = stringResource(id = stringRes),
             textAlign = TextAlign.Center,
-            fontSize = 12.sp,
+            style = MaterialTheme.typography.labelSmall
 
         )
 

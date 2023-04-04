@@ -25,7 +25,12 @@ fun FinanceCard(
         modifier = modifier.size(width = 180.dp, height = 100.dp)
     ) {
         Box(modifier.fillMaxSize()) {
-            Text("Clickable", modifier.align(Alignment.Center))
+            Text(
+                "Clickable",
+                modifier.align(Alignment.Center),
+                style = MaterialTheme.typography.labelSmall
+
+            )
         }
     }
 }

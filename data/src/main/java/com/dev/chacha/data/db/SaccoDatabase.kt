@@ -1,10 +1,9 @@
 package com.dev.chacha.data.db
 
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.dev.chacha.data.dao.AccountsDao
-import com.dev.chacha.data.db.model.AccountsEntity
+import com.dev.chacha.data.local.account.AccountsEntity
 
 @Database(
     entities = [

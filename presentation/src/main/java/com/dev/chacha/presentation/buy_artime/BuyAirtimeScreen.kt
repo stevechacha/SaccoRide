@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.buy_goods.BuyGoodsScreen
 import com.dev.chacha.presentation.common.components.RideOutlinedTextField
@@ -32,7 +33,10 @@ fun BuyAirtimeScreen() {
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = stringResource(id = R.string.buy_airtime))
+                    Text(
+                        text = stringResource(id = R.string.buy_airtime),
+                        style = MaterialTheme.typography.labelSmall
+                    )
                 },
                 backgroundColor = MaterialTheme.colorScheme.background,
                 contentColor = MaterialTheme.colorScheme.onBackground,

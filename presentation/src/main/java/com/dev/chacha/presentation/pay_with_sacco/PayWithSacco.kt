@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.buy_goods.BuyGoodsScreen
 import com.dev.chacha.presentation.paybill.PayBill
@@ -34,7 +35,10 @@ fun PayWithSaccoContent() {
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Savings")
+                    Text(
+                        text = "Savings",
+                        fontSize = 14.sp
+                    )
                 },
                 backgroundColor = MaterialTheme.colorScheme.background,
                 contentColor = MaterialTheme.colorScheme.onBackground,

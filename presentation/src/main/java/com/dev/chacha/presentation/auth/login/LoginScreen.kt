@@ -112,16 +112,13 @@ fun LoginContent(
                 },
                 keyboardType = KeyboardType.Email,
                 hint = stringResource(id = R.string.email_or_mobile_number),
-                trailingIcon = {
-                    IconButton(onClick = { expanded = true }) {
-                        Icons.Filled.Home
-                    }
-                },
                 supportingText = {
                     Text(
                         modifier = Modifier.fillMaxWidth(),
                         text = "Limit: ${usernameState.text.length}/$charLimit",
                         textAlign = TextAlign.End,
+                        style = MaterialTheme.typography.labelSmall
+
                     )
                 }
             )
@@ -147,15 +144,15 @@ fun LoginContent(
                 onPasswordToggleClick = {
                     viewModel.setShowPassword(it)
                 },
-                leadingIcon = Icons.Default.Home
 
             )
             if (passwordState.error != "") {
                 Text(
                     text = passwordState.error,
                     color = Color.Red,
-                    fontSize = 12.sp,
-                    modifier = Modifier.padding(top = 4.dp)
+                    modifier = Modifier.padding(top = 4.dp),
+                    style = MaterialTheme.typography.labelSmall
+
                 )
             }
 
@@ -167,9 +164,9 @@ fun LoginContent(
                     .fillMaxWidth()
                     .clickable { onForgotClick() },
                 text = "Forgot Password?",
-                fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.End,
-                color = PrimaryColor
+                color = PrimaryColor,
+                style = MaterialTheme.typography.labelSmall
             )
 
             Spacer(modifier = Modifier.height(16.dp))

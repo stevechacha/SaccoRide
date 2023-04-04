@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,14 +34,18 @@ fun BalanceCard(
         ) {
             Column {
                 Text(
-                    text = stringResource(id = title)
+                    text = stringResource(id = title),
+                    style = MaterialTheme.typography.labelSmall
+
                 )
                 Text(
                     text = balance,
                     fontSize = 24.sp
                 )
                 Text(
-                    text = stringResource(id = transactionText)
+                    text = stringResource(id = transactionText),
+                    style = MaterialTheme.typography.labelSmall
+
                 )
             }
             Spacer(modifier = Modifier.weight(1f))

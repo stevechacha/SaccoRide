@@ -8,10 +8,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
 
 @Composable
@@ -41,24 +39,25 @@ fun LoanTextView(
                 ) {
                     Text(
                         text = stringResource(id = R.string.loan),
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.labelSmall
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
                         text = stringResource(id = R.string.loan_balance),
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall
                     )
                     Spacer(modifier = Modifier.height(5.dp))
 
                     Text(
                         text = stringResource(id = R.string.limit),
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall
                     )
                     Spacer(modifier = Modifier.height(5.dp))
 
                     Text(
                         text = stringResource(id = R.string.due_date),
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall
                     )
                     Spacer(modifier = Modifier.height(5.dp))
 
@@ -72,31 +71,34 @@ fun LoanTextView(
                 ) {
                     Text(
                         text = " ",
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.labelSmall
+
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = loanBalance,
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall
                     )
                     Spacer(modifier = Modifier.height(5.dp))
                     Text(
                         text = loanLimit,
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall
 
-                        )
+                    )
                     Spacer(modifier = Modifier.height(5.dp))
 
                     Text(
                         text = loanDueDate,
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall
                     )
                 }
 
                 Spacer(modifier = Modifier.width(10.dp))
 
                 Divider(
-                    modifier = Modifier.fillMaxHeight()
+                    modifier = Modifier
+                        .fillMaxHeight()
                         .width(1.dp),
                     thickness = 1.dp
                 )

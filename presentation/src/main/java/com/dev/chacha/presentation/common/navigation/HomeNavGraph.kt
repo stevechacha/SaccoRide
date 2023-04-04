@@ -168,7 +168,7 @@ sealed class BottomBarScreen(val route: String, @DrawableRes val icon: Int, val 
 
     object PinLock: BottomBarScreen("pinlock",R.drawable.about_icon,"PInlock")
     object Home: BottomBarScreen("home", R.drawable.ic_home, "Home")
-    object Transaction: BottomBarScreen("transaction",R.drawable.sessions_icon,"Transaction")
+    object Transaction: BottomBarScreen("transact",R.drawable.sessions_icon,"Transact")
     object OurMarket: BottomBarScreen("market",R.drawable.about_icon,"Market")
     object Loan: BottomBarScreen("loan",R.drawable.sessions_icon,"Loan")
     object Account: BottomBarScreen("account",R.drawable.about_icon,"Account")

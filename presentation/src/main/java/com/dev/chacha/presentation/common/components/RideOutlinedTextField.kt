@@ -42,11 +42,16 @@ fun RideOutlinedTextField(
         },
         placeholder ={
             Text(
-                text =hint
+                text =hint,
+                style = MaterialTheme.typography.labelSmall
+
             )
         },
         label = {
-            Text(text = hint)
+            Text(
+                text = hint,
+                style = MaterialTheme.typography.labelSmall
+            )
         },
         modifier = modifier.fillMaxWidth()
             .semantics {

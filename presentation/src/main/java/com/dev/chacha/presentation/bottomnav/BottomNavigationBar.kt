@@ -1,11 +1,12 @@
 package com.dev.chacha.presentation.bottomnav
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,7 +29,7 @@ fun BottomNavigationBar(navController: NavHostController) {
 
     BottomNavigation(
         backgroundColor = MaterialTheme.colorScheme.background,
-        elevation = 8.dp
+        elevation = 12.dp
     ) {
         bottomNavigationItems.forEach { destination ->
             BottomNavigationItem(
@@ -41,25 +42,26 @@ fun BottomNavigationBar(navController: NavHostController) {
                             MaterialTheme.colorScheme.primary
                         } else {
                             MaterialTheme.colorScheme.onSurfaceVariant
-                        }
+                        },
+                        modifier = Modifier.size(24.dp)
                     )
                 },
                 label = {
                     Text(
                         text = destination.title,
-                        fontSize = 10.sp,
                         color = if (currentDestination?.route == destination.route) {
                             MaterialTheme.colorScheme.primary
                         } else {
                             MaterialTheme.colorScheme.onSurfaceVariant
                         },
                         fontWeight = if (currentDestination?.route == destination.route) {
-                            FontWeight.ExtraBold
+                            FontWeight.Bold
                         } else {
-                            FontWeight.Normal
-                        }
-                    )
+                            FontWeight.Medium
                         },
+                      fontSize = 9.sp
+                    )
+                },
                 alwaysShowLabel = true,
                 onClick = {
                     navController.navigate(destination.route) {

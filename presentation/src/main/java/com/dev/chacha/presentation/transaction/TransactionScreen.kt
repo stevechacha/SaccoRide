@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.components.AppToolbar
@@ -51,7 +52,9 @@ fun TransactionContent(
             TransactToolBar()
         }
     ) { paddingValues ->
-        Column(modifier = Modifier
+        Column(
+            modifier = Modifier
+            .fillMaxWidth()
             .padding(paddingValues)
             .padding(horizontal = 8.dp, vertical = 8.dp)
         ) {
@@ -126,6 +129,7 @@ fun TransactToolBar() {
         title = {
             Text(
                 text = stringResource(id = R.string.transaction),
+                fontSize = 14.sp
             )
         },
         navigationIcon = {

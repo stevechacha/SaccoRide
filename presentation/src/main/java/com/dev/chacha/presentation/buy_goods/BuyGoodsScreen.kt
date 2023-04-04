@@ -43,7 +43,8 @@ fun BuyGoods() {
             TopAppBar(
                 title = {
                     Text(
-                        text = stringResource(id = R.string.buy_goods)
+                        text = stringResource(id = R.string.buy_goods),
+                        fontSize = 14.sp
                     )
                 },
                 backgroundColor = MaterialTheme.colorScheme.background,
