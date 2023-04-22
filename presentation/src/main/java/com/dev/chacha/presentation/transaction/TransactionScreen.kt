@@ -56,7 +56,7 @@ fun TransactionContent(
             modifier = Modifier
             .fillMaxWidth()
             .padding(paddingValues)
-            .padding(horizontal = 8.dp, vertical = 8.dp)
+            .padding(horizontal = 16.dp, vertical = 16.dp)
         ) {
 
             LazyVerticalGrid(
@@ -64,7 +64,6 @@ fun TransactionContent(
                     .fillMaxWidth()
                     .wrapContentHeight(),
                 columns = GridCells.Fixed(3),
-                contentPadding = PaddingValues(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
@@ -149,21 +148,21 @@ fun TransactToolBar() {
                     .padding(end = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Image(
+                Icon(
                     painter = painterResource(id = R.drawable.home_icon),
                     contentDescription = "Edit",
                     modifier = Modifier
                         .padding(8.dp)
                         .clip(CircleShape)
-                        .size(40.dp)
+                        .size(25.dp)
                 )
-                Image(
+                Icon(
                     painter = painterResource(id = R.drawable.ic_send_money),
                     contentDescription = "Settings",
                     modifier = Modifier
                         .padding(8.dp)
                         .clip(CircleShape)
-                        .size(40.dp)
+                        .size(25.dp)
                 )
             }
         },

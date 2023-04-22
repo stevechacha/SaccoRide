@@ -1,9 +1,17 @@
 package com.dev.chacha.presentation.transaction_history
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialTheme.colorScheme
+import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -11,108 +19,133 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 
 @Composable
 fun TransHistoryItem(
     transactionItem: TransactionsItem,
     onTransactionClick: (TransactionsItem) -> Unit
 ) {
-    Row(
+    Column(
         modifier = Modifier
+            .padding(horizontal = 2.dp, vertical = 5.dp)
             .fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (transactionItem.image != null) {
-            AsyncImage(
-                model = transactionItem.image,
-                contentDescription = "profile_image",
-                modifier = Modifier
-                    .size(40.dp)
-                    .clip(shape = CircleShape),
-                placeholder = null
-            )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start
+        ) {
+            if (transactionItem.image != null) {
+                Box(
+                    modifier = Modifier
+                        .size(45.dp)
+                        .clip(CircleShape)
+                        .background(colorScheme.onSurface.copy(alpha = 0.08F)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    AsyncImage(
+                        model = transactionItem.image,
+                        contentDescription = "profile_image",
+                        modifier = Modifier
+                            .size(30.dp)
+                            .clip(shape = CircleShape),
+                        placeholder = null
+                    )
+                }
 
-        } else {
-            val names = transactionItem.name.split(" ")
-            val initials = names[0].first().toString() + names[1].first().toString()
-            Box(
+            } else {
+                val names = transactionItem.name.split(" ")
+                val initials = names[0].first().toString() + names[1].first().toString()
+                Box(
+                    modifier = Modifier
+                        .size(45.dp)
+                        .clip(CircleShape)
+                        .background(colorScheme.onSurface.copy(alpha = 0.08F)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = initials,
+                        fontWeight = FontWeight.Normal,
+                        textAlign = TextAlign.Center,
+                        style = typography.headlineSmall
+                    )
+
+                }
+
+            }
+            Column(
                 modifier = Modifier
-                    .size(40.dp)
-                    .clip(CircleShape),
-                contentAlignment = Alignment.Center
+                    .padding(start = 10.dp)
+                    .weight(1f),
+                verticalArrangement = Arrangement.Center
             ) {
-                Text(
-                    text = initials,
-                    fontWeight = FontWeight.Normal,
-                    textAlign = TextAlign.Center,
-                    fontSize = 22.sp
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = transactionItem.name,
+                        style = typography.labelSmall,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Text(
+                        text = transactionItem.amount.toString(),
+                        textAlign = TextAlign.End,
+                        style = typography.labelSmall
+
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = transactionItem.contact,
+                        style = typography.labelSmall,
+                        overflow = TextOverflow.Ellipsis
+
+                    )
+                    Text(
+                        text = "${transactionItem.date} ${transactionItem.time}",
+                        textAlign = TextAlign.End,
+                        style = typography.labelSmall
+                    )
+                }
 
             }
 
+
         }
-        Column(
-            modifier = Modifier.padding(start = 10.dp)
-        ) {
-            Text(
-                text = transactionItem.name,
-                style = MaterialTheme.typography.labelSmall
-            )
-            Text(
-                text = transactionItem.contact,
-                style = MaterialTheme.typography.labelSmall
-            )
-        }
-        Spacer(modifier = Modifier.weight(1f))
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.End
-        ) {
-            Text(
-                text = transactionItem.amount.toString(),
-                textAlign = TextAlign.End,
-                style = MaterialTheme.typography.labelSmall
-
-            )
-            Text(
-                text = "${transactionItem.date} ${transactionItem.time}",
-                textAlign = TextAlign.End,
-                style = MaterialTheme.typography.labelSmall
-
-
-            )
-        }
-
 
     }
 
+
 }
+
 
 @Composable
 @Preview
-fun TransactionItemPreview() {
-    Column {
+fun TransHistoryItemPreview() {
+    SaccoRideTheme {
         LazyColumn {
-            items(20) {
+            items(transactionsItem.size) { index ->
                 TransHistoryItem(
-                    transactionItem = TransactionsItem(
-                        name = "John Doe",
-                        contact = "1234567890",
-                        amount = 1000.0,
-                        date = "12/12/2021",
-                        time = "12:00 PM",
-                        image = null
-                    )
-                ) {
-
-                }
+                    transactionItem = transactionsItem[index],
+                    onTransactionClick = {}
+                )
             }
         }
-    }
 
+    }
 }
+
 

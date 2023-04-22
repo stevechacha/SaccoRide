@@ -90,8 +90,6 @@ fun LoginContent(
         topBar = {
             AppToolbar(
                 title = "Login",
-                showBackArrow = true,
-                showForwardArrow = true
             )
         },
     ) { paddingValues ->
@@ -100,10 +98,15 @@ fun LoginContent(
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(vertical = 16.dp, horizontal = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             val text by rememberSaveable { mutableStateOf("") }
             val charLimit = 10
+
+            Text(
+                text = "Login",
+                fontSize = 24.sp
+            )
+            Spacer(modifier = Modifier.height(20.dp))
 
             AppOutlinedTextField(
                 value = usernameState.text,
@@ -161,7 +164,6 @@ fun LoginContent(
 
             Text(
                 modifier = Modifier
-                    .fillMaxWidth()
                     .clickable { onForgotClick() },
                 text = "Forgot Password?",
                 textAlign = TextAlign.End,
@@ -169,7 +171,7 @@ fun LoginContent(
                 style = MaterialTheme.typography.labelSmall
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(30.dp))
 
             ContinueButton(
                 text = stringResource(id = R.string.continuee),

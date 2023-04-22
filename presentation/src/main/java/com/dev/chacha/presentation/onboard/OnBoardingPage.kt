@@ -11,7 +11,7 @@ sealed class OnBoardingPage(
 ) {
     object First: OnBoardingPage(
         image = R.drawable.home_icon,
-        title = "Make it Easy One",
+        title = "Save,spend and send your money",
         description = "Lorem Ipsum dolor sit amet, consectetur adipiscing elit, sed do elusemod tempor incididunt labore."
     )
     object Second: OnBoardingPage(

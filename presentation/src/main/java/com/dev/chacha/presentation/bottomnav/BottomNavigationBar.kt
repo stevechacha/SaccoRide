@@ -1,6 +1,8 @@
 package com.dev.chacha.presentation.bottomnav
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -9,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -18,6 +21,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.dev.chacha.presentation.common.navigation.BottomBarScreen
 import com.dev.chacha.presentation.common.navigation.bottomNavigationItems
+import com.dev.chacha.presentation.common.theme.PrimaryColor
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 
 
@@ -28,8 +32,11 @@ fun BottomNavigationBar(navController: NavHostController) {
     val currentDestination = navBackStackEntry?.destination
 
     BottomNavigation(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.background),
         backgroundColor = MaterialTheme.colorScheme.background,
-        elevation = 12.dp
+        elevation = 8.dp
     ) {
         bottomNavigationItems.forEach { destination ->
             BottomNavigationItem(
@@ -50,7 +57,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                     Text(
                         text = destination.title,
                         color = if (currentDestination?.route == destination.route) {
-                            MaterialTheme.colorScheme.primary
+                            PrimaryColor
                         } else {
                             MaterialTheme.colorScheme.onSurfaceVariant
                         },
@@ -59,7 +66,9 @@ fun BottomNavigationBar(navController: NavHostController) {
                         } else {
                             FontWeight.Medium
                         },
-                      fontSize = 9.sp
+                        fontSize = 9.sp,
+                        overflow = TextOverflow.Ellipsis
+
                     )
                 },
                 alwaysShowLabel = true,
@@ -69,7 +78,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                         launchSingleTop = true
                         restoreState = true
                     }
-                },
+                }
             )
         }
     }

@@ -6,6 +6,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -88,7 +89,10 @@ fun PieChart(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .wrapContentHeight()
+            .wrapContentHeight(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        ),
     ) {
         Row(
             modifier = Modifier
@@ -137,6 +141,7 @@ fun PieChart(
             }
             Column(modifier = Modifier
                 .fillMaxWidth()
+                .padding(start = 10.dp)
             ) {
                 // To see the data in more structured way
                 // Compose Function in which Items are showing data

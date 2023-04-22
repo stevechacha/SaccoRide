@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
+import com.dev.chacha.presentation.common.theme.PrimaryColor
 
 @Composable
 fun ShopTextImage(
@@ -37,10 +39,11 @@ fun ShopTextImage(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Image(
+            Icon(
                 painter = painterResource(id = drawable) ,
                 contentDescription = null,
-                modifier = Modifier.size(25.dp)
+                modifier = Modifier.size(25.dp),
+                tint = PrimaryColor
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(

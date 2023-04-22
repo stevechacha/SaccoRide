@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Message
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -24,13 +25,14 @@ fun AppToolbar(
     showBackArrow: Boolean = false,
     showForwardArrow: Boolean = false
 ) {
-    TopAppBar(
+    CenterAlignedTopAppBar(
         title = {
             Text(
                 text = title,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.labelSmall
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onBackground
             )
         }, navigationIcon = {
             if (showBackArrow) {
@@ -46,15 +48,18 @@ fun AppToolbar(
             if (showForwardArrow) {
                 IconButton(onClick = { /* doSomething() */ }) {
                     Icon(
-                        imageVector = Icons.Filled.Message,
+                        imageVector = Icons.Filled.Close,
                         contentDescription = "Localized description",
                         tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
             }
         },
-        backgroundColor = MaterialTheme.colorScheme.background,
-        contentColor = MaterialTheme.colorScheme.onBackground
+       colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+           containerColor = MaterialTheme.colorScheme.background,
+
+
+       )
     )
 }
 

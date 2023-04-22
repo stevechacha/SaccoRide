@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -83,21 +84,26 @@ fun PagerScreen(onBoardingPage: OnBoardingPage) {
         )
         Text(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp),
             text = onBoardingPage.title,
-            fontSize = 28.sp,
+            fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Start,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 2
         )
         Text(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp)
+                .padding(horizontal = 16.dp)
                 .padding(top = 20.dp),
             text = onBoardingPage.description,
             fontWeight = FontWeight.Medium,
             textAlign = TextAlign.Center,
-            lineHeight = 24.sp
+            lineHeight = 24.sp,
+            overflow = TextOverflow.Ellipsis
+
         )
     }
 }
@@ -124,7 +130,8 @@ fun FinishButton(
                 modifier = modifier.height(50.dp),
                 onClick = onClick,
                 colors = ButtonDefaults.buttonColors(
-                    contentColor = Color.White
+                    contentColor = Color.White,
+                    containerColor = PrimaryColor
                 )
             ) {
                 Text(

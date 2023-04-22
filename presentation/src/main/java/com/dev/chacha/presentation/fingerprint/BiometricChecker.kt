@@ -54,7 +54,7 @@ class BiometricChecker(
             val biometricPrompt = BiometricPrompt
                 .Builder(activity)
                 .setTitle(activity.getString(R.string.sacco_app))
-                .setDescription("Please use your fingerprint to login")
+                .setDescription("Scan your fingerprint ")
                 .setNegativeButton("CANCEL", activity.mainExecutor) { _, _ ->
                     notifyUser("Authentication cancelled")
                     navController.navigate(AuthScreen.PinLock.route)

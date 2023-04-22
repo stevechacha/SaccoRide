@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.auth.component.SignUpInText
 import com.dev.chacha.presentation.auth.component.SignupText
@@ -47,9 +48,8 @@ fun RegisterContent(
     Scaffold(
         topBar = {
             AppToolbar(
-                title = "Register",
+                title = "Create your account",
                 showForwardArrow = true,
-                showBackArrow = true
             )
         }
     ) { paddingValues ->
@@ -58,8 +58,13 @@ fun RegisterContent(
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp, vertical = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
+            Text(
+                text = "Create your account ",
+                fontSize = 24.sp
+            )
+            Spacer(modifier = Modifier.height(20.dp))
 
             AppOutlinedTextField(
                 value = email,
@@ -83,7 +88,7 @@ fun RegisterContent(
                 keyboardType = KeyboardType.Number
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(30.dp))
             ContinueButton(
                 onClick = { onClick() },
                 text = stringResource(id = R.string.continuee)

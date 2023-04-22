@@ -11,6 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.auth.create_password.CreatePasswordViewModel
 import com.dev.chacha.presentation.common.components.AppOutlinedTextField
@@ -40,7 +41,7 @@ fun ResetPinContent(
     Scaffold(
         topBar = {
             AppToolbar(
-                title = "Reset Password",
+                title = "Reset pin",
                 showBackArrow = true
             )
         }
@@ -50,8 +51,12 @@ fun ResetPinContent(
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp, vertical = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Text(
+                text = "Create your account password",
+                fontSize = 24.sp
+            )
+            Spacer(modifier = Modifier.height(20.dp))
 
             AppOutlinedTextField(
                 value = pin,
@@ -89,6 +94,8 @@ fun ResetPinContent(
                     viewModel.setShowConfirmPassword(it)
                 }
             )
+            
+            Spacer(modifier = Modifier.height(30.dp))
 
             ContinueButton(
                 text = stringResource(id = R.string.continuee),

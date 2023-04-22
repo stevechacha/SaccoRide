@@ -1,15 +1,22 @@
 package com.dev.chacha.presentation.home
 
+import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -35,9 +42,58 @@ fun HomeScreen(
     onMarketClicked: () -> Unit,
     onSavingsClicked: () -> Unit
 ) {
+    val topAppBarState = rememberTopAppBarScrollState()
+    val decayAnimationSpec = rememberSplineBasedDecay<Float>()
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec,topAppBarState)
+
     Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            HomeToolbar()
+            MediumTopAppBar(
+                title = {
+                    Text(
+                        text = "Good Morning,John",
+                        fontSize = 20.sp,
+                        maxLines = 2,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = { /* doSomething() */ }) {
+                        Icon(
+                            imageVector = Icons.Filled.Menu,
+                            contentDescription = "Localized description"
+                        )
+                    }
+                },
+                actions = {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .padding(end = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        IconButton(onClick = { /* doSomething() */ }) {
+                            Icon(
+                                imageVector = Icons.Filled.Favorite,
+                                contentDescription = "Localized description"
+                            )
+                        }
+                        IconButton(onClick = { /* doSomething() */ }) {
+                            Icon(
+                                imageVector = Icons.Filled.Favorite,
+                                contentDescription = "Localized description"
+                            )
+                        }
+                    }
+
+                },
+                colors = TopAppBarDefaults.mediumTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background,
+                    scrolledContainerColor = MaterialTheme.colorScheme.background
+                ),
+                scrollBehavior = scrollBehavior
+            )
         }
     ) { paddingValues ->
         Column(
@@ -46,26 +102,88 @@ fun HomeScreen(
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp)
         ) {
-
-            TransactionCard(
-                onSendMoneyClicked = onSendMoneyClicked,
-                onBuyAirtimeClicked = onBuyAirtimeClicked,
-                onBuyGoodsClicked = onBuyGoodsClicked,
-                onPayBillClicked = onPayBillClicked,
-                onWithdrawClicked = onWithdrawClicked,
-                onDepositClicked = onDepositClicked
+            val transactionsItem = listOf(
+                TransactionsItem(
+                    name = "Stephen Chacha",
+                    contact = "0746656813",
+                    amount = 68700.0,
+                    date = "12 Apr",
+                    time = "12:00 PM",
+                    image = null
+                ),
+                TransactionsItem(
+                    name = "Mary Tenui",
+                    contact = "0746656813",
+                    amount = 10000.0,
+                    date = "12 Apr",
+                    time = "12:00 PM",
+                    image = null
+                ),
+                TransactionsItem(
+                    name = "David Mtundi",
+                    contact = "0746656813",
+                    amount = 50000.0,
+                    date = "12 Apr",
+                    time = "12:00 PM",
+                    image = null
+                ),
+                TransactionsItem(
+                    name = "Nairobi Water",
+                    contact = "123456",
+                    amount = 1000.0,
+                    date = "12 Apr",
+                    time = "12:00 PM",
+                    image = null
+                ),
+                TransactionsItem(
+                    name = "Nairobi Water",
+                    contact = "123456",
+                    amount = 1000.0,
+                    date = "12 Apr",
+                    time = "12:00 PM",
+                    image = R.drawable.ic_home
+                ),
             )
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth(),
+            ){
+                item {
+                    TransactionCard(
+                        onSendMoneyClicked = onSendMoneyClicked,
+                        onBuyAirtimeClicked = onBuyAirtimeClicked,
+                        onBuyGoodsClicked = onBuyGoodsClicked,
+                        onPayBillClicked = onPayBillClicked,
+                        onWithdrawClicked = onWithdrawClicked,
+                        onDepositClicked = onDepositClicked
+                    )
+                }
+                item {
+                    Spacer(modifier = Modifier.height(10.dp))
+                    PayWithRideSacco(
+                        onLoanClicked = onLoanClicked,
+                        onMarketClicked = onMarketClicked,
+                        onSavingsClicked = onSavingsClicked
+                    )
+                }
+                item{
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = stringResource(id = R.string.recent_transaction),
+                        style = MaterialTheme.typography.labelSmall,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
 
-            Spacer(modifier = Modifier.height(20.dp))
+                }
+                items(transactionsItem.size){ index ->
+                    TransHistoryItem(
+                        transactionItem = transactionsItem[index],
+                        onTransactionClick = {}
+                    )
 
-            PayWithRideSacco(
-                onLoanClicked = onLoanClicked,
-                onMarketClicked = onMarketClicked,
-                onSavingsClicked = onSavingsClicked
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            RecentTransactions()
+                }
 
+            }
 
         }
 
@@ -80,12 +198,14 @@ fun TransactionCard(
     onPayBillClicked: () -> Unit,
     onWithdrawClicked: () -> Unit,
     onDepositClicked: () -> Unit,
-
     ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp)
+            .wrapContentHeight(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        ),
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -95,7 +215,7 @@ fun TransactionCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(start = 16.dp, end = 16.dp, top = 10.dp, bottom = 12.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -121,7 +241,7 @@ fun TransactionCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -155,25 +275,26 @@ fun PayWithRideSacco(
     onMarketClicked: () -> Unit,
     onSavingsClicked: () -> Unit
 ) {
+
     Row(
         modifier = Modifier
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        VerticalTextImageView(
+        HomeServiceItem(
             onItemClick = onLoanClicked,
             drawable = R.drawable.ic_utility,
             stringRes = R.string.loan
         )
 
-        VerticalTextImageView(
+        HomeServiceItem(
             onItemClick = onMarketClicked,
             drawable = R.drawable.ic_utility,
             stringRes = R.string.our_market
         )
 
-        VerticalTextImageView(
+        HomeServiceItem(
             onItemClick = onSavingsClicked,
             drawable = R.drawable.ic_utility,
             stringRes = R.string.savings
@@ -183,34 +304,6 @@ fun PayWithRideSacco(
 
 }
 
-
-@Composable
-fun RecentTransactions() {
-    Text(
-        text = stringResource(id = R.string.recent_transaction),
-        style = MaterialTheme.typography.labelSmall,
-        fontWeight = FontWeight.Bold
-    )
-    Spacer(modifier = Modifier.height(16.dp))
-    LazyColumn() {
-        items(20) {
-            TransHistoryItem(
-                transactionItem = TransactionsItem(
-                    name = "Stephen Chacha",
-                    contact = "0746656813",
-                    amount = 1000.0,
-                    date = "12/12/2021",
-                    time = "12:00 PM",
-                    image = null
-                )
-            ) {
-
-            }
-        }
-
-    }
-
-}
 
 
 @Composable

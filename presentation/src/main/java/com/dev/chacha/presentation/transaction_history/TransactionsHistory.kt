@@ -44,37 +44,13 @@ fun TransactionsHistory(
 fun TransHistory() {
     Column {
         LazyColumn {
-            items(20) {
-                TransHistoryItem(
-                    transactionItem = TransactionsItem(
-                        name = "John Doe",
-                        contact = "1234567890",
-                        amount = 1000.0,
-                        date = "12/12/2021",
-                        time = "12:00 PM",
-                        image = null
-                    )
-                ) {
-
-                }
-            }
-        }
-    }
-}
-
-
-@Composable
-@Preview
-fun TransactionHistoryPreview() {
-    SaccoRideTheme {
-        LazyColumn(){
-            items(20){ index ->
-                TransHistoryItem(
-                    transactionItem = transactionsItem[index],
+            items(transactionsItem.size) {
+                TransactionsHistory(
+                    transactions = transactionsItem,
                     onTransactionClick = {}
                 )
             }
         }
-
     }
 }
+

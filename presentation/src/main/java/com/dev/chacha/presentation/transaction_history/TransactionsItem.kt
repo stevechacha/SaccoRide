@@ -85,7 +85,6 @@ val transactionsItem = listOf(
         time = "12:00",
         image = null,
     ),
-
-    )
+)
 
 

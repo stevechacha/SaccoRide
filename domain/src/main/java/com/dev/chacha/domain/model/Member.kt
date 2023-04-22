@@ -11,5 +11,6 @@ Member class:
 */
 
 data class Member(
-    val email: String
+    val email: String,
+    val contact: String
 )
