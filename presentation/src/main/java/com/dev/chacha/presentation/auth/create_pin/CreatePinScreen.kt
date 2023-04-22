@@ -11,6 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.components.AppOutlinedTextField
 import com.dev.chacha.presentation.common.components.AppToolbar
@@ -41,7 +42,6 @@ fun CreatePinContent(
             AppToolbar(
                 title = "Create Pin",
                 showForwardArrow = true,
-                showBackArrow = true
             )
         }
     ) { paddingValues ->
@@ -50,8 +50,12 @@ fun CreatePinContent(
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp, vertical = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Text(
+                text = "Create your account pin",
+                fontSize = 24.sp
+            )
+            Spacer(modifier = Modifier.height(20.dp))
             AppOutlinedTextField(
                 value = pin,
                 onValueChange = { setPin(it) },
@@ -75,7 +79,7 @@ fun CreatePinContent(
                     viewModel.setShowPassword(it)
                 }
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(30.dp))
             ContinueButton(
                 text = stringResource(id = R.string.continuee),
                 onClick = onClickAction

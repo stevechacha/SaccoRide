@@ -1,5 +1,6 @@
 package com.dev.chacha.presentation.paybill
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -16,6 +18,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,7 +39,31 @@ fun PayBillScreen(
 
     ) {
     Scaffold(
-        topBar = {}
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = stringResource(id = R.string.paybill),
+                        fontSize = 14.sp
+                    )
+                },
+                backgroundColor = MaterialTheme.colorScheme.background,
+                contentColor = MaterialTheme.colorScheme.onBackground,
+                elevation = 0.dp,
+                navigationIcon = {
+                    androidx.compose.material3.IconButton(onClick = { /*TODO*/ }) {
+                        Image(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back",
+                            colorFilter = ColorFilter.tint(
+                                MaterialTheme.colorScheme.onBackground
+                            )
+                        )
+
+                    }
+                }
+            )
+        }
     ) { paddingValues ->
 
         var businessNumber by remember { mutableStateOf("") }

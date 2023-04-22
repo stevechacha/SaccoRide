@@ -27,13 +27,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.LottieAnimation
@@ -44,6 +48,7 @@ import com.dev.chacha.presentation.activity.MainActivity
 import com.dev.chacha.presentation.common.navigation.AuthScreen
 import com.dev.chacha.presentation.common.navigation.Graph
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
+import com.dev.chacha.presentation.common.util.MontserratSemiBold
 import com.dev.chacha.presentation.fingerprint.BiometricChecker
 import kotlinx.coroutines.delay
 
@@ -93,27 +98,37 @@ fun PinLockScreen(
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.profile_icon),
-                    contentDescription = "profile image",
+                Box(
                     modifier = Modifier
                         .padding(top = 40.dp)
-                        .size(60.dp)
                         .clip(CircleShape)
-                        .background(color = MaterialTheme.colorScheme.onSurface),
-                    alignment = Alignment.Center
+                        .background(MaterialTheme.colorScheme.background)
+                        .size(80.dp)
+                        .clip(CircleShape)
+                    ,
+                    contentAlignment = Alignment.Center
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.profile_icon),
+                        contentDescription = "profile image",
+                        modifier = Modifier
+                            .size(40.dp),
+                        alignment = Alignment.Center,
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground)
+                    )
 
-                )
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+                val name = "Stephen Chacha"
                 Text(
-                    text = "Stephen Chacha",
+                    text = name.uppercase(),
                     style = MaterialTheme.typography.labelSmall
-
-
                 )
                 Spacer(modifier = Modifier.height(20.dp))
 
                 Text(
-                    text = "Enter pin to unlock",
+                    text = stringResource(id = R.string.enter_pin),
                     style = MaterialTheme.typography.labelSmall
 
                 )
@@ -144,10 +159,9 @@ fun PinLockScreen(
                 Text(
                     text = error.value,
                     color = MaterialTheme.colorScheme.error,
-                    modifier = Modifier.padding(16.dp)
                 )
 
-                Spacer(modifier = Modifier.height(50.dp))
+                Spacer(modifier = Modifier.height(30.dp))
             }
 
             Column(
@@ -166,6 +180,8 @@ fun PinLockScreen(
                         ) {
                             Text(
                                 text = it.toString(),
+                                fontSize = 22.sp,
+                                fontFamily = MontserratSemiBold,
                             )
                         }
                     }
@@ -181,6 +197,9 @@ fun PinLockScreen(
                         ) {
                             Text(
                                 text = it.toString(),
+                                fontSize = 22.sp,
+                                fontFamily = MontserratSemiBold,
+
                             )
                         }
                     }
@@ -196,7 +215,9 @@ fun PinLockScreen(
                         ) {
                             Text(
                                 text = it.toString(),
-                                modifier = Modifier.padding(4.dp)
+                                fontSize = 22.sp,
+                                fontFamily = MontserratSemiBold,
+                                modifier = Modifier.padding(4.dp),
                             )
                         }
                     }
@@ -224,6 +245,8 @@ fun PinLockScreen(
                         Text(
                             text = "0",
                             modifier = Modifier.padding(4.dp),
+                            fontSize = 22.sp,
+                            fontFamily = MontserratSemiBold,
 
                         )
                     }
@@ -264,8 +287,6 @@ fun PinLockScreen(
         }
 //        BiometricChecker(context as MainActivity,navController,context as MainActivity).authenticate()
 
-
-        // Biometric Auth
 
     }
 }

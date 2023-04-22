@@ -22,6 +22,7 @@ import com.dev.chacha.presentation.information.Information
 import com.dev.chacha.presentation.markets.MarketScreen
 import com.dev.chacha.presentation.overview.Overview
 import com.dev.chacha.presentation.pay_with_sacco.PayWithSacco
+import com.dev.chacha.presentation.pay_with_sacco.payBills
 import com.dev.chacha.presentation.paybill.PayBillItem
 import com.dev.chacha.presentation.paybill.PayBillScreen
 import com.dev.chacha.presentation.pin.PinLockScreen
@@ -113,7 +114,10 @@ fun HomeNavGraph(
 
         composable(HomeAction.PayWithSacco.route){
             showBottomBar(false)
-            PayWithSacco()
+            PayBillScreen(
+                payBill = payBills ,
+                onPayBillClick = {}
+            )
         }
         composable(HomeAction.Savings.route){
             showBottomBar(false)

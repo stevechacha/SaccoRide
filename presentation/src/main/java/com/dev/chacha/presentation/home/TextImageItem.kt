@@ -18,6 +18,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,6 +34,8 @@ fun TextImageItem(
     val sizeIcon = dimensionResource(id = R.dimen.margin_24)
     Column(
         modifier = Modifier
+            .width(90.dp)
+            .height(90.dp)
             .clickable(onClick = onItemClick),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -54,11 +57,11 @@ fun TextImageItem(
             )
 
         }
-
         Text(
             text = stringResource(id = stringRes),
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.labelSmall
+            style = MaterialTheme.typography.labelSmall,
+            overflow = TextOverflow.Ellipsis
 
         )
 

@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,29 +15,37 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.dev.chacha.presentation.R
 
 @Composable
 fun BalanceCard(
     @StringRes title: Int,
     balance: String,
-   @StringRes transactionText: Int,
+    @StringRes transactionText: Int,
     @DrawableRes drawable: Int
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth()
-            .wrapContentHeight()
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        ),
+
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(end = 16.dp)
+            ) {
                 Text(
                     text = stringResource(id = title),
                     style = MaterialTheme.typography.labelSmall
-
                 )
                 Text(
                     text = balance,
@@ -50,8 +59,9 @@ fun BalanceCard(
             }
             Spacer(modifier = Modifier.weight(1f))
             Image(
-                painter = painterResource(id = drawable) ,
-                contentDescription = null
+                painter = painterResource(id = drawable),
+                contentDescription = null,
+                modifier = Modifier.size(25.dp)
             )
 
         }

@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,7 +30,7 @@ fun BottomNavigationBar(navController: NavHostController) {
 
     BottomNavigation(
         backgroundColor = MaterialTheme.colorScheme.background,
-        elevation = 12.dp
+        elevation = 8.dp
     ) {
         bottomNavigationItems.forEach { destination ->
             BottomNavigationItem(
@@ -59,7 +60,9 @@ fun BottomNavigationBar(navController: NavHostController) {
                         } else {
                             FontWeight.Medium
                         },
-                      fontSize = 9.sp
+                        fontSize = 9.sp,
+                        overflow = TextOverflow.Ellipsis
+
                     )
                 },
                 alwaysShowLabel = true,

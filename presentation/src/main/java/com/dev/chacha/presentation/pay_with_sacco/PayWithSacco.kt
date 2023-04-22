@@ -66,7 +66,6 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
     val coroutineScope = rememberCoroutineScope()
 
     TabRow(
-
         selectedTabIndex = pagerState.currentPage,
         backgroundColor = MaterialTheme.colorScheme.background,
         divider = {

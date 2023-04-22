@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,7 +33,11 @@ fun AppCard(
     modifier: Modifier = Modifier,
     sponsorsLogos: List<String>
 ) {
-    Card {
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        ),
+    ) {
         Column(
             modifier = modifier
                 .fillMaxWidth()
@@ -41,7 +47,8 @@ fun AppCard(
                 )
                 .padding(horizontal = 30.dp, vertical = 10.dp)
                 .testTag("sponsors_section"),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+
         ) {
             Text(
                 modifier = Modifier.fillMaxWidth(),

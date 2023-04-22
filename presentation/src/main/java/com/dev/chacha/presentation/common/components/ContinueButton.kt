@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.dev.chacha.presentation.common.theme.PrimaryColor
 
 @Composable
 fun ContinueButton(text: String, modifier: Modifier = Modifier, onClick: (() -> Unit)) {
@@ -19,7 +20,8 @@ fun ContinueButton(text: String, modifier: Modifier = Modifier, onClick: (() -> 
         modifier = modifier.fillMaxWidth()
             .height(50.dp),
         colors = ButtonDefaults.buttonColors(
-            contentColor = Color.White
+            contentColor = Color.White,
+            containerColor = PrimaryColor
         )
     ) {
         Text(

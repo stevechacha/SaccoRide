@@ -60,8 +60,7 @@ fun WelcomeContent(
         Column {
             Box(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .statusBarsPadding(),
+                    .fillMaxSize(),
                 contentAlignment = Alignment.TopStart
             ) {
                 Image(
@@ -83,7 +82,7 @@ fun WelcomeContent(
                             .padding(start = 8.dp, end = 24.dp),
                         color = MaterialTheme.colorScheme.onPrimary,
                         fontSize = 24.sp,
-                        text = "Make your shopping enjoyable with us"
+                        text = "Make your Savings enjoyable with us"
                     )
                     Spacer(modifier = Modifier.height(32.dp))
                     ContinueButton(

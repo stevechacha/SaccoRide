@@ -70,9 +70,9 @@ class BiometricHelper(private val authListener: AuthListener,val activity: Compo
                     setSubtitle("Login to your Sacco account")
                     setDescription("Please use your fingerprint to login")
                     setConfirmationRequired(false)
-                    setNegativeButton("Cancel", activity.mainExecutor, { _, _, ->
+                    setNegativeButton("Cancel", activity.mainExecutor) { _, _, ->
 
-                    })
+                    }
                 }.build()
 
             biometricPrompt.authenticate(getCancellationSignal(), activity.mainExecutor, authenticationCallback)

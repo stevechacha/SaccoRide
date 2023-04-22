@@ -124,7 +124,8 @@ fun FinishButton(
                 modifier = modifier.height(50.dp),
                 onClick = onClick,
                 colors = ButtonDefaults.buttonColors(
-                    contentColor = Color.White
+                    contentColor = Color.White,
+                    containerColor = PrimaryColor
                 )
             ) {
                 Text(

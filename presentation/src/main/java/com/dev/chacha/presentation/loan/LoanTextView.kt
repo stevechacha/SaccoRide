@@ -21,7 +21,7 @@ fun LoanTextView(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(150.dp)
+            .wrapContentHeight()
     ) {
         Column(
             modifier = Modifier
@@ -94,14 +94,7 @@ fun LoanTextView(
                     )
                 }
 
-                Spacer(modifier = Modifier.width(10.dp))
 
-                Divider(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .width(1.dp),
-                    thickness = 1.dp
-                )
             }
 
         }

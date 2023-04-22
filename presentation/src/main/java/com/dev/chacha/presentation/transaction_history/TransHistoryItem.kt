@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -41,7 +42,7 @@ fun TransHistoryItem(
             val initials = names[0].first().toString() + names[1].first().toString()
             Box(
                 modifier = Modifier
-                    .size(40.dp)
+                    .size(48.dp)
                     .clip(CircleShape),
                 contentAlignment = Alignment.Center
             ) {
@@ -49,43 +50,55 @@ fun TransHistoryItem(
                     text = initials,
                     fontWeight = FontWeight.Normal,
                     textAlign = TextAlign.Center,
-                    fontSize = 22.sp
+                    fontSize = 20.sp
                 )
 
             }
 
         }
         Column(
-            modifier = Modifier.padding(start = 10.dp)
+            modifier = Modifier
+                .weight(1f)
         ) {
-            Text(
-                text = transactionItem.name,
-                style = MaterialTheme.typography.labelSmall
-            )
-            Text(
-                text = transactionItem.contact,
-                style = MaterialTheme.typography.labelSmall
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = transactionItem.name,
+                    style = MaterialTheme.typography.labelSmall,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = transactionItem.amount.toString(),
+                    textAlign = TextAlign.End,
+                    style = MaterialTheme.typography.labelSmall
+
+                )
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = transactionItem.contact,
+                    style = MaterialTheme.typography.labelSmall,
+                    overflow = TextOverflow.Ellipsis
+
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = "${transactionItem.date} ${transactionItem.time}",
+                    textAlign = TextAlign.End,
+                    style = MaterialTheme.typography.labelSmall
+                )
+            }
+
+
         }
-        Spacer(modifier = Modifier.weight(1f))
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.End
-        ) {
-            Text(
-                text = transactionItem.amount.toString(),
-                textAlign = TextAlign.End,
-                style = MaterialTheme.typography.labelSmall
 
-            )
-            Text(
-                text = "${transactionItem.date} ${transactionItem.time}",
-                textAlign = TextAlign.End,
-                style = MaterialTheme.typography.labelSmall
-
-
-            )
-        }
 
 
     }
@@ -103,7 +116,7 @@ fun TransactionItemPreview() {
                         name = "John Doe",
                         contact = "1234567890",
                         amount = 1000.0,
-                        date = "12/12/2021",
+                        date = "12,Apr",
                         time = "12:00 PM",
                         image = null
                     )

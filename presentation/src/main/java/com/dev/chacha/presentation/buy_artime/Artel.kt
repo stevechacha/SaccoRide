@@ -74,7 +74,7 @@ fun Artel() {
 
             )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(24.dp))
         ContinueButton(
             text = stringResource(id = R.string.continuee),
             onClick = {}

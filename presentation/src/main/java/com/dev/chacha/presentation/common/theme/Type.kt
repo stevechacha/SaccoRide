@@ -13,30 +13,33 @@ val Montserrat = FontFamily(
     Font(R.font.montserrat_regular),
     Font(R.font.montserrat_light, weight = FontWeight.Light),
     Font(R.font.montserrat_semi_bold, weight = FontWeight.SemiBold),
-    Font(R.font.montserrat_bold, weight = FontWeight.Bold)
+    Font(R.font.montserrat_bold, weight = FontWeight.Bold),
+    Font(R.font.montserrat_black, weight = FontWeight.Black),
+    Font(R.font.montserrat_extra_bold, weight = FontWeight.ExtraBold),
+
 )
 
 val AppTypography = Typography(
     labelLarge = TextStyle(
         fontFamily = Montserrat,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.SemiBold,
         letterSpacing = 0.10000000149011612.sp,
         lineHeight = 20.sp,
         fontSize = 14.sp
     ),
     labelMedium = TextStyle(
         fontFamily = Montserrat,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.SemiBold,
         letterSpacing = 0.5.sp,
         lineHeight = 16.sp,
         fontSize = 12.sp
     ),
     labelSmall = TextStyle(
         fontFamily = Montserrat,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.SemiBold,
         letterSpacing = 0.5.sp,
         lineHeight = 16.sp,
-        fontSize = 12.sp
+        fontSize = 11.sp
     ),
     bodyLarge = TextStyle(
         fontFamily = Montserrat,
@@ -110,14 +113,14 @@ val AppTypography = Typography(
     ),
     titleMedium = TextStyle(
         fontFamily = Montserrat,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.SemiBold,
         letterSpacing = 0.15000000596046448.sp,
         lineHeight = 24.sp,
         fontSize = 16.sp
     ),
     titleSmall = TextStyle(
         fontFamily = Montserrat,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.ExtraBold,
         letterSpacing = 0.10000000149011612.sp,
         lineHeight = 20.sp,
         fontSize = 14.sp

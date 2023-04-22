@@ -12,6 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.components.AppOutlinedTextField
 import com.dev.chacha.presentation.common.components.AppToolbar
@@ -43,7 +44,6 @@ fun CreatePasswordContent(
             AppToolbar(
                 title = "Create Password",
                 showForwardArrow = true,
-                showBackArrow = true
             )
         }
     ) { paddingValues ->
@@ -52,8 +52,12 @@ fun CreatePasswordContent(
                 .fillMaxSize()
                 .padding(12.dp)
                 .padding(paddingValues),
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Text(
+                text = "Create your account password",
+                fontSize = 24.sp
+            )
+            Spacer(modifier = Modifier.height(20.dp))
             AppOutlinedTextField(
                 value = password,
                 onValueChange = { setPassword(it) },
@@ -77,7 +81,7 @@ fun CreatePasswordContent(
                     viewModel.setShowConfirmPassword(it)
                 }
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(30.dp))
             ContinueButton(
                 text = stringResource(id = R.string.continuee),
                 onClick = onClickAction

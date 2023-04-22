@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,9 +28,12 @@ fun HorizontalCardItem(
 ) {
     Card(
         modifier = Modifier
-            .height(100.dp)
-            .width(100.dp)
-            .clickable(onClick = onItemClick)
+            .height(110.dp)
+            .width(110.dp)
+            .clickable(onClick = onItemClick),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        ),
     ){
         Column(
             modifier = Modifier
@@ -42,8 +46,7 @@ fun HorizontalCardItem(
                painter =  painterResource(id = drawable),
                contentDescription = null,
                modifier = Modifier
-                   .fillMaxWidth()
-                   .height(40.dp),
+                   .size(25.dp),
                colorFilter = ColorFilter.tint(PrimaryColor)
            )
             Spacer(modifier = Modifier.height(8.dp))

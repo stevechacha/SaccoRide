@@ -46,26 +46,30 @@ fun HomeScreen(
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp)
         ) {
+            LazyColumn{
+                item {
+                    TransactionCard(
+                        onSendMoneyClicked = onSendMoneyClicked,
+                        onBuyAirtimeClicked = onBuyAirtimeClicked,
+                        onBuyGoodsClicked = onBuyGoodsClicked,
+                        onPayBillClicked = onPayBillClicked,
+                        onWithdrawClicked = onWithdrawClicked,
+                        onDepositClicked = onDepositClicked
+                    )
 
-            TransactionCard(
-                onSendMoneyClicked = onSendMoneyClicked,
-                onBuyAirtimeClicked = onBuyAirtimeClicked,
-                onBuyGoodsClicked = onBuyGoodsClicked,
-                onPayBillClicked = onPayBillClicked,
-                onWithdrawClicked = onWithdrawClicked,
-                onDepositClicked = onDepositClicked
-            )
+                    Spacer(modifier = Modifier.height(20.dp))
 
-            Spacer(modifier = Modifier.height(20.dp))
+                    PayWithRideSacco(
+                        onLoanClicked = onLoanClicked,
+                        onMarketClicked = onMarketClicked,
+                        onSavingsClicked = onSavingsClicked
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
 
-            PayWithRideSacco(
-                onLoanClicked = onLoanClicked,
-                onMarketClicked = onMarketClicked,
-                onSavingsClicked = onSavingsClicked
-            )
-            Spacer(modifier = Modifier.height(16.dp))
+                }
+
+            }
             RecentTransactions()
-
 
         }
 
@@ -85,7 +89,10 @@ fun TransactionCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp)
+            .wrapContentHeight(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        ),
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -95,7 +102,7 @@ fun TransactionCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(start=16.dp, end = 16.dp, top = 10.dp, bottom = 16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -121,7 +128,7 @@ fun TransactionCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(start=16.dp, end = 16.dp, bottom = 16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -199,7 +206,7 @@ fun RecentTransactions() {
                     name = "Stephen Chacha",
                     contact = "0746656813",
                     amount = 1000.0,
-                    date = "12/12/2021",
+                    date = "12 Apr",
                     time = "12:00 PM",
                     image = null
                 )

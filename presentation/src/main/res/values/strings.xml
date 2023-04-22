@@ -60,7 +60,7 @@
     <string name="prompt_info_description">Sample App is using Android biometric authentication</string>
     <string name="prompt_info_use_app_password">Use app password</string>
     <string name="continuee">Continue</string>
-    <string name="sacco_app">RideSacco</string>
+    <string name="sacco_app">Authenticate with your fingerprint</string>
     <string name="loan_statement">Statement</string>
     <string name="request_loan">Request Loan</string>
     <string name="pay_loan">Pay Loan</string>
@@ -81,5 +81,8 @@
     <string name="sign_in">Sign In</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_pin">ENTER PIN TO UNLOCK</string>
+    <string name="account">Account</string>
+    <string name="shop_header_text">We\'d like to show some more about our Sacco</string>
 
 </resources>

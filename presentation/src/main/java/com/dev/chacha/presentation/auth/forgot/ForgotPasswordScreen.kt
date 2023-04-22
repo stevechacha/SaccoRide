@@ -39,9 +39,8 @@ fun ForgotPasswordContent(
     Scaffold(
         topBar = {
             AppToolbar(
-                title = "Create Pin",
+                title = "Forgot Password",
                 showForwardArrow = true,
-                showBackArrow = true
             )
         }
     ) { paddingValues ->
@@ -50,7 +49,6 @@ fun ForgotPasswordContent(
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp, vertical = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AppOutlinedTextField(
                 value = email,
@@ -58,14 +56,12 @@ fun ForgotPasswordContent(
                 hint = stringResource(id = R.string.email_hint),
                 keyboardType = KeyboardType.Email
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(30.dp))
 
             ContinueButton(
                 text = stringResource(id = R.string.continuee),
                 onClick = onClick
             )
-            Spacer(modifier = Modifier.height(30.dp))
-
 
         }
     }
