@@ -1,8 +1,6 @@
 package com.dev.chacha.presentation.auth.register
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -91,7 +89,8 @@ fun RegisterContent(
             Spacer(modifier = Modifier.height(30.dp))
             ContinueButton(
                 onClick = { onClick() },
-                text = stringResource(id = R.string.continuee)
+                text = stringResource(id = R.string.continuee),
+                enable = email.isNotEmpty() && mobileNumber.isNotEmpty() && idNumber.isNotEmpty()
             )
 
             Spacer(modifier = Modifier.height(16.dp))

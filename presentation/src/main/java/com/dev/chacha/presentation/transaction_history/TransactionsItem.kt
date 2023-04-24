@@ -1,5 +1,7 @@
 package com.dev.chacha.presentation.transaction_history
 
+import com.dev.chacha.presentation.R
+
 
 data class TransactionsItem(
     val name: String,
@@ -13,77 +15,52 @@ data class TransactionsItem(
 
 val transactionsItem = listOf(
     TransactionsItem(
-        name = "John Doe",
-        contact = "0712345678",
-        amount = 1000.0,
-        date = "2021-09-09",
-        time = "12:00",
-        image = null,
-
-        ),
-    TransactionsItem(
-        name = "John Doe",
-        contact = "0712345678",
-        amount = 1000.0,
-        date = "2021-09-09",
-        time = "12:00",
-        image = null,
+        name = "Stephen Chacha",
+        contact = "0746656813",
+        amount = 68700.0,
+        date = "19 Apr",
+        time = "19:00 PM",
+        image = null
     ),
     TransactionsItem(
-        name = "John Doe",
-        contact = "0712345678",
-        amount = 1000.0,
-        date = "2021-09-09",
-        time = "12:00",
-        image = null,
+        name = "Mary Tenui",
+        contact = "0721657645",
+        amount = 10000.0,
+        date = "12 Apr",
+        time = "06:00 PM",
+        image = null
     ),
     TransactionsItem(
-        name = "John Doe",
-        contact = "0712345678",
-        amount = 1000.0,
-        date = "2021-09-09",
-        time = "12:00",
-        image = null,
+        name = "Dennis Mwangi",
+        contact = "0724873401",
+        amount = 50000.0,
+        date = "12 Apr",
+        time = "12:00 PM",
+        image = null
     ),
     TransactionsItem(
-        name = "John Doe",
-        contact = "0712345678",
+        name = "Nairobi Waters",
+        contact = "123456",
         amount = 1000.0,
-        date = "2021-09-09",
-        time = "12:00",
-        image = null,
+        date = "12 Apr",
+        time = "12:00 PM",
+        image = null
     ),
     TransactionsItem(
-        name = "John Doe",
-        contact = "0712345678",
+        name = "KCB MPESA",
+        contact = "780780",
         amount = 1000.0,
-        date = "2021-09-09",
-        time = "12:00",
-        image = null,
+        date = "24 Apr",
+        time = "12:00 PM",
+        image = R.drawable.ic_home
     ),
     TransactionsItem(
-        name = "John Doe",
-        contact = "0712345678",
+        name = "KCB MPESA",
+        contact = "780780",
         amount = 1000.0,
-        date = "2021-09-09",
-        time = "12:00",
-        image = null,
-    ),
-    TransactionsItem(
-        name = "John Doe",
-        contact = "0712345678",
-        amount = 1000.0,
-        date = "2021-09-09",
-        time = "12:00",
-        image = null,
-    ),
-    TransactionsItem(
-        name = "John Doe",
-        contact = "0712345678",
-        amount = 1000.0,
-        date = "2021-09-09",
-        time = "12:00",
-        image = null,
+        date = "24 Apr",
+        time = "12:00 PM",
+        image = R.drawable.ic_home
     ),
 )
 

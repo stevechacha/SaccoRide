@@ -1,6 +1,7 @@
 package com.dev.chacha.presentation.common.components
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -25,7 +26,7 @@ fun SubmitButton(
     )
     Button(
         onClick = onClickAction,
-        modifier = Modifier.padding(16.dp),
+        modifier = Modifier.fillMaxWidth().padding(16.dp),
         colors = submitButtonColor
     ) {
         Text(

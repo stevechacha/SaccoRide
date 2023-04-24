@@ -14,7 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.dev.chacha.presentation.R
-import com.dev.chacha.presentation.pychart.PieChart
+import com.dev.chacha.presentation.contacts.ContactList
+import com.dev.chacha.presentation.permissions.RequestPermissions
+import com.dev.chacha.presentation.piechart.PieChart
 
 @Composable
 fun WithdrawScreen() {
@@ -28,15 +30,10 @@ fun WithdrawScreen() {
             .padding(paddingValues),
             verticalArrangement = Arrangement.Center
         ) {
-            PieChart(
-                data = mapOf(
-                    Pair("Sample-1", 150),
-                    Pair("Sample-2", 120),
-                    Pair("Sample-3", 110),
-                    Pair("Sample-4", 170),
-                    Pair("Sample-5", 120),
-                )
-            )
+
+            RequestPermissions {
+
+            }
 
 
         }

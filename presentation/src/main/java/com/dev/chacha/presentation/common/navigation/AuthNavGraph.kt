@@ -101,13 +101,10 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
 
 
 sealed class AuthScreen(val route: String) {
-
     object Onboard : AuthScreen("onboard_route")
     object Welcome : AuthScreen("welcome")
     object Login : AuthScreen(route = "LOGIN")
-
     object PinLock : AuthScreen("PinLock")
-
     object Register : AuthScreen(route = "REGISTER")
     object Forgot : AuthScreen(route = "FORGOT")
     object CreatePassword : AuthScreen(route = "CREATE_ACCOUNT")

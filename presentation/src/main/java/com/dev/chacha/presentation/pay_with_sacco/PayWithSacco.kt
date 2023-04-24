@@ -20,15 +20,11 @@ import com.dev.chacha.presentation.paybill.PayBillScreen
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
 
-@Composable
-fun PayWithSacco() {
- PayWithSaccoContent()
 
-}
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun PayWithSaccoContent() {
+fun PayWithSacco() {
     val tabs = listOf(TabItem.BuyGoods, TabItem.PayBill)
     val pagerState = rememberPagerState()
     Scaffold(
@@ -36,7 +32,7 @@ fun PayWithSaccoContent() {
             TopAppBar(
                 title = {
                     Text(
-                        text = "Savings",
+                        text = "Lipa Na Sacco",
                         fontSize = 14.sp
                     )
                 },
@@ -45,7 +41,12 @@ fun PayWithSaccoContent() {
                 elevation = 0.dp,
                 navigationIcon = {
                     IconButton(onClick = { /*TODO*/ }) {
-                        Icons.Default.ArrowBack
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack ,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onBackground,
+                        )
+
                     }
                 }
             )
@@ -110,24 +111,9 @@ fun TabsContent(tabs: List<TabItem>, pagerState: PagerState) {
         tabs[page].screen()
     }
 }
-val payBills = PayBill(
-    name = "",
-    businessNumber = ""
-)
-val payBill = listOf(
-    PayBill(
-        name = "John Doe",
-        businessNumber = "0712345678",
-        image = R.drawable.home_icon,
-    ),
-    PayBill(
-        name = "John Doe",
-        businessNumber = "0712345678",
-        image = null,
-    )
-)
+
 typealias ComposableFun = @Composable () -> Unit
 sealed class TabItem( var title: String, var screen: ComposableFun) {
     object BuyGoods : TabItem( "BUY GOODS", { BuyGoodsScreen() })
-    object PayBill : TabItem( "PAYBILL", { PayBillScreen(onPayBillClick = {}, payBill = payBills) })
+    object PayBill : TabItem( "PAYBILL", { PayBillScreen(onPayBillClick = {}) })
 }

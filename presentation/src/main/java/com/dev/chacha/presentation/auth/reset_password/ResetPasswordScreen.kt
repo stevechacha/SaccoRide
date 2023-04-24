@@ -23,7 +23,7 @@ fun ResetPasswordScreen(
     onClickAction: () -> Unit
 ) {
     ResetPasswordContent(
-        viewModel = CreatePasswordViewModel(),
+        viewModel = ResetPasswordViewModel(),
         onClickAction = onClickAction
     )
 }
@@ -32,7 +32,7 @@ fun ResetPasswordScreen(
 @Composable
 fun ResetPasswordContent(
     onClickAction: () -> Unit,
-    viewModel: CreatePasswordViewModel
+    viewModel: ResetPasswordViewModel
 ) {
     val (currentPassword, setCurrentPassword) = rememberSaveable { mutableStateOf("") }
     val (newPassword, setNewPassword) = rememberSaveable { mutableStateOf("") }
@@ -97,7 +97,8 @@ fun ResetPasswordContent(
 
             ContinueButton(
                 text = stringResource(id = R.string.continuee),
-                onClick = onClickAction
+                onClick = onClickAction,
+                enable = currentPassword.isNotEmpty() && newPassword.isNotEmpty() && confirmNewPassword.isNotEmpty() && newPassword == confirmNewPassword
             )
 
 

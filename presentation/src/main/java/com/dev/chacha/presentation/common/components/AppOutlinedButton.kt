@@ -36,7 +36,7 @@ fun AppOutlinedButton(
         Text(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(5.dp),
             textAlign = TextAlign.Center,
             text = stringResource(id = text),
             style = MaterialTheme.typography.labelSmall

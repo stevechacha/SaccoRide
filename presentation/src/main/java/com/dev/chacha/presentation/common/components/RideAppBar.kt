@@ -17,7 +17,7 @@ import coil.request.ImageRequest
 import com.dev.chacha.presentation.R
 
 @Composable
-fun RideAppBAr(
+fun RideAppBar(
     modifier: Modifier = Modifier,
     userProfile: String
 ) {

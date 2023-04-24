@@ -2,23 +2,39 @@ package com.dev.chacha.presentation.buy_goods
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.geometry.Size
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
@@ -32,6 +48,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import coil.compose.AsyncImage
 import com.dev.chacha.presentation.R
+import com.dev.chacha.presentation.buy_goods.components.BuyGoodsDialog
 import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.components.RideOutlinedTextField
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
@@ -83,17 +100,22 @@ fun BuyGoods() {
 @Composable
 fun BuyGoodsScreen() {
     Column(
-        modifier = Modifier.fillMaxSize()
-            .padding(start = 16.dp, end = 16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var tillNumber by remember { mutableStateOf("") }
+        var tillNumber by rememberSaveable { mutableStateOf("") }
+        var tillName by rememberSaveable { mutableStateOf("") }
         val (amount, setAmount) = rememberSaveable { mutableStateOf("") }
 
-        var textfieldSize by remember { mutableStateOf(Size.Zero)}
+        var textfieldSize by remember { mutableStateOf(Size.Zero) }
 
         var expanded by remember { mutableStateOf(false) }
+
+        var showDialog by rememberSaveable { mutableStateOf(false) }
+
 
         val buyItems = listOf(
             BuyGoodItem(
@@ -108,6 +130,22 @@ fun BuyGoodsScreen() {
             ),
         )
 
+        if (showDialog) {
+            BuyGoodsDialog(
+                onDismiss = {
+                    showDialog = false
+                },
+                onClickSend = {
+                    // Perform the payment here using the payBill details...
+                },
+                bayGoods = BayGoods(
+                    tillName = tillName,
+                    tillNumber = tillNumber,
+                    amount = amount.toDouble()
+                )
+            )
+        }
+
         val icon = if (expanded)
             Icons.Filled.KeyboardArrowUp
         else
@@ -117,7 +155,7 @@ fun BuyGoodsScreen() {
             RideOutlinedTextField(
                 value = tillNumber,
                 onValueChange = {
-                    tillNumber =  it
+                    tillNumber = it
                 },
                 hint = stringResource(id = R.string.tillNumber),
                 keyboardType = KeyboardType.Phone,
@@ -129,14 +167,15 @@ fun BuyGoodsScreen() {
                     .fillMaxWidth()
                     .onGloballyPositioned { coordinates ->
                         textfieldSize = coordinates.size.toSize()
-                    }
+                    },
+                supportText = tillName
             )
 
             DropdownMenu(
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
                 modifier = Modifier
-                    .width(with(LocalDensity.current){textfieldSize.width.toDp()}),
+                    .width(with(LocalDensity.current) { textfieldSize.width.toDp() }),
             ) {
                 buyItems.forEach { item ->
                     DropdownMenuItem(
@@ -147,6 +186,7 @@ fun BuyGoodsScreen() {
                         text = { Text(text = item.name) },
                         onClick = {
                             tillNumber = item.contact
+                            tillName = item.name
                             expanded = false
                         },
                         leadingIcon = {
@@ -162,7 +202,8 @@ fun BuyGoodsScreen() {
 
                             } else {
                                 val names = item.name.split(" ")
-                                val initials = names[0].first().toString() + names[1].first().toString()
+                                val initials =
+                                    names[0].first().toString() + names[1].first().toString()
                                 Box(
                                     modifier = Modifier
                                         .size(40.dp)
@@ -178,11 +219,7 @@ fun BuyGoodsScreen() {
                                 }
                             }
 
-                        },
-                        trailingIcon = {
-                            Text("F11",
-                                textAlign = TextAlign.Center)
-                        },
+                        }
                     )
                 }
 
@@ -204,10 +241,11 @@ fun BuyGoodsScreen() {
 
         ContinueButton(
             text = stringResource(id = R.string.continuee),
-            onClick = {}
+            onClick = {
+                showDialog = true
+            },
+            enable = tillNumber.isNotEmpty() && amount.isNotEmpty() && amount.toInt() > 0 && amount.toInt() < 3000000 && tillNumber.length > 5
         )
-
-
 
     }
 

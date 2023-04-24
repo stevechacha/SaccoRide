@@ -49,7 +49,6 @@ class MainActivity : ComponentActivity(), BiometricChecker.AuthListener {
                     }
                     RootNavGraph(navController = navController)
 
-
                 }
             }
         }

@@ -9,121 +9,104 @@ import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
 
 // Set of Material typography styles to start with
-val Montserrat = FontFamily(
-    Font(R.font.montserrat_regular),
-    Font(R.font.montserrat_light, weight = FontWeight.Light),
-    Font(R.font.montserrat_semi_bold, weight = FontWeight.SemiBold),
-    Font(R.font.montserrat_bold, weight = FontWeight.Bold),
-    Font(R.font.montserrat_black, weight = FontWeight.Black),
-    Font(R.font.montserrat_extra_bold, weight = FontWeight.ExtraBold),
-
+val Brutalista = FontFamily(
+    Font(R.font.brutalista_regular, weight = FontWeight.Normal),
+    Font(R.font.brutalista_medium, weight = FontWeight.Medium),
+    Font(R.font.brutalista_bold, weight = FontWeight.Bold)
 )
 
 val AppTypography = Typography(
-    labelLarge = TextStyle(
-        fontFamily = Montserrat,
-        fontWeight = FontWeight.Medium,
-        letterSpacing = 0.10000000149011612.sp,
-        lineHeight = 20.sp,
-        fontSize = 14.sp
-    ),
-    labelMedium = TextStyle(
-        fontFamily = Montserrat,
-        fontWeight = FontWeight.Medium,
-        letterSpacing = 0.5.sp,
-        lineHeight = 16.sp,
-        fontSize = 12.sp
-    ),
-    labelSmall = TextStyle(
-        fontFamily = Montserrat,
-        fontWeight = FontWeight.Medium,
-        letterSpacing = 0.5.sp,
-        lineHeight = 16.sp,
-        fontSize = 11.sp
-    ),
-    bodyLarge = TextStyle(
-        fontFamily = Montserrat,
-        fontWeight = FontWeight.W400,
-        letterSpacing = 0.5.sp,
-        lineHeight = 24.sp,
-        fontSize = 16.sp
-    ),
-    bodyMedium = TextStyle(
-        fontFamily = Montserrat,
-        fontWeight = FontWeight.W400,
-        letterSpacing = 0.25.sp,
-        lineHeight = 20.sp,
-        fontSize = 14.sp
-    ),
-    bodySmall = TextStyle(
-        fontFamily = Montserrat,
-        fontWeight = FontWeight.W400,
-        letterSpacing = 0.4000000059604645.sp,
-        lineHeight = 16.sp,
-        fontSize = 12.sp
-    ),
-    headlineLarge = TextStyle(
-        fontFamily = Montserrat,
-        fontWeight = FontWeight.W400,
-        letterSpacing = 0.sp,
-        lineHeight = 40.sp,
-        fontSize = 32.sp
-    ),
-    headlineMedium = TextStyle(
-        fontFamily = Montserrat,
-        fontWeight = FontWeight.W400,
-        letterSpacing = 0.sp,
-        lineHeight = 36.sp,
-        fontSize = 28.sp
-    ),
-    headlineSmall = TextStyle(
-        fontFamily = Montserrat,
-        fontWeight = FontWeight.W400,
-        letterSpacing = 0.sp,
-        lineHeight = 32.sp,
-        fontSize = 24.sp
-    ),
     displayLarge = TextStyle(
-        fontFamily = Montserrat,
+        fontFamily = Brutalista,
         fontWeight = FontWeight.W400,
-        letterSpacing = (-0.25).sp,
+        fontSize = 57.sp,
         lineHeight = 64.sp,
-        fontSize = 57.sp
+        letterSpacing = (-0.25).sp
     ),
     displayMedium = TextStyle(
-        fontFamily = Montserrat,
+        fontFamily = Brutalista,
         fontWeight = FontWeight.W400,
-        letterSpacing = 0.sp,
-        lineHeight = 52.sp,
-        fontSize = 45.sp
+        fontSize = 45.sp,
+        lineHeight = 52.sp
     ),
     displaySmall = TextStyle(
-        fontFamily = Montserrat,
+        fontFamily = Brutalista,
         fontWeight = FontWeight.W400,
-        letterSpacing = 0.sp,
-        lineHeight = 44.sp,
-        fontSize = 36.sp
+        fontSize = 36.sp,
+        lineHeight = 44.sp
+    ),
+    headlineLarge = TextStyle(
+        fontFamily = Brutalista,
+        fontWeight = FontWeight.W400,
+        fontSize = 32.sp,
+        lineHeight = 40.sp
+    ),
+    headlineMedium = TextStyle(
+        fontFamily = Brutalista,
+        fontWeight = FontWeight.W400,
+        fontSize = 28.sp,
+        lineHeight = 36.sp
+    ),
+    headlineSmall = TextStyle(
+        fontFamily = Brutalista,
+        fontWeight = FontWeight.W400,
+        fontSize = 20.sp,
+        lineHeight = 30.sp
     ),
     titleLarge = TextStyle(
-        fontFamily = Montserrat,
-        fontWeight = FontWeight.W400,
-        letterSpacing = 0.sp,
-        lineHeight = 28.sp,
-        fontSize = 22.sp
+        fontFamily = Brutalista,
+        fontWeight = FontWeight.W700,
+        fontSize = 22.sp,
+        lineHeight = 28.sp
     ),
     titleMedium = TextStyle(
-
-        fontFamily = Montserrat,
-        fontWeight = FontWeight.Medium,
-        letterSpacing = 0.15000000596046448.sp,
+        fontFamily = Brutalista,
+        fontWeight = FontWeight.W700,
+        fontSize = 16.sp,
         lineHeight = 24.sp,
-        fontSize = 16.sp
+        letterSpacing = 0.1.sp
     ),
     titleSmall = TextStyle(
-        fontFamily = Montserrat,
-        fontWeight = FontWeight.Medium,
-        letterSpacing = 0.10000000149011612.sp,
+        fontFamily = Brutalista,
+        fontWeight = FontWeight.W500,
+        fontSize = 14.sp,
         lineHeight = 20.sp,
-        fontSize = 14.sp
+        letterSpacing = 0.1.sp
     ),
+    bodyLarge = TextStyle(
+        fontFamily = Brutalista,
+        fontWeight = FontWeight.W400,
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    ),
+    bodyMedium = TextStyle(
+        fontFamily = Brutalista,
+        fontWeight = FontWeight.W400,
+        fontSize = 14.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.25.sp
+    ),
+    bodySmall = TextStyle(
+        fontFamily = Brutalista,
+        fontWeight = FontWeight.Normal
+
+    ),
+    labelLarge = TextStyle(
+        fontFamily = Brutalista,
+        fontWeight = FontWeight.W400,
+        fontSize = 14.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.1.sp
+    ),
+    labelMedium = TextStyle(
+        fontFamily = Brutalista,
+        fontWeight = FontWeight.W400,
+        fontSize = 12.sp,
+    ),
+    labelSmall = TextStyle(
+        fontFamily = Brutalista,
+        fontWeight = FontWeight.Normal,
+        fontSize = 15.sp
+    )
 )

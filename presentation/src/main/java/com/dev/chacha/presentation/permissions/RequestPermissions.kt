@@ -50,7 +50,6 @@ fun RequestPermissions(
     )
     val context = LocalContext.current
 
-
     val lifecycleOwner = LocalLifecycleOwner.current
     DisposableEffect(
         key1 = lifecycleOwner,
@@ -66,7 +65,6 @@ fun RequestPermissions(
             }
         }
     )
-
 
     Column(
         modifier = Modifier.fillMaxSize(),

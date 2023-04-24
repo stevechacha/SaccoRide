@@ -78,14 +78,14 @@ fun PagerScreen(onBoardingPage: OnBoardingPage) {
         Image(
             modifier = Modifier
                 .fillMaxWidth(0.9f)
-                .fillMaxHeight(0.76f),
+                .fillMaxHeight(0.73f),
             painter = painterResource(id = onBoardingPage.image),
             contentDescription = "Image"
         )
         Text(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 24.dp),
+                .padding(horizontal = 30.dp),
             text = onBoardingPage.title,
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,

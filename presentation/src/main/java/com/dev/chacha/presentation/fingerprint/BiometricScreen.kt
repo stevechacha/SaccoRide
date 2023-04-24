@@ -38,7 +38,6 @@ fun BiometricScreen(navController: NavController) {
             .padding(16.dp)
     ) {
         // Display biometric authentication message
-
         Text(text = "Please authenticate with biometrics.")
 
         // Authenticate the user

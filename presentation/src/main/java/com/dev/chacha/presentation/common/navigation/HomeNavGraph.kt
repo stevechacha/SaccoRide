@@ -15,17 +15,13 @@ import com.dev.chacha.presentation.transaction.TransactionScreen
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.buy_artime.BuyAirtimeScreen
 import com.dev.chacha.presentation.buy_goods.BuyGoods
-import com.dev.chacha.presentation.buy_goods.BuyGoodsScreen
-import com.dev.chacha.presentation.deposit.DepositScreen
 import com.dev.chacha.presentation.home.HomeScreen
 import com.dev.chacha.presentation.information.Information
 import com.dev.chacha.presentation.markets.MarketScreen
 import com.dev.chacha.presentation.overview.Overview
 import com.dev.chacha.presentation.pay_with_sacco.PayWithSacco
-import com.dev.chacha.presentation.pay_with_sacco.payBills
-import com.dev.chacha.presentation.paybill.PayBillItem
-import com.dev.chacha.presentation.paybill.PayBillScreen
-import com.dev.chacha.presentation.pin.PinLockScreen
+import com.dev.chacha.presentation.paybill.PayBills
+import com.dev.chacha.presentation.baybill.BillScreen
 import com.dev.chacha.presentation.savings.SavingsScreen
 import com.dev.chacha.presentation.send_money.SendMoneyScreen
 import com.dev.chacha.presentation.withdraw.WithdrawScreen
@@ -55,19 +51,27 @@ fun HomeNavGraph(
                 onSendMoneyClicked = { navController.navigate(HomeAction.SendMoney.route) },
                 onBuyAirtimeClicked = { navController.navigate(HomeAction.BuyAirtime.route) },
                 onBuyGoodsClicked = { navController.navigate(HomeAction.BuyGoods.route) },
-                onPayBillClicked = { navController.navigate(HomeAction.PayWithSacco.route) },
+                onPayBillClicked = { navController.navigate(HomeAction.PayBill.route) },
                 onWithdrawClicked = { navController.navigate(HomeAction.Withdraw.route) },
                 onDepositClicked = { navController.navigate(HomeAction.Deposit.route) },
                 onLoanClicked = {  navController.navigate(HomeAction.Loan.route) },
                 onMarketClicked = { navController.navigate(BottomBarScreen.OurMarket.route) },
-                onSavingsClicked = { navController.navigate(HomeAction.Savings.route) },
+                onSavingsClicked = { navController.navigate(HomeAction.BillScreen.route) },
         )
 
         }
         composable(BottomBarScreen.Transaction.route){
             showBottomBar(true)
             TransactionScreen(
-                onClickAction = {}
+                onSendMoneyClicked = { navController.navigate(HomeAction.SendMoney.route) },
+                onBuyAirtimeClicked = { navController.navigate(HomeAction.BuyAirtime.route) },
+                onBuyGoodsClicked = { navController.navigate(HomeAction.BuyGoods.route) },
+                onPayBillClicked = { navController.navigate(HomeAction.PayBill.route) },
+                onWithdrawClicked = { navController.navigate(HomeAction.Withdraw.route) },
+                onDepositClicked = { navController.navigate(HomeAction.Deposit.route) },
+                onLoanClicked = {  navController.navigate(HomeAction.Loan.route) },
+                onMarketClicked = { navController.navigate(BottomBarScreen.OurMarket.route) },
+                onSavingsClicked = { navController.navigate(HomeAction.BillScreen.route) },
             )
 
         }
@@ -85,7 +89,9 @@ fun HomeNavGraph(
 
         composable(BottomBarScreen.Account.route){
             showBottomBar(true)
-            AccountScreen()
+            AccountScreen(
+                navigateBack = { navController.navigateUp() }
+            )
 
         }
 
@@ -109,20 +115,28 @@ fun HomeNavGraph(
         }
         composable(HomeAction.Deposit.route){
             showBottomBar(false)
-            DepositScreen()
+            BillScreen(
+                navigateBack = {navController.navigateUp()},
+            )
         }
 
-        composable(HomeAction.PayWithSacco.route){
+        composable(HomeAction.PayBill.route){
             showBottomBar(false)
-            PayBillScreen(
-                payBill = payBills ,
-                onPayBillClick = {}
-            )
+            PayBills()
         }
         composable(HomeAction.Savings.route){
             showBottomBar(false)
             SavingsScreen()
         }
+
+        composable(HomeAction.BillScreen.route){
+            showBottomBar(false)
+            PayWithSacco()
+           /* BillScreen(
+                navigateBack = {navController.navigateUp()},
+            )*/
+        }
+
 
         detailsNavGraph(navController = navController)
 
@@ -165,17 +179,18 @@ sealed class HomeAction(val route: String) {
     object Withdraw : HomeAction(route = "Withdraw")
     object Deposit: HomeAction(route = "deposit")
     object Loan: HomeAction("Loan")
+    object BillScreen: HomeAction("BillScreen")
 }
 
 
 sealed class BottomBarScreen(val route: String, @DrawableRes val icon: Int, val title: String){
 
     object PinLock: BottomBarScreen("pinlock",R.drawable.about_icon,"PInlock")
-    object Home: BottomBarScreen("home", R.drawable.ic_home, "Home")
-    object Transaction: BottomBarScreen("transact",R.drawable.sessions_icon,"Transact")
-    object OurMarket: BottomBarScreen("market",R.drawable.about_icon,"Market")
-    object Loan: BottomBarScreen("loan",R.drawable.sessions_icon,"Loan")
-    object Account: BottomBarScreen("account",R.drawable.about_icon,"Account")
+    object Home: BottomBarScreen("home", R.drawable.home, "Home")
+    object Transaction: BottomBarScreen("transact",R.drawable.sync_alt_icon,"Transact")
+    object OurMarket: BottomBarScreen("market",R.drawable.psychiatry,"Market")
+    object Loan: BottomBarScreen("loan",R.drawable.loan_icon,"Loan")
+    object Account: BottomBarScreen("account",R.drawable.account_circle,"Account")
 }
 
 val bottomNavigationItems = listOf(

@@ -13,6 +13,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -82,12 +83,15 @@ fun WelcomeContent(
                             .padding(start = 8.dp, end = 24.dp),
                         color = MaterialTheme.colorScheme.onPrimary,
                         fontSize = 24.sp,
-                        text = "Make your Savings enjoyable with us"
+                        text = "Make your Savings enjoyable with us",
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 1
                     )
                     Spacer(modifier = Modifier.height(32.dp))
                     ContinueButton(
                         text =  stringResource(id = R.string.sign_in),
-                        onClick = onLogin
+                        onClick = onLogin,
+                        enable = true
                     )
 
                     Spacer(modifier = Modifier.height(24.dp))

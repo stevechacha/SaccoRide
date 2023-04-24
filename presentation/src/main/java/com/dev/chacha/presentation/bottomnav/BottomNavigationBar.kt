@@ -21,6 +21,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.dev.chacha.presentation.common.navigation.BottomBarScreen
 import com.dev.chacha.presentation.common.navigation.bottomNavigationItems
+import com.dev.chacha.presentation.common.theme.Brutalista
 import com.dev.chacha.presentation.common.theme.PrimaryColor
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 
@@ -61,13 +62,10 @@ fun BottomNavigationBar(navController: NavHostController) {
                         } else {
                             MaterialTheme.colorScheme.onSurfaceVariant
                         },
-                        fontWeight = if (currentDestination?.route == destination.route) {
-                            FontWeight.Bold
-                        } else {
-                            FontWeight.Medium
-                        },
-                        fontSize = 9.sp,
-                        overflow = TextOverflow.Ellipsis
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 12.sp,
+                        overflow = TextOverflow.Ellipsis,
+                        fontFamily = Brutalista
 
                     )
                 },

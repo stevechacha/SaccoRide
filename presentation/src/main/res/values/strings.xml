@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">SaccoRide</string>
+
     <string name="password_visible_content_description">Hide password</string>
     <string name="password_hidden_content_description">Show password</string>
     <string name="password">Password</string>
@@ -41,19 +43,19 @@
     <string name="terms_of_service">Terms</string>
     <string name="night_light">Night</string>
     <string name="phoneNumber">Phone Number</string>
-    <string name="buy_airtime">BUY AIRTIME</string>
+    <string name="buy_airtime">Buy Airtime</string>
     <string name="tillNumber">Till Number</string>
     <string name="businessNumber">Business Number</string>
     <string name="sendMoney">Send Money</string>
-    <string name="deposit">DEPOSIT</string>
-    <string name="withdraw">WITHDRAW</string>
-    <string name="paybill">PAY BILL</string>
-    <string name="buygoods">BUY GOODS</string>
-    <string name="buy_goods">BUY GOODS</string>
-    <string name="send_money">SEND MONEY</string>
-    <string name="savings">SAVINGS</string>
-    <string name="our_market">MARKET</string>
-    <string name="loan">LOAN</string>
+    <string name="deposit">Deposit</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="paybill">Pay Bill</string>
+    <string name="buygoods">Buy Goods</string>
+    <string name="buy_goods">Buy Goods</string>
+    <string name="send_money">Send Money</string>
+    <string name="savings">Savings</string>
+    <string name="our_market">Market</string>
+    <string name="loan">Loan</string>
 
     <string name="prompt_info_title">Sample App Authentication \n</string>
     <string name="prompt_info_subtitle">Please login to get access</string>
@@ -84,5 +86,6 @@
     <string name="enter_pin">ENTER PIN TO UNLOCK</string>
     <string name="account">Account</string>
     <string name="shop_header_text">We\'d like to show some more about our Sacco</string>
+    <string name="amount_support_text">Minimum amount is Ksh 1</string>
 
 </resources>

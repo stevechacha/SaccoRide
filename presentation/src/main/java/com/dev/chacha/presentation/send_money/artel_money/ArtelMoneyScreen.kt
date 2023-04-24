@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
+import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.components.RideOutlinedTextField
 
 @Composable
@@ -48,23 +49,18 @@ fun ArtelMoneyScreen() {
             },
             keyboardType = KeyboardType.Phone,
             hint = stringResource(id = R.string.amount),
+            supportText = stringResource(id = R.string.amount_support_text),
 
             )
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Button(
-            onClick = { /*TODO*/ },
-            colors = ButtonDefaults.buttonColors(
-                contentColor = Color.White
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
+        ContinueButton(
+            text = stringResource(id = R.string.continuee),
+            onClick = {},
+            enable = mobileNumber.isNotEmpty() && amount.isNotEmpty()
 
-
-        ) {
-            Text(text = "Continue")
-        }
+        )
 
 
     }

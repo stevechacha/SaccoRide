@@ -10,8 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.dev.chacha.presentation.common.theme.SaccoRideTheme
-
+import com.dev.chacha.presentation.transaction_history.components.TransHistoryItem
 
 
 @Composable
@@ -40,7 +39,7 @@ fun TransactionsHistory(
 }
 
 @Composable
-@Preview
+@Preview(showBackground = true)
 fun TransHistory() {
     Column {
         LazyColumn {

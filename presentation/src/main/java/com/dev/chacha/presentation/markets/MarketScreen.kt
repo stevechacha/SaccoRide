@@ -1,5 +1,6 @@
 package com.dev.chacha.presentation.markets
 
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,8 +13,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Surface
@@ -32,12 +31,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
+import com.dev.chacha.presentation.markets.components.MarketTopBar
+import com.dev.chacha.presentation.markets.components.ShopCard
+
 
 @Composable
 fun MarketScreen() {
     Scaffold(
         topBar = {
-            MarketTopBar()
+           MarketTopBar()
         },
     ) { paddingValues ->
 
@@ -47,7 +49,7 @@ fun MarketScreen() {
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp, vertical = 16.dp)
         ) {
-            LazyColumn(){
+            LazyColumn {
                 item {
                     Text(
                         text = stringResource(id = R.string.shop_header_text),
@@ -61,7 +63,6 @@ fun MarketScreen() {
 
             }
             Spacer(modifier = Modifier.height(16.dp))
-
 
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
@@ -114,58 +115,6 @@ fun MarketScreen() {
                         onClickCard = {}
                     )
                 }
-                item {
-                    ShopCard(
-                        drawable = R.drawable.home_icon,
-                        title = R.string.electronics,
-                        subTitle = R.string.electronics,
-                        onClickCard = {}
-                    )
-                }
-
-                item {
-                    ShopCard(
-                        drawable = R.drawable.home_icon,
-                        title = R.string.electronics,
-                        subTitle = R.string.electronics,
-                        onClickCard = {}
-                    )
-                }
-
-                item {
-                    ShopCard(
-                        drawable = R.drawable.home_icon,
-                        title = R.string.electronics,
-                        subTitle = R.string.electronics,
-                        onClickCard = {}
-                    )
-                }
-
-                item {
-                    ShopCard(
-                        drawable = R.drawable.home_icon,
-                        title = R.string.electronics,
-                        subTitle = R.string.electronics,
-                        onClickCard = {}
-                    )
-                }
-                item {
-                    ShopCard(
-                        drawable = R.drawable.home_icon,
-                        title = R.string.electronics,
-                        subTitle = R.string.electronics,
-                        onClickCard = {}
-                    )
-                }
-
-                item {
-                    ShopCard(
-                        drawable = R.drawable.home_icon,
-                        title = R.string.electronics,
-                        subTitle = R.string.electronics,
-                        onClickCard = {}
-                    )
-                }
 
                 item {
                     ShopCard(
@@ -178,155 +127,10 @@ fun MarketScreen() {
 
             }
 
-        }
-
-    }
-
-}
-
-@Composable
-fun MarketTopBar() {
-    TopAppBar(
-        title = {
-            Text(
-                text = "Market",
-                style = MaterialTheme.typography.labelSmall
-            )
-        },
-        modifier = Modifier.fillMaxWidth(),
-        navigationIcon = {
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = Icons.Default.Menu,
-                    contentDescription = null
-                )
-            }
-        },
-        actions = {
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = Icons.Default.Menu,
-                    contentDescription = null
-                )
-            }
-        },
-        backgroundColor = MaterialTheme.colorScheme.background,
-        contentColor = MaterialTheme.colorScheme.onBackground,
-    )
-}
-
-@Composable
-fun ShopContent() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-        ) {
-            Text(
-                text = "Shop for",
-                style = MaterialTheme.typography.labelSmall
-            )
-            Text(
-                text = "See All",
-                style = MaterialTheme.typography.labelSmall
-
-            )
-        }
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            ShopTextImage(
-                text = R.string.electronics,
-                drawable = R.drawable.home_icon,
-                onItemClick = {}
-            )
-            ShopTextImage(
-                text = R.string.electronics,
-                drawable = R.drawable.home_icon,
-                onItemClick = {}
-            )
-            ShopTextImage(
-                text = R.string.electronics,
-                drawable = R.drawable.home_icon,
-                onItemClick = {}
-            )
-            ShopTextImage(
-                text = R.string.electronics,
-                drawable = R.drawable.home_icon,
-                onItemClick = {}
-            )
-        }
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            ShopTextImage(
-                text = R.string.electronics,
-                drawable = R.drawable.home_icon,
-                onItemClick = {}
-            )
-            ShopTextImage(
-                text = R.string.electronics,
-                drawable = R.drawable.home_icon,
-                onItemClick = {}
-            )
-            ShopTextImage(
-                text = R.string.electronics,
-                drawable = R.drawable.home_icon,
-                onItemClick = {}
-            )
-            ShopTextImage(
-                text = R.string.electronics,
-                drawable = R.drawable.home_icon,
-                onItemClick = {}
-            )
-        }
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            ShopTextImage(
-                text = R.string.electronics,
-                drawable = R.drawable.home_icon,
-                onItemClick = {}
-            )
-            ShopTextImage(
-                text = R.string.electronics,
-                drawable = R.drawable.home_icon,
-                onItemClick = {}
-            )
-            ShopTextImage(
-                text = R.string.electronics,
-                drawable = R.drawable.home_icon,
-                onItemClick = {}
-            )
-            ShopTextImage(
-                text = R.string.electronics,
-                drawable = R.drawable.home_icon,
-                onItemClick = {}
-            )
         }
     }
-
 }
+
 
 @Composable
 @Preview

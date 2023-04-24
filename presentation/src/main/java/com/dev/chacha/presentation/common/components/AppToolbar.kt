@@ -58,7 +58,6 @@ fun AppToolbar(
        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
            containerColor = MaterialTheme.colorScheme.background,
 
-
        )
     )
 }

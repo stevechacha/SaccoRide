@@ -5,7 +5,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -24,7 +23,7 @@ fun ResetPinScreen(
     onClickAction: () -> Unit
 ) {
     ResetPinContent(
-        viewModel = CreatePasswordViewModel(),
+        viewModel = ResetPinViewModel(),
         onClickAction = onClickAction
     )
 }
@@ -33,7 +32,7 @@ fun ResetPinScreen(
 @Composable
 fun ResetPinContent(
     onClickAction: () -> Unit,
-    viewModel: CreatePasswordViewModel
+    viewModel: ResetPinViewModel
 ) {
     val (pin, setPin) = rememberSaveable { mutableStateOf("") }
     val (newPin, setNewPin) = rememberSaveable { mutableStateOf("") }
@@ -63,7 +62,6 @@ fun ResetPinContent(
                 onValueChange = { setPin(it) },
                 hint = stringResource(id = R.string.current_pin),
                 keyboardType = KeyboardType.NumberPassword,
-                error = viewModel.passwordError.value,
                 isPasswordVisible = viewModel.showPassword.value,
                 onPasswordToggleClick = {
                     viewModel.setShowPassword(it)
@@ -75,7 +73,6 @@ fun ResetPinContent(
                 onValueChange = { setNewPin(it) },
                 keyboardType = KeyboardType.NumberPassword,
                 hint = stringResource(id = R.string.new_pin),
-                error = viewModel.passwordError.value,
                 isPasswordVisible = viewModel.showPassword.value,
                 onPasswordToggleClick = {
                     viewModel.setShowPassword(it)
@@ -88,7 +85,6 @@ fun ResetPinContent(
                 onValueChange = { setConfirmNewPin(it) },
                 keyboardType = KeyboardType.NumberPassword,
                 hint = stringResource(id = R.string.confirmNewPin),
-                error = viewModel.passwordError.value,
                 isPasswordVisible = viewModel.showConfirmPassword.value,
                 onPasswordToggleClick = {
                     viewModel.setShowConfirmPassword(it)
@@ -99,7 +95,8 @@ fun ResetPinContent(
 
             ContinueButton(
                 text = stringResource(id = R.string.continuee),
-                onClick = onClickAction
+                onClick = onClickAction,
+                enable = pin.isNotEmpty() && newPin.isNotEmpty() && confirmNewPin.isNotEmpty() && newPin == confirmNewPin
             )
 
 

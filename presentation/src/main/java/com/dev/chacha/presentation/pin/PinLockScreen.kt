@@ -47,13 +47,13 @@ import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.activity.MainActivity
 import com.dev.chacha.presentation.common.navigation.AuthScreen
 import com.dev.chacha.presentation.common.navigation.Graph
+import com.dev.chacha.presentation.common.theme.Brutalista
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
-import com.dev.chacha.presentation.common.util.MontserratSemiBold
 import com.dev.chacha.presentation.fingerprint.BiometricChecker
 import kotlinx.coroutines.delay
 
 const val pinSize = 4
-const val password = "5491" //sample password
+var password = "5491" //sample password
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
@@ -181,7 +181,8 @@ fun PinLockScreen(
                             Text(
                                 text = it.toString(),
                                 fontSize = 22.sp,
-                                fontFamily = MontserratSemiBold,
+                                fontFamily = Brutalista,
+                                fontWeight = FontWeight.Bold
                             )
                         }
                     }
@@ -198,7 +199,8 @@ fun PinLockScreen(
                             Text(
                                 text = it.toString(),
                                 fontSize = 22.sp,
-                                fontFamily = MontserratSemiBold,
+                                fontFamily = Brutalista,
+                                fontWeight = FontWeight.Bold
 
                             )
                         }
@@ -216,7 +218,8 @@ fun PinLockScreen(
                             Text(
                                 text = it.toString(),
                                 fontSize = 22.sp,
-                                fontFamily = MontserratSemiBold,
+                                fontFamily = Brutalista,
+                                fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(4.dp),
                             )
                         }
@@ -246,7 +249,8 @@ fun PinLockScreen(
                             text = "0",
                             modifier = Modifier.padding(4.dp),
                             fontSize = 22.sp,
-                            fontFamily = MontserratSemiBold,
+                            fontFamily = Brutalista,
+                            fontWeight = FontWeight.Bold
 
                         )
                     }
@@ -286,7 +290,6 @@ fun PinLockScreen(
             }
         }
 //        BiometricChecker(context as MainActivity,navController,context as MainActivity).authenticate()
-
 
     }
 }

@@ -1,4 +1,4 @@
-package com.dev.chacha.vunatec.core.presentation.util
+package com.dev.chacha.presentation.common.util
 
 object TestTags {
 

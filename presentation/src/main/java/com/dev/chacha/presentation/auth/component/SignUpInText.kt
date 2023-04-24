@@ -33,7 +33,7 @@ fun SignUpInText(
     ){
         Text(
             text = stringResource(id = text),
-            style = MaterialTheme.typography.labelMedium
+            style = MaterialTheme.typography.bodyMedium
 
         )
         Text(
@@ -41,7 +41,7 @@ fun SignUpInText(
             textDecoration = TextDecoration.Underline,
             modifier = Modifier.clickable(onClick = onClick),
             color = PrimaryColor,
-            style = MaterialTheme.typography.labelMedium
+            style = MaterialTheme.typography.bodyMedium
         )
 
     }

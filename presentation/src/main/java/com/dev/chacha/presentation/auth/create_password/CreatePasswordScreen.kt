@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -18,6 +20,7 @@ import com.dev.chacha.presentation.common.components.AppOutlinedTextField
 import com.dev.chacha.presentation.common.components.AppToolbar
 import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
 @Composable
@@ -31,7 +34,7 @@ fun CreatePasswordScreen(
 
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalCoroutinesApi::class)
 @Composable
 fun CreatePasswordContent(
     onClickAction: () -> Unit,
@@ -39,6 +42,8 @@ fun CreatePasswordContent(
 ) {
     val (password, setPassword) = rememberSaveable { mutableStateOf("") }
     val (confirmPassword, setConfirmPassword) = rememberSaveable { mutableStateOf("") }
+    val passwordError by viewModel.passwordError.collectAsState()
+
     Scaffold(
         topBar = {
             AppToolbar(
@@ -59,23 +64,22 @@ fun CreatePasswordContent(
             )
             Spacer(modifier = Modifier.height(20.dp))
             AppOutlinedTextField(
-                value = password,
-                onValueChange = { setPassword(it) },
+                value = viewModel.password,
+                onValueChange = viewModel::changePassword,
                 keyboardType = KeyboardType.Password,
                 hint = stringResource(id = R.string.password),
-                error = viewModel.passwordError.value,
                 isPasswordVisible = viewModel.showPassword.value,
                 onPasswordToggleClick = {
                     viewModel.setShowPassword(it)
-                }
+                },
+
             )
             Spacer(modifier = Modifier.height(16.dp))
             AppOutlinedTextField(
-                value = password,
+                value = confirmPassword,
                 onValueChange = { setConfirmPassword(it) },
                 keyboardType = KeyboardType.Password,
                 hint = stringResource(id = R.string.confirmPassword),
-                error = viewModel.passwordError.value,
                 isPasswordVisible = viewModel.showConfirmPassword.value,
                 onPasswordToggleClick = {
                     viewModel.setShowConfirmPassword(it)
@@ -84,7 +88,8 @@ fun CreatePasswordContent(
             Spacer(modifier = Modifier.height(30.dp))
             ContinueButton(
                 text = stringResource(id = R.string.continuee),
-                onClick = onClickAction
+                onClick = onClickAction,
+                enable = password.isNotEmpty() && confirmPassword.isNotEmpty() && password == confirmPassword
             )
         }
     }

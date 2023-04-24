@@ -30,7 +30,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.dev.chacha.presentation.R
-import com.dev.chacha.vunatec.core.presentation.util.TestTags
+import com.dev.chacha.presentation.common.util.TestTags
 
 
 @Composable
@@ -68,16 +68,10 @@ fun AppOutlinedTextField(
                 Text(
                     text = hint,
                     textAlign = TextAlign.Start,
-                    style = MaterialTheme.typography.labelSmall
-
                 )
             },
             label = {
-                Text(
-                    text = hint,
-                    style = MaterialTheme.typography.labelSmall
-
-                )
+                Text(text = hint)
             },
             isError = error != "",
             keyboardOptions = KeyboardOptions(
@@ -104,8 +98,8 @@ fun AppOutlinedTextField(
                     IconButton(onClick = {
                         onPasswordToggleClick(!isPasswordVisible)
                     }, modifier = Modifier.semantics {
-                            testTag = TestTags.PASSWORD_TOGGLE
-                        }) {
+                        testTag = TestTags.PASSWORD_TOGGLE
+                    }) {
                         Icon(
                             imageVector = if (isPasswordVisible) {
                                 Icons.Filled.VisibilityOff
@@ -131,13 +125,13 @@ fun AppOutlinedTextField(
             colors = textFieldColors,
 
 
-        )
+            )
         if (error.isNotEmpty()) {
             Text(
                 text = error,
-                textAlign = TextAlign.End,
-                modifier = Modifier.fillMaxWidth(),
-                style = MaterialTheme.typography.labelSmall
+
+                textAlign = TextAlign.End, modifier = Modifier.fillMaxWidth()
+
             )
 
         }

@@ -29,7 +29,7 @@ fun MpesaScreen() {
             },
             keyboardType = KeyboardType.Phone,
             hint = stringResource(id = R.string.phoneNumber),
-
+            error = if (amount.isNotEmpty() && mobileNumber.isEmpty()) "Please enter phone number" else ""
             )
         Spacer(modifier = Modifier.height(12.dp))
 
@@ -40,14 +40,15 @@ fun MpesaScreen() {
             },
             keyboardType = KeyboardType.Phone,
             hint = stringResource(id = R.string.amount),
-
+            supportText = stringResource(id = R.string.amount_support_text),
             )
 
         Spacer(modifier = Modifier.height(20.dp))
 
         ContinueButton(
             text = stringResource(id = R.string.continuee),
-            onClick = {}
+            onClick = {},
+            enable = mobileNumber.isNotBlank() && amount.isNotBlank()
         )
 
 

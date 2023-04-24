@@ -46,6 +46,7 @@ fun Telkom() {
             },
             keyboardType = KeyboardType.Phone,
             hint = stringResource(id = R.string.amount),
+            supportText = stringResource(id = R.string.amount_support_text),
 
             )
 
@@ -53,7 +54,9 @@ fun Telkom() {
 
         ContinueButton(
             text = stringResource(id = R.string.continuee),
-            onClick = {}
+            onClick = {},
+            enable = mobileNumber.isNotEmpty() && amount.isNotEmpty()
+
         )
 
 

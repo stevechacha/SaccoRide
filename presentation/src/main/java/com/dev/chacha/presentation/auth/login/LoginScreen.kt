@@ -2,16 +2,12 @@ package com.dev.chacha.presentation.auth.login
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -71,6 +67,7 @@ fun LoginContent(
                         )
                     }
                 }
+
                 is LoginUiEvents.NavigateEvent -> {
                     event.route
                     onClick()
@@ -89,7 +86,7 @@ fun LoginContent(
     Scaffold(
         topBar = {
             AppToolbar(
-                title = "Login",
+                title = " ",
             )
         },
     ) { paddingValues ->
@@ -148,7 +145,7 @@ fun LoginContent(
                     viewModel.setShowPassword(it)
                 },
 
-            )
+                )
             if (passwordState.error != "") {
                 Text(
                     text = passwordState.error,
@@ -175,9 +172,9 @@ fun LoginContent(
 
             ContinueButton(
                 text = stringResource(id = R.string.continuee),
-                onClick = onClick
+                onClick = onClick,
+                enable = usernameState.text.isNotEmpty() && passwordState.text.isNotEmpty() && !loginState.isLoading
             )
-
 
             Spacer(modifier = Modifier.height(16.dp))
 

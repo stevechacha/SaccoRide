@@ -6,28 +6,21 @@ import androidx.compose.material.TabRow
 import androidx.compose.material.TopAppBar
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
-import com.dev.chacha.presentation.buy_goods.BuyGoodsScreen
-import com.dev.chacha.presentation.common.components.RideOutlinedTextField
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
-import com.dev.chacha.presentation.paybill.PayBillScreen
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun BuyAirtimeScreen() {
-    val tabs = listOf(BuyAirtimeTabItem.Safaricom, BuyAirtimeTabItem.Telkom, BuyAirtimeTabItem.Artel)
+    val tabs =
+        listOf(BuyAirtimeTabItem.Safaricom, BuyAirtimeTabItem.Telkom, BuyAirtimeTabItem.Artel)
     val pagerState = rememberPagerState()
     Scaffold(
         topBar = {
@@ -61,7 +54,6 @@ fun BuyAirtimeScreen() {
 @Composable
 fun BuyAirtimeTabs(tabs: List<BuyAirtimeTabItem>, pagerState: PagerState) {
     val coroutineScope = rememberCoroutineScope()
-
     TabRow(
 
         selectedTabIndex = pagerState.currentPage,
@@ -110,10 +102,11 @@ fun BuyAirtimeTabsContent(tabs: List<BuyAirtimeTabItem>, pagerState: PagerState)
 }
 
 typealias ComposableFun = @Composable () -> Unit
-sealed class BuyAirtimeTabItem( var title: String, var screen: ComposableFun) {
-    object Safaricom : BuyAirtimeTabItem( "SAFARICOM", { Safaricom() })
-    object Telkom : BuyAirtimeTabItem( "TELKOM", { Telkom() })
-    object Artel : BuyAirtimeTabItem( "AIRTEL", { Artel() })
+
+sealed class BuyAirtimeTabItem(var title: String, var screen: ComposableFun) {
+    object Safaricom : BuyAirtimeTabItem("SAFARICOM", { Safaricom() })
+    object Telkom : BuyAirtimeTabItem("TELKOM", { Telkom() })
+    object Artel : BuyAirtimeTabItem("AIRTEL", { Artel() })
 }
 
 @Composable

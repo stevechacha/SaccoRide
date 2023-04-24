@@ -26,7 +26,6 @@ import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.flowlayout.MainAxisAlignment
 import com.google.accompanist.flowlayout.SizeMode
 import com.dev.chacha.presentation.R
-import com.dev.chacha.presentation.common.util.MontserratBold
 
 @Composable
 fun AppCard(
@@ -57,7 +56,6 @@ fun AppCard(
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
                     lineHeight = 25.sp,
-                    fontFamily = MontserratBold
                 ),
                 textAlign = TextAlign.Center
             )
