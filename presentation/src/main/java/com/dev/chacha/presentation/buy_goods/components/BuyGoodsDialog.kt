@@ -109,7 +109,9 @@ fun BuyGoodsDialog(
                     Spacer(modifier = Modifier.weight(1f))
                     Button(
                         onClick = {
-                            onClickSend(bayGoods)
+                            onClickSend(
+                               bayGoods
+                            )
                         },
                         modifier = Modifier.width(120.dp),
                         colors = ButtonDefaults.buttonColors(

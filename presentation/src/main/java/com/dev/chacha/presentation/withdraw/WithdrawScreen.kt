@@ -14,15 +14,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.dev.chacha.presentation.R
-import com.dev.chacha.presentation.contacts.ContactList
-import com.dev.chacha.presentation.permissions.RequestPermissions
-import com.dev.chacha.presentation.piechart.PieChart
+import com.dev.chacha.presentation.common.components.AppToolbar
+import com.dev.chacha.presentation.custom_keyboard.CustomKeyboard
+import com.dev.chacha.presentation.statement.StatementScreen
 
 @Composable
 fun WithdrawScreen() {
     Scaffold (
         topBar = {
-            WithdrawToolbar()
+            AppToolbar(
+                title = "View your statement",
+                showBackArrow = true
+            )
         }
     ){ paddingValues->
         Column(modifier = Modifier
@@ -31,10 +34,7 @@ fun WithdrawScreen() {
             verticalArrangement = Arrangement.Center
         ) {
 
-            RequestPermissions {
-
-            }
-
+            CustomKeyboard()
 
         }
     }

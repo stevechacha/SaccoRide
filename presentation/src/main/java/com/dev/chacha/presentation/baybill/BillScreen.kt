@@ -15,7 +15,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.IconButton
@@ -35,7 +37,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -49,13 +50,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
 import com.dev.chacha.presentation.R
-import com.dev.chacha.presentation.baybill.components.BillConfirmItem
 import com.dev.chacha.presentation.baybill.components.BillDialog
-import com.dev.chacha.presentation.baybill.components.payBill
 import com.dev.chacha.presentation.common.components.AppTopBar
 import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.components.RideOutlinedTextField
+import com.dev.chacha.presentation.common.navigation.BottomBarScreen
+import com.dev.chacha.presentation.common.navigation.HomeAction
 import com.dev.chacha.presentation.paybill.PayBill
 import com.dev.chacha.presentation.paybill.component.PayBillItem
 import com.dev.chacha.presentation.paybill.payBillItems
@@ -82,6 +84,7 @@ fun BillScreen(
 @Composable
 fun BillScreen(
     navigateBack: () -> Unit,
+    navigateToBillConfirm:(PayBill)->Unit,
 ) {
 //    var bottomSheetContentState by remember { mutableStateOf(BottomSheetContentState()) }
     val modalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
@@ -90,6 +93,7 @@ fun BillScreen(
     var businessNumber by rememberSaveable { mutableStateOf("") }
     var businessName by rememberSaveable { mutableStateOf("") }
     var accountNumber by rememberSaveable { mutableStateOf("") }
+    var date by rememberSaveable { mutableStateOf("") }
     val (amount, setAmount) = rememberSaveable { mutableStateOf("") }
 
     val viewModel = BillViewModel()
@@ -117,6 +121,7 @@ fun BillScreen(
         )
     }*/
 
+    val navController = rememberNavController()
 
     var showDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -126,14 +131,25 @@ fun BillScreen(
                 showDialog = false
             },
             onClickSend = {
-                viewModel.onTransactionConfirm()
-                // Perform the payment here using the payBill details...
+               navigateToBillConfirm.invoke(
+                    PayBill(
+                        name = businessName,
+                        businessNumber = businessNumber,
+                        accountNumber = accountNumber,
+                        amount = amount.toDouble(),
+                        date = System.currentTimeMillis().toString()
+                    ),
+                )
+                
+
+
             },
             payBill = PayBill(
-                businessNumber = businessNumber,
                 name = businessName,
+                businessNumber = businessNumber,
                 accountNumber = accountNumber,
-                amount = amount.toDouble()
+                amount = amount.toDouble(),
+                date = System.currentTimeMillis().toString()
             )
         )
     }
@@ -245,112 +261,100 @@ fun BillScreen(
                 Column(
                     modifier = Modifier
                         .padding(paddingValues)
+                        .verticalScroll(rememberScrollState())
                         .padding(horizontal = 16.dp, vertical = 16.dp)
                         .background(MaterialTheme.colorScheme.background)
                 ) {
-                    LazyColumn(modifier = Modifier.fillMaxSize()) {
-                        item {
-                            RideOutlinedTextField(
-                                value = businessNumber,
-                                onValueChange = {
-                                    businessNumber = it
-                                },
-                                keyboardType = KeyboardType.Phone,
-                                hint = stringResource(id = R.string.businessNumber),
-                                trailingIcon = {
-                                    Icon(
-                                        imageVector = Icons.Outlined.Search,
-                                        contentDescription = "Call",
-                                        modifier = Modifier
-                                            .padding(8.dp)
-                                            .size(24.dp)
-                                            .clickable {
-                                                coroutineScope.launch {
-                                                    if (modalBottomSheetState.isVisible) {
-                                                        modalBottomSheetState.hide()
-                                                    } else {
-                                                        modalBottomSheetState.show()
-                                                    }
-                                                }
-                                            },
-                                        tint = LocalContentColor.current.copy(alpha = ContentAlpha.medium)
-                                    )
-                                },
-                                supportText = businessName
 
-                            )
-                            Spacer(modifier = Modifier.height(16.dp))
-
-                            val accountNumberLimit = 20
-
-                            RideOutlinedTextField(
-                                value = accountNumber,
-                                onValueChange = {
-                                    accountNumber = it
-                                },
-                                keyboardType = KeyboardType.Text,
-                                hint = stringResource(id = R.string.accountNumber),
-                                accountNumberLength = "${accountNumber.length}/${accountNumberLimit}"
-                            )
-                            Spacer(modifier = Modifier.height(12.dp))
-
-                            RideOutlinedTextField(
-                                value = amount,
-                                onValueChange = {
-                                    setAmount(it)
-                                },
-                                keyboardType = KeyboardType.Number,
-                                hint = stringResource(id = R.string.amount),
-
-                                )
-
-                            Spacer(modifier = Modifier.height(12.dp))
-
-                            ContinueButton(
-                                text = stringResource(id = R.string.continuee),
-                                onClick = {
-                                    showDialog = true
-                                },
-                                enable = businessNumber.isNotEmpty() && accountNumber.isNotEmpty()  && amount.isNotEmpty()
-                            )
-
-                            Spacer(modifier = Modifier.height(25.dp))
-
-                            Column {
-                                Text(
-                                    text = "Frequent",
-                                    fontSize = 18.sp
-                                )
-                                Spacer(modifier = Modifier.height(16.dp))
-
-                                payBillItems.forEach { buyItem ->
-                                    PayBillItem(
-                                        payBill = buyItem,
-                                        onPayBillClick = {
-                                            businessNumber = buyItem.businessNumber
-                                            businessName = buyItem.name
+                    RideOutlinedTextField(
+                        value = businessNumber,
+                        onValueChange = {
+                            businessNumber = it
+                        },
+                        keyboardType = KeyboardType.Phone,
+                        hint = stringResource(id = R.string.businessNumber),
+                        trailingIcon = {
+                            Icon(
+                                imageVector = Icons.Outlined.Search,
+                                contentDescription = "Call",
+                                modifier = Modifier
+                                    .padding(8.dp)
+                                    .size(24.dp)
+                                    .clickable {
+                                        coroutineScope.launch {
+                                            if (modalBottomSheetState.isVisible) {
+                                                modalBottomSheetState.hide()
+                                            } else {
+                                                modalBottomSheetState.show()
+                                            }
                                         }
-                                    )
-                                }
-                            }
-
-                            BillConfirmItem(
-                                error = "Please try" ,
-                                drawableRes = R.drawable.main_icon ,
-                                buttonText = "Done" ,
-                                payBill = payBill
+                                    },
+                                tint = LocalContentColor.current.copy(alpha = ContentAlpha.medium)
                             )
+                        },
+                        supportText = businessName
 
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    val accountNumberLimit = 20
+
+                    RideOutlinedTextField(
+                        value = accountNumber,
+                        onValueChange = {
+                            accountNumber = it
+                        },
+                        keyboardType = KeyboardType.Text,
+                        hint = stringResource(id = R.string.accountNumber),
+                        accountNumberLength = "${accountNumber.length}/${accountNumberLimit}"
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    RideOutlinedTextField(
+                        value = amount,
+                        onValueChange = {
+                            setAmount(it)
+                        },
+                        keyboardType = KeyboardType.Number,
+                        hint = stringResource(id = R.string.amount),
+
+                        )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    ContinueButton(
+                        text = stringResource(id = R.string.continuee),
+                        onClick = {
+                            showDialog = true
+                        },
+                        enable = businessNumber.isNotEmpty() && accountNumber.isNotEmpty() && amount.isNotEmpty()
+                    )
+
+                    Spacer(modifier = Modifier.height(25.dp))
+
+                    Column {
+                        Text(
+                            text = "Frequent",
+                            fontSize = 18.sp
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        payBillItems.forEach { buyItem ->
+                            PayBillItem(
+                                payBill = buyItem,
+                                onPayBillClick = {
+                                    businessNumber = buyItem.businessNumber
+                                    businessName = buyItem.name
+                                }
+                            )
                         }
                     }
+
 
                 }
             }
 
-
         }
-
-
     }
 
 }
@@ -359,6 +363,7 @@ fun BillScreen(
 @Preview
 fun BillPreview() {
     BillScreen(
-        navigateBack = {}
+        navigateBack = {},
+        navigateToBillConfirm = {},
     )
 }

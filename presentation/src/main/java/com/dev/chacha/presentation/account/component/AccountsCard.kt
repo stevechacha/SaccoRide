@@ -56,7 +56,6 @@ fun AccountCard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-
             Icon(
                 painter = painterResource(id = R.drawable.chevron_right),
                 contentDescription = null

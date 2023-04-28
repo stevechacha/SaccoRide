@@ -10,6 +10,18 @@ val Blue = Color(0xFF007BFF)
 
 val white = Color(0xFFF3F3F3)
 
+val darkGray = Color(0xFF1a1717)
+val darkBlue = Color(0xFF18192b)
+val gray = Color(0xFF3F3F3F)
+val blueGray = Color(0xFF404352)
+val nightDark = Color(0xFF403757)
+
+val purple = Color(0xFF9b11ba)
+val orange = Color(0xFFdb660d)
+val redOrange = Color(0xFFe84a23)
+val green = Color(0xFF0ddb25)
+val brightBlue = Color(0xFF027cf5)
+
 
 val PrimaryColor = Color(0xffFF4500)
 val PrimaryLightColor = Color(0xffffe3d5)

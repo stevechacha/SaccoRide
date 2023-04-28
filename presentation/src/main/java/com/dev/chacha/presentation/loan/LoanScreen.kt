@@ -1,13 +1,12 @@
 package com.dev.chacha.presentation.loan
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -16,7 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,18 +26,28 @@ import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.components.AppToolbar
 import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.components.RideOutlinedTextField
-import com.dev.chacha.presentation.common.theme.SaccoRideTheme
+import com.dev.chacha.presentation.common.components.SaccoOutlinedTextField
 import com.dev.chacha.presentation.loan.components.LoanCard
 import com.dev.chacha.presentation.loan.components.LoanTextView
-import com.dev.chacha.presentation.loan.components.LoanVerticalCard
 
-@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun LoanScreen(
     navController: NavController
 ) {
-    val context = LocalContext.current
+    var isPayLoanExpanded by remember { mutableStateOf(false) }
+    var isRequestLoanExpanded by remember { mutableStateOf(false) }
 
+    LaunchedEffect(isPayLoanExpanded) {
+        if (isPayLoanExpanded) {
+            isRequestLoanExpanded = false
+        }
+    }
+
+    LaunchedEffect(isRequestLoanExpanded) {
+        if (isRequestLoanExpanded) {
+            isPayLoanExpanded = false
+        }
+    }
     Scaffold(
         topBar = {
             AppToolbar(
@@ -47,89 +56,50 @@ fun LoanScreen(
             )
         }
     ) { paddingValues ->
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(12.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .padding(horizontal = 16.dp, vertical = 16.dp)
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            LazyColumn {
-                item {
-                    LoanCard(
-                        loan = Loan(
-                            balance = 10000000.0,
-                            limit = 100000.0,
-                            dueDate = "12 June,2023"
-                        )
-                    )
-                    Spacer(modifier = Modifier.height(20.dp))
+            LoanCard(
+                loan = Loan(
+                    balance = 10000000.0,
+                    limit = 100000.0,
+                    dueDate = "12 June,2023"
+                )
+            )
+            PayLoans(
+                expanded = isPayLoanExpanded,
+                onExpandToggle = { isPayLoanExpanded = !isPayLoanExpanded }
+            )
 
-                    RequestLoan()
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    PayLoan()
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    LoanTextView(
-                        loanBalance = "Ksh. 1ooo",
-                        loanLimit = "Ksh. 1ooo",
-                        loanDueDate = "12 June,2023"
-                    )
-
-                    Spacer(modifier = Modifier.height(20.dp))
-                    ServiceLoan()
-
-                }
-            }
-
-
+            RequestLoans(
+                expanded = isRequestLoanExpanded,
+                onExpandToggle = { isRequestLoanExpanded = !isRequestLoanExpanded }
+            )
+            LoanTextView(
+                loanBalance = "Ksh. 1ooo",
+                loanLimit = "Ksh. 1ooo",
+                loanDueDate = "12 June,2023"
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            ServiceLoan()
         }
     }
 
+
+
 }
 
 @Composable
-fun ServiceLoan() {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        LoanVerticalCard(
-            drawable = R.drawable.ic_send_money,
-            text = R.string.loan_statement,
-            onItemClick = { }
-        )
-
-        LoanVerticalCard(
-            drawable = R.drawable.ic_send_money,
-            text = R.string.pay_loan,
-            onItemClick = { }
-        )
-
-        LoanVerticalCard(
-            drawable = R.drawable.ic_send_money,
-            text = R.string.request_loan,
-            onItemClick = { }
-        )
-    }
-
-}
-
-
-@Composable
-fun PayLoan() {
-    var expanded by remember { mutableStateOf(false) }
-
-    val (mobileNumber, setMobileNumber) = rememberSaveable { mutableStateOf("") }
+fun PayLoans(
+    expanded: Boolean,
+    onExpandToggle: () -> Unit
+) {
     val (amount, setAmount) = rememberSaveable { mutableStateOf("") }
-
-    val icon = if (expanded)
-        Icons.Filled.KeyboardArrowUp
-    else
-        Icons.Filled.KeyboardArrowDown
 
     val extraPaddingValues by animateDpAsState(
         if (expanded) 24.dp else 0.dp,
@@ -138,68 +108,82 @@ fun PayLoan() {
             stiffness = Spring.StiffnessLow
         )
     )
+
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        onClick = {
+            onExpandToggle()
+        }
 
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(12.dp)
-                .clickable(onClick = { expanded = !expanded })
                 .padding(bottom = extraPaddingValues.coerceAtLeast(0.dp)),
             verticalArrangement = Arrangement.Center
         ) {
+
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                modifier = Modifier
+                    .fillMaxSize(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Pay Loan")
-                Icon(icon, "contentDescription",
-                    Modifier.clickable { expanded = !expanded })
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.loan_icon),
+                        contentDescription = null,
+                        modifier = Modifier.clickable {
+                            onExpandToggle()
+                        }
+                    )
+                    Text(
+                        text = "Pay Loan",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                Icon(
+                    if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
+                    "contentDescription"
+                )
             }
+
+
+
             Spacer(modifier = Modifier.height(10.dp))
             if (expanded) {
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-
                     RideOutlinedTextField(
                         value = amount,
-                        onValueChange = {
-                            setAmount(it)
-                        },
+                        onValueChange = { setAmount(it) },
                         keyboardType = KeyboardType.Phone,
                         hint = stringResource(id = R.string.amount),
-                        supportText = stringResource(id = R.string.amount_support_text),
-
-                        )
+                        supportText = stringResource(id = R.string.amount_support_text)
+                    )
 
                     ContinueButton(
                         text = "Continue",
-                        onClick = { /*TODO*/ }
+                        onClick = { /* TODO */ }
                     )
-
                 }
-
             }
-
         }
     }
 }
 
 @Composable
-fun RequestLoan() {
-    val (mobileNumber, setMobileNumber) = rememberSaveable { mutableStateOf("") }
+fun RequestLoans(
+    expanded: Boolean,
+    onExpandToggle: () -> Unit
+) {
     val (amount, setAmount) = rememberSaveable { mutableStateOf("") }
-
-    var expanded by remember { mutableStateOf(false) }
-    val icon = if (expanded)
-        Icons.Filled.KeyboardArrowUp
-    else
-        Icons.Filled.KeyboardArrowDown
 
     val extraPaddingValues by animateDpAsState(
         if (expanded) 24.dp else 0.dp,
@@ -208,69 +192,86 @@ fun RequestLoan() {
             stiffness = Spring.StiffnessLow
         )
     )
+
     Card(
-        modifier = Modifier.fillMaxWidth()
-            .clickable(onClick = { expanded = !expanded }),
-    ) {
+        modifier = Modifier.fillMaxWidth(),
+        onClick = {
+            onExpandToggle()
+        }
+        ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
+                .padding(12.dp)
+                .padding(bottom = extraPaddingValues.coerceAtLeast(0.dp)),
             verticalArrangement = Arrangement.Center
         ) {
+
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                modifier = Modifier
+                    .fillMaxSize(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Request Loan")
-                Icon(icon, "contentDescription",
-                    Modifier.clickable { expanded = !expanded })
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.loan_icon),
+                        contentDescription = null,
+                        modifier = Modifier.clickable {
+                            onExpandToggle()
+                        }
+                    )
+                    Text(
+                        text = "Request Loan",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                Icon(
+                    if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
+                    "contentDescription"
+                )
             }
+
+
+
             Spacer(modifier = Modifier.height(10.dp))
             if (expanded) {
                 Column(
-                    modifier = Modifier
-                        .padding(bottom = extraPaddingValues.coerceAtLeast(0.dp)),
+                    modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     RideOutlinedTextField(
                         value = amount,
-                        onValueChange = {
-                            setAmount(it)
-                        },
+                        onValueChange = { setAmount(it) },
                         keyboardType = KeyboardType.Phone,
                         hint = stringResource(id = R.string.amount),
-                        supportText = stringResource(id = R.string.amount_support_text),
-
-                        )
-                    ContinueButton(
-                        text = "Continue",
-                        onClick = { /*TODO*/ }
+                        supportText = stringResource(id = R.string.amount_support_text)
                     )
 
+                    ContinueButton(
+                        text = "Continue",
+                        onClick = { /* TODO */ }
+                    )
                 }
-
             }
-
         }
     }
-
 }
 
-
-@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 @Preview
-fun LoanScreenPreview() {
-    SaccoRideTheme {
-        LoanScreen(navController = rememberNavController())
+fun LoansssPreview() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(30.dp)
+    ) {
+        LoanScreen(
+            navController = rememberNavController()
+        )
     }
+
 }
-
-
-
-
-
-
-
 

@@ -13,6 +13,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.buy_goods.BuyGoodsScreen
 import com.dev.chacha.presentation.paybill.PayBill
@@ -114,6 +115,7 @@ fun TabsContent(tabs: List<TabItem>, pagerState: PagerState) {
 
 typealias ComposableFun = @Composable () -> Unit
 sealed class TabItem( var title: String, var screen: ComposableFun) {
-    object BuyGoods : TabItem( "BUY GOODS", { BuyGoodsScreen() })
+
+    object BuyGoods : TabItem( "BUY GOODS", { BuyGoodsScreen( ) })
     object PayBill : TabItem( "PAYBILL", { PayBillScreen(onPayBillClick = {}) })
 }

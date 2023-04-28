@@ -28,6 +28,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -46,15 +47,12 @@ fun RideOutlinedTextField(
     keyboardType: KeyboardType = KeyboardType.Text,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
-    supportText: String ="",
+    supportText: String = "",
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(),
     accountNumberLength: String = "",
     error: String = ""
 ) {
-
-    val charLimit = 20
-
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -105,8 +103,22 @@ fun RideOutlinedTextField(
             singleLine = true,
             maxLines = maxLines,
             textStyle = textStyle,
-
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                textColor = MaterialTheme.colorScheme.onSurface,
+                focusedLabelColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
+                unfocusedLabelColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
+                cursorColor = MaterialTheme.colorScheme.onBackground,
+                focusedBorderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
+                unfocusedBorderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
+                errorBorderColor = Color.Red,
+                errorLeadingIconColor = Color.Red,
+                errorTrailingIconColor = Color.Red,
+                disabledBorderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
+                disabledTextColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
+                disabledLeadingIconColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
+                disabledTrailingIconColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
             )
+        )
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -120,16 +132,17 @@ fun RideOutlinedTextField(
                     color = Color.Red
                 )
 
-            }
-            Text(
-                text = supportText,
-                style = MaterialTheme.typography.labelMedium,
-                color = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
-                modifier = Modifier
-                    .padding(start = 12.dp, top = 2.dp),
-                textAlign = TextAlign.Start
+            } else {
+                Text(
+                    text = supportText,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
+                    modifier = Modifier
+                        .padding(start = 12.dp, top = 2.dp),
+                    textAlign = TextAlign.Start
 
-            )
+                )
+            }
             Text(
                 text = accountNumberLength,
                 style = MaterialTheme.typography.labelMedium,
@@ -145,5 +158,32 @@ fun RideOutlinedTextField(
 
     }
 
+
+}
+
+
+@Composable
+@Preview
+fun PreviewRideOutlinedTextField() {
+    RideOutlinedTextField(
+        value = "",
+        onValueChange = {},
+        hint = "hint",
+        maxLength = 20,
+        textStyle = MaterialTheme.typography.labelMedium,
+        leadingIcon = null,
+        trailingIcon = null,
+        isError = false,
+        keyboardActions = KeyboardActions.Default,
+        singleLine = false,
+        keyboardType = KeyboardType.Text,
+        maxLines = 1,
+        minLines = 1,
+        supportText = "",
+        interactionSource = remember { MutableInteractionSource() },
+        colors = TextFieldDefaults.outlinedTextFieldColors(),
+        accountNumberLength = "",
+        error = ""
+    )
 
 }

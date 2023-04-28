@@ -58,7 +58,7 @@ fun HomeScreen(
             MediumTopAppBar(
                 title = {
                     Text(
-                        text = "${greeting},John",
+                        text = "${greeting},Stephen",
                         fontSize = 20.sp,
                         maxLines = 2,
                         modifier = Modifier.fillMaxWidth()

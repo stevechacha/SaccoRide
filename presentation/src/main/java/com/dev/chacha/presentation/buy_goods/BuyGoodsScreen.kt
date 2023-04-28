@@ -46,11 +46,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.buy_goods.components.BuyGoodsDialog
 import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.components.RideOutlinedTextField
+import com.dev.chacha.presentation.common.navigation.HomeAction
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 
 @Composable
@@ -98,7 +100,8 @@ fun BuyGoods() {
 }
 
 @Composable
-fun BuyGoodsScreen() {
+fun BuyGoodsScreen(
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -108,6 +111,7 @@ fun BuyGoodsScreen() {
     ) {
         var tillNumber by rememberSaveable { mutableStateOf("") }
         var tillName by rememberSaveable { mutableStateOf("") }
+        var date by rememberSaveable { mutableStateOf("") }
         val (amount, setAmount) = rememberSaveable { mutableStateOf("") }
 
         var textfieldSize by remember { mutableStateOf(Size.Zero) }
@@ -136,6 +140,10 @@ fun BuyGoodsScreen() {
                     showDialog = false
                 },
                 onClickSend = {
+
+
+
+
                     // Perform the payment here using the payBill details...
                 },
                 bayGoods = BayGoods(
@@ -255,6 +263,7 @@ fun BuyGoodsScreen() {
 @Preview
 fun PreviewBuyGoods() {
     SaccoRideTheme {
-        BuyGoodsScreen()
+        BuyGoods()
+
     }
 }

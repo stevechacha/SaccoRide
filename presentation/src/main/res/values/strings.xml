@@ -87,5 +87,15 @@
     <string name="account">Account</string>
     <string name="shop_header_text">We\'d like to show some more about our Sacco</string>
     <string name="amount_support_text">Minimum amount is Ksh 1</string>
+    <string name="transaction_detail">Transaction Detail</string>
+    <string name="recepient_no">Payment Reference</string>
+    <string name="dete">Date/Time</string>
+    <string name="money_in">Money In</string>
+    <string name="money_out">Money Out</string>
+    <string name="money_balance">Balance</string>
+    <string name="transaction_type">Transaction Type</string>
+    <string name="total_amount">Total</string>
+    <string name="available_balance">Available Balance</string>
+    <string name="statement">Statement</string>
 
 </resources>
