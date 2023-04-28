@@ -1,6 +1,8 @@
 package com.dev.chacha.data.local.account
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.dev.chacha.domain.model.AccountType
 import com.dev.chacha.domain.model.Transaction
 
 
@@ -12,13 +14,15 @@ import com.dev.chacha.domain.model.Transaction
 *
 * */
 @Entity(tableName = "accounts")
-data class Accounts(
-    val id: Int,
+data class AccountEntity(
+    @PrimaryKey  val id: Int,
     val accountId: String,
     var accountBalance: Double,
     val accountIcon: String,
-    var transactionHistory: List<Transaction>,
-    var accountType: String,
+    var accountType: AccountType,
     val accountHolderName: String,
     val accountNumber: String,
 )
+
+//    var transactionHistory: List<Transaction>,
+

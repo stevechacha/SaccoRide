@@ -146,7 +146,6 @@ private fun NumberButton(
 @Preview
 @Composable
 fun CustomKeyboardPreview() {
-    SaccoRideTheme {
         CustomKeyboard()
-    }
+
 }

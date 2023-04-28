@@ -12,45 +12,64 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.dev.chacha.presentation.bottomnav.BottomNavigationBar
 import com.dev.chacha.presentation.common.navigation.HomeNavGraph
 import com.dev.chacha.presentation.common.navigation.RootNavGraph
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
+import com.dev.chacha.presentation.common.theme.Theme
+import com.dev.chacha.presentation.fingerprint.Biometric
 import com.dev.chacha.presentation.fingerprint.BiometricChecker
+import com.dev.chacha.presentation.fingerprint.Biometrics
+import com.dev.chacha.presentation.theme.ThemeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity(), BiometricChecker.AuthListener {
+class MainActivity : ComponentActivity(), Biometric.AuthListener {
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         setContent {
-            SaccoRideTheme {
+            val viewModel: ThemeViewModel = hiltViewModel()
+
+            val themeValue by viewModel.theme.collectAsState(
+                initial = Theme.FOLLOW_SYSTEM.themeValue,
+                context = Dispatchers.Main.immediate
+            )
+            SaccoRideTheme(theme = themeValue) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
+                    val isFingerprintEnabled = remember { mutableStateOf(false) }
+
                     lifecycleScope.launchWhenStarted {
 //                        BiometricHelper(this@MainActivity,this@MainActivity).activity
-                        BiometricChecker(
+                        Biometric(
                             this@MainActivity,
                             navController,
-                            this@MainActivity
+                            this@MainActivity,
                         ).authenticate()
                     }
                     RootNavGraph(navController = navController)
 
                 }
+                
             }
+
         }
     }
 

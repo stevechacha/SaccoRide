@@ -7,11 +7,11 @@ class AccountsRepoImpl(db: SaccoDatabase): AccountsRepo {
 
     private val accountDao: AccountsDao = db.accountsDao()
 
-    override fun getAllAccounts(): List<Accounts> {
+    override fun getAllAccounts(): List<AccountEntity> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun insert(accounts: List<Accounts>): List<Long> {
+    override suspend fun insert(accounts: List<AccountEntity>): List<Long> {
         TODO("Not yet implemented")
     }
 }

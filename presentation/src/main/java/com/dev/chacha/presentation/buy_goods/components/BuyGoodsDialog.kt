@@ -21,17 +21,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.buy_goods.BayGoods
 import com.dev.chacha.presentation.common.theme.PrimaryColor
-import com.dev.chacha.presentation.paybill.PayBill
 
 @Composable
 fun BuyGoodsDialog(
     onDismiss: () -> Unit,
-    onClickSend: (BayGoods) -> Unit,
     bayGoods: BayGoods,
-) {
+    onClickSend: (BayGoods) -> Unit,
+
+    ) {
     AlertDialog(
         containerColor = MaterialTheme.colorScheme.background,
         onDismissRequest = {
@@ -109,7 +108,10 @@ fun BuyGoodsDialog(
                     Spacer(modifier = Modifier.weight(1f))
                     Button(
                         onClick = {
-                            onClickSend(bayGoods)
+                            onClickSend(
+                                bayGoods
+                            )
+
                         },
                         modifier = Modifier.width(120.dp),
                         colors = ButtonDefaults.buttonColors(
@@ -135,10 +137,6 @@ fun BuyGoodsDialog(
 @Composable
 @Preview
 fun BayGoodsDialogPreview() {
-    BuyGoodsDialog(
-        onDismiss = { /*TODO*/ },
-        onClickSend = {},
-        bayGoods = bayGoods,
-    )
+
 
 }

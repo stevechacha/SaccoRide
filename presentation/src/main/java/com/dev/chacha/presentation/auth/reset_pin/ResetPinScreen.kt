@@ -52,7 +52,7 @@ fun ResetPinContent(
                 .padding(horizontal = 16.dp, vertical = 16.dp),
         ) {
             Text(
-                text = "Create your account password",
+                text = "Reset your pin",
                 fontSize = 24.sp
             )
             Spacer(modifier = Modifier.height(20.dp))
@@ -107,9 +107,8 @@ fun ResetPinContent(
 @Composable
 @Preview
 fun ResetPasswordScreenPreview() {
-    SaccoRideTheme {
         ResetPinScreen(
             onClickAction = {}
         )
-    }
+
 }

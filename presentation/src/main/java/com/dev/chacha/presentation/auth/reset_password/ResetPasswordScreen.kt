@@ -109,9 +109,8 @@ fun ResetPasswordContent(
 @Composable
 @Preview
 fun ResetPasswordScreenPreview() {
-    SaccoRideTheme {
         ResetPasswordScreen(
             onClickAction = {}
         )
-    }
+
 }

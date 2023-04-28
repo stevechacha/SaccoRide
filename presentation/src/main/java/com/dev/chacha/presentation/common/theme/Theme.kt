@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.os.Build
+import androidx.annotation.ChecksSdkIntAtLeast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -59,31 +61,38 @@ private val DarkColorScheme = darkColorScheme(
     onError = OnErrorColor
 )
 
+
 @Composable
 fun SaccoRideTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    theme: Int,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+    val autoColors = if (isSystemInDarkTheme()) DarkColorScheme else LightColorScheme
+
+    val dynamicColors = if (supportDynamicTheme()) {
+        val context = LocalContext.current
+        if (isSystemInDarkTheme()) {
+            dynamicDarkColorScheme(context)
+        } else {
+            dynamicLightColorScheme(context)
         }
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+    } else {
+        autoColors
     }
+
+    val colorScheme = when (theme) {
+        Theme.LIGHT_THEME.themeValue -> LightColorScheme
+        Theme.DARK_THEME.themeValue -> DarkColorScheme
+        Theme.MATERIAL_YOU.themeValue -> dynamicColors
+        else -> autoColors
+    }
+
     val systemUiController = rememberSystemUiController()
 
     SideEffect {
-        systemUiController.setStatusBarColor(
-            color = if(darkTheme) BackgroundDarkColor else BackgroundLightColor,
+        systemUiController.setSystemBarsColor(
+            color = colorScheme.background
         )
-        systemUiController.setNavigationBarColor(
-            color = if (darkTheme) BackgroundDarkColor else  BackgroundLightColor
-        )
-
     }
 
     MaterialTheme(
@@ -92,6 +101,17 @@ fun SaccoRideTheme(
         shapes= Shapes,
         content = content
     )
+}
+
+
+@ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
+private fun supportDynamicTheme() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+
+enum class Theme(val themeValue: Int) {
+    MATERIAL_YOU(themeValue = 12),
+    FOLLOW_SYSTEM(themeValue = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM),
+    LIGHT_THEME(themeValue = AppCompatDelegate.MODE_NIGHT_NO),
+    DARK_THEME(themeValue = AppCompatDelegate.MODE_NIGHT_YES)
 }
 
 private fun Context.findActivity(): Activity {

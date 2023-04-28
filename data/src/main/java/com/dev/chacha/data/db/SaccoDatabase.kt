@@ -3,11 +3,11 @@ package com.dev.chacha.data.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.dev.chacha.data.dao.AccountsDao
-import com.dev.chacha.data.local.account.AccountsEntity
+import com.dev.chacha.data.local.account.AccountEntity
 
 @Database(
     entities = [
-      AccountsEntity::class
+      AccountEntity::class
     ],
     version =1,
     exportSchema = false,

@@ -25,7 +25,7 @@ fun HomeTopBar(@StringRes title: Int = R.string.app_name) {
             .padding(all = dimensionResource(id = R.dimen.margin_13)),
     ) {
         HorizontalImageTextView(
-            drawable = R.drawable.account_circle,
+            drawable = R.drawable.sacco_logo,
             stringRes = title,
             modifier = Modifier.weight(1f),
             MaterialTheme.typography.headlineMedium

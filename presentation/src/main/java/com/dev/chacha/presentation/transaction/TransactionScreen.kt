@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dev.chacha.presentation.R
-import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 import com.dev.chacha.presentation.transaction.components.HorizontalCardItem
 import com.dev.chacha.presentation.transaction.components.TransactTopBar
 
@@ -33,7 +32,7 @@ fun TransactionScreen(
 ) {
     Scaffold(
         topBar = {
-            TransactTopBar()
+            TransactTopBar( title = "Transact")
         }
     ) { paddingValues ->
         Column(
@@ -137,17 +136,16 @@ fun TransactionScreen(
 @Preview(name = "Light Mode")
 @Preview(name = "Dark Mode", uiMode = UI_MODE_NIGHT_YES)
 fun TransactionScreenPreview() {
-    SaccoRideTheme {
-        TransactionScreen(
-            onSendMoneyClicked = { /*TODO*/ },
-            onBuyAirtimeClicked = { /*TODO*/ },
-            onBuyGoodsClicked = { /*TODO*/ },
-            onPayBillClicked = { /*TODO*/ },
-            onWithdrawClicked = { /*TODO*/ },
-            onDepositClicked = { /*TODO*/ },
-            onLoanClicked = { /*TODO*/ },
-            onMarketClicked = { /*TODO*/ },
-            onSavingsClicked = {}
-        )
-    }
+    TransactionScreen(
+        onSendMoneyClicked = { /*TODO*/ },
+        onBuyAirtimeClicked = { /*TODO*/ },
+        onBuyGoodsClicked = { /*TODO*/ },
+        onPayBillClicked = { /*TODO*/ },
+        onWithdrawClicked = { /*TODO*/ },
+        onDepositClicked = { /*TODO*/ },
+        onLoanClicked = { /*TODO*/ },
+        onMarketClicked = { /*TODO*/ },
+        onSavingsClicked = {}
+    )
+
 }

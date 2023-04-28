@@ -195,12 +195,10 @@ fun LoginContent(
 @Composable
 @Preview
 fun LoginScreenPreview() {
-    SaccoRideTheme {
         LoginScreen(
             onClick = { /*TODO*/ },
             onSignUpClick = { /*TODO*/ },
             onForgotClick = { /*TODO*/ },
         )
 
-    }
 }

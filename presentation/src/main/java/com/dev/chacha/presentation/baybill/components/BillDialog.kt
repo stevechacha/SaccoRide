@@ -33,9 +33,7 @@ fun BillDialog(
 ) {
     AlertDialog(
         containerColor = MaterialTheme.colorScheme.background,
-        onDismissRequest = {
-            onDismiss()
-        },
+        onDismissRequest = { onDismiss() },
         shape = RoundedCornerShape(5.dp),
         title = {},
         text = {
@@ -79,7 +77,7 @@ fun BillDialog(
 
                     )
                     Text(
-                        text = "${payBill.accountNumber}",
+                        text = payBill.accountNumber.toString(),
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.Bold
 

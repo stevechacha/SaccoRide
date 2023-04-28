@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
+import com.dev.chacha.presentation.paybill.component.randomColor
 
 @Composable
 fun ShopCard(
@@ -32,7 +33,7 @@ fun ShopCard(
         .height(110.dp)
         .clickable(onClick = onClickCard),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
+            containerColor = randomColor()
         ),
     ) {
         Column(

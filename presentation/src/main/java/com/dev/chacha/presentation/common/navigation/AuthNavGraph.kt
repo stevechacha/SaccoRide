@@ -108,4 +108,6 @@ sealed class AuthScreen(val route: String) {
     object Register : AuthScreen(route = "REGISTER")
     object Forgot : AuthScreen(route = "FORGOT")
     object CreatePassword : AuthScreen(route = "CREATE_ACCOUNT")
+
+
 }

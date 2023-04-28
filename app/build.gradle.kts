@@ -83,9 +83,14 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.bundles.firebase)
 
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
+
     // SystemUi
-    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.25.1")
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
 
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+
 
 }

@@ -10,6 +10,7 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
 import com.dev.chacha.data.db.SaccoDatabase
+import com.dev.chacha.data.util.Constants.THEME_PREFERENCES
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,9 +33,9 @@ object DatastoreModule {
             corruptionHandler = ReplaceFileCorruptionHandler(
                 produceNewData = { emptyPreferences() }
             ),
-            migrations = listOf(SharedPreferencesMigration(appContext, SACCO_RIDE_PREFERENCES)),
+            migrations = listOf(SharedPreferencesMigration(appContext, THEME_PREFERENCES)),
             scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
-            produceFile = { appContext.preferencesDataStoreFile(SACCO_RIDE_PREFERENCES ) }
+            produceFile = { appContext.preferencesDataStoreFile(THEME_PREFERENCES ) }
         )
     }
 

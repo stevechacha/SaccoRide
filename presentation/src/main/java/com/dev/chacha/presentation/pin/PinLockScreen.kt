@@ -2,7 +2,6 @@ package com.dev.chacha.presentation.pin
 
 import android.content.Context
 import android.os.Build
-import androidx.activity.ComponentActivity
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -13,7 +12,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Biotech
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Circle
 import androidx.compose.material.icons.filled.Fingerprint
@@ -45,11 +43,8 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.activity.MainActivity
-import com.dev.chacha.presentation.common.navigation.AuthScreen
-import com.dev.chacha.presentation.common.navigation.Graph
 import com.dev.chacha.presentation.common.theme.Brutalista
-import com.dev.chacha.presentation.common.theme.SaccoRideTheme
-import com.dev.chacha.presentation.fingerprint.BiometricChecker
+import com.dev.chacha.presentation.fingerprint.Biometric
 import kotlinx.coroutines.delay
 
 const val pinSize = 4
@@ -65,6 +60,8 @@ fun PinLockScreen(
     val error = remember { mutableStateOf<String>("") }
     val showSuccess = remember { mutableStateOf(false) }
     val context = LocalContext.current
+    val isFingerprintEnabled = remember { mutableStateOf(false) }
+
 
 
 
@@ -104,8 +101,7 @@ fun PinLockScreen(
                         .clip(CircleShape)
                         .background(MaterialTheme.colorScheme.background)
                         .size(80.dp)
-                        .clip(CircleShape)
-                    ,
+                        .clip(CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
@@ -254,24 +250,25 @@ fun PinLockScreen(
 
                         )
                     }
-                    if (inputPin.isEmpty()){
+                    if (inputPin.isEmpty()) {
                         Icon(
                             imageVector = Icons.Default.Fingerprint,
                             contentDescription = "Success",
                             modifier = Modifier
                                 .size(25.dp)
                                 .clickable {
-                                    BiometricChecker(
+                                    Biometric(
                                         context as MainActivity,
                                         navController,
-                                        context as MainActivity
-                                    ).authenticate()
+                                        context,
+
+                                        ).authenticate()
 //                                    navController.navigate(AuthScreen.Biometric.route)
 
                                 }
                         )
 
-                    } else{
+                    } else {
                         Icon(
                             imageVector = Icons.Outlined.Backspace,
                             contentDescription = "Clear",
@@ -364,10 +361,9 @@ fun PinKeyItem(
 @Composable
 @Preview
 fun PinLockPreview() {
-    SaccoRideTheme {
-        PinLockScreen(
-            onClickAction = { },
-            navController = rememberNavController()
-        )
-    }
+    PinLockScreen(
+        onClickAction = { },
+        navController = rememberNavController()
+    )
+
 }

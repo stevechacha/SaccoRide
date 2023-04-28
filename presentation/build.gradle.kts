@@ -69,7 +69,6 @@ android {
 
 dependencies {
     implementation(project(":domain"))
-
     implementation(libs.android.coreKtx)
     implementation(libs.android.appCompat)
     implementation(libs.android.material)
@@ -146,6 +145,9 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-common-java8:2.5.1")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+
+    implementation ("io.github.vanpra.compose-material-dialogs:datetime:0.8.1-rc")
+    coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:2.0.3")
 }
 
 kotlin {

@@ -13,7 +13,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dev.chacha.presentation.R
-import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 
 
 @Composable
@@ -26,7 +25,9 @@ fun SubmitButton(
     )
     Button(
         onClick = onClickAction,
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
         colors = submitButtonColor
     ) {
         Text(
@@ -42,9 +43,8 @@ fun SubmitButton(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun SubmitButtonPreview() {
-    SaccoRideTheme {
-        SubmitButton(
-            onClickAction = { }
-        )
-    }
+    SubmitButton(
+        onClickAction = { }
+    )
+
 }

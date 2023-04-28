@@ -86,7 +86,6 @@ fun BottomNavigationBar(navController: NavHostController) {
 @Preview
 @Composable
 fun BottomNavigationPreview() {
-    SaccoRideTheme {
         BottomNavigationBar(rememberNavController())
-    }
+
 }

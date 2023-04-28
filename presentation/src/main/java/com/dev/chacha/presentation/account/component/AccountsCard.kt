@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -25,13 +27,12 @@ fun AccountCard(
     icon: Int
 ) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = Modifier.fillMaxWidth()
             .padding(horizontal = 16.dp)
             .clickable {
                 onClick(title)
             },
-        shape = MaterialTheme.shapes.large,
+        shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         )
@@ -49,14 +50,14 @@ fun AccountCard(
             ) {
                 Icon(
                     painter = painterResource(id = icon),
-                    contentDescription = null
+                    contentDescription = null,
+                    modifier = Modifier.size(25.dp)
                 )
                 Text(
                     text = title,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-
             Icon(
                 painter = painterResource(id = R.drawable.chevron_right),
                 contentDescription = null

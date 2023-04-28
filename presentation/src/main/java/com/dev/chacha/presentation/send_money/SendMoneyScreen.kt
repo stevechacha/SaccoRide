@@ -1,37 +1,18 @@
 package com.dev.chacha.presentation.send_money
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
-import androidx.compose.material.TopAppBar
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.TabRowDefaults
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.dev.chacha.presentation.buy_goods.BuyGoodsScreen
-import com.dev.chacha.presentation.paybill.PayBillScreen
-import com.google.accompanist.pager.*
-import kotlinx.coroutines.launch
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Tab
-import androidx.compose.material.TabRow
-import androidx.compose.material.TopAppBar
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.*
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.components.AppToolbar
-import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 import com.dev.chacha.presentation.send_money.artel_money.ArtelMoneyScreen
 import com.dev.chacha.presentation.send_money.mpesa.MpesaScreen
 import com.dev.chacha.presentation.send_money.tkash.TkashScreen
@@ -41,7 +22,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun SendMoneyScreen() {
-    val tabs = listOf(SendMoneyTabItem.Mpesa,SendMoneyTabItem.AirtelMoney, SendMoneyTabItem.Tkash)
+    val tabs = listOf(SendMoneyTabItem.Mpesa, SendMoneyTabItem.AirtelMoney, SendMoneyTabItem.Tkash)
     val pagerState = rememberPagerState()
     Scaffold(
         topBar = {
@@ -115,14 +96,14 @@ fun SendMoneyTabsContent(tabs: List<SendMoneyTabItem>, pagerState: PagerState) {
 @Composable
 @Preview
 fun SendMoneyPreview() {
-    SaccoRideTheme {
-        SendMoneyScreen()
-    }
+    SendMoneyScreen()
+    
 }
 
 typealias ComposableFun = @Composable () -> Unit
-sealed class SendMoneyTabItem( var title: String, var screen: ComposableFun) {
-    object Mpesa : SendMoneyTabItem( "MPESA", { MpesaScreen() })
-    object AirtelMoney : SendMoneyTabItem( "AIRTEL", { ArtelMoneyScreen() })
-    object Tkash : SendMoneyTabItem( "T-KASH", { TkashScreen() })
+
+sealed class SendMoneyTabItem(var title: String, var screen: ComposableFun) {
+    object Mpesa : SendMoneyTabItem("MPESA", { MpesaScreen() })
+    object AirtelMoney : SendMoneyTabItem("AIRTEL", { ArtelMoneyScreen() })
+    object Tkash : SendMoneyTabItem("T-KASH", { TkashScreen() })
 }

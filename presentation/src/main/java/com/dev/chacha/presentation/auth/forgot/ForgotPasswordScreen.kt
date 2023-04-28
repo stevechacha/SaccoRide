@@ -73,13 +73,9 @@ fun ForgotPasswordContent(
 @Composable
 @Preview
 fun ForgetPasswordScreenPreview() {
-    SaccoRideTheme {
         ForgotPasswordScreen(
             onClick = {},
             onLoginClick = {}
         )
-    }
-
-
 }
 

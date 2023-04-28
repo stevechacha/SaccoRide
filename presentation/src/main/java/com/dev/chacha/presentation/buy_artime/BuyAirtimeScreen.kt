@@ -112,7 +112,6 @@ sealed class BuyAirtimeTabItem(var title: String, var screen: ComposableFun) {
 @Composable
 @Preview
 fun BuyAirtimePreview() {
-    SaccoRideTheme {
         BuyAirtimeScreen()
-    }
+
 }

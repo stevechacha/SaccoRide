@@ -98,10 +98,9 @@ fun CreatePasswordContent(
 @Composable
 @Preview
 fun CreatePasswordScreenPreview() {
-    SaccoRideTheme {
         CreatePasswordContent(
             onClickAction = { /*TODO*/ },
             viewModel = CreatePasswordViewModel()
         )
-    }
+
 }

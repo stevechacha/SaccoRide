@@ -17,6 +17,8 @@ fun DepositScreen() {
             verticalArrangement = Arrangement.Center
         ) {
 
+          //  LoanScreens()
+
 
         }
 

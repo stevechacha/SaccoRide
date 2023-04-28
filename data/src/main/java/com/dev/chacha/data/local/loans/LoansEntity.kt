@@ -1,8 +1,8 @@
 package com.dev.chacha.data.local.loans
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
-import java.util.*
+import com.dev.chacha.domain.model.LoanStatus
+import java.util.Date
 
 /*
 * •	loan amount (e.g. decimal or integer)
@@ -13,28 +13,25 @@ import java.util.*
 
 * */
 @Entity(tableName = "loans")
-data class Loans(
+data class LoanEntity(
     val memberId: Int,
     var loanId: Int = 0,
     var loanAmount: Double = 0.0,
     var interestRate: Double = 0.0,
-    var repaymentPeriod: Int = 0,
     var repaymentSchedule: List<PaymentsEntity>,
     var startDate: Date,
-    var endDate: Date
-)
-
-class PaymentsEntity {
-
-}
-
-
-data class LoanEntity(
-    @PrimaryKey val id: Int,
-    val memberId: Int,
-    val loanAmount: Double,
-    val interestRate: Double,
+    var endDate: Date,
+    val loanStatus: LoanStatus,
     val repayDuration: Int,
     val outstandingBalance: Double
-
 )
+
+data class PaymentsEntity(
+    val amount: Double
+)
+
+enum class LoanStatus {
+    Approved,
+    Denied,
+    InProgress
+}

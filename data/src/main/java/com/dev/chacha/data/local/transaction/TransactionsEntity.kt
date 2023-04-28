@@ -2,8 +2,9 @@ package com.dev.chacha.data.local.transaction
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.dev.chacha.data.local.loans.Loans
-import com.dev.chacha.data.local.account.AccountsEntity
+import com.dev.chacha.data.local.account.AccountEntity
+import com.dev.chacha.data.local.loans.LoanEntity
+import com.dev.chacha.domain.model.TransactionType
 import java.util.*
 
 /*
@@ -19,12 +20,14 @@ data class TransactionsEntity(
     @PrimaryKey val id: Int,
     var transactionId: Int,
     val transactionName: String,
+    val transactionDescription: String,
+    val transactionFee: Double,
     val transactionNumber: String,
     var transactionAmount: Double,
-    var transactionType: String,
+    var transactionType: TransactionType,
     var transactionDate: Date = Date(),
     var transactionTime: String,
-    var accountsEntity: AccountsEntity
+    var accountsEntity: AccountEntity
 
 )
 
@@ -33,8 +36,8 @@ data class TransactionsEntity(
 data class Transaction(
     val deposits: List<Deposits>,
     val withdrawal: List<Withdrawals>,
-    val transfer: List<AccountsEntity>,
-    val loansRepayment: Loans
+    val transfer: List<AccountEntity>,
+    val loansRepayment: LoanEntity
 )
 
 

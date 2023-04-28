@@ -2,30 +2,29 @@ package com.dev.chacha.data.local.account
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.dev.chacha.data.local.account.Accounts
 
 @Dao
 interface AccountsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAccount(accounts: Accounts)
+    fun insertAccount(accounts: AccountEntity)
 
     @Delete
-    fun deleteAccount(accounts: Accounts)
+    fun deleteAccount(accounts: AccountEntity)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertAllAccounts(accounts: List<Accounts>): List<Long>
+    suspend fun insertAllAccounts(accounts: List<AccountEntity>): List<Long>
 
     @Query("SELECT * FROM accounts WHERE id = :id")
-    fun getLiveAccount(id: Int?): LiveData<Accounts>
+    fun getLiveAccount(id: Int?): LiveData<AccountEntity>
 
     @Query("SELECT COUNT(id) FROM accounts")
     fun getDataCount(): Int
 
     @Update
-    fun updateAccount(accounts: Accounts?)
+    fun updateAccount(accounts: AccountEntity?)
 
     @Update
-    suspend fun updateAccount(accounts: LiveData<Accounts>)
+    suspend fun updateAccount(accounts: LiveData<AccountEntity>)
 
     @Query("DELETE FROM accounts")
     fun deleteAll()

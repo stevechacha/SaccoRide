@@ -23,7 +23,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 import com.dev.chacha.presentation.transaction_history.TransactionsItem
 import com.dev.chacha.presentation.transaction_history.transactionsItem
 
@@ -80,7 +79,6 @@ fun TransHistoryItem(
                         style = typography.headlineSmall
                     )
                 }
-
             }
             Column(
                 modifier = Modifier
@@ -98,7 +96,7 @@ fun TransHistoryItem(
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 1,
                         textAlign = TextAlign.Start,
-                        )
+                    )
                     Text(
                         text = transactionItem.amount.toString(),
                         textAlign = TextAlign.End,
@@ -142,17 +140,16 @@ fun TransHistoryItem(
 @Composable
 @Preview
 fun TransHistoryItemPreview() {
-    SaccoRideTheme {
-        LazyColumn {
-            items(transactionsItem.size) { index ->
-                TransHistoryItem(
-                    transactionItem = transactionsItem[index],
-                    onTransactionClick = {}
-                )
-            }
+    LazyColumn {
+        items(transactionsItem.size) { index ->
+            TransHistoryItem(
+                transactionItem = transactionsItem[index],
+                onTransactionClick = {}
+            )
         }
-
     }
+
+
 }
 
 

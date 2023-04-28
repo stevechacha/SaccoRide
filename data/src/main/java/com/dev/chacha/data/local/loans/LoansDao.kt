@@ -7,8 +7,10 @@ import androidx.room.Query
 @Dao
 interface LoansDao {
     @Query("SELECT * FROM loans")
-    fun getAll(): List<Loans>
+    fun getAll(): List<LoanEntity>
 
     @Insert
-    fun insert(loan: Loans)
+    fun insert(loan: LoanEntity)
+
+
 }

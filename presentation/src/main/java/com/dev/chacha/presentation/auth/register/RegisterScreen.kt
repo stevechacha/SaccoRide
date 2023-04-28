@@ -108,10 +108,9 @@ fun RegisterContent(
 @Composable
 @Preview
 fun RegisterScreenPreview() {
-    SaccoRideTheme {
         RegisterScreen(
             onClick = {},
             onLoginClick = {}
         )
-    }
+
 }

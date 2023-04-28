@@ -1,6 +1,7 @@
 package com.dev.chacha.presentation.account
 
 data class Account(
-    val name: String,
-    val imageUrl: String
+    val title: String,
+    val icon: String
 )
+

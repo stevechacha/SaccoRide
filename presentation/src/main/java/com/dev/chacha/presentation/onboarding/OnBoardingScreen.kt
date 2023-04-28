@@ -6,45 +6,34 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.rememberScaffoldState
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.content.ContextCompat
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @ExperimentalPagerApi
 @Composable
 fun OnBoardScreen() {
     val scaffoldState = rememberScaffoldState()
-    val onBoardViewModel : OnBoardingViewModel = viewModel()
+    val onBoardViewModel: OnBoardingViewModel = viewModel()
     val context = LocalContext.current
     val currentPage = onBoardViewModel.currentPage.collectAsState()
 
@@ -56,7 +45,7 @@ fun OnBoardScreen() {
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-    ) { paddingValues->
+    ) { paddingValues ->
         Surface(
             modifier = Modifier
                 .fillMaxSize()
@@ -123,7 +112,7 @@ fun OnBoardScreen() {
                         modifier = Modifier
                             .padding(bottom = 20.dp)
                             .fillMaxWidth(),
-                        horizontalArrangement = if (pagerState.currentPage != 2 ) {
+                        horizontalArrangement = if (pagerState.currentPage != 2) {
                             Arrangement.SpaceBetween
                         } else {
                             Arrangement.Center
@@ -132,7 +121,8 @@ fun OnBoardScreen() {
                         if (pagerState.currentPage == 2) {
                             OutlinedButton(
                                 onClick = {
-                                    Toast.makeText(context, "Start the Screen", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(context, "Start the Screen", Toast.LENGTH_SHORT)
+                                        .show()
                                 },
                                 shape = RoundedCornerShape(45.dp)
                             ) {
@@ -213,7 +203,6 @@ fun IndicateIcon(isSelected: Boolean) {
 @Composable
 @Preview
 fun OnBordingPreview() {
-    SaccoRideTheme {
-        OnBoardScreen()
-    }
+    OnBoardScreen()
+
 }

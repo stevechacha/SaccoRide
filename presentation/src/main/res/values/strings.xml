@@ -87,5 +87,38 @@
     <string name="account">Account</string>
     <string name="shop_header_text">We\'d like to show some more about our Sacco</string>
     <string name="amount_support_text">Minimum amount is Ksh 1</string>
+    <string name="transaction_detail">Transaction Detail</string>
+    <string name="recepient_no">Payment Reference</string>
+    <string name="dete">Date/Time</string>
+    <string name="money_in">Money In</string>
+    <string name="money_out">Money Out</string>
+    <string name="money_balance">Balance</string>
+    <string name="transaction_type">Transaction Type</string>
+    <string name="total_amount">Total</string>
+    <string name="available_balance">Available Balance</string>
+    <string name="statement">Statement</string>
+
+
+    <!-- ONBOARDING VARIANT_2 -->
+    <string name="welcome_to_stax">Hello, welcome to Sacco Community.</string>
+    <string name="welcome_to_stax_fullContent">If you\’re new to Stax you may have some questions about how the app works. We\'ll help clarify some of these. Select the most relevant option to you.</string>
+    <string name="onboarding_variant_2_question1">Is Stax for me?</string>
+    <string name="skip_prefix">Already know about stax?</string>
+    <string name="skip">Skip</string>
+
+    <string name="welcome_title_one">Welcome to RideSacco</string>
+    <string name="welcome_sub_one">Our Sacco community app is designed to help you connect with fellow members, contribute to your savings and investments, and pay bills with ease.</string>
+    <string name="welcome_title_two">Woohoo! You\'re exactly who we\'ve been looking for!</string>
+
+    <string name="welcome_title_three">We\'ve got you covered!</string>
+    <string name="welcome_sub_two">Here\'s a couple of things to get you excited about RideSacco.</string>
+    <string name="intro_feature_one_title">Simplify your financial life with our App!</string>
+    <string name="intro_feature_one_desc">Our finance app makes managing your money easy. With our intuitive interface and helpful features, you\'ll be able to keep track of your spending and savings effortlessly.</string>
+    <string name="intro_feature_two_title">Take control of your Sacco finances </string>
+    <string name="intro_feature_two_desc">Manage and spend from  your sacco and mobile money accounts from Our App.</string>
+    <string name="intro_feature_three_title">Safer by design</string>
+    <string name="intro_feature_three_desc">We leveraged Android\'s built in security designs to keep your information secure at all times.</string>
+    <string name="explore_btn_text">Continue without sign in</string>
+    <string name="continue_with_google">Continue with Google</string>
 
 </resources>

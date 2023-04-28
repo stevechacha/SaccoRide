@@ -4,7 +4,13 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -22,13 +28,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.theme.PrimaryColor
-import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 
 @Composable
 fun TextImageItem(
     @DrawableRes drawable: Int,
     @StringRes stringRes: Int,
-    onItemClick : () -> Unit
+    onItemClick: () -> Unit
 ) {
     val sizeIcon = dimensionResource(id = R.dimen.margin_24)
     Column(
@@ -43,10 +48,10 @@ fun TextImageItem(
             modifier = Modifier
                 .clip(CircleShape)
                 .size(48.dp)
-                .background(MaterialTheme.colorScheme.background),
+                .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08F)),
             contentAlignment = Alignment.Center
 
-        ){
+        ) {
             Icon(
                 painter = painterResource(id = drawable),
                 contentDescription = "",
@@ -66,19 +71,17 @@ fun TextImageItem(
         )
 
     }
-    
+
 }
 
 @Composable
 @Preview
 fun TextImageItemPreview() {
-    SaccoRideTheme {
-        TextImageItem(
-            drawable = R.drawable.ic_home,
-            stringRes = R.string.sendMoney
-        ) {
+    TextImageItem(
+        drawable = R.drawable.ic_home,
+        stringRes = R.string.sendMoney,
+        onItemClick = { }
+    )
 
-        }
 
-    }
 }

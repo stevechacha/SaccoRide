@@ -102,7 +102,6 @@ fun Artel() {
 @Composable
 @Preview
 fun ArtelPreview() {
-    SaccoRideTheme {
         Artel()
-    }
+
 }

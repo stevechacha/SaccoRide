@@ -29,7 +29,7 @@ fun AppOutlinedButton(
             .fillMaxWidth()
             .height(50.dp),
         colors = ButtonDefaults.outlinedButtonColors(
-            contentColor = Color.White,
+            contentColor = MaterialTheme.colorScheme.onBackground,
         ),
         border = BorderStroke(1.dp, PrimaryColor),
     ) {

@@ -17,7 +17,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
-import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 import com.dev.chacha.presentation.home.components.HomeServiceCard
 import com.dev.chacha.presentation.home.components.TransactionCard
 import com.dev.chacha.presentation.transaction_history.components.TransHistoryItem
@@ -40,12 +39,13 @@ fun HomeScreen(
 ) {
     val topAppBarState = rememberTopAppBarScrollState()
     val decayAnimationSpec = rememberSplineBasedDecay<Float>()
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec,topAppBarState)
+    val scrollBehavior =
+        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec, topAppBarState)
 
     val now = Calendar.getInstance() // get the current time
     val hour = now.get(Calendar.HOUR_OF_DAY) // get the hour component of the current time
 
-    val greeting = when(hour) { // determine the appropriate greeting based on the hour
+    val greeting = when (hour) { // determine the appropriate greeting based on the hour
         in 0..11 -> "Good morning"
         in 12..17 -> "Good afternoon"
         else -> "Good evening"
@@ -58,7 +58,7 @@ fun HomeScreen(
             MediumTopAppBar(
                 title = {
                     Text(
-                        text = "${greeting},John",
+                        text = "${greeting},Stephen",
                         fontSize = 20.sp,
                         maxLines = 2,
                         modifier = Modifier.fillMaxWidth()
@@ -155,6 +155,7 @@ fun HomeScreen(
         }
     }
 }
+
 data class User(
     val title: String? = null,
     val icon: Int
@@ -163,17 +164,16 @@ data class User(
 @Composable
 @Preview
 fun HomeScreenPreview() {
-    SaccoRideTheme {
-        HomeScreen(
-            onSendMoneyClicked = { /*TODO*/ },
-            onBuyAirtimeClicked = { /*TODO*/ },
-            onBuyGoodsClicked = { /*TODO*/ },
-            onPayBillClicked = { /*TODO*/ },
-            onWithdrawClicked = { /*TODO*/ },
-            onDepositClicked = { /*TODO*/ },
-            onLoanClicked = { /*TODO*/ },
-            onMarketClicked = { /*TODO*/ },
-            onSavingsClicked = {}
-        )
-    }
+    HomeScreen(
+        onSendMoneyClicked = { /*TODO*/ },
+        onBuyAirtimeClicked = { /*TODO*/ },
+        onBuyGoodsClicked = { /*TODO*/ },
+        onPayBillClicked = { /*TODO*/ },
+        onWithdrawClicked = { /*TODO*/ },
+        onDepositClicked = { /*TODO*/ },
+        onLoanClicked = { /*TODO*/ },
+        onMarketClicked = { /*TODO*/ },
+        onSavingsClicked = {}
+    )
+
 }
