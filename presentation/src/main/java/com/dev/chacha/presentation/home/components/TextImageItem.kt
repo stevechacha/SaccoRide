@@ -48,7 +48,7 @@ fun TextImageItem(
             modifier = Modifier
                 .clip(CircleShape)
                 .size(48.dp)
-                .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08F)),
+                .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.02F)),
             contentAlignment = Alignment.Center
 
         ) {

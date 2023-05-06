@@ -5,7 +5,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -14,12 +13,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.auth.component.SignUpInText
-import com.dev.chacha.presentation.auth.component.SignupText
 import com.dev.chacha.presentation.common.components.AppOutlinedTextField
 import com.dev.chacha.presentation.common.components.AppToolbar
 import com.dev.chacha.presentation.common.components.ContinueButton
-import com.dev.chacha.presentation.common.theme.PrimaryColor
-import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 
 
 @Composable
@@ -56,6 +52,7 @@ fun RegisterContent(
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp, vertical = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
 
             Text(
@@ -70,14 +67,12 @@ fun RegisterContent(
                 hint = stringResource(id = R.string.email_hint),
                 keyboardType = KeyboardType.Email
             )
-            Spacer(modifier = Modifier.height(16.dp))
             AppOutlinedTextField(
                 value = mobileNumber,
                 onValueChange = { setMobileNumber(it) },
                 hint = stringResource(id = R.string.mobile_number_hint),
                 keyboardType = KeyboardType.Phone
             )
-            Spacer(modifier = Modifier.height(16.dp))
 
             AppOutlinedTextField(
                 value = idNumber,
@@ -86,18 +81,16 @@ fun RegisterContent(
                 keyboardType = KeyboardType.Number
             )
 
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(16.dp))
             ContinueButton(
                 onClick = { onClick() },
                 text = stringResource(id = R.string.continuee),
                 enable = email.isNotEmpty() && mobileNumber.isNotEmpty() && idNumber.isNotEmpty()
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
-
             SignUpInText(
-                onClick = { onLoginClick()},
-                text = R.string.already_have_an_account ,
+                onClick = { onLoginClick() },
+                text = R.string.already_have_an_account,
                 signUpText = R.string.login
             )
 
@@ -108,9 +101,9 @@ fun RegisterContent(
 @Composable
 @Preview
 fun RegisterScreenPreview() {
-        RegisterScreen(
-            onClick = {},
-            onLoginClick = {}
-        )
+    RegisterScreen(
+        onClick = {},
+        onLoginClick = {}
+    )
 
 }

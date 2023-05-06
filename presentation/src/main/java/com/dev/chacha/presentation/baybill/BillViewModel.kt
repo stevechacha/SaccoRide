@@ -20,7 +20,7 @@ class BillViewModel : ViewModel() {
     }
 
 
-    fun onTransactionConfirm(){
+    fun onTransactionConfirm() {
         val payBill = PayBill(
             name = "name",
             amount = 0.0,

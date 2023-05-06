@@ -60,7 +60,7 @@ fun BuyAirtimeDialog(
                     Text(
                         text = "Paybill No",
                         style = MaterialTheme.typography.labelMedium,
-                        color= LocalContentColor.current.copy(alpha = ContentAlpha.medium)
+                        color = LocalContentColor.current.copy(alpha = ContentAlpha.medium)
                     )
                     Text(
                         text = payBill.businessNumber,
@@ -73,7 +73,7 @@ fun BuyAirtimeDialog(
                     Text(
                         text = "Account Number",
                         style = MaterialTheme.typography.labelMedium,
-                        color= LocalContentColor.current.copy(alpha = ContentAlpha.medium)
+                        color = LocalContentColor.current.copy(alpha = ContentAlpha.medium)
 
                     )
                     Text(
@@ -87,7 +87,7 @@ fun BuyAirtimeDialog(
                     Text(
                         text = "Amount",
                         style = MaterialTheme.typography.labelMedium,
-                        color= LocalContentColor.current.copy(alpha = ContentAlpha.medium)
+                        color = LocalContentColor.current.copy(alpha = ContentAlpha.medium)
 
                     )
                     Text(

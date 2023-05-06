@@ -8,8 +8,6 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
-import androidx.room.Room
-import com.dev.chacha.data.db.SaccoDatabase
 import com.dev.chacha.data.util.Constants.THEME_PREFERENCES
 import dagger.Module
 import dagger.Provides
@@ -23,6 +21,7 @@ import javax.inject.Singleton
 
 private const val SACCO_RIDE_PREFERENCES = "sacco_ride-pref"
 
+
 @Module
 @InstallIn(SingletonComponent::class)
 object DatastoreModule {
@@ -35,7 +34,7 @@ object DatastoreModule {
             ),
             migrations = listOf(SharedPreferencesMigration(appContext, THEME_PREFERENCES)),
             scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
-            produceFile = { appContext.preferencesDataStoreFile(THEME_PREFERENCES ) }
+            produceFile = { appContext.preferencesDataStoreFile(THEME_PREFERENCES) }
         )
     }
 

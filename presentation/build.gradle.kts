@@ -100,6 +100,17 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    // Lottie
+    implementation ("com.airbnb.android:lottie-compose:5.0.3")
+
+    // Coil
+    implementation("io.coil-kt:coil-compose:2.1.0")
+    implementation ("io.coil-kt:coil-gif:2.1.0")
+
+//    implementation("com.google.accompanist:accompanist-navigation-animation:0.28.0")
+/*    implementation ("androidx.compose.animation:animation:1.4.3")
+    implementation ("androidx.compose.animation:animation-core:1.4.3")*/
+
 
 
 

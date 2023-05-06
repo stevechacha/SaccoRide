@@ -24,8 +24,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -56,10 +54,32 @@ import java.time.format.DateTimeFormatter
 fun StatementDetail(
     onViewStatement: () -> Unit
 ) {
+    val currentDate = LocalDate.now()
+    var endDate by remember { mutableStateOf(currentDate) }
+    var startDate by remember { mutableStateOf(currentDate.minusMonths(1)) }
+    var enableButton by remember { mutableStateOf(true) }
+
+    var textfieldSize by remember { mutableStateOf(Size.Zero) }
+    val startDateDialogState = rememberMaterialDialogState()
+    val endDateDialogState = rememberMaterialDialogState()
+    val startFormattedDate by remember {
+        derivedStateOf { DateTimeFormatter.ofPattern("dd MMM yyyy").format(startDate) }
+    }
+    val endFormattedDate by remember {
+        derivedStateOf { DateTimeFormatter.ofPattern("dd MMM yyyy").format(endDate) }
+    }
+
+    var expanded by remember { mutableStateOf(false) }
+    var transactionType by rememberSaveable { mutableStateOf(TransactionType.All) }
+    val icon = if (expanded)
+        Icons.Filled.KeyboardArrowUp
+    else
+        Icons.Filled.KeyboardArrowDown
     Scaffold(
         topBar = {
             AppToolbar(
                 title = "Statement",
+                showBackArrow = true
             )
         },
         content = { paddingValues ->
@@ -79,15 +99,25 @@ fun StatementDetail(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    items(listOf("1M", "3M", "6M", "1Y", "2Y")) {
+                    items(listOf("1M", "3M", "6M", "1Y", "2Y")) { duration ->
                         DurationChip(
-                            onClick = { },
-                            text = it
+                            onClick = {
+                                val range = when (duration) {
+                                    "1M" -> 1L
+                                    "3M" -> 3L
+                                    "6M" -> 6L
+                                    "1Y" -> 12L
+                                    "2Y" -> 24L
+                                    else -> 0L
+                                }
+                                startDate = currentDate.minusMonths(range.toInt().toLong())
+                                endDate = currentDate
+                                enableButton = !startDate.isAfter(currentDate) && !endDate.isAfter(currentDate)
+                            },
+                            text = duration
                         )
                     }
                 }
-
-
                 Text(
                     text = "OR",
                     modifier = Modifier.fillMaxWidth(),
@@ -95,37 +125,7 @@ fun StatementDetail(
                 )
 
                 Text(text = "Transaction Type")
-                var textfieldSize by remember { mutableStateOf(Size.Zero) }
-                val startDateDialogState = rememberMaterialDialogState()
-                val endDateDialogState = rememberMaterialDialogState()
-                var endDate by remember {
-                    mutableStateOf(LocalDate.now())
-                }
-                var startDate by remember {
-                    mutableStateOf(LocalDate.now())
-                }
-                val startFormattedDate by remember {
-                    derivedStateOf {
-                        DateTimeFormatter
-                            .ofPattern("dd MMM yyyy")
-                            .format(startDate)
-                    }
-                }
-                val endFormattedDate by remember {
-                    derivedStateOf {
-                        DateTimeFormatter
-                            .ofPattern("dd MMM yyyy")
-                            .format(endDate)
-                    }
-                }
 
-
-                var expanded by remember { mutableStateOf(false) }
-                var transactionType by rememberSaveable { mutableStateOf("") }
-                val icon = if (expanded)
-                    Icons.Filled.KeyboardArrowUp
-                else
-                    Icons.Filled.KeyboardArrowDown
 
                 Column(modifier = Modifier.fillMaxWidth()) {
                     Row(
@@ -134,7 +134,7 @@ fun StatementDetail(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
-                            text = transactionType,
+                            text = transactionType.name,
                             modifier = Modifier
                                 .weight(1f)
                                 .onGloballyPositioned { coordinates ->
@@ -157,16 +157,17 @@ fun StatementDetail(
                         onDismissRequest = { expanded = false },
                         modifier = Modifier
                             .width(with(LocalDensity.current) { textfieldSize.width.toDp() }),
-                    ) {
+                    )
+                    {
                         transactionTypes.forEach { item ->
                             DropdownMenuItem(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(8.dp)
                                     .align(Alignment.CenterHorizontally),
-                                text = { Text(text = item.toString()) },
+                                text = { Text(text = item.name) },
                                 onClick = {
-                                    transactionType = item.toString()
+                                    transactionType = item
                                     expanded = false
                                 }
                             )
@@ -261,15 +262,16 @@ fun StatementDetail(
                     buttons = {
                         positiveButton(text = "Ok") {
                             endDateDialogState.hide()
+                            enableButton = !startDate.isAfter(currentDate) && !endDate.isAfter(currentDate)
                         }
                         negativeButton(text = "Cancel")
                     }
                 ) {
                     datepicker(
-                        initialDate = LocalDate.now(),
+                        initialDate = currentDate,
                         title = "Pick a date",
                         allowedDateValidator = {
-                            it.isBefore(LocalDate.now())
+                            it.isBefore(currentDate)
                         }
                     ) {
                         endDate = it
@@ -281,15 +283,16 @@ fun StatementDetail(
                     buttons = {
                         positiveButton(text = "Ok") {
                             startDateDialogState.hide()
+                            enableButton = !startDate.isAfter(currentDate) && !endDate.isAfter(currentDate)
                         }
                         negativeButton(text = "Cancel")
                     }
                 ) {
                     datepicker(
-                        initialDate = LocalDate.now(),
+                        initialDate = currentDate,
                         title = "Pick a date",
                         allowedDateValidator = {
-                            it.isBefore(LocalDate.now())
+                            it.isBefore(currentDate)
                         }
                     ) {
                         startDate = it
@@ -310,32 +313,29 @@ fun StatementDetail(
                     onClick = {
                         onViewStatement()
                     },
-                    enable = true
+                    enable = enableButton
                 )
             }
 
         }
     )
-
 }
-
 
 val transactionTypes = listOf(
     TransactionType.All,
     TransactionType.BuyAirtime,
     TransactionType.PayBill,
     TransactionType.BuyGoods,
-
-
-    )
+)
 
 enum class TransactionType {
     All,
     PayBill,
     BuyGoods,
     BuyAirtime
-
 }
+
+
 
 @Composable
 fun DurationChip(

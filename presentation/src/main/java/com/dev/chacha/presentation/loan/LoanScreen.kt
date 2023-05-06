@@ -1,18 +1,44 @@
 package com.dev.chacha.presentation.loan
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SmallTopAppBar
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarScrollState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -20,23 +46,26 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.dev.chacha.presentation.R
-import com.dev.chacha.presentation.common.components.AppToolbar
 import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.components.RideOutlinedTextField
-import com.dev.chacha.presentation.common.components.SaccoOutlinedTextField
-import com.dev.chacha.presentation.home.components.HomeTopBar
 import com.dev.chacha.presentation.loan.components.LoanCard
 import com.dev.chacha.presentation.loan.components.LoanTextView
 
 @Composable
 fun LoanScreen(
-    navController: NavController
+    navController: NavController,
+    navigateToContact:()-> Unit
 ) {
     var isPayLoanExpanded by remember { mutableStateOf(false) }
     var isRequestLoanExpanded by remember { mutableStateOf(false) }
+    val topAppBarState = rememberTopAppBarScrollState()
+    val decayAnimationSpec = rememberSplineBasedDecay<Float>()
+    val scrollBehavior =
+        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec, topAppBarState)
 
     LaunchedEffect(isPayLoanExpanded) {
         if (isPayLoanExpanded) {
@@ -51,8 +80,51 @@ fun LoanScreen(
     }
     Scaffold(
         topBar = {
-            HomeTopBar(
-                title = R.string.loan
+            SmallTopAppBar(
+                title = {
+                    Text(
+                        text = "Loans",
+                        fontSize = 20.sp,
+                        maxLines = 2,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = { }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.sacco_logo),
+                            contentDescription = "Localized description",
+                            tint = MaterialTheme.colorScheme.onBackground
+                        )
+                    }
+                },
+                actions = {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .padding(end = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        IconButton(onClick = { /* doSomething() */ }) {
+                            Icon(
+                                imageVector = Icons.Filled.Favorite,
+                                contentDescription = "Localized description"
+                            )
+                        }
+                        IconButton(onClick = { /* doSomething() */ }) {
+                            Icon(
+                                imageVector = Icons.Filled.Favorite,
+                                contentDescription = "Localized description"
+                            )
+                        }
+                    }
+
+                },
+                colors = TopAppBarDefaults.smallTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background,
+                    scrolledContainerColor = MaterialTheme.colorScheme.background
+                ),
+                scrollBehavior = scrollBehavior
             )
         }
     ) { paddingValues ->
@@ -87,9 +159,12 @@ fun LoanScreen(
             )
             Spacer(modifier = Modifier.height(10.dp))
             ServiceLoan()
+
+            Button(onClick = { navigateToContact()}) {
+                Text(text = "Contacts")
+            }
         }
     }
-
 
 
 }
@@ -111,9 +186,19 @@ fun PayLoans(
 
     Card(
         modifier = Modifier.fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 0.dp,
+            pressedElevation = 0.dp,
+            disabledElevation = 0.dp,
+            draggedElevation = 0.dp
+        ),
         onClick = {
             onExpandToggle()
-        }
+        },
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6F),
+        )
+
 
     ) {
         Column(
@@ -155,7 +240,7 @@ fun PayLoans(
 
 
             Spacer(modifier = Modifier.height(10.dp))
-            if (expanded) {
+            AnimatedVisibility(visible = expanded) {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -170,10 +255,12 @@ fun PayLoans(
 
                     ContinueButton(
                         text = "Continue",
-                        onClick = { /* TODO */ }
+                        onClick = {  },
+                        enable = true
                     )
                 }
             }
+
         }
     }
 }
@@ -197,15 +284,19 @@ fun RequestLoans(
         modifier = Modifier.fillMaxWidth(),
         onClick = {
             onExpandToggle()
-        }
-        ) {
+        },
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6F),
+        )
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(12.dp)
                 .padding(bottom = extraPaddingValues.coerceAtLeast(0.dp)),
-            verticalArrangement = Arrangement.Center
-        ) {
+            verticalArrangement = Arrangement.Center,
+
+            ) {
 
             Row(
                 modifier = Modifier
@@ -238,7 +329,7 @@ fun RequestLoans(
 
 
             Spacer(modifier = Modifier.height(10.dp))
-            if (expanded) {
+            AnimatedVisibility(visible = expanded) {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -257,6 +348,7 @@ fun RequestLoans(
                     )
                 }
             }
+
         }
     }
 }
@@ -269,7 +361,8 @@ fun LoansssPreview() {
         verticalArrangement = Arrangement.spacedBy(30.dp)
     ) {
         LoanScreen(
-            navController = rememberNavController()
+            navController = rememberNavController(),
+            navigateToContact = {}
         )
     }
 

@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -20,13 +22,15 @@ import com.dev.chacha.presentation.common.components.AppToolbar
 import com.dev.chacha.presentation.common.theme.Theme
 import com.dev.chacha.presentation.setting.SettingsViewModel
 import com.dev.chacha.presentation.theme.component.ThemeItem
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @Composable
 @Preview
-fun ThemeS() {
+fun ThemeScreen() {
     val viewModel: SettingsViewModel = hiltViewModel()
+    val selectedTheme by viewModel.currentTheme.collectAsState()
 
-    val selectedTheme = remember { mutableStateOf(viewModel.currentTheme) }
     Scaffold(
         topBar = {
             AppToolbar(
@@ -46,13 +50,11 @@ fun ThemeS() {
                 textAlign = TextAlign.Start
             )
             Spacer(modifier = Modifier.height(12.dp))
-            ThemeScreen(
+            ThemeScreenContent(
                 onSelectTheme = { themeValue ->
-                    selectedTheme.value = themeValue
                     viewModel.updateTheme(themeValue = themeValue)
                 },
-                selectedTheme = selectedTheme.value
-
+                selectedTheme = selectedTheme
             )
         }
 
@@ -61,7 +63,7 @@ fun ThemeS() {
 }
 
 @Composable
-fun ThemeScreen(
+fun ThemeScreenContent(
     onSelectTheme: (Int) -> Unit,
     selectedTheme: Int,
 ) {

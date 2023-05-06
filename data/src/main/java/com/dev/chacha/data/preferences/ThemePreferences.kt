@@ -16,6 +16,7 @@ class ThemePreferences(
             preferences[THEME_OPTIONS] = themeValue
         }
     }
+
     val getTheme: Flow<Int> = dataStore.data.map { preferences ->
         preferences[THEME_OPTIONS] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
     }

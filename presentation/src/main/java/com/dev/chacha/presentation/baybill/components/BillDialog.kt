@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.theme.PrimaryColor
 import com.dev.chacha.presentation.paybill.PayBill
@@ -29,7 +30,7 @@ import com.dev.chacha.presentation.paybill.PayBill
 fun BillDialog(
     onDismiss: () -> Unit,
     onClickSend: (PayBill) -> Unit,
-    payBill: PayBill,
+    payBill: PayBill
 ) {
     AlertDialog(
         containerColor = MaterialTheme.colorScheme.background,
@@ -57,10 +58,11 @@ fun BillDialog(
                         fontWeight = FontWeight.Bold
                     )
                     Spacer(modifier = Modifier.height(10.dp))
+                    
                     Text(
                         text = "Paybill No",
                         style = MaterialTheme.typography.labelMedium,
-                        color=LocalContentColor.current.copy(alpha = ContentAlpha.medium)
+                        color = LocalContentColor.current.copy(alpha = ContentAlpha.medium)
                     )
                     Text(
                         text = payBill.businessNumber,
@@ -73,7 +75,7 @@ fun BillDialog(
                     Text(
                         text = "Account Number",
                         style = MaterialTheme.typography.labelMedium,
-                        color=LocalContentColor.current.copy(alpha = ContentAlpha.medium)
+                        color = LocalContentColor.current.copy(alpha = ContentAlpha.medium)
 
                     )
                     Text(
@@ -87,7 +89,7 @@ fun BillDialog(
                     Text(
                         text = "Amount",
                         style = MaterialTheme.typography.labelMedium,
-                        color=LocalContentColor.current.copy(alpha = ContentAlpha.medium)
+                        color = LocalContentColor.current.copy(alpha = ContentAlpha.medium)
 
                     )
                     Text(
@@ -109,7 +111,7 @@ fun BillDialog(
                         onClick = { onDismiss() },
                         modifier = Modifier.width(120.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor =LocalContentColor.current.copy(alpha = ContentAlpha.medium),
+                            containerColor = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
                             contentColor = MaterialTheme.colorScheme.onBackground
                         )
                     ) {

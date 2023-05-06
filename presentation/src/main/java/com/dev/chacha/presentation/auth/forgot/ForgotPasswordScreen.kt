@@ -14,7 +14,6 @@ import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.components.AppOutlinedTextField
 import com.dev.chacha.presentation.common.components.AppToolbar
 import com.dev.chacha.presentation.common.components.ContinueButton
-import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 
 @Composable
 fun ForgotPasswordScreen(
@@ -73,9 +72,9 @@ fun ForgotPasswordContent(
 @Composable
 @Preview
 fun ForgetPasswordScreenPreview() {
-        ForgotPasswordScreen(
-            onClick = {},
-            onLoginClick = {}
-        )
+    ForgotPasswordScreen(
+        onClick = {},
+        onLoginClick = {}
+    )
 }
 

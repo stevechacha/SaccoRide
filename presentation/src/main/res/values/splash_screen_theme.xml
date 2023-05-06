@@ -2,7 +2,7 @@
 <resources>
     <style name="Theme.MySplash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/white</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/sacco_logo</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/sako_icon</item>
         <item name="postSplashScreenTheme">@style/Theme.SaccoRide</item>
     </style>
 </resources>

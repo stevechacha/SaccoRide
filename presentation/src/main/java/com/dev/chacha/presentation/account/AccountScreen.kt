@@ -4,7 +4,6 @@ package com.dev.chacha.presentation.account
 import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -14,11 +13,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -40,22 +36,18 @@ import androidx.navigation.compose.rememberNavController
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.account.component.AccountCard
 import com.dev.chacha.presentation.account.component.BalanceCard
-import com.dev.chacha.presentation.account.component.RowIconText
-import com.dev.chacha.presentation.account.component.UserAccountVerticalCard
-import com.dev.chacha.presentation.auth.reset_password.ResetPasswordScreen
 import com.dev.chacha.presentation.common.navigation.AccountAction
-import com.dev.chacha.presentation.piechart.PieChart
 
 
 @Composable
 fun AccountScreen(
     navigateBack: () -> Unit,
     onNavigateToStatement: () -> Unit,
-    navigateToSettings: ()-> Unit,
-    navigateToAboutSaccoRide : ()-> Unit,
-    navigateToNotification: ()-> Unit,
-    navigateToManagePin: ()-> Unit,
-    navigateToManagePassword: ()-> Unit,
+    navigateToSettings: () -> Unit,
+    navigateToAboutSaccoRide: () -> Unit,
+    navigateToNotification: () -> Unit,
+    navigateToManagePin: () -> Unit,
+    navigateToManagePassword: () -> Unit,
     navController: NavController
 ) {
     val topAppBarState = rememberTopAppBarScrollState()
@@ -113,61 +105,65 @@ fun AccountScreen(
         },
     ) { paddingValues ->
         Box(modifier = Modifier.fillMaxWidth()) {
-                LazyColumn(
-                    verticalArrangement = Arrangement.spacedBy(10.dp),
-                    contentPadding = paddingValues
-                ) {
-                    item {
-                        BalanceCard(
-                            username = "Stephen Chacha",
-                            contact = "0746656813",
-                            balance = "Ksh. 2000",
-                            drawable = R.drawable.ic_account_circle,
-                            onClick = { onNavigateToStatement() }
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+                contentPadding = paddingValues
+            ) {
+                item {
+                    BalanceCard(
+                        username = "Stephen Chacha",
+                        contact = "0746656813",
+                        balance = "Ksh. 2000",
+                        drawable = R.drawable.ic_account_circle,
+                        onClick = { onNavigateToStatement() }
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
 
-                    }
-                    items(accountOptions) { accountItem ->
-                        AccountCard(
-                            title = accountItem.title,
-                            icon = accountItem.icon,
-                            onClick = { accountOptions ->
-                                when (accountOptions) {
-                                    "View Statement"->{
-                                        navController.navigate(AccountAction.StatementDetail.route)
-
-                                    }
-                                    "Notification"->{
-                                        navigateToNotification()
-                                    }
-                                    "Manage your PIN" -> {
-                                        navigateToManagePin()
-                                    }
-                                    "Change your password"->{
-                                        navigateToManagePassword()
-                                    }
-                                    "Setting"->{
-                                        navigateToSettings()
-                                    }
-                                    "About SaccoRide"->{
-                                        navigateToAboutSaccoRide()
-                                    }
-                                    "Sign Out"->{
-
-                                    }
+                }
+                items(accountOptions) { accountItem ->
+                    AccountCard(
+                        title = accountItem.title,
+                        icon = accountItem.icon,
+                        onClick = { accountOptions ->
+                            when (accountOptions) {
+                                "View Statement" -> {
+                                    navController.navigate(AccountAction.StatementDetail.route)
                                 }
 
-                            },
-                            )
-                    }
+                                "Notification" -> {
+                                    navigateToNotification()
+                                }
 
+                                "Manage your PIN" -> {
+                                    navigateToManagePin()
+                                }
 
+                                "Change your password" -> {
+                                    navigateToManagePassword()
+                                }
+
+                                "App Settings" -> {
+                                    navigateToSettings()
+                                }
+
+                                "About SaccoRide" -> {
+                                    navigateToAboutSaccoRide()
+                                }
+
+                                "Sign Out" -> {
+
+                                }
+                            }
+
+                        },
+                    )
                 }
 
             }
 
         }
+
+    }
 
 }
 
@@ -194,7 +190,7 @@ private val accountOptions = listOf(
         icon = R.drawable.password
     ),
     AccountItem(
-        title = "Setting",
+        title = "App Settings",
         icon = R.drawable.settings_icons
     ),
     AccountItem(

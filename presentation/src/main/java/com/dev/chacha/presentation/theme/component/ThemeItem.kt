@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.dev.chacha.presentation.common.theme.PrimaryColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,7 +38,7 @@ fun ThemeItem(
             selected = isSelected,
             onClick = { onSelectTheme(themeValue) },
             colors = RadioButtonDefaults.colors(
-                selectedColor = MaterialTheme.colorScheme.primary,
+                selectedColor = PrimaryColor,
                 unselectedColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium)
             ),
         )

@@ -1,6 +1,6 @@
 package com.dev.chacha.domain.model
 
-import java.util.*
+import java.util.Date
 
 
 /*
@@ -20,7 +20,8 @@ data class Transaction(
     val account: Account
 
 )
-enum class TransactionType{
+
+enum class TransactionType {
     Deposit,
     Withdrawal,
     Transfer,

@@ -31,11 +31,11 @@ fun LoanVerticalCard(
     Card(
         modifier = Modifier
             .height(100.dp)
-            .width(120.dp)
+            .width(100.dp)
             .clickable(onClick = onItemClick),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
-        ),
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6F),
+        )
     ){
         Column(
             modifier = Modifier

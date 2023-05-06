@@ -23,19 +23,19 @@ fun HomeServiceCard(
     ) {
         HomeServiceItem(
             onItemClick = onLoanClicked,
-            drawable = R.drawable.ic_utility,
+            drawable = R.drawable.loan_icon,
             stringRes = R.string.loan
         )
 
         HomeServiceItem(
             onItemClick = onMarketClicked,
-            drawable = R.drawable.ic_utility,
+            drawable = R.drawable.market_icons,
             stringRes = R.string.our_market
         )
 
         HomeServiceItem(
             onItemClick = onSavingsClicked,
-            drawable = R.drawable.ic_utility,
+            drawable = R.drawable.savings_icons,
             stringRes = R.string.savings
         )
 

@@ -38,24 +38,6 @@ fun Artel() {
 
         val context = LocalContext.current
 
-        val pickContact = rememberLauncherForActivityResult(
-            contract = ActivityResultContracts.PickContact()
-        ) { uri ->
-            val cursor = uri?.let { context.contentResolver.query(it, null, null, null, null) }
-            if (cursor?.moveToFirst() == true) {
-                val name =
-                    cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
-                        .let { cursor.getString(it) }
-                val phoneNumber =
-                    cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
-                        .let { cursor.getString(it) }
-                // Do something with the contact name and phone number
-            }
-            cursor?.close()
-        }
-
-
-
         RideOutlinedTextField(
             value = mobileNumber,
             onValueChange = {
@@ -65,7 +47,7 @@ fun Artel() {
             hint = stringResource(id = R.string.phoneNumber),
             trailingIcon = {
                 IconButton(onClick = {
-                    pickContact.launch(null)
+
                 }) {
                     Icon(
                         imageVector = Icons.Outlined.Search,

@@ -18,7 +18,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
+import com.dev.chacha.presentation.common.theme.Brutalista
 
 @Composable
 fun AccountCard(
@@ -27,14 +29,13 @@ fun AccountCard(
     icon: Int
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .padding(horizontal = 16.dp)
-            .clickable {
-                onClick(title)
-            },
+            .clickable { onClick(title) },
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6F),
         )
     ) {
         Row(
@@ -55,7 +56,9 @@ fun AccountCard(
                 )
                 Text(
                     text = title,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    fontSize = 14.sp,
+                    fontFamily = Brutalista,
                 )
             }
             Icon(

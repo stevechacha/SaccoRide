@@ -17,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 
 @Composable
@@ -26,8 +28,9 @@ fun AppToolbar(
     colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
     scrollBehavior: TopAppBarScrollBehavior? = null,
     showBackArrow: Boolean = false,
-    showForwardArrow: Boolean = false
+    showForwardArrow: Boolean = false,
 ) {
+    val navController = rememberNavController()
     CenterAlignedTopAppBar(
         title = {
             Text(
@@ -39,7 +42,7 @@ fun AppToolbar(
             )
         }, navigationIcon = {
             if (showBackArrow) {
-                IconButton(onClick = { /* doSomething() */ }) {
+                IconButton(onClick = { navController.navigateUp() }) {
                     Image(
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Localized description",
@@ -49,7 +52,7 @@ fun AppToolbar(
             }
         }, actions = {
             if (showForwardArrow) {
-                IconButton(onClick = { /* doSomething() */ }) {
+                IconButton(onClick = { navController.navigateUp()}) {
                     Icon(
                         imageVector = Icons.Filled.Close,
                         contentDescription = "Localized description",
@@ -69,7 +72,7 @@ fun AppToolbar(
 @Preview
 fun AppToolbarPreview() {
     AppToolbar(
-        title = "Title", showForwardArrow = true, showBackArrow = true
+        title = "Title", showForwardArrow = true, showBackArrow = true,
     )
 
 }

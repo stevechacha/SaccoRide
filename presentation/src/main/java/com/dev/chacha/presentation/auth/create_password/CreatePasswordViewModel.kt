@@ -36,8 +36,8 @@ class CreatePasswordViewModel(
     val showConfirmPassword: State<Boolean> = _showConfirmPassword
 
 
-   /* private val _passwordError = mutableStateOf("")
-    val passwordError: State<String> = _passwordError*/
+    /* private val _passwordError = mutableStateOf("")
+     val passwordError: State<String> = _passwordError*/
 
     private val _confirmPasswordError = mutableStateOf("")
     val confirmPasswordError: State<String> = _confirmPasswordError
@@ -60,9 +60,9 @@ class CreatePasswordViewModel(
         _passwordText.value = password
     }
 
-   /* fun setIsPasswordError(error: String) {
-        _passwordError.value = error
-    }*/
+    /* fun setIsPasswordError(error: String) {
+         _passwordError.value = error
+     }*/
 
     fun setShowPassword(showPassword: Boolean) {
         _showPassword.value = showPassword

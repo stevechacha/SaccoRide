@@ -23,7 +23,6 @@ import com.dev.chacha.presentation.common.navigation.BottomBarScreen
 import com.dev.chacha.presentation.common.navigation.bottomNavigationItems
 import com.dev.chacha.presentation.common.theme.Brutalista
 import com.dev.chacha.presentation.common.theme.PrimaryColor
-import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 
 
 @SuppressLint("RememberReturnType")
@@ -86,6 +85,6 @@ fun BottomNavigationBar(navController: NavHostController) {
 @Preview
 @Composable
 fun BottomNavigationPreview() {
-        BottomNavigationBar(rememberNavController())
+    BottomNavigationBar(rememberNavController())
 
 }

@@ -4,7 +4,7 @@ import com.dev.chacha.data.preferences.ThemePreferences
 import com.dev.chacha.domain.repo.ThemeRepository
 import kotlinx.coroutines.flow.Flow
 
-class ThemeRepositoryImpl (
+class ThemeRepositoryImpl(
     private val themePreferences: ThemePreferences
 ) : ThemeRepository {
     override val themeStream: Flow<Int>
@@ -14,3 +14,5 @@ class ThemeRepositoryImpl (
         themePreferences.saveTheme(themeValue = themeValue)
     }
 }
+
+

@@ -251,7 +251,10 @@ fun RequestLoan() {
 @Composable
 @Preview
 fun LoanScreenPreview() {
-    LoanScreen(navController = rememberNavController())
+    LoanScreen(
+        navController = rememberNavController(),
+        navigateToContact = {}
+    )
 
 }
 

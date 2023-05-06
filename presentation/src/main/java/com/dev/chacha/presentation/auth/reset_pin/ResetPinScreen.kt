@@ -50,12 +50,12 @@ fun ResetPinContent(
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp, vertical = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(
                 text = "Reset your pin",
                 fontSize = 24.sp
             )
-            Spacer(modifier = Modifier.height(20.dp))
 
             AppOutlinedTextField(
                 value = pin,
@@ -67,7 +67,7 @@ fun ResetPinContent(
                     viewModel.setShowPassword(it)
                 }
             )
-            Spacer(modifier = Modifier.height(16.dp))
+
             AppOutlinedTextField(
                 value = newPin,
                 onValueChange = { setNewPin(it) },
@@ -78,7 +78,6 @@ fun ResetPinContent(
                     viewModel.setShowPassword(it)
                 }
             )
-            Spacer(modifier = Modifier.height(16.dp))
 
             AppOutlinedTextField(
                 value = confirmNewPin,
@@ -91,15 +90,14 @@ fun ResetPinContent(
                 }
             )
             
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
             ContinueButton(
                 text = stringResource(id = R.string.continuee),
                 onClick = onClickAction,
                 enable = pin.isNotEmpty() && newPin.isNotEmpty() && confirmNewPin.isNotEmpty() && newPin == confirmNewPin
             )
-
-
+            
         }
     }
 }

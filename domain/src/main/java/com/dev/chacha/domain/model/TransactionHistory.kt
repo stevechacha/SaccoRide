@@ -1,7 +1,6 @@
 package com.dev.chacha.domain.model
 
 
-
 /*
 which api are required for sacco system
 
@@ -109,12 +108,6 @@ ReportEntity class:
     sacco system would depend on the specific requirements and functionality of the system.
 
 */
-
-
-
-
-
-
 
 
 

@@ -36,11 +36,11 @@ fun HomeServiceItem(
 ) {
     Card(
         modifier = Modifier
-            .height(110.dp)
-            .width(110.dp)
+            .height(100.dp)
+            .width(100.dp)
             .clickable(onClick = onItemClick),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6F),
         ),
     ){
         Column(

@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -28,8 +27,6 @@ import com.dev.chacha.presentation.common.navigation.RootNavGraph
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 import com.dev.chacha.presentation.common.theme.Theme
 import com.dev.chacha.presentation.fingerprint.Biometric
-import com.dev.chacha.presentation.fingerprint.BiometricChecker
-import com.dev.chacha.presentation.fingerprint.Biometrics
 import com.dev.chacha.presentation.theme.ThemeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -54,7 +51,7 @@ class MainActivity : ComponentActivity(), Biometric.AuthListener {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    val isFingerprintEnabled = remember { mutableStateOf(false) }
+                    RootNavGraph(navController = navController)
 
                     lifecycleScope.launchWhenStarted {
 //                        BiometricHelper(this@MainActivity,this@MainActivity).activity
@@ -64,10 +61,9 @@ class MainActivity : ComponentActivity(), Biometric.AuthListener {
                             this@MainActivity,
                         ).authenticate()
                     }
-                    RootNavGraph(navController = navController)
 
                 }
-                
+
             }
 
         }

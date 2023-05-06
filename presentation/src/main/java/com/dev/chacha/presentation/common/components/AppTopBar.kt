@@ -38,7 +38,9 @@ fun AppTopBar(
     showMenuBar: Boolean = false,
     showBackArrow: Boolean = false
 ) {
-    Surface {
+    Surface(
+       color = MaterialTheme.colorScheme.background
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -59,7 +61,7 @@ fun AppTopBar(
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_arrow_back),
                                 contentDescription = null,
-                                tint = Color.Black
+                                tint = MaterialTheme.colorScheme.onBackground
                             )
                         }
                     }
@@ -74,7 +76,10 @@ fun AppTopBar(
                             )
                         }
                     }
-                }
+                },
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background
+                )
             )
             AnimatedVisibility(visible = showSearchBar) {
                 Box(

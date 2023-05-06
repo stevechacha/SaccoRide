@@ -64,7 +64,6 @@ fun PinLockScreen(
 
 
 
-
     if (inputPin.size == 4) {
         LaunchedEffect(true) {
             delay(300)
@@ -99,7 +98,7 @@ fun PinLockScreen(
                     modifier = Modifier
                         .padding(top = 40.dp)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.background)
+                        .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.08F))
                         .size(80.dp)
                         .clip(CircleShape),
                     contentAlignment = Alignment.Center
@@ -121,7 +120,7 @@ fun PinLockScreen(
                     text = name.uppercase(),
                     style = MaterialTheme.typography.labelSmall
                 )
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
                     text = stringResource(id = R.string.enter_pin),
@@ -129,14 +128,14 @@ fun PinLockScreen(
 
                 )
 
-                Spacer(modifier = Modifier.height(30.dp))
+                Spacer(modifier = Modifier.height(20.dp))
 
                 if (showSuccess.value) {
                     LottieLoadingView(
                         context = context,
                         file = "success.json",
                         iterations = 1,
-                        modifier = Modifier.size(100.dp)
+                        modifier = Modifier.size(80.dp)
                     )
                 } else {
                     Row {
@@ -229,15 +228,13 @@ fun PinLockScreen(
                     horizontalArrangement = Arrangement.SpaceEvenly,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Check,
-                        contentDescription = "Success",
-                        modifier = Modifier
-                            .size(25.dp)
-                            .clickable {
-//                                onClickAction()
-                            }
-                    )
+                    IconButton(
+                        onClick = { /*TODO*/ },
+                        modifier = Modifier.size(25.dp)
+                    ) {
+                        //
+                    }
+
                     PinKeyItem(
                         onClick = { inputPin.add(0) },
                     ) {

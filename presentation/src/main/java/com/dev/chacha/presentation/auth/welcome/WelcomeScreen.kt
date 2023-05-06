@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -53,15 +52,19 @@ fun WelcomeScreen(
             }
         },
         bottomBar = {
-            Column(modifier= Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 16.dp)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 16.dp)
+            ) {
                 ContinueButton(
-                    text =  stringResource(id = R.string.sign_in),
+                    text = stringResource(id = R.string.sign_in),
                     onClick = onLogin,
                     enable = true
                 )
                 Spacer(modifier = Modifier.height(14.dp))
                 AppOutlinedButton(
-                    onClick = { onSignUp()},
+                    onClick = { onSignUp() },
                     text = R.string.sign_up
                 )
 

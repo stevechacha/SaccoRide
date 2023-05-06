@@ -1,6 +1,6 @@
 package com.dev.chacha.domain.model
 
-import java.util.*
+import java.util.Date
 
 
 /*
@@ -19,14 +19,14 @@ data class Report(
     val startDate: Date,
     val endDate: Date,
 
-    ){
-    fun generateReport(){
+    ) {
+    fun generateReport() {
 
     }
 }
 
 
-enum class ReportType{
+enum class ReportType {
     BalanceSheet,
     IncomeStatement
 }

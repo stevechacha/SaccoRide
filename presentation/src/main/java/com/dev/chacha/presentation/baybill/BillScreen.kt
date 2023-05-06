@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -50,13 +51,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.os.bundleOf
 import androidx.navigation.compose.rememberNavController
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.baybill.components.BillDialog
 import com.dev.chacha.presentation.common.components.AppTopBar
 import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.components.RideOutlinedTextField
-import com.dev.chacha.presentation.common.navigation.BottomBarScreen
 import com.dev.chacha.presentation.common.navigation.HomeAction
 import com.dev.chacha.presentation.paybill.PayBill
 import com.dev.chacha.presentation.paybill.component.PayBillItem
@@ -80,11 +81,20 @@ fun BillScreen(
 
 }*/
 
+@Composable
+fun BillBayScreen() {
+    BillScreen(
+        navigateBack = { /*TODO*/ },
+        navigateToBillConfirm = {}
+    )
+
+}
+
 @OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun BillScreen(
     navigateBack: () -> Unit,
-    navigateToBillConfirm:(PayBill)->Unit,
+    navigateToBillConfirm: (PayBill) -> Unit,
 ) {
 //    var bottomSheetContentState by remember { mutableStateOf(BottomSheetContentState()) }
     val modalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
@@ -125,13 +135,14 @@ fun BillScreen(
 
     var showDialog by rememberSaveable { mutableStateOf(false) }
 
+
     if (showDialog) {
         BillDialog(
             onDismiss = {
                 showDialog = false
             },
             onClickSend = {
-               navigateToBillConfirm.invoke(
+                navigateToBillConfirm.invoke(
                     PayBill(
                         name = businessName,
                         businessNumber = businessNumber,
@@ -140,9 +151,6 @@ fun BillScreen(
                         date = System.currentTimeMillis().toString()
                     ),
                 )
-                
-
-
             },
             payBill = PayBill(
                 name = businessName,
@@ -180,7 +188,7 @@ fun BillScreen(
                         onSearchParamChange = {},
                         showSearchBar = true
                     )
-                }
+                },
             ) { paddingValues ->
                 Column(
                     modifier = Modifier
@@ -191,13 +199,11 @@ fun BillScreen(
                 ) {
 
                     Box(
-                        modifier = Modifier
-                            .fillMaxSize(),
+                        modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.TopCenter
                     ) {
                         Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth()
                         ) {
                             LazyColumn {
                                 payBillItems.forEachIndexed { index, payBill ->
@@ -222,7 +228,6 @@ fun BillScreen(
                 }
 
             }
-
 
         }
     ) {
@@ -263,7 +268,8 @@ fun BillScreen(
                         .padding(paddingValues)
                         .verticalScroll(rememberScrollState())
                         .padding(horizontal = 16.dp, vertical = 16.dp)
-                        .background(MaterialTheme.colorScheme.background)
+                        .background(MaterialTheme.colorScheme.background),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
 
                     RideOutlinedTextField(
@@ -295,7 +301,7 @@ fun BillScreen(
                         supportText = businessName
 
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
 
                     val accountNumberLimit = 20
 
@@ -308,7 +314,6 @@ fun BillScreen(
                         hint = stringResource(id = R.string.accountNumber),
                         accountNumberLength = "${accountNumber.length}/${accountNumberLimit}"
                     )
-                    Spacer(modifier = Modifier.height(12.dp))
 
                     RideOutlinedTextField(
                         value = amount,
@@ -320,7 +325,6 @@ fun BillScreen(
 
                         )
 
-                    Spacer(modifier = Modifier.height(12.dp))
 
                     ContinueButton(
                         text = stringResource(id = R.string.continuee),
@@ -330,9 +334,13 @@ fun BillScreen(
                         enable = businessNumber.isNotEmpty() && accountNumber.isNotEmpty() && amount.isNotEmpty()
                     )
 
-                    Spacer(modifier = Modifier.height(25.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
 
-                    Column {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 16.dp)
+                    ) {
                         Text(
                             text = "Frequent",
                             fontSize = 18.sp
@@ -349,7 +357,6 @@ fun BillScreen(
                             )
                         }
                     }
-
 
                 }
             }

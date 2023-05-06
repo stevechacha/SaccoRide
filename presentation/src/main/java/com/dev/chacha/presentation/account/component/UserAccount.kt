@@ -1,6 +1,5 @@
 package com.dev.chacha.presentation.account.component
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,7 +22,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.dev.chacha.presentation.R
-import com.dev.chacha.presentation.common.theme.PrimaryColor
 
 @Composable
 fun UserAccountVerticalCard(
@@ -36,6 +34,9 @@ fun UserAccountVerticalCard(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6F),
+        )
     ) {
         Column(
             modifier = Modifier
@@ -55,8 +56,8 @@ fun UserAccountVerticalCard(
                     color = MaterialTheme.colorScheme.onSurface,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-
                     )
+                
                 Text(
                     text = savingAmount,
                     style = MaterialTheme.typography.labelMedium,

@@ -1,4 +1,5 @@
 package com.dev.chacha.presentation.fingerprint
+
 import android.Manifest
 import android.app.Activity
 import android.app.Application
@@ -14,11 +15,8 @@ import android.os.CancellationSignal
 import androidx.activity.ComponentActivity
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
-import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
-import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
-import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
-import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.activity.MainActivity
 import com.dev.chacha.presentation.common.navigation.AuthScreen
 import com.dev.chacha.presentation.common.navigation.Graph
@@ -31,14 +29,26 @@ class Biometric(
     private val activity: ComponentActivity
 ) : BiometricPrompt.AuthenticationCallback(), Application.ActivityLifecycleCallbacks {
 
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private val biometricManager: BiometricManager =
+        activity.getSystemService(Context.BIOMETRIC_SERVICE) as BiometricManager
+
+    private val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
+
+    private var currentScreen: NavBackStackEntry? = null
+    private var authAttempts: Int = 0
+
     private var cancellationSignal: CancellationSignal? = null
-    private var currentScreen: String? = null
 
     private val authenticationCallback = @RequiresApi(Build.VERSION_CODES.P)
     object : BiometricPrompt.AuthenticationCallback() {
         override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
             notifyUser("Authentication Error $errorCode")
             super.onAuthenticationError(errorCode, errString)
+            if (++authAttempts >= 3) {
+                navController.navigate(AuthScreen.PinLock.route)
+            }
+
         }
 
         override fun onAuthenticationHelp(helpCode: Int, helpString: CharSequence?) {
@@ -47,15 +57,23 @@ class Biometric(
 
         override fun onAuthenticationFailed() {
             super.onAuthenticationFailed()
-            navController.navigate(AuthScreen.PinLock.route)
+            if (++authAttempts >= 3) {
+                navController.navigate(AuthScreen.PinLock.route)
+            }
+
         }
+
         override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult?) {
             notifyUser("Authentication Succeeded")
             super.onAuthenticationSucceeded(result)
             if (currentScreen == null) {
                 navController.navigate(Graph.HOME)
             } else {
-                navController.navigate(currentScreen!!)
+                navController.navigate(currentScreen!!.id){
+                    popUpTo(currentScreen!!.destination.id) {
+                        inclusive = true
+                    }
+                }
                 currentScreen = null
             }
         }
@@ -67,26 +85,37 @@ class Biometric(
 
     override fun onActivityPaused(activity: Activity) {
         if (!activity.isFinishing) {
-            currentScreen = navController.currentDestination?.id?.toString()
+            currentScreen = navController.currentBackStackEntry
         }
+
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onActivityResumed(activity: Activity) {
-        currentScreen = null
+        if (!activity.isDestroyed){
+            currentScreen = navController.currentBackStackEntry
+        }
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
-            currentScreen = savedInstanceState.getString("currentScreen")
+            val currentScreenId = savedInstanceState.getInt("currentScreen")
+            currentScreen = navController.getBackStackEntry(currentScreenId)
         }
+
+
     }
 
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
-        outState.putString("currentScreen", currentScreen)
+        outState.putInt("currentScreen", currentScreen?.destination?.id ?: 0)
     }
 
-    override fun onActivityStopped(activity: Activity) {}
+    override fun onActivityStopped(activity: Activity) {
+        cancellationSignal?.cancel()
+    }
 
+
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onActivityStarted(activity: Activity) {}
 
     override fun onActivityDestroyed(activity: Activity) {}

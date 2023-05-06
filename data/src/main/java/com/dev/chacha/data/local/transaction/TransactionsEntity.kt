@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.dev.chacha.data.local.account.AccountEntity
 import com.dev.chacha.data.local.loans.LoanEntity
 import com.dev.chacha.domain.model.TransactionType
-import java.util.*
+import java.util.Date
 
 /*
 

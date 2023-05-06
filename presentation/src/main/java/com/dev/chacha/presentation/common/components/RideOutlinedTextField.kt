@@ -77,7 +77,6 @@ fun RideOutlinedTextField(
                     text = hint,
                     style = MaterialTheme.typography.labelSmall,
                     color = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
-
                     )
             },
             modifier = modifier

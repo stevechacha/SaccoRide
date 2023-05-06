@@ -20,7 +20,6 @@ import com.dev.chacha.presentation.common.components.AppOutlinedTextField
 import com.dev.chacha.presentation.common.components.AppToolbar
 import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.theme.PrimaryColor
-import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -195,10 +194,10 @@ fun LoginContent(
 @Composable
 @Preview
 fun LoginScreenPreview() {
-        LoginScreen(
-            onClick = { /*TODO*/ },
-            onSignUpClick = { /*TODO*/ },
-            onForgotClick = { /*TODO*/ },
-        )
+    LoginScreen(
+        onClick = { /*TODO*/ },
+        onSignUpClick = { /*TODO*/ },
+        onForgotClick = { /*TODO*/ },
+    )
 
 }

@@ -162,7 +162,7 @@ data class User(
 )
 
 @Composable
-@Preview
+@Preview(showSystemUi = true)
 fun HomeScreenPreview() {
     HomeScreen(
         onSendMoneyClicked = { /*TODO*/ },

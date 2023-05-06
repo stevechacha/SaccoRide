@@ -1,5 +1,6 @@
 package com.dev.chacha.presentation.home.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,7 +31,8 @@ fun TransactionCard(
             .fillMaxWidth()
             .wrapContentHeight(),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6F),
+
         ),
     ) {
         Column(
@@ -47,12 +49,12 @@ fun TransactionCard(
             ) {
                 TextImageItem(
                     onItemClick = onSendMoneyClicked,
-                    drawable = R.drawable.ic_send_money,
+                    drawable = R.drawable.send_money_icon,
                     stringRes = R.string.send_money
                 )
                 TextImageItem(
                     onItemClick = onBuyGoodsClicked,
-                    drawable = R.drawable.ic_shopping_cart,
+                    drawable = R.drawable.shopping_cart,
                     stringRes = R.string.buy_goods
                 )
 
@@ -79,12 +81,12 @@ fun TransactionCard(
 
                 TextImageItem(
                     onItemClick = onWithdrawClicked,
-                    drawable = R.drawable.ic_send_money,
+                    drawable = R.drawable.withdrawals_icon,
                     stringRes = R.string.withdraw
                 )
                 TextImageItem(
                     onItemClick = onDepositClicked,
-                    drawable = R.drawable.ic_system_upate_24,
+                    drawable = R.drawable.icon_deposit,
                     stringRes = R.string.deposit
                 )
             }

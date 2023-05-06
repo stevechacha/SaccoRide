@@ -23,7 +23,7 @@ import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val LightColorScheme = lightColorScheme(
-    primary = PrimaryColor,
+    primary = Color.Black,
     onPrimary = PrimaryTextColor,
     secondary = SecondaryColor,
     onSecondary = SecondaryTextColor,
@@ -43,7 +43,7 @@ private val LightColorScheme = lightColorScheme(
 
 
 private val DarkColorScheme = darkColorScheme(
-    primary = PrimaryColor,
+    primary = Color.White,
     onPrimary = PrimaryTextColor,
     secondary = SecondaryLightColor,
     onSecondary = SecondaryTextColor,

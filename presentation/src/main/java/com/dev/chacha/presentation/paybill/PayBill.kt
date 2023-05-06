@@ -6,7 +6,7 @@ data class PayBill(
     val name: String,
     val businessNumber: String,
     val accountNumber: String? = null,
-    val amount: Double?=null,
+    var amount: Double?=null,
     val date: String?=null,
     val image: Int? = null,
 

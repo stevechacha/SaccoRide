@@ -12,11 +12,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
-import com.dev.chacha.presentation.auth.create_password.CreatePasswordViewModel
 import com.dev.chacha.presentation.common.components.AppOutlinedTextField
 import com.dev.chacha.presentation.common.components.AppToolbar
 import com.dev.chacha.presentation.common.components.ContinueButton
-import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 
 @Composable
 fun ResetPasswordScreen(
@@ -51,12 +49,12 @@ fun ResetPasswordContent(
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp, vertical = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
                 text = "Reset your password",
                 fontSize = 24.sp
             )
-            Spacer(modifier = Modifier.height(20.dp))
 
             AppOutlinedTextField(
                 value = currentPassword,
@@ -69,7 +67,6 @@ fun ResetPasswordContent(
                     viewModel.setShowPassword(it)
                 }
             )
-            Spacer(modifier = Modifier.height(16.dp))
             AppOutlinedTextField(
                 value = newPassword,
                 onValueChange = { setNewPassword(it) },
@@ -81,7 +78,6 @@ fun ResetPasswordContent(
                     viewModel.setShowPassword(it)
                 }
             )
-            Spacer(modifier = Modifier.height(16.dp))
             AppOutlinedTextField(
                 value = confirmNewPassword,
                 onValueChange = { setConfirmNewPassword(it) },
@@ -93,7 +89,7 @@ fun ResetPasswordContent(
                     viewModel.setShowConfirmPassword(it)
                 }
             )
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
             ContinueButton(
                 text = stringResource(id = R.string.continuee),
@@ -109,8 +105,8 @@ fun ResetPasswordContent(
 @Composable
 @Preview
 fun ResetPasswordScreenPreview() {
-        ResetPasswordScreen(
-            onClickAction = {}
-        )
+    ResetPasswordScreen(
+        onClickAction = {}
+    )
 
 }

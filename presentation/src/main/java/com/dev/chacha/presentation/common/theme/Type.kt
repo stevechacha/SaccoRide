@@ -64,40 +64,34 @@ val AppTypography = Typography(
         fontWeight = FontWeight.W700,
         fontSize = 16.sp,
         lineHeight = 24.sp,
-        letterSpacing = 0.1.sp
     ),
     titleSmall = TextStyle(
         fontFamily = Brutalista,
         fontWeight = FontWeight.W500,
         fontSize = 14.sp,
         lineHeight = 20.sp,
-        letterSpacing = 0.1.sp
     ),
     bodyLarge = TextStyle(
         fontFamily = Brutalista,
         fontWeight = FontWeight.W400,
         fontSize = 16.sp,
         lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
     ),
     bodyMedium = TextStyle(
         fontFamily = Brutalista,
         fontWeight = FontWeight.W400,
         fontSize = 14.sp,
         lineHeight = 20.sp,
-        letterSpacing = 0.25.sp
     ),
     bodySmall = TextStyle(
         fontFamily = Brutalista,
         fontWeight = FontWeight.Normal
-
     ),
     labelLarge = TextStyle(
         fontFamily = Brutalista,
         fontWeight = FontWeight.W400,
         fontSize = 14.sp,
         lineHeight = 20.sp,
-        letterSpacing = 0.1.sp
     ),
     labelMedium = TextStyle(
         fontFamily = Brutalista,
@@ -107,6 +101,6 @@ val AppTypography = Typography(
     labelSmall = TextStyle(
         fontFamily = Brutalista,
         fontWeight = FontWeight.Normal,
-        fontSize = 15.sp
+        fontSize = 14.sp
     )
 )

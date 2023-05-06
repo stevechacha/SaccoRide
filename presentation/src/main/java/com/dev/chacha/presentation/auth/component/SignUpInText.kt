@@ -5,7 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.R
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -17,20 +16,19 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.common.theme.PrimaryColor
 
 @Composable
 fun SignUpInText(
     @StringRes text: Int,
     @StringRes signUpText: Int,
-    onClick: ()-> Unit
+    onClick: () -> Unit
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
-    ){
+    ) {
         Text(
             text = stringResource(id = text),
             style = MaterialTheme.typography.bodyMedium
@@ -60,14 +58,14 @@ fun SignupText(
         onClick = { onClick() }) {
         Text(
             text = buildAnnotatedString {
-                append(stringResource(id = text) )
+                append(stringResource(id = text))
                 append(" ")
                 withStyle(
                     SpanStyle(
                         textDecoration = TextDecoration.Underline
                     )
                 ) {
-                    append(stringResource(id =signUpText))
+                    append(stringResource(id = signUpText))
                 }
                 append(" ")
 //                append(stringResource(id = R.string.here))

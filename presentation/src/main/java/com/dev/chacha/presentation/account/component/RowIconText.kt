@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -39,7 +40,7 @@ fun RowIconText(
             .fillMaxWidth()
             .clickable(onClick = onClick),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6F),
         ),
         shape = RoundedCornerShape(5.dp),
     ) {
@@ -55,17 +56,16 @@ fun RowIconText(
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Image(
+                Icon(
                     painter = painterResource(id = icon),
                     contentDescription = null,
-                    colorFilter = ColorFilter.tint(PrimaryColor)
+                    tint = PrimaryColor,
+                    modifier = Modifier.size(25.dp)
                 )
                 Spacer(modifier = Modifier.width(12.dp))
                 Text(
                     text = stringResource(id = title),
                     style = MaterialTheme.typography.labelSmall,
-
-
                     )
                 Spacer(modifier = Modifier.weight(1f))
                 Icon(
