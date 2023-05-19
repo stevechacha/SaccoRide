@@ -50,6 +50,17 @@ class LoginViewModel : ViewModel() {
     /*private val _loginUIState = MutableLiveData<LoginUIState>(null)
     val loginUIState: LiveData<LoginUIState> = _loginUIState*/
 
+    fun onEvent(events: LoginUiEvents){
+        when(events){
+            is LoginUiEvents.SnackBarEvent ->{
+
+            }
+            is LoginUiEvents.NavigateEvent ->{
+
+            }
+        }
+    }
+
     fun login() {
         viewModelScope.launch(Dispatchers.IO) {
             _loginState.value = loginState.value.copy(isLoading = true)

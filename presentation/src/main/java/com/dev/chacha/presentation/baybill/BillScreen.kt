@@ -189,6 +189,7 @@ fun BillScreen(
                         showSearchBar = true
                     )
                 },
+                modifier = Modifier.fillMaxSize()
             ) { paddingValues ->
                 Column(
                     modifier = Modifier
@@ -269,7 +270,7 @@ fun BillScreen(
                         .verticalScroll(rememberScrollState())
                         .padding(horizontal = 16.dp, vertical = 16.dp)
                         .background(MaterialTheme.colorScheme.background),
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
 
                     RideOutlinedTextField(
@@ -301,7 +302,6 @@ fun BillScreen(
                         supportText = businessName
 
                     )
-                    Spacer(modifier = Modifier.height(12.dp))
 
                     val accountNumberLimit = 20
 

@@ -19,13 +19,15 @@ import com.dev.chacha.presentation.common.components.AppToolbar
 import com.dev.chacha.presentation.common.theme.Brutalista
 
 @Composable
-@Preview
-fun AboutSaccoRide() {
+fun AboutSaccoRide(
+    navigateBack: ()-> Unit
+) {
     Scaffold(
         topBar = {
             AppToolbar(
                 title = "About SaccoRide ",
-                showBackArrow = true
+                showBackArrow = true,
+                navigateBack = navigateBack
             )
         }
     ) { paddingValues ->
@@ -38,7 +40,8 @@ fun AboutSaccoRide() {
         ) {
             Text(
                 text = "SaccoRide",
-                modifier = Modifier.padding(bottom = 16.dp)
+                modifier = Modifier.padding(bottom = 16.dp),
+                fontWeight = FontWeight.Bold
             )
             Text(
                 text = stringResource(R.string.about_sacco_ride),
@@ -61,7 +64,8 @@ fun AboutSaccoRide() {
 fun PrivacyPolicy() {
     Text(
         text = "Privacy Policy",
-        modifier = Modifier.padding(bottom = 8.dp)
+        modifier = Modifier.padding(bottom = 8.dp),
+        fontWeight = FontWeight.Bold
     )
     Text(
         text = stringResource(R.string.sacco_privacy_policy),
@@ -76,7 +80,9 @@ fun PrivacyPolicy() {
 fun TermsAndConditions() {
     Text(
         text = "Terms and Conditions",
-        modifier = Modifier.padding(bottom = 8.dp)
+        modifier = Modifier.padding(bottom = 8.dp),
+        fontWeight = FontWeight.Bold
+
     )
     Text(
         text = stringResource(R.string.sacco_term_and_condition),
@@ -91,7 +97,8 @@ fun TermsAndConditions() {
 fun ServiceCharter() {
     Text(
         text = "Service Charter",
-        modifier = Modifier.padding(bottom = 8.dp)
+        modifier = Modifier.padding(bottom = 8.dp),
+        fontWeight = FontWeight.Bold
     )
     Text(
         text = stringResource(R.string.sacco_service_charter),

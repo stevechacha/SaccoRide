@@ -1,13 +1,18 @@
 package com.dev.chacha.presentation.home
 
 import androidx.compose.animation.rememberSplineBasedDecay
+import androidx.compose.compiler.plugins.kotlin.ComposeFqNames.remember
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -29,18 +34,21 @@ import java.util.Calendar
 fun HomeScreen(
     onSendMoneyClicked: () -> Unit,
     onBuyAirtimeClicked: () -> Unit,
-    onBuyGoodsClicked: () -> Unit,
     onPayBillClicked: () -> Unit,
     onWithdrawClicked: () -> Unit,
     onDepositClicked: () -> Unit,
     onLoanClicked: () -> Unit,
     onMarketClicked: () -> Unit,
-    onSavingsClicked: () -> Unit
+    onSavingsClicked: () -> Unit,
+    navigateToAllTransactions: ()-> Unit,
+    onBankTransferClicked: ()->Unit,
+    navigateBack: ()->Unit
 ) {
     val topAppBarState = rememberTopAppBarScrollState()
     val decayAnimationSpec = rememberSplineBasedDecay<Float>()
-    val scrollBehavior =
-        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec, topAppBarState)
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec, topAppBarState)
+    var showAllTransactions by remember { mutableStateOf(false) }
+
 
     val now = Calendar.getInstance() // get the current time
     val hour = now.get(Calendar.HOUR_OF_DAY) // get the hour component of the current time
@@ -72,28 +80,6 @@ fun HomeScreen(
                         )
                     }
                 },
-                actions = {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .padding(end = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        IconButton(onClick = { /* doSomething() */ }) {
-                            Icon(
-                                imageVector = Icons.Filled.Favorite,
-                                contentDescription = "Localized description"
-                            )
-                        }
-                        IconButton(onClick = { /* doSomething() */ }) {
-                            Icon(
-                                imageVector = Icons.Filled.Favorite,
-                                contentDescription = "Localized description"
-                            )
-                        }
-                    }
-
-                },
                 colors = TopAppBarDefaults.mediumTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
                     scrolledContainerColor = MaterialTheme.colorScheme.background
@@ -115,7 +101,7 @@ fun HomeScreen(
                     TransactionCard(
                         onSendMoneyClicked = onSendMoneyClicked,
                         onBuyAirtimeClicked = onBuyAirtimeClicked,
-                        onBuyGoodsClicked = onBuyGoodsClicked,
+                        onBankTransferClicked = onBankTransferClicked,
                         onPayBillClicked = onPayBillClicked,
                         onWithdrawClicked = onWithdrawClicked,
                         onDepositClicked = onDepositClicked
@@ -132,22 +118,47 @@ fun HomeScreen(
                 }
                 item {
                     Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        text = stringResource(id = R.string.recent_transaction),
-                        style = MaterialTheme.typography.headlineSmall,
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 1
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 8.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.recent_transaction),
+                            style = MaterialTheme.typography.headlineSmall,
+                            overflow = TextOverflow.Ellipsis,
+                            maxLines = 1
 
-                    )
-                    Spacer(modifier = Modifier.height(10.dp))
+                        )
+                        Text(
+                            text = stringResource(id = R.string.see_all),
+                            style = MaterialTheme.typography.bodyMedium,
+                            overflow = TextOverflow.Ellipsis,
+                            maxLines = 1,
+                            modifier = Modifier.clickable {
+                                navigateToAllTransactions()
+                            }
+                        )
+                    }
+
 
                 }
-                items(transactionsItem.size) { index ->
-                    TransHistoryItem(
-                        transactionItem = transactionsItem[index],
-                        onTransactionClick = {}
-                    )
-
+                if (showAllTransactions) {
+                    items(transactionsItem) { transaction ->
+                        TransHistoryItem(
+                            transactionItem = transaction,
+                            onTransactionClick = {}
+                        )
+                    }
+                } else {
+                    items(transactionsItem.take(5)) { transaction ->
+                        TransHistoryItem(
+                            transactionItem = transaction,
+                            onTransactionClick = {}
+                        )
+                    }
                 }
 
             }
@@ -167,13 +178,15 @@ fun HomeScreenPreview() {
     HomeScreen(
         onSendMoneyClicked = { /*TODO*/ },
         onBuyAirtimeClicked = { /*TODO*/ },
-        onBuyGoodsClicked = { /*TODO*/ },
+        onBankTransferClicked = { /*TODO*/ },
         onPayBillClicked = { /*TODO*/ },
         onWithdrawClicked = { /*TODO*/ },
         onDepositClicked = { /*TODO*/ },
         onLoanClicked = { /*TODO*/ },
         onMarketClicked = { /*TODO*/ },
-        onSavingsClicked = {}
+        onSavingsClicked = {},
+        navigateToAllTransactions = {},
+        navigateBack = {}
     )
 
 }

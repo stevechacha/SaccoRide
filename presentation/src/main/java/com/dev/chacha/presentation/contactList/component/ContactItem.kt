@@ -1,4 +1,4 @@
-package com.dev.chacha.presentation.contacts.component
+package com.dev.chacha.presentation.contactList.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -6,13 +6,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.ContentAlpha
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,9 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
-import com.dev.chacha.presentation.contacts.Contact
+import com.dev.chacha.presentation.contactList.Contact
 import com.dev.chacha.presentation.paybill.component.randomColor
 import java.util.Locale
 
@@ -42,10 +38,10 @@ fun ContactItem(contact: Contact, onItemClick: () -> Unit) {
         ) {
             val names = contact.name.split(" ")
             val initials = (if (names.size >= 2) {
-                names[0].first().toString() + names[1].first().toString()
+                names[0].trim().first().toString().trim() + names[1].trim().first().toString().trim()
             } else {
-                names[0].first().toString()
-            }).uppercase(Locale.ROOT)
+                names[0].trim().first().toString().trim()
+            }).uppercase()
 
             Box(
                 modifier = Modifier

@@ -34,14 +34,6 @@ fun MarketTopBar(
                 )
             }
         },
-        actions = {
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = Icons.Default.Menu,
-                    contentDescription = null
-                )
-            }
-        },
         colors= TopAppBarDefaults.smallTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.background,
             titleContentColor = MaterialTheme.colorScheme.onBackground

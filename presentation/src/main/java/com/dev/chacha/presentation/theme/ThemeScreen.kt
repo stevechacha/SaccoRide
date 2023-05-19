@@ -26,16 +26,18 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable
-@Preview
-fun ThemeScreen() {
+fun ThemeScreen(
+    navigateBack: ()-> Unit
+) {
     val viewModel: SettingsViewModel = hiltViewModel()
     val selectedTheme by viewModel.currentTheme.collectAsState()
 
     Scaffold(
         topBar = {
             AppToolbar(
-                title = "Theme Setting",
-                showBackArrow = true
+                title = "Theme Settings",
+                showBackArrow = true,
+                navigateBack = {navigateBack()}
             )
         }
     ) { paddingValues ->

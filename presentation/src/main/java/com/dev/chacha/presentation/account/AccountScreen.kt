@@ -74,28 +74,6 @@ fun AccountScreen(
                         )
                     }
                 },
-                actions = {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .padding(end = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        IconButton(onClick = { /* doSomething() */ }) {
-                            Icon(
-                                imageVector = Icons.Filled.Favorite,
-                                contentDescription = "Localized description"
-                            )
-                        }
-                        IconButton(onClick = { /* doSomething() */ }) {
-                            Icon(
-                                imageVector = Icons.Filled.Favorite,
-                                contentDescription = "Localized description"
-                            )
-                        }
-                    }
-
-                },
                 colors = TopAppBarDefaults.smallTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
                     scrolledContainerColor = MaterialTheme.colorScheme.background
@@ -126,35 +104,14 @@ fun AccountScreen(
                         icon = accountItem.icon,
                         onClick = { accountOptions ->
                             when (accountOptions) {
-                                "View Statement" -> {
-                                    navController.navigate(AccountAction.StatementDetail.route)
-                                }
-
-                                "Notification" -> {
-                                    navigateToNotification()
-                                }
-
-                                "Manage your PIN" -> {
-                                    navigateToManagePin()
-                                }
-
-                                "Change your password" -> {
-                                    navigateToManagePassword()
-                                }
-
-                                "App Settings" -> {
-                                    navigateToSettings()
-                                }
-
-                                "About SaccoRide" -> {
-                                    navigateToAboutSaccoRide()
-                                }
-
-                                "Sign Out" -> {
-
-                                }
+                                "View Statement" -> { navController.navigate(AccountAction.StatementDetail.route) }
+                                "Notification" -> { navigateToNotification() }
+                                "Manage your PIN" -> { navigateToManagePin() }
+                                "Change your password" -> { navigateToManagePassword() }
+                                "App Settings" -> { navigateToSettings() }
+                                "About SaccoRide" -> { navigateToAboutSaccoRide() }
+                                "Sign Out" -> {}
                             }
-
                         },
                     )
                 }

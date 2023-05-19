@@ -1,6 +1,5 @@
 package com.dev.chacha.presentation.buy_goods
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,29 +12,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
@@ -46,141 +39,83 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import coil.compose.AsyncImage
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.buy_goods.components.BuyGoodsDialog
 import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.components.RideOutlinedTextField
-import com.dev.chacha.presentation.common.navigation.HomeAction
-import com.dev.chacha.presentation.common.theme.SaccoRideTheme
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import java.util.Locale
 
 @Composable
-fun BuyGoods(
-    navigateTo: ()->Unit
-) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(id = R.string.buy_goods),
-                        fontSize = 14.sp
-                    )
-                },
-                backgroundColor = MaterialTheme.colorScheme.background,
-                contentColor = MaterialTheme.colorScheme.onBackground,
-                elevation = 0.dp,
-                navigationIcon = {
-                    IconButton(onClick = { /*TODO*/ }) {
-                        Image(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back",
-                            colorFilter = ColorFilter.tint(
-                                MaterialTheme.colorScheme.onBackground
-                            )
-                        )
-
-                    }
-                }
-            )
-
-        }
-    ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            BuyGoodsScreen(
-                navigateTo = navigateTo
-            )
-
-        }
-    }
-
-
+fun BayGoods() {
+    BuyGoodsScreen(
+        navController = rememberNavController()
+    )
 }
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @Composable
 fun BuyGoodsScreen(
-    navigateTo: () -> Unit
+    viewModel: BuyGoodsViewModel = viewModel(),
+    navController: NavController
 ) {
+
+    val buyGoods = getTillNumber()
+
+    val state by viewModel.state.collectAsState()
+    var textfieldSize by remember { mutableStateOf(Size.Zero) }
+    var expanded by remember { mutableStateOf(false) }
+    val icon = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp),
+            .padding(start = 16.dp, end = 16.dp, top = 20.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var tillNumber by rememberSaveable { mutableStateOf("") }
-        var tillName by rememberSaveable { mutableStateOf("") }
-        var date by rememberSaveable { mutableStateOf("") }
-        var (amount, setAmount) = rememberSaveable { mutableStateOf("") }
 
-        var textfieldSize by remember { mutableStateOf(Size.Zero) }
-
-        var expanded by remember { mutableStateOf(false) }
-
-        var showDialog by rememberSaveable { mutableStateOf(false) }
-
-
-        val buyItems = listOf(
-            BuyGoodItem(
-                name = "John Doe",
-                contact = "0712345678",
-                image = R.drawable.home_icon,
-            ),
-            BuyGoodItem(
-                name = "John Doe",
-                contact = "0712345678",
-                image = null,
-            ),
-        )
-
-        val navController = rememberNavController()
-
-        if (showDialog) {
+        if (viewModel.showDialog.collectAsState().value) {
             BuyGoodsDialog(
                 onDismiss = {
-                    showDialog = false
+                    viewModel.onDialogDismissed()
                 },
-                bayGoods = BayGoods(
-                    tillName = tillName,
-                    tillNumber = tillNumber,
-                    amount = amount.toDouble()
+                buyGoods = BuyGoods(
+                    tillName = state.tillName,
+                    tillNumber = state.tillNumber,
+                    amount = state.amount.toDouble()
                 ),
-                onClickSend = {
+                onClickSend = { bayGoods ->
+                    // Navigate to the next screen passing the buyGoods object
+                },
+                viewModel = viewModel,
 
-                }
-
-            )
+                )
         }
-
-        val icon = if (expanded)
-            Icons.Filled.KeyboardArrowUp
-        else
-            Icons.Filled.KeyboardArrowDown
 
         Column(modifier = Modifier.fillMaxWidth()) {
             RideOutlinedTextField(
-                value = tillNumber,
-                onValueChange = {
-                    tillNumber = it
-                },
+                value = state.tillNumber,
+                onValueChange = { viewModel.onTillNumberChanged(it) },
                 hint = stringResource(id = R.string.tillNumber),
                 keyboardType = KeyboardType.Phone,
                 trailingIcon = {
-                    Icon(icon, "contentDescription",
-                        Modifier.clickable { expanded = !expanded })
+                    Icon(
+                        icon,
+                        "contentDescription",
+                        Modifier.clickable { expanded = !expanded }
+                    )
                 },
                 modifier = Modifier
                     .fillMaxWidth()
                     .onGloballyPositioned { coordinates ->
                         textfieldSize = coordinates.size.toSize()
                     },
-                supportText = tillName
+                supportText = state.tillName
             )
 
             DropdownMenu(
@@ -189,33 +124,25 @@ fun BuyGoodsScreen(
                 modifier = Modifier
                     .width(with(LocalDensity.current) { textfieldSize.width.toDp() }),
             ) {
-                buyItems.forEach { item ->
+                buyGoods.forEach { item ->
                     DropdownMenuItem(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(8.dp)
                             .align(Alignment.CenterHorizontally),
-                        text = { Text(text = item.name) },
+                        text = { Text(text = item.tillName) },
                         onClick = {
-                            tillNumber = item.contact
-                            tillName = item.name
+                            viewModel.onTillNumberChanged(item.tillNumber)
+                            item.tillName.let { viewModel.onTillNameChanged(it) }
                             expanded = false
                         },
                         leadingIcon = {
-                            if (item.image != null) {
-                                AsyncImage(
-                                    model = item.image,
-                                    contentDescription = "profile_image",
-                                    modifier = Modifier
-                                        .size(40.dp)
-                                        .clip(shape = CircleShape),
-                                    placeholder = null
-                                )
-
+                            val names = item.tillName.split(" ")
+                            val initials = (if (names.size >= 2) {
+                                names[0].trim().first().toString().trim() + names[1].trim().first().toString().trim()
                             } else {
-                                val names = item.name.split(" ")
-                                val initials =
-                                    names[0].first().toString() + names[1].first().toString()
+                                names[0].trim().first().toString().trim()
+                            }).uppercase()
                                 Box(
                                     modifier = Modifier
                                         .size(40.dp)
@@ -228,7 +155,7 @@ fun BuyGoodsScreen(
                                         textAlign = TextAlign.Center,
                                         fontSize = 26.sp
                                     )
-                                }
+
                             }
 
                         }
@@ -238,15 +165,14 @@ fun BuyGoodsScreen(
             }
 
         }
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(5.dp))
 
         RideOutlinedTextField(
-            value = amount,
-            onValueChange = {
-                setAmount(it)
-            },
+            value = state.amount,
+            onValueChange = { viewModel.onAmountChanged(it) },
             keyboardType = KeyboardType.Phone,
             hint = stringResource(id = R.string.amount),
+            maxLength = 6
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -254,19 +180,20 @@ fun BuyGoodsScreen(
         ContinueButton(
             text = stringResource(id = R.string.continuee),
             onClick = {
-                showDialog = true
+                viewModel.onContinueButtonClicked()
             },
-            enable = tillNumber.isNotEmpty() && amount.isNotEmpty() && amount.toInt() > 0 && amount.toInt() < 3000000 && tillNumber.length > 5
+            enable = viewModel.isInputValid()
         )
 
-    }
 
+    }
 }
+
 
 @Composable
 @Preview
 fun PreviewBuyGoods() {
-        BuyGoods(
-            navigateTo = {}
-        )
+    BuyGoodsScreen(
+        navController = rememberNavController()
+    )
 }

@@ -1,4 +1,4 @@
-package com.dev.chacha.presentation.contacts
+package com.dev.chacha.presentation.contactList
 
 data class ContactState(
     val isLoading: Boolean = false,

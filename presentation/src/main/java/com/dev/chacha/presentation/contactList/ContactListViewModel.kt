@@ -5,10 +5,6 @@ import android.provider.ContactsContract
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dev.chacha.presentation.contacts.Contact
-import com.dev.chacha.presentation.contacts.ContactState
-import com.dev.chacha.presentation.contacts.ContactUiEvent
-import com.dev.chacha.presentation.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -89,13 +85,16 @@ class ContactListViewModel : ViewModel() {
                 val phoneNumber = it.getString(contactPhoneNumber)
                 val email = it.getString(contactEmail)
                 val numberId = it.getString(contactId)
-                contacts.add(Contact(name, phoneNumber, email, numberId))
+                // Remove spaces, hyphens, and parentheses from the phone number
+                val cleanedPhoneNumber = phoneNumber.replace("[\\s-()]".toRegex(), "")
+
+                contacts.add(Contact(name, cleanedPhoneNumber, email, numberId))
             }
         }
         cursor?.close()
 
         // Remove duplicates and sort by name
-        return contacts.distinctBy { it.phoneNumber }
+        return contacts.sortedBy { it. name}
 
     }
 }

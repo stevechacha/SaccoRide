@@ -3,6 +3,7 @@ package com.dev.chacha.presentation.common.navigation
 import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.core.os.bundleOf
 import androidx.navigation.NavGraphBuilder
@@ -17,15 +18,15 @@ import com.dev.chacha.presentation.about_sacco.AboutSaccoRide
 import com.dev.chacha.presentation.account.AccountScreen
 import com.dev.chacha.presentation.auth.reset_password.ResetPasswordScreen
 import com.dev.chacha.presentation.auth.reset_pin.ResetPinScreen
+import com.dev.chacha.presentation.bank_transfer.BankTransferScreen
 import com.dev.chacha.presentation.baybill.BillScreen
 import com.dev.chacha.presentation.baybill.components.BillConfirmItem
 import com.dev.chacha.presentation.buy_artime.BuyAirtimeScreen
-import com.dev.chacha.presentation.buy_goods.BayGoods
+import com.dev.chacha.presentation.buy_artime.BuyAirtimeViewModel
 import com.dev.chacha.presentation.buy_goods.BuyGoods
+import com.dev.chacha.presentation.buy_goods.BuyGoodsScreen
 import com.dev.chacha.presentation.buy_goods.components.BuyGoodConfirm
-import com.dev.chacha.presentation.buy_goods.components.bayGoods
-import com.dev.chacha.presentation.contactList.ContactScreen
-import com.dev.chacha.presentation.contacts.component.ContactSelect
+import com.dev.chacha.presentation.deposit.DepositScreen
 import com.dev.chacha.presentation.home.HomeScreen
 import com.dev.chacha.presentation.information.Information
 import com.dev.chacha.presentation.loan.LoanScreen
@@ -34,14 +35,16 @@ import com.dev.chacha.presentation.notification.NotificationsScreen
 import com.dev.chacha.presentation.overview.Overview
 import com.dev.chacha.presentation.pay_with_sacco.PayWithSacco
 import com.dev.chacha.presentation.paybill.PayBill
-import com.dev.chacha.presentation.paybill.PayBills
+import com.dev.chacha.presentation.paybill.PayBillScreen
 import com.dev.chacha.presentation.savings.SavingsScreen
 import com.dev.chacha.presentation.send_money.SendMoneyScreen
 import com.dev.chacha.presentation.setting.SettingsScreen
+import com.dev.chacha.presentation.setting.biometric_settings.BiometricSettingsScreen
 import com.dev.chacha.presentation.statement.StatementScreen
 import com.dev.chacha.presentation.statement.component.StatementDetail
 import com.dev.chacha.presentation.theme.ThemeScreen
 import com.dev.chacha.presentation.transaction.TransactionScreen
+import com.dev.chacha.presentation.transactions_all.AllTransactionsScreen
 import com.dev.chacha.presentation.withdraw.WithdrawScreen
 import timber.log.Timber
 
@@ -69,13 +72,15 @@ fun HomeNavGraph(
             HomeScreen(
                 onSendMoneyClicked = { navController.navigate(HomeAction.SendMoney.route) },
                 onBuyAirtimeClicked = { navController.navigate(HomeAction.BuyAirtime.route) },
-                onBuyGoodsClicked = { navController.navigate(HomeAction.BuyGoods.route) },
-                onPayBillClicked = { navController.navigate(HomeAction.PayBill.route) },
+                onBankTransferClicked = { navController.navigate(HomeAction.BankTransfer.route) },
+                onPayBillClicked = { navController.navigate(HomeAction.PayWithSacco.route) },
                 onWithdrawClicked = { navController.navigate(HomeAction.Withdraw.route) },
                 onDepositClicked = { navController.navigate(HomeAction.Deposit.route) },
                 onLoanClicked = { navController.navigate(HomeAction.Loan.route) },
                 onMarketClicked = { navController.navigate(BottomBarScreen.OurMarket.route) },
-                onSavingsClicked = { navController.navigate(HomeAction.BillScreen.route) },
+                onSavingsClicked = { navController.navigate(HomeAction.Savings.route) },
+                navigateToAllTransactions = {navController.navigate(HomeAction.AllTransaction.route)},
+                navigateBack = {navController.navigateUp()}
             )
 
         }
@@ -84,13 +89,21 @@ fun HomeNavGraph(
             TransactionScreen(
                 onSendMoneyClicked = { navController.navigate(HomeAction.SendMoney.route) },
                 onBuyAirtimeClicked = { navController.navigate(HomeAction.BuyAirtime.route) },
-                onBuyGoodsClicked = { navController.navigate(HomeAction.BuyGoods.route) },
-                onPayBillClicked = { navController.navigate(HomeAction.PayBill.route) },
+                onBankTransferClicked = { navController.navigate(HomeAction.BankTransfer.route) },
+                onPayBillClicked = { navController.navigate(HomeAction.PayWithSacco.route) },
                 onWithdrawClicked = { navController.navigate(HomeAction.Withdraw.route) },
                 onDepositClicked = { navController.navigate(HomeAction.Deposit.route) },
                 onLoanClicked = { navController.navigate(HomeAction.Loan.route) },
                 onMarketClicked = { navController.navigate(BottomBarScreen.OurMarket.route) },
-                onSavingsClicked = { navController.navigate(HomeAction.BillScreen.route) },
+                onSavingsClicked = { navController.navigate(HomeAction.Savings.route) },
+            )
+
+        }
+
+        composable(HomeAction.BankTransfer.route){
+            showBottomBar(false)
+            BankTransferScreen(
+                navigateBack = {navController.navigateUp()}
             )
 
         }
@@ -104,7 +117,9 @@ fun HomeNavGraph(
         }
         composable(BottomBarScreen.OurMarket.route) {
             showBottomBar(true)
-            MarketScreen()
+            MarketScreen(
+                navigateBack = {navController.navigateUp()}
+            )
         }
 
         composable(BottomBarScreen.Account.route) {
@@ -123,55 +138,61 @@ fun HomeNavGraph(
 
         }
 
-        /*composable(BottomBarScreen.ContactsSelection.route){
-            showBottomBar(false)
-            ContactSelectionScreen(onContactSelected = {}, navController = navController )
-        }*/
+
 
         composable(AccountAction.StatementDetail.route) {
             showBottomBar(false)
             StatementDetail(
-                onViewStatement = { navController.navigate(HomeAction.Statements.route) }
+                onViewStatement = { navController.navigate(HomeAction.Statements.route) },
+                navigateBack = {navController.navigateUp()}
             )
         }
 
         composable(AccountAction.Theme.route) {
-            ThemeScreen()
+            ThemeScreen(
+                navigateBack = {navController.navigateUp()}
+            )
         }
 
         composable(HomeAction.SendMoney.route) {
             showBottomBar(false)
-            SendMoneyScreen()
+            SendMoneyScreen(
+                navigateBack = {navController.navigateUp()}
+            )
 
         }
         composable(HomeAction.BuyAirtime.route) {
             showBottomBar(false)
-            BuyAirtimeScreen()
-        }
-        composable(HomeAction.BuyGoods.route) {
-            showBottomBar(false)
-            val tillNumber = bayGoods.tillNumber
-            val tillName = bayGoods.tillName
-            val amount = bayGoods.amount
-            val date = bayGoods.date
-            BuyGoods(
-                navigateTo = {
-                    navController.navigate(
-                        HomeAction.TillPaymentConfirm.route(
-                            tillName,
-                            tillNumber,
-                            amount.toDouble().toString(),
-                            date.toString()
-                        )
-                    )
-                }
+            BuyAirtimeScreen(
+                navigateBack = {navController.navigateUp()},
+                buyAirtimeViewModel = BuyAirtimeViewModel()
+
             )
         }
+        composable(HomeAction.BuyGoods.route) {
+            BuyGoodsScreen(
+                navController = navController,
+            )
+        }
+
+
         composable(HomeAction.Withdraw.route) {
             showBottomBar(false)
-            WithdrawScreen()
+            WithdrawScreen(
+                navigateBack = {navController.navigateUp()}
+
+            )
         }
         composable(HomeAction.Deposit.route) {
+            showBottomBar(false)
+            DepositScreen(
+                navigateBack = {navController.navigateUp()}
+
+            )
+
+        }
+
+        composable(HomeAction.BillScreen.route){
             showBottomBar(false)
             BillScreen(
                 navigateBack = { navController.navigateUp() },
@@ -212,6 +233,29 @@ fun HomeNavGraph(
             )
         }
 
+        composable(HomeAction.AllTransaction.route){
+            showBottomBar(false)
+            AllTransactionsScreen(
+                navigateBack = {navController.navigateUp()}
+
+            )
+        }
+
+        composable("TillConfirm/{tillName}/{tillNumber}/{amount}",
+            arguments = listOf(
+                navArgument("tillName") { type = NavType.StringType },
+                navArgument("tillNumber") { type = NavType.StringType },
+                navArgument("amount") { type = NavType.StringType },
+                navArgument("date"){type = NavType.StringType}
+            )
+        ) { entry ->
+            val tillName = entry.arguments?.getString("tillName") ?: ""
+            val tillNumber = entry.arguments?.getString("tillNumber") ?: ""
+            val amount = entry.arguments?.getDouble("amount") ?: 0.0
+            BuyGoodConfirms(tillName, tillNumber, amount)
+        }
+
+
 
         composable(HomeAction.TillPaymentConfirm.route) { backStackEntry ->
             showBottomBar(false)
@@ -220,7 +264,7 @@ fun HomeNavGraph(
             val amount = backStackEntry.arguments?.getDouble("amount") ?: 0.0
             val date = backStackEntry.arguments?.getString("date") ?: ""
 
-            val bayGoods = BayGoods(
+            val buyGoods = BuyGoods(
                 tillName = tillName,
                 tillNumber = tillNumber,
                 amount = amount,
@@ -230,92 +274,118 @@ fun HomeNavGraph(
                 message = "",
                 drawableRes = R.drawable.home,
                 buttonText = "",
-                bayGoods = bayGoods.copy(tillName, tillNumber, amount, date)
+                buyGoods = buyGoods.copy(tillName, tillNumber, amount, date)
             )
         }
 
 
-        composable(HomeAction.PayBill.route) {
+        composable(HomeAction.PayWithSacco.route) {
             showBottomBar(false)
-            PayBills()
+            PayWithSacco(
+                navigateBack = {navController.navigateUp()}
+
+            )
+        }
+
+        composable(HomeAction.PayBill.route){
+            showBottomBar(false)
+            PayBillScreen(
+                onPayBillClick = {} ,
+                onNavigateToBillConfirm = { payBill ->
+                    val bundle = bundleOf(
+                        "accountName" to payBill.name,
+                        "businessNumber" to payBill.businessNumber,
+                        "accountNo" to payBill.accountNumber,
+                        "amount" to payBill.amount,
+                        "date" to payBill.date
+                    )
+                    navController.navigate(HomeAction.BillConfirm.route.replace("$bundle","$bundle"))
+                }
+            )
         }
         composable(HomeAction.Savings.route) {
             showBottomBar(false)
-            SavingsScreen()
+            SavingsScreen(
+                navigateBack = {navController.navigateUp()}
+
+            )
         }
         composable(HomeAction.Statements.route) {
             showBottomBar(false)
-            StatementScreen()
+            StatementScreen(
+                navigateBack = {navController.navigateUp()}
+
+            )
         }
 
-        composable(HomeAction.BillScreen.route) {
-            showBottomBar(false)
-            PayWithSacco()
-        }
 
         composable(AccountAction.Notification.route) {
             showBottomBar(false)
-            NotificationsScreen()
+            NotificationsScreen(
+                navigateBack = {navController.navigateUp()}
+
+            )
         }
 
         composable(AccountAction.Setting.route) {
             showBottomBar(false)
             SettingsScreen(
-                navigateToTheme = { navController.navigate(AccountAction.Theme.route) }
+                navigateToTheme = { navController.navigate(AccountAction.Theme.route) },
+                navigateToBiometricSettings = {navController.navigate(AccountAction.BiometricSettings.route)},
+                navigateBack = {navController.navigateUp()}
+
             )
+        }
+
+        composable(AccountAction.BiometricSettings.route){
+            BiometricSettingsScreen()
         }
 
         composable(AccountAction.AboutSaccoRide.route) {
             showBottomBar(false)
-            AboutSaccoRide()
+            AboutSaccoRide(
+                navigateBack = {navController.navigateUp()}
+            )
         }
         composable(AccountAction.ManagePin.route) {
             showBottomBar(false)
 
             ResetPinScreen(
-                onClickAction = {}
+                onClickAction = {},
+                navigateBack = {navController.navigateUp()}
+
             )
         }
 
         composable(AccountAction.ManagePassword.route) {
             showBottomBar(false)
             ResetPasswordScreen(
-                onClickAction = {}
+                onClickAction = {},
+                navigateBack = {navController.navigateUp()}
+
             )
 
         }
-        sendMoneyNavGraph(navController = navController)
+        composable(HomeAction.TillConfirm.route){
+            BuyGoodConfirms(
+                tillName = "",
+                tillNumber = "",
+                amount = 0.0
+            )
+        }
 
-
-
-
-        detailsNavGraph(navController = navController)
 
     }
 
 }
 
-fun NavGraphBuilder.sendMoneyNavGraph(navController: NavHostController) {
-    navigation(
-        route = Graph.SEND_MONEY,
-        startDestination = SendMon.Contact.route
-    ){
-        composable(SendMon.Contact.route){
-            ContactScreen(navController = navController)
-        }
-
-        composable(SendMon.ContactSelection.route){
-            ContactSelect(
-                navController = navController
-            )
-        }
-    }
+@Composable
+fun BuyGoodConfirms(tillName: String, tillNumber: String, amount: Double) {
+    Text(text = "Till Name: $tillName")
+    Text(text = "Till Number: $tillNumber")
+    Text(text = "Amount: $amount")
 }
 
-sealed class SendMon(val route: String){
-    object Contact: SendMon("Contact")
-    object ContactSelection: SendMon("contact_selection")
-}
 
 fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
     navigation(
@@ -349,23 +419,29 @@ sealed class AccountAction(val route: String) {
     object ManagePassword : AccountAction("Mange_password")
 
     object Theme : AccountAction("Theme")
+
+    object BiometricSettings: AccountAction("Biometric_Settings")
 }
 
 sealed class HomeAction(val route: String) {
 
     object PinLock : HomeAction("pinlock")
+    object PayWithSacco: HomeAction("pay_with_sacco")
     object SendMoney : HomeAction(route = "send_money")
     object BuyGoods : HomeAction(route = "buy_goods")
     object BuyAirtime : HomeAction(route = "buy airtime")
     object PayBill : HomeAction(route = "paybill")
-    object PayWithSacco : HomeAction(route = "pay_with_sacco")
     object Savings : HomeAction(route = "Saving")
     object Withdraw : HomeAction(route = "Withdraw")
     object Deposit : HomeAction(route = "deposit")
     object Loan : HomeAction("Loan")
     object BillScreen : HomeAction("BillScreen")
 
+    object AllTransaction:HomeAction("AllTransaction")
+
     object Statements : HomeAction("Statement")
+
+    object BankTransfer: HomeAction("bank_transfer")
 
     object BillConfirm :
         HomeAction("BillConfirm/{accountName}/{businessNumber}/{accountNo}/{amount}/{date}") {
@@ -381,8 +457,14 @@ sealed class HomeAction(val route: String) {
 
     }
 
-    object TillPaymentConfirm :
-        HomeAction("TillPaymentConfirm/{tillName}/{tillNumber}/{amount}/{date}") {
+    object TillConfirm: HomeAction("TillConfirm/{tillName}/{tillNumber}/{amount}/{date}") {
+        fun route(tillNumber: String, tillName: String, date: String, amount: String): String {
+            return "TillConfirm/$tillName/$tillNumber/$amount/$date"
+        }
+
+    }
+
+    object TillPaymentConfirm : HomeAction("TillPaymentConfirm/{tillName}/{tillNumber}/{amount}/{date}") {
         fun route(tillNumber: String, tillName: String, date: String, amount: String): String {
             return "TillPaymentConfirm/$tillName/$tillNumber/$amount/$date"
         }

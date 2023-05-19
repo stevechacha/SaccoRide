@@ -46,7 +46,7 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
-        freeCompilerArgs + "-Xjvm-default=all"
+        freeCompilerArgs + "-Xj vm-default=all"
     }
 
     buildFeatures {
@@ -108,10 +108,8 @@ dependencies {
     implementation ("io.coil-kt:coil-gif:2.1.0")
 
 //    implementation("com.google.accompanist:accompanist-navigation-animation:0.28.0")
-/*    implementation ("androidx.compose.animation:animation:1.4.3")
-    implementation ("androidx.compose.animation:animation-core:1.4.3")*/
-
-
+    /*    implementation ("androidx.compose.animation:animation:1.4.3")
+        implementation ("androidx.compose.animation:animation-core:1.4.3")*/
 
 
 

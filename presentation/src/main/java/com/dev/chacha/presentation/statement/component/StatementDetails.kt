@@ -52,7 +52,8 @@ import java.time.format.DateTimeFormatter
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun StatementDetail(
-    onViewStatement: () -> Unit
+    onViewStatement: () -> Unit,
+    navigateBack: ()-> Unit
 ) {
     val currentDate = LocalDate.now()
     var endDate by remember { mutableStateOf(currentDate) }
@@ -79,7 +80,8 @@ fun StatementDetail(
         topBar = {
             AppToolbar(
                 title = "Statement",
-                showBackArrow = true
+                showBackArrow = true,
+                navigateBack = {navigateBack()}
             )
         },
         content = { paddingValues ->

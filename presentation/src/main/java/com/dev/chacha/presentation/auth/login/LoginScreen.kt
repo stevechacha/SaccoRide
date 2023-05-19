@@ -86,6 +86,7 @@ fun LoginContent(
         topBar = {
             AppToolbar(
                 title = " ",
+                navigateBack = {}
             )
         },
     ) { paddingValues ->
@@ -143,6 +144,7 @@ fun LoginContent(
                 onPasswordToggleClick = {
                     viewModel.setShowPassword(it)
                 },
+                error = passwordState.error.toString()
 
                 )
             if (passwordState.error != "") {

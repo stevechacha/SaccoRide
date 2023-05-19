@@ -52,6 +52,7 @@ fun CreatePasswordContent(
             AppToolbar(
                 title = "Create Password",
                 showForwardArrow = true,
+                navigateBack = {}
             )
         }
     ) { paddingValues ->

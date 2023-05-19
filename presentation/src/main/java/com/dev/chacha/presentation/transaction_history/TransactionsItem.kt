@@ -12,56 +12,17 @@ data class TransactionsItem(
     val image: Int? = null
 )
 
-
 val transactionsItem = listOf(
-    TransactionsItem(
-        name = "Stephen Chacha",
-        contact = "0746656813",
-        amount = 68700.0,
-        date = "19 Apr",
-        time = "19:00 PM",
-        image = null
-    ),
-    TransactionsItem(
-        name = "Mary Tenui",
-        contact = "0721657645",
-        amount = 10000.0,
-        date = "12 Apr",
-        time = "06:00 PM",
-        image = null
-    ),
-    TransactionsItem(
-        name = "Dennis Mwangi",
-        contact = "0724873401",
-        amount = 50000.0,
-        date = "12 Apr",
-        time = "12:00 PM",
-        image = null
-    ),
-    TransactionsItem(
-        name = "Nairobi Waters",
-        contact = "123456",
-        amount = 1000.0,
-        date = "12 Apr",
-        time = "12:00 PM",
-        image = null
-    ),
-    TransactionsItem(
-        name = "KCB MPESA",
-        contact = "780780",
-        amount = 1000.0,
-        date = "24 Apr",
-        time = "12:00 PM",
-        image = R.drawable.ic_home
-    ),
-    TransactionsItem(
-        name = "KCB MPESA",
-        contact = "780780",
-        amount = 1000.0,
-        date = "24 Apr",
-        time = "12:00 PM",
-        image = R.drawable.ic_home
-    ),
+    TransactionsItem("John Doe", "0746656813", 100.0, "2023-05-19", "10:30 AM"),
+    TransactionsItem("Jane Smith", "+254746656813", 150.0, "2023-05-19", "11:45 AM"),
+    TransactionsItem("Alice Johnson", "254746656813", 200.0, "2023-05-19", "09:15 AM"),
+    TransactionsItem("Bob Brown", "0712345678", 75.0, "2023-05-19", "02:00 PM"),
+    TransactionsItem("Eve Wilson", "254712345678", 50.0, "2023-05-19", "12:30 PM"),
+    TransactionsItem("Nairobi Waters", "123456", 1000.0, "2023-05-12", "12:00 PM"),
+    TransactionsItem("KCB MPESA", "780780", 1000.0, "2023-05-24", "12:00 PM", R.drawable.ic_home),
 )
+
+
+
 
 

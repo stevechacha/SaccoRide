@@ -44,6 +44,7 @@ fun RegisterContent(
             AppToolbar(
                 title = "Create your account",
                 showForwardArrow = true,
+                navigateBack = {}
             )
         }
     ) { paddingValues ->

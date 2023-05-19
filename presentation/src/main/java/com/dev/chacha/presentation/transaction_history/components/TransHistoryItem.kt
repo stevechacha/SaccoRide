@@ -17,9 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -110,15 +115,16 @@ fun TransHistoryItem(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
+
+                    val formattedContact = formatContact(transactionItem.contact)
                     Text(
-                        text = transactionItem.contact,
+                        text = formattedContact,
                         style = typography.labelSmall,
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 1,
                         textAlign = TextAlign.Start,
+                    )
 
-
-                        )
                     Text(
                         text = "${transactionItem.date},${transactionItem.time}",
                         textAlign = TextAlign.End,
@@ -134,6 +140,24 @@ fun TransHistoryItem(
 
 
     }
+}
+
+
+private fun formatContact(contact: String): String {
+    val formattedContact: String = when {
+        contact.startsWith("+254") || contact.startsWith("254") -> {
+            val prefix = contact.substring(0, 3)
+            val lastThreeDigits = contact.substring(contact.length - 3)
+            "$prefix***$lastThreeDigits"
+        }
+        contact.startsWith("07") -> {
+            val prefix = contact.substring(0, 4)
+            val lastThreeDigits = contact.substring(contact.length - 3)
+            "$prefix***$lastThreeDigits"
+        }
+        else -> contact
+    }
+    return formattedContact
 }
 
 

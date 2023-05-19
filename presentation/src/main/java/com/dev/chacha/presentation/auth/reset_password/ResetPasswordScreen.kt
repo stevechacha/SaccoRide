@@ -18,11 +18,13 @@ import com.dev.chacha.presentation.common.components.ContinueButton
 
 @Composable
 fun ResetPasswordScreen(
-    onClickAction: () -> Unit
+    onClickAction: () -> Unit,
+    navigateBack:()->Unit
 ) {
     ResetPasswordContent(
         viewModel = ResetPasswordViewModel(),
-        onClickAction = onClickAction
+        onClickAction = onClickAction,
+        navigateBack = navigateBack
     )
 }
 
@@ -30,7 +32,8 @@ fun ResetPasswordScreen(
 @Composable
 fun ResetPasswordContent(
     onClickAction: () -> Unit,
-    viewModel: ResetPasswordViewModel
+    viewModel: ResetPasswordViewModel,
+    navigateBack: () -> Unit
 ) {
     val (currentPassword, setCurrentPassword) = rememberSaveable { mutableStateOf("") }
     val (newPassword, setNewPassword) = rememberSaveable { mutableStateOf("") }
@@ -40,7 +43,8 @@ fun ResetPasswordContent(
             AppToolbar(
                 title = "Reset Password",
                 showForwardArrow = true,
-                showBackArrow = true
+                showBackArrow = true,
+                navigateBack = {navigateBack()}
             )
         }
     ) { paddingValues ->
@@ -106,7 +110,8 @@ fun ResetPasswordContent(
 @Preview
 fun ResetPasswordScreenPreview() {
     ResetPasswordScreen(
-        onClickAction = {}
+        onClickAction = {},
+        navigateBack = {}
     )
 
 }

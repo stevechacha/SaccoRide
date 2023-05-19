@@ -25,13 +25,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.dev.chacha.presentation.common.components.AppTopBar
 import com.dev.chacha.presentation.contactList.ContactListViewModel
-import com.dev.chacha.presentation.contacts.Contact
+import com.dev.chacha.presentation.contactList.component.ContactItem
+import com.dev.chacha.presentation.contactList.Contact
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun ContactSeectionScreen(
+fun ContactsSelectionScreen(
     onContactSelected: (Contact) -> Unit,
     navController: NavController,
     viewModel: ContactListViewModel,

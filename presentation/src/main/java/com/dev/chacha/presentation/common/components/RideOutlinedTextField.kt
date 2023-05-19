@@ -1,6 +1,7 @@
 package com.dev.chacha.presentation.common.components
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,9 +20,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.semantics
@@ -38,21 +42,45 @@ fun RideOutlinedTextField(
     modifier: Modifier = Modifier,
     hint: String = "",
     maxLength: Int = 20,
+    isError: Boolean = false,
     textStyle: TextStyle = LocalTextStyle.current,
     leadingIcon: ImageVector? = null,
     trailingIcon: (@Composable () -> Unit)? = null,
-    isError: Boolean = false,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = false,
     keyboardType: KeyboardType = KeyboardType.Text,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
     supportText: String = "",
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(),
     accountNumberLength: String = "",
-    error: String = ""
+    error: String = "",
+    readOnly: Boolean = false,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    showErrorBorder: Boolean = false,
+    focusRequester: FocusRequester = FocusRequester()
+
+
 ) {
+    val isFocused = interactionSource.collectIsFocusedAsState().value
+
+
+    val colors = TextFieldDefaults.outlinedTextFieldColors(
+        textColor = MaterialTheme.colorScheme.onSurface,
+        focusedLabelColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
+        unfocusedLabelColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
+        cursorColor = MaterialTheme.colorScheme.onBackground,
+        focusedBorderColor = if (isError) Color.Red else MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
+        unfocusedBorderColor = if (isError) Color.Red else MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
+        errorBorderColor = Color.Red,
+        errorLeadingIconColor = Color.Red,
+        errorTrailingIconColor = Color.Red,
+        disabledBorderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
+        disabledTextColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
+        disabledLeadingIconColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
+        disabledTrailingIconColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
+    )
+
+
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -80,12 +108,13 @@ fun RideOutlinedTextField(
                     )
             },
             modifier = modifier
-                .fillMaxWidth()
-                .semantics {
-                },
+                .focusRequester(focusRequester = focusRequester)
+            .fillMaxWidth()
+                .semantics {},
             keyboardOptions = KeyboardOptions(
                 keyboardType = keyboardType
             ),
+            readOnly = readOnly,
             leadingIcon = if (leadingIcon != null) {
                 val icon: @Composable () -> Unit = {
                     Icon(
@@ -102,21 +131,7 @@ fun RideOutlinedTextField(
             singleLine = true,
             maxLines = maxLines,
             textStyle = textStyle,
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                textColor = MaterialTheme.colorScheme.onSurface,
-                focusedLabelColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
-                unfocusedLabelColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
-                cursorColor = MaterialTheme.colorScheme.onBackground,
-                focusedBorderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
-                unfocusedBorderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
-                errorBorderColor = Color.Red,
-                errorLeadingIconColor = Color.Red,
-                errorTrailingIconColor = Color.Red,
-                disabledBorderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
-                disabledTextColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
-                disabledLeadingIconColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
-                disabledTrailingIconColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
-            )
+            colors =  colors
         )
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -172,15 +187,12 @@ fun PreviewRideOutlinedTextField() {
         textStyle = MaterialTheme.typography.labelMedium,
         leadingIcon = null,
         trailingIcon = null,
-        isError = false,
         keyboardActions = KeyboardActions.Default,
         singleLine = false,
         keyboardType = KeyboardType.Text,
         maxLines = 1,
         minLines = 1,
         supportText = "",
-        interactionSource = remember { MutableInteractionSource() },
-        colors = TextFieldDefaults.outlinedTextFieldColors(),
         accountNumberLength = "",
         error = ""
     )

@@ -26,7 +26,7 @@ import com.dev.chacha.presentation.transaction.components.TransactTopBar
 fun TransactionScreen(
     onSendMoneyClicked: () -> Unit,
     onBuyAirtimeClicked: () -> Unit,
-    onBuyGoodsClicked: () -> Unit,
+    onBankTransferClicked: () -> Unit,
     onPayBillClicked: () -> Unit,
     onWithdrawClicked: () -> Unit,
     onDepositClicked: () -> Unit,
@@ -67,8 +67,8 @@ fun TransactionScreen(
                     item {
                         HorizontalCardItem(
                             drawable = R.drawable.shopping_cart,
-                            text = R.string.buy_goods,
-                            onItemClick = { onBuyGoodsClicked() })
+                            text = R.string.bank_transfer,
+                            onItemClick = { onBankTransferClicked() })
 
 
                     }
@@ -149,7 +149,7 @@ fun TransactionScreenPreview() {
     TransactionScreen(
         onSendMoneyClicked = { /*TODO*/ },
         onBuyAirtimeClicked = { /*TODO*/ },
-        onBuyGoodsClicked = { /*TODO*/ },
+        onBankTransferClicked = { /*TODO*/ },
         onPayBillClicked = { /*TODO*/ },
         onWithdrawClicked = { /*TODO*/ },
         onDepositClicked = { /*TODO*/ },

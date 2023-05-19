@@ -22,15 +22,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dev.chacha.presentation.R
-import com.dev.chacha.presentation.buy_goods.BayGoods
-import com.dev.chacha.presentation.paybill.PayBill
+import com.dev.chacha.presentation.buy_goods.BuyGoods
 
 @Composable
 fun BuyGoodConfirm(
     message: String?,
     @DrawableRes drawableRes: Int,
     buttonText: String,
-    bayGoods: BayGoods
+    buyGoods: BuyGoods
 ) {
     Card(
         modifier = Modifier.fillMaxWidth()
@@ -92,23 +91,24 @@ fun BuyGoodConfirm(
                         horizontalAlignment = Alignment.End,
                         verticalArrangement = Arrangement.Center
                     ) {
+                            Text(
+                                text = buyGoods.tillNumber,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+
                         Text(
-                            text = bayGoods.tillName,
+                            text = buyGoods.tillNumber,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
                         Text(
-                            text = bayGoods.tillNumber,
+                            text = buyGoods.amount.toString(),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
                         Text(
-                            text = bayGoods.amount.toString(),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                        Text(
-                            text = bayGoods.date.toString(),
+                            text = buyGoods.date.toString(),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
@@ -130,7 +130,7 @@ fun BuyGoodConfirm(
     }
 }
 
-val bayGoods = BayGoods(
+val buyGoods = BuyGoods(
     tillName = "",
     tillNumber = "",
     amount = 1000.0,
@@ -144,6 +144,6 @@ fun BuyGoodsConfirmPreview() {
         message  = "Your Transaction was successful",
         drawableRes = R.drawable.main_icon ,
         buttonText = "Done" ,
-        bayGoods = bayGoods
+        buyGoods = buyGoods
     )
 }

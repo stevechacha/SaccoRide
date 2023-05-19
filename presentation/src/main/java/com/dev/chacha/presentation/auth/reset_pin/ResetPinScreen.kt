@@ -16,15 +16,18 @@ import com.dev.chacha.presentation.auth.create_password.CreatePasswordViewModel
 import com.dev.chacha.presentation.common.components.AppOutlinedTextField
 import com.dev.chacha.presentation.common.components.AppToolbar
 import com.dev.chacha.presentation.common.components.ContinueButton
+import com.dev.chacha.presentation.common.components.PinOutlinedTextField
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
 
 @Composable
 fun ResetPinScreen(
-    onClickAction: () -> Unit
+    onClickAction: () -> Unit,
+    navigateBack: ()->Unit
 ) {
     ResetPinContent(
         viewModel = ResetPinViewModel(),
-        onClickAction = onClickAction
+        onClickAction = onClickAction,
+        navigateBack = navigateBack
     )
 }
 
@@ -32,7 +35,8 @@ fun ResetPinScreen(
 @Composable
 fun ResetPinContent(
     onClickAction: () -> Unit,
-    viewModel: ResetPinViewModel
+    viewModel: ResetPinViewModel,
+    navigateBack: () -> Unit
 ) {
     val (pin, setPin) = rememberSaveable { mutableStateOf("") }
     val (newPin, setNewPin) = rememberSaveable { mutableStateOf("") }
@@ -41,7 +45,8 @@ fun ResetPinContent(
         topBar = {
             AppToolbar(
                 title = "Reset pin",
-                showBackArrow = true
+                showBackArrow = true,
+                navigateBack = {navigateBack()}
             )
         }
     ) { paddingValues ->
@@ -57,7 +62,7 @@ fun ResetPinContent(
                 fontSize = 24.sp
             )
 
-            AppOutlinedTextField(
+            PinOutlinedTextField(
                 value = pin,
                 onValueChange = { setPin(it) },
                 hint = stringResource(id = R.string.current_pin),
@@ -68,7 +73,7 @@ fun ResetPinContent(
                 }
             )
 
-            AppOutlinedTextField(
+            PinOutlinedTextField(
                 value = newPin,
                 onValueChange = { setNewPin(it) },
                 keyboardType = KeyboardType.NumberPassword,
@@ -79,7 +84,7 @@ fun ResetPinContent(
                 }
             )
 
-            AppOutlinedTextField(
+            PinOutlinedTextField(
                 value = confirmNewPin,
                 onValueChange = { setConfirmNewPin(it) },
                 keyboardType = KeyboardType.NumberPassword,
@@ -106,7 +111,8 @@ fun ResetPinContent(
 @Preview
 fun ResetPasswordScreenPreview() {
         ResetPinScreen(
-            onClickAction = {}
+            onClickAction = {},
+            navigateBack = {}
         )
 
 }

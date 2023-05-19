@@ -39,6 +39,7 @@ fun ForgotPasswordContent(
             AppToolbar(
                 title = "Forgot Password",
                 showForwardArrow = true,
+                navigateBack = {}
             )
         }
     ) { paddingValues ->

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Surface
@@ -32,16 +33,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
+import com.dev.chacha.presentation.markets.components.AnimatedCardPager
+import com.dev.chacha.presentation.markets.components.AnimatedCardPagerIndicator
 import com.dev.chacha.presentation.markets.components.MarketTopBar
 import com.dev.chacha.presentation.markets.components.ShopCard
+import com.dev.chacha.presentation.markets.components.getCardImages
 import kotlin.random.Random
 
 
 @Composable
-fun MarketScreen() {
+fun MarketScreen(
+    navigateBack: ()->Unit
+) {
     Scaffold(
         topBar = {
-           MarketTopBar(title = "Market")
+           MarketTopBar(
+               title = "Market"
+           )
         },
     ) { paddingValues ->
 
@@ -49,20 +57,22 @@ fun MarketScreen() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(paddingValues)
-                .padding(horizontal = 16.dp, vertical = 16.dp)
+                .padding(horizontal = 16.dp)
         ) {
-            LazyColumn {
+            val  cardsItems = getCardImages()
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ){
                 item {
-                    Text(
-                        text = stringResource(id = R.string.shop_header_text),
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        fontSize = 26.sp,
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 2
-                    )
+                    Text(text = stringResource(id = R.string.our_market))
+                }
+                item {
+                    AnimatedCardPager(cards =   cardsItems)
                 }
 
+                item {
+                    AnimatedCardPagerIndicator(cards =   cardsItems)
+                }
             }
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -129,6 +139,9 @@ fun MarketScreen() {
 
             }
 
+            Spacer(modifier = Modifier.weight(1f))
+
+
         }
     }
 }
@@ -145,6 +158,8 @@ fun randommColor(): Color {
 @Preview
 fun MarketPreview() {
     Surface(modifier = Modifier.fillMaxSize()) {
-        MarketScreen()
+        MarketScreen(
+            navigateBack = {}
+        )
     }
 }

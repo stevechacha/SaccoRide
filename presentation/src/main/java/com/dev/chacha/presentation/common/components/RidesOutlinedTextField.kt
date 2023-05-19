@@ -157,15 +157,12 @@ fun PreviewRidesOutlinedTextField() {
         textStyle = MaterialTheme.typography.labelMedium,
         leadingIcon = null,
         trailingIcon = null,
-        isError = false,
         keyboardActions = KeyboardActions.Default,
         singleLine = false,
         keyboardType = KeyboardType.Text,
         maxLines = 1,
         minLines = 1,
         supportText = "",
-        interactionSource = remember { MutableInteractionSource() },
-        colors = TextFieldDefaults.outlinedTextFieldColors(),
         accountNumberLength = "",
         error = ""
     )

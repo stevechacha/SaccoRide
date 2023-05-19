@@ -7,6 +7,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,7 +22,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -53,12 +53,11 @@ import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.components.RideOutlinedTextField
 import com.dev.chacha.presentation.loan.components.LoanCard
-import com.dev.chacha.presentation.loan.components.LoanTextView
 
 @Composable
 fun LoanScreen(
     navController: NavController,
-    navigateToContact:()-> Unit
+    navigateToContact: () -> Unit
 ) {
     var isPayLoanExpanded by remember { mutableStateOf(false) }
     var isRequestLoanExpanded by remember { mutableStateOf(false) }
@@ -98,28 +97,6 @@ fun LoanScreen(
                         )
                     }
                 },
-                actions = {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .padding(end = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        IconButton(onClick = { /* doSomething() */ }) {
-                            Icon(
-                                imageVector = Icons.Filled.Favorite,
-                                contentDescription = "Localized description"
-                            )
-                        }
-                        IconButton(onClick = { /* doSomething() */ }) {
-                            Icon(
-                                imageVector = Icons.Filled.Favorite,
-                                contentDescription = "Localized description"
-                            )
-                        }
-                    }
-
-                },
                 colors = TopAppBarDefaults.smallTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
                     scrolledContainerColor = MaterialTheme.colorScheme.background
@@ -152,17 +129,6 @@ fun LoanScreen(
                 expanded = isRequestLoanExpanded,
                 onExpandToggle = { isRequestLoanExpanded = !isRequestLoanExpanded }
             )
-            LoanTextView(
-                loanBalance = "Ksh. 1ooo",
-                loanLimit = "Ksh. 1ooo",
-                loanDueDate = "12 June,2023"
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            ServiceLoan()
-
-            Button(onClick = { navigateToContact()}) {
-                Text(text = "Contacts")
-            }
         }
     }
 
@@ -192,76 +158,77 @@ fun PayLoans(
             disabledElevation = 0.dp,
             draggedElevation = 0.dp
         ),
-        onClick = {
-            onExpandToggle()
-        },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6F),
         )
-
-
     ) {
-        Column(
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .padding(12.dp)
-                .padding(bottom = extraPaddingValues.coerceAtLeast(0.dp)),
-            verticalArrangement = Arrangement.Center
+                .clickable(onClick = onExpandToggle),
+            contentAlignment = Alignment.Center
         ) {
-
-            Row(
+            Column(
                 modifier = Modifier
-                    .fillMaxSize(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                    .fillMaxWidth()
+                    .padding(bottom = extraPaddingValues.coerceAtLeast(0.dp)),
+                verticalArrangement = Arrangement.Center
             ) {
+
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.loan_icon),
+                            contentDescription = null,
+                            modifier = Modifier.clickable {
+                                onExpandToggle()
+                            }
+                        )
+                        Text(
+                            text = "Pay Loan",
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                     Icon(
-                        painter = painterResource(id = R.drawable.loan_icon),
-                        contentDescription = null,
-                        modifier = Modifier.clickable {
-                            onExpandToggle()
-                        }
-                    )
-                    Text(
-                        text = "Pay Loan",
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
+                        "contentDescription"
                     )
                 }
-                Icon(
-                    if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
-                    "contentDescription"
-                )
-            }
 
+                Spacer(modifier = Modifier.height(10.dp))
+                AnimatedVisibility(visible = expanded) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        RideOutlinedTextField(
+                            value = amount,
+                            onValueChange = { setAmount(it) },
+                            keyboardType = KeyboardType.Phone,
+                            hint = stringResource(id = R.string.amount),
+                            supportText = stringResource(id = R.string.amount_support_text)
+                        )
 
-
-            Spacer(modifier = Modifier.height(10.dp))
-            AnimatedVisibility(visible = expanded) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    RideOutlinedTextField(
-                        value = amount,
-                        onValueChange = { setAmount(it) },
-                        keyboardType = KeyboardType.Phone,
-                        hint = stringResource(id = R.string.amount),
-                        supportText = stringResource(id = R.string.amount_support_text)
-                    )
-
-                    ContinueButton(
-                        text = "Continue",
-                        onClick = {  },
-                        enable = true
-                    )
+                        ContinueButton(
+                            text = "Continue",
+                            onClick = { },
+                            enable = true
+                        )
+                    }
                 }
-            }
 
+            }
         }
+
     }
 }
 
@@ -271,7 +238,6 @@ fun RequestLoans(
     onExpandToggle: () -> Unit
 ) {
     val (amount, setAmount) = rememberSaveable { mutableStateOf("") }
-
     val extraPaddingValues by animateDpAsState(
         if (expanded) 24.dp else 0.dp,
         animationSpec = spring(
@@ -289,67 +255,75 @@ fun RequestLoans(
             containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6F),
         )
     ) {
-        Column(
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .padding(12.dp)
-                .padding(bottom = extraPaddingValues.coerceAtLeast(0.dp)),
-            verticalArrangement = Arrangement.Center,
-
-            ) {
-
-            Row(
+                .clickable(onClick = onExpandToggle),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
                 modifier = Modifier
-                    .fillMaxSize(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+                    .fillMaxWidth()
+                    .padding(bottom = extraPaddingValues.coerceAtLeast(0.dp)),
+                verticalArrangement = Arrangement.Center,
+                ) {
+
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.loan_icon),
+                            contentDescription = null,
+                            modifier = Modifier.clickable {
+                                onExpandToggle()
+                            }
+                        )
+                        Text(
+                            text = "Request Loan",
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                     Icon(
-                        painter = painterResource(id = R.drawable.loan_icon),
-                        contentDescription = null,
-                        modifier = Modifier.clickable {
-                            onExpandToggle()
-                        }
-                    )
-                    Text(
-                        text = "Request Loan",
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
+                        "contentDescription"
                     )
                 }
-                Icon(
-                    if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
-                    "contentDescription"
-                )
-            }
 
 
 
-            Spacer(modifier = Modifier.height(10.dp))
-            AnimatedVisibility(visible = expanded) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    RideOutlinedTextField(
-                        value = amount,
-                        onValueChange = { setAmount(it) },
-                        keyboardType = KeyboardType.Phone,
-                        hint = stringResource(id = R.string.amount),
-                        supportText = stringResource(id = R.string.amount_support_text)
-                    )
+                Spacer(modifier = Modifier.height(10.dp))
+                AnimatedVisibility(visible = expanded) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        RideOutlinedTextField(
+                            value = amount,
+                            onValueChange = { setAmount(it) },
+                            keyboardType = KeyboardType.Phone,
+                            hint = stringResource(id = R.string.amount),
+                            supportText = stringResource(id = R.string.amount_support_text)
+                        )
 
-                    ContinueButton(
-                        text = "Continue",
-                        onClick = { /* TODO */ }
-                    )
+                        ContinueButton(
+                            text = "Continue",
+                            onClick = { /* TODO */ }
+                        )
+                    }
                 }
-            }
 
+            }
         }
+
+
     }
 }
 

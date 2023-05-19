@@ -13,11 +13,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.rememberNavController
-import com.dev.chacha.presentation.R
-import com.dev.chacha.presentation.buy_goods.BuyGoodsScreen
-import com.dev.chacha.presentation.paybill.PayBill
-import com.dev.chacha.presentation.paybill.PayBillScreen
+import com.dev.chacha.presentation.buy_goods.BayGoods
+import com.dev.chacha.presentation.common.theme.PrimaryColor
+import com.dev.chacha.presentation.paybill.PayBills
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
 
@@ -25,7 +23,9 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun PayWithSacco() {
+fun PayWithSacco(
+    navigateBack:()->Unit
+) {
     val tabs = listOf(TabItem.BuyGoods, TabItem.PayBill)
     val pagerState = rememberPagerState()
     Scaffold(
@@ -41,7 +41,7 @@ fun PayWithSacco() {
                 contentColor = MaterialTheme.colorScheme.onBackground,
                 elevation = 0.dp,
                 navigationIcon = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = { navigateBack()}) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack ,
                             contentDescription = null,
@@ -96,7 +96,7 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
 
                     )
                 },
-                selectedContentColor = MaterialTheme.colorScheme.primary,
+                selectedContentColor = PrimaryColor,
                 unselectedContentColor = MaterialTheme.colorScheme.onBackground
             )
         }
@@ -116,6 +116,6 @@ fun TabsContent(tabs: List<TabItem>, pagerState: PagerState) {
 typealias ComposableFun = @Composable () -> Unit
 sealed class TabItem( var title: String, var screen: ComposableFun) {
 
-    object BuyGoods : TabItem( "BUY GOODS", { BuyGoodsScreen(navigateTo = {} ) })
-    object PayBill : TabItem( "PAYBILL", { PayBillScreen(onPayBillClick = {}) })
+    object BuyGoods : TabItem( "BUY GOODS", { BayGoods() })
+    object PayBill : TabItem( "PAYBILL", { PayBills() })
 }

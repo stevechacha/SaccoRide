@@ -1,4 +1,4 @@
-package com.dev.chacha.presentation.contacts
+package com.dev.chacha.presentation.contactList
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

@@ -1,65 +1,69 @@
 package com.dev.chacha.presentation.buy_goods
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.dev.chacha.presentation.auth.login.LoginState
-import com.dev.chacha.presentation.auth.login.LoginUiEvents
-import com.dev.chacha.presentation.auth.login.TextFieldState
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
-class BuyGoodsViewModel : ViewModel(){
-    private val _logOut = MutableLiveData<Boolean>()
-    val logOut: LiveData<Boolean> = _logOut
+class BuyGoodsViewModel : ViewModel() {
+    private val _state = MutableStateFlow(BuyGoodsState())
+    val state: StateFlow<BuyGoodsState> = _state
 
+    private val _showDialog = MutableStateFlow(false)
+    val showDialog: StateFlow<Boolean> = _showDialog
 
-    private val _usernameState = mutableStateOf(TextFieldState())
-    val usernameState: State<TextFieldState> = _usernameState
-
-    fun setUsername(value: String) {
-        _usernameState.value = usernameState.value.copy(text = value)
+    fun onTillNumberChanged(tillNumber: String) {
+        _state.value = state.value.copy(tillNumber = tillNumber)
     }
 
-    private val _passwordState = mutableStateOf(TextFieldState())
-    val passwordState: State<TextFieldState> = _passwordState
-    fun setPassword(value: String) {
-        _passwordState.value = _passwordState.value.copy(text = value)
+    fun onTillNameChanged(tillName: String) {
+        _state.value = state.value.copy(tillName = tillName)
     }
 
-    private val _showPassword = mutableStateOf(false)
-    val showPassword: State<Boolean> = _showPassword
-    fun setShowPassword(showPassword: Boolean) {
-        _showPassword.value = showPassword
+    fun onAmountChanged(amount: String) {
+        _state.value = state.value.copy(amount = amount)
+    }
+
+    fun onDialogDismissed() {
+        _showDialog.value = false
     }
 
 
-    private val _loginState = mutableStateOf(LoginState())
-    val loginState: State<LoginState> = _loginState
+    fun isInputValid(): Boolean {
+        val currentState = state.value
+        val tillNumber = currentState.tillNumber
+        val amount = currentState.amount
 
-    private val _eventFlow = MutableSharedFlow<LoginUiEvents>()
-    val eventFlow = _eventFlow.asSharedFlow()
+        val isValidTillNumber = tillNumber.isNotEmpty() && tillNumber.length > 5
+        val isValidAmount =
+            amount.isNotEmpty() && amount.toDouble() > 0 && amount.toDouble() < 300000
+
+        return isValidTillNumber && isValidAmount
+    }
 
 
-    /*private val _loginUIState = MutableLiveData<LoginUIState>(null)
-    val loginUIState: LiveData<LoginUIState> = _loginUIState*/
+    fun onContinueButtonClicked() {
+        val currentState = state.value
+        val tillNumber = currentState.tillNumber
+        val amount = currentState.amount
 
-    fun login() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _loginState.value = loginState.value.copy(isLoading = true)
+        val isValidTillNumber = tillNumber.isNotEmpty() && tillNumber.length > 5
+        val isValidAmount =
+            amount.isNotEmpty() && amount.toDouble() > 0 && amount.toDouble() < 300000
 
+        if (isInputValid()) {
+            _showDialog.value = true
         }
 
-        fun logout() {
-            viewModelScope.launch(Dispatchers.IO) {
-                logout()
-            }
+        if (isValidTillNumber && isValidAmount) {
+            _showDialog.value = true
+        } else {
+            // Show an error message or handle invalid input
         }
-
     }
+
+
 }
+
+
+
+

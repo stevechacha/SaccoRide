@@ -16,6 +16,7 @@ import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.components.AppOutlinedTextField
 import com.dev.chacha.presentation.common.components.AppToolbar
 import com.dev.chacha.presentation.common.components.ContinueButton
+import com.dev.chacha.presentation.common.components.PinOutlinedTextField
 
 
 @Composable
@@ -42,6 +43,7 @@ fun CreatePinContent(
             AppToolbar(
                 title = "Create Pin",
                 showForwardArrow = true,
+                navigateBack = {}
             )
         }
     ) { paddingValues ->
@@ -56,7 +58,7 @@ fun CreatePinContent(
                 fontSize = 24.sp
             )
             Spacer(modifier = Modifier.height(20.dp))
-            AppOutlinedTextField(
+            PinOutlinedTextField(
                 value = pin,
                 onValueChange = { setPin(it) },
                 hint = stringResource(id = R.string.pin_hint),
@@ -68,7 +70,7 @@ fun CreatePinContent(
                 }
             )
             Spacer(modifier = Modifier.height(16.dp))
-            AppOutlinedTextField(
+            PinOutlinedTextField(
                 value = confirmPin,
                 onValueChange = { setConfirmPin(it) },
                 keyboardType = KeyboardType.NumberPassword,
@@ -99,7 +101,7 @@ fun CreatePinContent(
 fun CreatePinScreenPreview() {
     CreatePinContent(
         onClickAction = { /*TODO*/ },
-        viewModel = CreatePinViewModel()
+        viewModel = CreatePinViewModel(),
     )
 }
 

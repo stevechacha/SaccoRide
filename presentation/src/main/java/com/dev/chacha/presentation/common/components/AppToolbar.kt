@@ -29,8 +29,8 @@ fun AppToolbar(
     scrollBehavior: TopAppBarScrollBehavior? = null,
     showBackArrow: Boolean = false,
     showForwardArrow: Boolean = false,
+    navigateBack:()-> Unit
 ) {
-    val navController = rememberNavController()
     CenterAlignedTopAppBar(
         title = {
             Text(
@@ -42,7 +42,7 @@ fun AppToolbar(
             )
         }, navigationIcon = {
             if (showBackArrow) {
-                IconButton(onClick = { navController.navigateUp() }) {
+                IconButton(onClick = { navigateBack() }) {
                     Image(
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Localized description",
@@ -52,7 +52,7 @@ fun AppToolbar(
             }
         }, actions = {
             if (showForwardArrow) {
-                IconButton(onClick = { navController.navigateUp()}) {
+                IconButton(onClick = { navigateBack()}) {
                     Icon(
                         imageVector = Icons.Filled.Close,
                         contentDescription = "Localized description",
@@ -73,6 +73,7 @@ fun AppToolbar(
 fun AppToolbarPreview() {
     AppToolbar(
         title = "Title", showForwardArrow = true, showBackArrow = true,
+        navigateBack = {}
     )
 
 }

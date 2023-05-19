@@ -43,7 +43,8 @@ fun LoansScreen(
         topBar = {
             AppToolbar(
                 title = "Loan",
-                showBackArrow = true
+                showBackArrow = true,
+                navigateBack = {}
             )
         }
     ) { paddingValues ->
@@ -54,7 +55,8 @@ fun LoansScreen(
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
                 .padding(12.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
 
             LoanCard(
@@ -66,11 +68,6 @@ fun LoansScreen(
             )
             RequestLoan()
             PayLoan()
-            LoanTextView(
-                loanBalance = "Ksh. 1ooo",
-                loanLimit = "Ksh. 1ooo",
-                loanDueDate = "12 June,2023"
-            )
             ServiceLoan()
 
         }
@@ -129,7 +126,6 @@ fun PayLoan() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-
     ) {
         Column(
             modifier = Modifier
@@ -251,9 +247,8 @@ fun RequestLoan() {
 @Composable
 @Preview
 fun LoanScreenPreview() {
-    LoanScreen(
+    LoansScreen(
         navController = rememberNavController(),
-        navigateToContact = {}
     )
 
 }

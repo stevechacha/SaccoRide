@@ -21,16 +21,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.dev.chacha.presentation.buy_goods.BayGoods
+import com.dev.chacha.presentation.buy_goods.BuyGoods
+import com.dev.chacha.presentation.buy_goods.BuyGoodsViewModel
 import com.dev.chacha.presentation.common.theme.PrimaryColor
 
 @Composable
 fun BuyGoodsDialog(
     onDismiss: () -> Unit,
-    bayGoods: BayGoods,
-    onClickSend: (BayGoods) -> Unit,
-
-    ) {
+    buyGoods: BuyGoods,
+    onClickSend: (BuyGoods) -> Unit,
+    viewModel: BuyGoodsViewModel
+) {
     AlertDialog(
         containerColor = MaterialTheme.colorScheme.background,
         onDismissRequest = {
@@ -53,11 +54,13 @@ fun BuyGoodsDialog(
                         style = MaterialTheme.typography.labelMedium,
                         color = PrimaryColor
                     )
-                    Text(
-                        text = bayGoods.tillName,
-                        style = MaterialTheme.typography.labelMedium,
-                        fontWeight = FontWeight.Bold
-                    )
+                    buyGoods.tillName?.let {
+                        Text(
+                            text = it,
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
                         text = "Till No",
@@ -65,7 +68,7 @@ fun BuyGoodsDialog(
                         color=LocalContentColor.current.copy(alpha = ContentAlpha.medium)
                     )
                     Text(
-                        text = bayGoods.tillNumber,
+                        text = buyGoods.tillNumber,
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.Bold
 
@@ -79,7 +82,7 @@ fun BuyGoodsDialog(
 
                     )
                     Text(
-                        text = "${bayGoods.amount}",
+                        text = "${buyGoods.amount}",
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.Bold
 
@@ -108,10 +111,8 @@ fun BuyGoodsDialog(
                     Spacer(modifier = Modifier.weight(1f))
                     Button(
                         onClick = {
-                            onClickSend(
-                                bayGoods
-                            )
-
+                            onClickSend(buyGoods)
+                            onDismiss()
                         },
                         modifier = Modifier.width(120.dp),
                         colors = ButtonDefaults.buttonColors(

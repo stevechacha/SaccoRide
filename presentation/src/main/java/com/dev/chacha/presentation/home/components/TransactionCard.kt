@@ -21,7 +21,7 @@ import com.dev.chacha.presentation.R
 fun TransactionCard(
     onSendMoneyClicked: () -> Unit,
     onBuyAirtimeClicked: () -> Unit,
-    onBuyGoodsClicked: () -> Unit,
+    onBankTransferClicked: () -> Unit,
     onPayBillClicked: () -> Unit,
     onWithdrawClicked: () -> Unit,
     onDepositClicked: () -> Unit,
@@ -32,7 +32,6 @@ fun TransactionCard(
             .wrapContentHeight(),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6F),
-
         ),
     ) {
         Column(
@@ -53,9 +52,9 @@ fun TransactionCard(
                     stringRes = R.string.send_money
                 )
                 TextImageItem(
-                    onItemClick = onBuyGoodsClicked,
+                    onItemClick = onBankTransferClicked,
                     drawable = R.drawable.shopping_cart,
-                    stringRes = R.string.buy_goods
+                    stringRes = R.string.bank_transfer
                 )
 
                 TextImageItem(

@@ -20,7 +20,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.dev.chacha.presentation.common.navigation.SendMon
 
 @Composable
 fun ContactsScreen(navController: NavController) {
@@ -48,12 +47,7 @@ fun ContactsScreen(navController: NavController) {
             trailingIcon = {
                 IconButton(onClick = {
                     // Navigate to the screen to select a contact to import
-                    navController.navigate(SendMon.ContactSelection.route) {
-                        // Set the behavior of the back button in the contact selection screen
-                        popUpTo(navController.currentDestination!!.id) {
-                            inclusive = true
-                        }
-                    }
+
                 }) {
                     Icon(
                         imageVector = Icons.Default.Search,

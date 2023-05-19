@@ -1,4 +1,4 @@
-package com.dev.chacha.presentation.contacts
+package com.dev.chacha.presentation.contactList
 
 sealed interface ContactUiEvent{
     object GetContacts: ContactUiEvent

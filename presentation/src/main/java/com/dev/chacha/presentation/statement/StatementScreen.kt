@@ -32,14 +32,17 @@ import com.dev.chacha.presentation.common.components.AppToolbar
 import com.dev.chacha.presentation.common.theme.spacing
 
 @Composable
-fun StatementScreen() {
+fun StatementScreen(
+    navigateBack:()->Unit
+) {
     val spacing = MaterialTheme.spacing
 //    val invoice = viewModel.invoice.collectAsState()
 
     Scaffold(
         topBar = {
             AppToolbar(
-                title = "View your statement"
+                title = "View your statement",
+                navigateBack = {navigateBack()}
             )
         }
     ) { paddingValues ->
@@ -280,5 +283,7 @@ enum class TransactionsType {
 @Composable
 @Preview
 fun PreviewStatements() {
-    StatementScreen()
+    StatementScreen(
+        navigateBack = {}
+    )
 }

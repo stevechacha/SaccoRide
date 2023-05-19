@@ -69,7 +69,7 @@ fun CustomKeyboard(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(8.dp)
+            .padding(start=8.dp, end = 8.dp, bottom = 30.dp)
     ) {
         Spacer(modifier = Modifier.height(50.dp))
 
@@ -129,8 +129,8 @@ private fun NumberButton(
             onClick(number.digitToChar())
         },
         modifier = modifier
-            .aspectRatio(1f)
-            .padding(4.dp),
+            .aspectRatio(2f)
+            .padding(5.dp),
         border = ButtonDefaults.outlinedButtonBorder.copy(
             brush = SolidColor(MaterialTheme.colorScheme.primary)
         )

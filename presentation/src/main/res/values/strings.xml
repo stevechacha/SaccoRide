@@ -120,5 +120,9 @@
     <string name="sacco_privacy_policy">At MyFinance, we take your privacy seriously. We will never share your personal information with third parties without your consent. We use industry-standard security measures to protect your data and prevent unauthorized access. By using MyFinance, you agree to our Privacy Policy.</string>
     <string name="sacco_term_and_condition">By using MyFinance, you agree to our Terms and Conditions. You must be at least 18 years old to use our services. You are responsible for keeping your account information up to date and secure. MyFinance reserves the right to suspend or terminate your account if you violate our policies or engage in illegal activity. We are not responsible for any losses or damages resulting from your use of our services.</string>
     <string name="sacco_service_charter">At MyFinance, we are committed to providing you with high-quality service. Our goal is to make it easy for you to manage your finances and achieve your goals. If you have any questions or concerns, please contact us at support@myfinance.com.</string>
+    <string name="see_all">See all</string>
+    <string name="bank_transfer">Bank Transfer</string>
+    <string name="recipientProvider">Recipient Provider</string>
+    <string name="accountType">Account Type</string>
 
 </resources>

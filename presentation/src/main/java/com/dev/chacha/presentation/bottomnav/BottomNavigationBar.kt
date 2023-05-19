@@ -46,7 +46,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                         painterResource(id = destination.icon),
                         contentDescription = destination.title,
                         tint = if (currentDestination?.route == destination.route) {
-                            MaterialTheme.colorScheme.primary
+                            PrimaryColor
                         } else {
                             MaterialTheme.colorScheme.onSurfaceVariant
                         },
