@@ -41,6 +41,4 @@ A SACCO app is a mobile application designed to provide members of SACCOs with a
 
 
 
-
-
   
