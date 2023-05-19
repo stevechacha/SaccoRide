@@ -1,43 +1,106 @@
 package com.dev.chacha.presentation.activity
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.compose.rememberNavController
+import com.dev.chacha.presentation.bottomnav.BottomNavigationBar
+import com.dev.chacha.presentation.common.navigation.HomeNavGraph
+import com.dev.chacha.presentation.common.navigation.RootNavGraph
 import com.dev.chacha.presentation.common.theme.SaccoRideTheme
+import com.dev.chacha.presentation.common.theme.Theme
+import com.dev.chacha.presentation.fingerprint.Biometric
+import com.dev.chacha.presentation.theme.ThemeViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import timber.log.Timber
 
-class MainActivity : ComponentActivity() {
+@AndroidEntryPoint
+class MainActivity : ComponentActivity(), Biometric.AuthListener {
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         setContent {
-            com.dev.chacha.presentation.common.theme.SaccoRideTheme {
-                // A surface container using the 'background' color from the theme
+            val viewModel: ThemeViewModel = hiltViewModel()
+
+            val themeValue by viewModel.theme.collectAsState(
+                initial = Theme.FOLLOW_SYSTEM.themeValue,
+                context = Dispatchers.Main.immediate
+            )
+            SaccoRideTheme(theme = themeValue) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    val navController = rememberNavController()
+                    RootNavGraph(navController = navController)
+
+                    lifecycleScope.launchWhenStarted {
+//                        BiometricHelper(this@MainActivity,this@MainActivity).activity
+                        Biometric(
+                            this@MainActivity,
+                            navController,
+                            this@MainActivity,
+                        ).authenticate()
+                    }
+
                 }
+
             }
+
         }
+    }
+
+    /*@RequiresApi(Build.VERSION_CODES.P)
+    private fun showBiometricPrompt() = lifecycleScope.launchWhenStarted{
+        BiometricChecker(this@MainActivity, navController,this@MainActivity).authenticate()
+    }*/
+
+    override fun onAuthSuccess(message: String) {
+        Timber.e("Message : $message")
+    }
+
+    override fun onAuthError(error: String) {
+        Timber.e("Error : $error")
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
+fun MainScreen() {
+    val navController = rememberNavController()
+    val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        bottomBar = { if (bottomBarState.value) BottomNavigationBar(navController) }
+    ) { padding ->
+        Column(
+            modifier = Modifier
+                .padding(padding)
+        ) {
+            HomeNavGraph(
+                navController = navController,
+                showBottomBar = { bottomBarState.value = it },
+            )
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    com.dev.chacha.presentation.common.theme.SaccoRideTheme {
-        Greeting("Android")
+        }
     }
 }

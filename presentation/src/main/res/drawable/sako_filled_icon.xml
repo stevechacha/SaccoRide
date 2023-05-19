@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:viewportWidth="100"
+    android:viewportHeight="50"
+    android:width="100dp"
+    android:height="50dp">
+
+    <!-- "r" letter -->
+    <path
+        android:pathData="M10,10 L10,40 Q10,45 15,45 L25,45 Q30,45 30,40 L30,30 Q30,25 25,25 L20,25 L20,10 L30,10 Q35,10 35,15 Q35,20 30,20 L25,20 Q20,20 20,25"
+        android:fillColor="#000"
+        android:strokeColor="#000"
+        android:strokeWidth="0"
+        />
+
+    <!-- "i" letter -->
+    <path
+        android:pathData="M40,10 L50,10 L50,45 L40,45 L40,10 M42,5 L48,5 L48,8 L42,8 L42,5"
+        android:fillColor="#000"
+        android:strokeColor="#000"
+        android:strokeWidth="0"
+        />
+
+    <!-- "d" letter -->
+    <path
+        android:pathData="M60,10 L60,45 Q60,50 65,50 L80,50 Q85,50 85,45 L85,10 Q85,5 80,5 L65,5 Q60,5 60,10 M70,8 L80,8 Q83,8 83,12 L83,43 Q83,47 80,47 L70,47 Q67,47 67,43 L67,12 Q67,8 70,8"
+        android:fillColor="#000"
+        android:strokeColor="#000"
+        android:strokeWidth="0"
+        />
+
+    <!-- "e" letter -->
+    <path
+        android:pathData="M90,10 L90,45 L70,45 Q65,45 65,40 L65,30 Q65,25 70,25 L85,25 L85,20 L70,20 Q65,20 65,15 L65,10 L90,10 M75,20 L80,20 Q83,20 83,23 L83,32 Q83,35 80,35 L75,35 L75,20"
+        android:fillColor="#000"
+        android:strokeColor="#000"
+        android:strokeWidth="0"
+        />
+
+
+</vector>

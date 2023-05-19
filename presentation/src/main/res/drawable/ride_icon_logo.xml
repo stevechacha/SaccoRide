@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Dollar Sign -->
+    <path
+        android:pathData="M7.65,20.35c2.72,-1.36 6.11,-1.36 8.83,0c0.46,0.23 0.93,0.34 1.41,0.34c0.93,0 1.85,-0.35 2.55,-1.05c0.78,-0.78 1.15,-1.81 1.04,-2.85c-0.11,-1.04 -0.69,-1.97 -1.57,-2.57c1.64,-1.38 2.51,-3.47 2.28,-5.65c-0.23,-2.18 -1.56,-4.09 -3.51,-5c1.01,-0.83 1.71,-2.03 1.82,-3.34c0.13,-1.32 -0.47,-2.62 -1.54,-3.46c-1.07,-0.84 -2.46,-1.12 -3.7,-0.73c-2.7,0.8 -4.65,3.28 -5.08,6.07c-0.43,2.79 0.76,5.57 2.96,7.28c-0.85,0.91 -1.43,2.04 -1.57,3.3c-0.13,1.25 0.28,2.48 1.03,3.42zM12,3c3.31,0 6,2.69 6,6c0,3.31 -2.69,6 -6,6c-3.31,0 -6,-2.69 -6,-6c0,-3.31 2.69,-6 6,-6z"
+        android:fillColor="#008CBA"/>
+
+    <!-- Bar Graph -->
+    <path
+        android:pathData="M3,17v2h18v-2H3zM3,11v2h18v-2H3zM3,5v2h18v-2H3z"
+        android:fillColor="#008CBA"/>
+
+</vector>

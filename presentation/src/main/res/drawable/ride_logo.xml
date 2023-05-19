@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Circle -->
+    <path
+        android:pathData="M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2z"
+        android:fillColor="#292E34"/>
+
+    <!-- "S" Text -->
+    <path
+        android:pathData="M12,9c1.65,0,3,-1.35,3,-3s-1.35,-3,-3,-3 -3,1.35,-3,3 1.35,3,3,3zM12,14.25c-1.95,0-3.75,1-4.8,2.65L6.5,17.5h11l-1.7,-0.6C15.75,15.25,13.95,14.25,12,14.25zM12,17.5c1.65,0,3,-1.35,3,-3s-1.35,-3,-3,-3 -3,1.35,-3,3 1.35,3,3,3z"
+        android:fillColor="#FFFFFF"/>
+
+</vector>

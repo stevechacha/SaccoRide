@@ -25,6 +25,7 @@ android-test-espresso = { module = "androidx.test.espresso:espresso-core", versi
 android-test-idling = { module = "androidx.test.espresso:espresso-idling-resource", version.ref = "espresso" }
 android-test-junit4 = "androidx.test.ext:junit:1.1.3"
 androidx-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splash" }
+biometric = "androidx.biometric:biometric:1.1.0"
 coil-compose = "io.coil-kt:coil-compose:2.0.0-rc03"
 compose-activity = "androidx.activity:activity-compose:1.5.0"
 compose-compiler = "androidx.compose.compiler:compiler:1.3.1"
@@ -42,6 +43,9 @@ compose-preview-customview-poolingcontainer = "androidx.customview:customview-po
 compose-constraintlayout = "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"
 accompanist-flowlayout = "com.google.accompanist:accompanist-flowlayout:0.25.1"
 accompanist-swiperefresh = "com.google.accompanist:accompanist-swiperefresh:0.27.0"
+date = "com.maxkeppeler.sheets-compose-dialogs:core:1.0.2"
+datee = "com.maxkeppeler.sheets-compose-dialogs:calendar:1.0.2"
+
 gson-gson = "com.google.code.gson:gson:2.9.0"
 kotlinx-coroutines-core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9"
 kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }

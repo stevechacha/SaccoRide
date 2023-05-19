@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SaccoRide</string>
+
+    <string name="password_visible_content_description">Hide password</string>
+    <string name="password_hidden_content_description">Show password</string>
+    <string name="password">Password</string>
+    <string name="email_or_mobile_number">Email or Mobile Number</string>
+    <string name="email_hint">Email </string>
+    <string name="mobile_number_hint">Mobile Number</string>
+    <string name="id_number_hint">ID Number</string>
+    <string name="confirmPassword">Confirm Password</string>
+    <string name="payBillNumber">PayBill Number</string>
+    <string name="accountNumber">Account Number</string>
+    <string name="payBillAmount">Amount</string>
+    <string name="pin_hint">Create Pin</string>
+    <string name="confirmPin">Confirm Pin</string>
+    <string name="current_pin">Current Pin</string>
+    <string name="new_pin">New Pin</string>
+    <string name="confirmNewPin">Confirm New Pin</string>
+    <string name="current_password">Current Password</string>
+    <string name="confirmNewPassword">Confirm New Password</string>
+    <string name="new_password">New Password</string>
+    <string name="transaction">Transaction</string>
+    <string name="submit">Submit</string>
+    <string name="user_profile">UserProfile</string>
+    <string name="amount">Amount</string>
+    <string name="min_amount">minimum amount 5</string>
+    <string name="pay_with_sacco">Pay with RideSacco</string>
+    <string name="help_center">HELP</string>
+    <string name="app_theme">App</string>
+    <string name="turn_on_incognito">App</string>
+    <string name="app_language">Language</string>
+    <string name="settings">Setting</string>
+    <string name="drive_mode">Drive Mode</string>
+    <string name="child_mode">Chidl Note</string>
+    <string name="time_watched">Time Watch</string>
+    <string name="account_data">Account Data</string>
+    <string name="rate_us_on_play_store">Rate</string>
+    <string name="feedback">Feedbacck</string>
+    <string name="forum">Forum</string>
+    <string name="privacy_policy">Policy Privacy</string>
+    <string name="terms_of_service">Terms</string>
+    <string name="night_light">Night</string>
+    <string name="phoneNumber">Phone Number</string>
+    <string name="buy_airtime">Buy Airtime</string>
+    <string name="tillNumber">Till Number</string>
+    <string name="businessNumber">Business Number</string>
+    <string name="sendMoney">Send Money</string>
+    <string name="deposit">Deposit</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="paybill">Pay Bill</string>
+    <string name="buygoods">Buy Goods</string>
+    <string name="buy_goods">Buy Goods</string>
+    <string name="send_money">Send Money</string>
+    <string name="savings">Savings</string>
+    <string name="our_market">Market</string>
+    <string name="loan">Loan</string>
+
+    <string name="prompt_info_title">Sample App Authentication \n</string>
+    <string name="prompt_info_subtitle">Please login to get access</string>
+    <string name="prompt_info_description">Sample App is using Android biometric authentication</string>
+    <string name="prompt_info_use_app_password">Use app password</string>
+    <string name="continuee">Continue</string>
+    <string name="sacco_app">Authenticate with your fingerprint</string>
+    <string name="loan_statement">Statement</string>
+    <string name="request_loan">Request Loan</string>
+    <string name="pay_loan">Pay Loan</string>
+    <string name="recent_transaction">Recent Transaction</string>
+    <string name="search">Search</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="dont_have_an_account">Don\'t have an account?</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="login">Login</string>
+    <string name="your_balane">Your Balance</string>
+    <string name="check_all_transaction">See all transactions</string>
+    <string name="manage_pin">Manage Pin</string>
+    <string name="check_sacco_statement">Sacco Statement</string>
+    <string name="electronics">Electronics</string>
+    <string name="loan_balance">Balance:</string>
+    <string name="limit">Limit</string>
+    <string name="due_date">Due Date</string>
+    <string name="sign_in">Sign In</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_pin">ENTER PIN TO UNLOCK</string>
+    <string name="account">Account</string>
+    <string name="shop_header_text">We\'d like to show some more about our Sacco</string>
+    <string name="amount_support_text">Minimum amount is Ksh 1</string>
+    <string name="transaction_detail">Transaction Detail</string>
+    <string name="recepient_no">Payment Reference</string>
+    <string name="dete">Date/Time</string>
+    <string name="money_in">Money In</string>
+    <string name="money_out">Money Out</string>
+    <string name="money_balance">Balance</string>
+    <string name="transaction_type">Transaction Type</string>
+    <string name="total_amount">Total</string>
+    <string name="available_balance">Available Balance</string>
+    <string name="statement">Statement</string>
+
+
+    <!-- ONBOARDING VARIANT_2 -->
+    <string name="welcome_to_sacco">Hello, welcome to Sacco Community.</string>
+
+    <string name="welcome_title_one">Welcome to RideSacco</string>
+    <string name="welcome_sub_one">Our Sacco community app is designed to help you connect with fellow members, contribute to your savings and investments, and pay bills with ease.</string>
+    <string name="welcome_title_two">Woohoo! You\'re exactly who we\'ve been looking for!</string>
+
+    <string name="welcome_title_three">We\'ve got you covered!</string>
+    <string name="welcome_sub_two">Here\'s a couple of things to get you excited about RideSacco.</string>
+    <string name="intro_feature_one_title">Simplify your financial life with our App!</string>
+    <string name="intro_feature_one_desc">Our app makes managing your money easy. With intuitive interface and features, you\'ll be able to keep track of your spending and savings effortlessly.</string>
+    <string name="intro_feature_two_title">Take control of your Sacco finances </string>
+    <string name="intro_feature_two_desc">Manage and spend from  your sacco and mobile money accounts from Our App.</string>
+    <string name="intro_feature_three_title">Safer by design</string>
+    <string name="intro_feature_three_desc">We leveraged Android\'s built in security designs to keep your information secure at all times.</string>
+    <string name="explore_btn_text">Continue without sign in</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="about_sacco_ride">Welcome to MyFinance! We\'re committed to protecting your privacy and providing you with a great user experience. By using MyFinance, you agree to our Privacy Policy, Terms and Conditions, and Service Charter.</string>
+    <string name="sacco_privacy_policy">At MyFinance, we take your privacy seriously. We will never share your personal information with third parties without your consent. We use industry-standard security measures to protect your data and prevent unauthorized access. By using MyFinance, you agree to our Privacy Policy.</string>
+    <string name="sacco_term_and_condition">By using MyFinance, you agree to our Terms and Conditions. You must be at least 18 years old to use our services. You are responsible for keeping your account information up to date and secure. MyFinance reserves the right to suspend or terminate your account if you violate our policies or engage in illegal activity. We are not responsible for any losses or damages resulting from your use of our services.</string>
+    <string name="sacco_service_charter">At MyFinance, we are committed to providing you with high-quality service. Our goal is to make it easy for you to manage your finances and achieve your goals. If you have any questions or concerns, please contact us at support@myfinance.com.</string>
+    <string name="see_all">See all</string>
+    <string name="bank_transfer">Bank Transfer</string>
+    <string name="recipientProvider">Recipient Provider</string>
+    <string name="accountType">Account Type</string>
+
+</resources>
