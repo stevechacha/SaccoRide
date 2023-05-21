@@ -15,6 +15,9 @@ A SACCO app is a mobile application designed to provide members of SACCOs with a
 ### Auth
 <img src="screenshots/login.jpg" width="250"/>
 
+### Reset Pin and Password
+<img src="screenshots/reset_password.jpg" width="250"/> <img src="screenshots/reset_pin.jpg" width="250"/>
+
 ### Home
 <img src="screenshots/home.jpg" width="250"/> <img src="screenshots/transact.jpg" width="250"/> <img src="screenshots/loans.jpg" width="250"/> <img src="screenshots/market.jpg" width="250"/><img src="screenshots/accounts.jpg" width="250"/>
 
@@ -28,6 +31,11 @@ A SACCO app is a mobile application designed to provide members of SACCOs with a
 
 
 ### Buy Airtime
+<img src="screenshots/buairtime.jpg" width="250"/> <img src="screenshots/buy_airime.jpg" width="250"/> 
+
+### Statement
+<img src="screenshots/statement.jpg" width="250"/> <img src="screenshots/statements.jpg" width="250"/> 
+
 
 
 ### App Setting
