@@ -18,6 +18,7 @@ val transactionsItem = listOf(
     TransactionsItem("Alice Johnson", "254746656813", 200.0, "2023-05-19", "09:15 AM"),
     TransactionsItem("Bob Brown", "0712345678", 75.0, "2023-05-19", "02:00 PM"),
     TransactionsItem("Eve Wilson", "254712345678", 50.0, "2023-05-19", "12:30 PM"),
+    TransactionsItem("Eve Wilson", "0112345678", 50.0, "2023-05-19", "12:30 PM"),
     TransactionsItem("Nairobi Waters", "123456", 1000.0, "2023-05-12", "12:00 PM"),
     TransactionsItem("KCB MPESA", "780780", 1000.0, "2023-05-24", "12:00 PM", R.drawable.ic_home),
 )

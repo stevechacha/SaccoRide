@@ -1,3 +1,4 @@
+/*
 package com.dev.chacha.presentation.pay_with_sacco
 
 import androidx.compose.foundation.layout.Column
@@ -118,4 +119,4 @@ sealed class TabItem( var title: String, var screen: ComposableFun) {
 
     object BuyGoods : TabItem( "BUY GOODS", { BayGoods() })
     object PayBill : TabItem( "PAYBILL", { PayBills() })
-}
+}*/

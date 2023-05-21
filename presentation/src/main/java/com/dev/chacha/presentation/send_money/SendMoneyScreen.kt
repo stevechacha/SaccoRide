@@ -2,6 +2,8 @@ package com.dev.chacha.presentation.send_money
 
 import android.util.Log
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -46,6 +48,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -84,6 +87,12 @@ fun SendMoneyScreen(
         Icons.Filled.KeyboardArrowUp
     else
         Icons.Filled.KeyboardArrowDown
+
+    val interactionSource = remember { MutableInteractionSource() }
+
+    if (interactionSource.collectIsPressedAsState().value)
+        expanded = !expanded
+
 
     BottomSheetScaffold(
         scaffoldState = scaffoldState,
@@ -134,6 +143,7 @@ fun SendMoneyScreen(
                         },
                         modifier = Modifier
                             .fillMaxWidth()
+                            .padding(vertical = dimensionResource(id = R.dimen.margin_10))
                             .clickable {
                                 expanded = !expanded
                             }
@@ -149,6 +159,7 @@ fun SendMoneyScreen(
                                     .clickable { expanded = !expanded }
                             )
                         },
+                        interactionSource = interactionSource
                     )
                     DropdownMenu(
                         expanded = expanded,

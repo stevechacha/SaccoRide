@@ -53,6 +53,7 @@ import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.components.RideOutlinedTextField
 import com.dev.chacha.presentation.loan.components.LoanCard
+import com.dev.chacha.presentation.piecharts.PieCharts
 
 @Composable
 fun LoanScreen(
@@ -109,7 +110,6 @@ fun LoanScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(horizontal = 16.dp, vertical = 16.dp)
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
@@ -128,6 +128,16 @@ fun LoanScreen(
             RequestLoans(
                 expanded = isRequestLoanExpanded,
                 onExpandToggle = { isRequestLoanExpanded = !isRequestLoanExpanded }
+            )
+
+            PieCharts(
+                data = mapOf(
+                    Pair("Pay Bill", 79095),
+                    Pair("Withdrawal", 51810),
+                    Pair("Send Money", 20360),
+                    Pair("Buy Goods", 13200),
+                    Pair("Loans", 12050),
+                )
             )
         }
     }
@@ -151,7 +161,7 @@ fun PayLoans(
     )
 
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 0.dp,
             pressedElevation = 0.dp,
@@ -247,7 +257,7 @@ fun RequestLoans(
     )
 
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
         onClick = {
             onExpandToggle()
         },

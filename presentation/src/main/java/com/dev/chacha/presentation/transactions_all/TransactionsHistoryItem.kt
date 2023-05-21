@@ -29,6 +29,8 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.dev.chacha.presentation.transaction_history.TransactionsItem
 import com.dev.chacha.presentation.transaction_history.transactionsItem
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @Composable
 fun TransactionHistoryItem(
@@ -37,7 +39,7 @@ fun TransactionHistoryItem(
 ) {
     Column(
         modifier = Modifier
-            .padding(vertical = 5.dp)
+            .padding(vertical = 3.dp)
             .fillMaxWidth(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -103,7 +105,7 @@ fun TransactionHistoryItem(
                         textAlign = TextAlign.Start,
                     )
                     Text(
-                        text = transactionItem.amount.toString(),
+                        text = "KSH${transactionItem.amount}",
                         textAlign = TextAlign.End,
                         style = typography.labelSmall,
                         overflow = TextOverflow.Ellipsis,
@@ -125,12 +127,13 @@ fun TransactionHistoryItem(
                     )
 
                     Text(
-                        text = "${transactionItem.date},${transactionItem.time}",
+                        text = "${formatDate(transactionItem.date)},${transactionItem.time}",
                         textAlign = TextAlign.End,
                         style = typography.labelSmall,
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 1
                     )
+
                 }
 
             }
@@ -139,10 +142,19 @@ fun TransactionHistoryItem(
     }
 }
 
+
+private fun formatDate(date: String): String? {
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val outputFormat = SimpleDateFormat("dd MMM", Locale.getDefault())
+    val parsedDate = inputFormat.parse(date)
+    return parsedDate?.let { outputFormat.format(it) }
+}
+
+
 private fun formatContact(contact: String): String {
-    val formattedContact: String = when {
-        contact.startsWith("+254") || contact.startsWith("254") -> {
-            val prefix = contact.substring(0, 3)
+    val formattedContact: String =when {
+        contact.startsWith("254") -> {
+            val prefix = contact.substring(0, 6)
             val lastThreeDigits = contact.substring(contact.length - 3)
             "$prefix***$lastThreeDigits"
         }
@@ -151,6 +163,17 @@ private fun formatContact(contact: String): String {
             val lastThreeDigits = contact.substring(contact.length - 3)
             "$prefix***$lastThreeDigits"
         }
+        contact.startsWith("+254") -> {
+            val prefix = contact.substring(0, 7)
+            val lastThreeDigits = contact.substring(contact.length - 3)
+            "$prefix***$lastThreeDigits"
+        }
+        contact.startsWith("01") -> {
+            val prefix = contact.substring(0, 4)
+            val lastThreeDigits = contact.substring(contact.length - 3)
+            "$prefix***$lastThreeDigits"
+        }
+
         else -> contact
     }
     return formattedContact

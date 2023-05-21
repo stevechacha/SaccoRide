@@ -10,13 +10,20 @@ val Blue = Color(0xFF007BFF)
 
 val white = Color(0xFFF3F3F3)
 
+val DeepRed = Color(0xFFd9517c)
+val LightGreen = Color(0xFF6eb34e)
+val LightYellow = Color(0xFFe2b047)
+val Purple1 = Color(0xFFb551ca)
+val Purple2 = Color(0xFFc466d5)
+val  Cyan = Color(0xFF66a9c3)
+
 val darkGray = Color(0xFF1a1717)
 val darkBlue = Color(0xFF18192b)
 val gray = Color(0xFF3F3F3F)
 val blueGray = Color(0xFF404352)
 val nightDark = Color(0xFF403757)
 
-val purple = Color(0xFF9b11ba)
+val purple = Color(0xFF9B11ba)
 val orange = Color(0xFFdb660d)
 val redOrange = Color(0xFFe84a23)
 val green = Color(0xFF0ddb25)

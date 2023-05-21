@@ -12,9 +12,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.BottomSheetState
+import androidx.compose.material.BottomSheetValue
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.rememberBottomSheetState
+import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -24,6 +29,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,20 +53,23 @@ import com.dev.chacha.presentation.buy_goods.components.BuyGoodsDialog
 import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.components.RideOutlinedTextField
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import java.util.Locale
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun BayGoods() {
+fun BayGoods(scaffoldState: BottomSheetState) {
     BuyGoodsScreen(
-        navController = rememberNavController()
+        navController = rememberNavController(),
+        sheetState = scaffoldState
     )
 }
 
-@OptIn(ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun BuyGoodsScreen(
     viewModel: BuyGoodsViewModel = viewModel(),
-    navController: NavController
+    navController: NavController,
+    sheetState: BottomSheetState
 ) {
 
     val buyGoods = getTillNumber()
@@ -69,6 +78,7 @@ fun BuyGoodsScreen(
     var textfieldSize by remember { mutableStateOf(Size.Zero) }
     var expanded by remember { mutableStateOf(false) }
     val icon = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown
+    val scope = rememberCoroutineScope()
 
 
     Column(
@@ -117,6 +127,19 @@ fun BuyGoodsScreen(
                     },
                 supportText = state.tillName
             )
+
+            Button(onClick = {
+                scope.launch {
+                    if (sheetState.isCollapsed) {
+                        sheetState.expand()
+                    } else {
+                        sheetState.collapse()
+                    }
+                }
+            }) {
+                Text(text = "BottomSheet")
+
+            }
 
             DropdownMenu(
                 expanded = expanded,
@@ -190,10 +213,12 @@ fun BuyGoodsScreen(
 }
 
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 @Preview
 fun PreviewBuyGoods() {
     BuyGoodsScreen(
-        navController = rememberNavController()
+        navController = rememberNavController(),
+        sheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
     )
 }

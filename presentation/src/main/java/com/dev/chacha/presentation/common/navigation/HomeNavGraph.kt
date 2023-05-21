@@ -1,8 +1,12 @@
 package com.dev.chacha.presentation.common.navigation
 
+import PayBillScreen
 import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
+import androidx.compose.material.BottomSheetValue
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.rememberBottomSheetState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.core.os.bundleOf
@@ -35,7 +39,6 @@ import com.dev.chacha.presentation.notification.NotificationsScreen
 import com.dev.chacha.presentation.overview.Overview
 import com.dev.chacha.presentation.pay_with_sacco.PayWithSacco
 import com.dev.chacha.presentation.paybill.PayBill
-import com.dev.chacha.presentation.paybill.PayBillScreen
 import com.dev.chacha.presentation.savings.SavingsScreen
 import com.dev.chacha.presentation.send_money.SendMoneyScreen
 import com.dev.chacha.presentation.setting.SettingsScreen
@@ -48,6 +51,7 @@ import com.dev.chacha.presentation.transactions_all.AllTransactionsScreen
 import com.dev.chacha.presentation.withdraw.WithdrawScreen
 import timber.log.Timber
 
+@OptIn(ExperimentalMaterialApi::class)
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun HomeNavGraph(
@@ -172,6 +176,7 @@ fun HomeNavGraph(
         composable(HomeAction.BuyGoods.route) {
             BuyGoodsScreen(
                 navController = navController,
+                sheetState = rememberBottomSheetState(initialValue =  BottomSheetValue.Collapsed)
             )
         }
 
@@ -300,7 +305,9 @@ fun HomeNavGraph(
                         "date" to payBill.date
                     )
                     navController.navigate(HomeAction.BillConfirm.route.replace("$bundle","$bundle"))
-                }
+                },
+                sheetState = rememberBottomSheetState(initialValue =  BottomSheetValue.Collapsed)
+
             )
         }
         composable(HomeAction.Savings.route) {

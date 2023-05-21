@@ -61,6 +61,7 @@ fun PinLockScreen(
     val showSuccess = remember { mutableStateOf(false) }
     val context = LocalContext.current
     val isFingerprintEnabled = remember { mutableStateOf(false) }
+    val loading = remember { mutableStateOf("Validating...") }
 
 
 
@@ -70,7 +71,7 @@ fun PinLockScreen(
 
             if (inputPin.joinToString("") == password) {
                 showSuccess.value = true
-                error.value = "Validating..."
+                loading.value = "Validating..."
                 delay(200)
                 onClickAction()
             } else {
@@ -96,10 +97,10 @@ fun PinLockScreen(
             ) {
                 Box(
                     modifier = Modifier
-                        .padding(top = 40.dp)
+                        .padding(top = 30.dp)
                         .clip(CircleShape)
                         .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.08F))
-                        .size(80.dp)
+                        .size(86.dp)
                         .clip(CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
@@ -107,14 +108,14 @@ fun PinLockScreen(
                         painter = painterResource(id = R.drawable.profile_icon),
                         contentDescription = "profile image",
                         modifier = Modifier
-                            .size(40.dp),
+                            .size(30.dp),
                         alignment = Alignment.Center,
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground)
                     )
 
                 }
+                Spacer(modifier = Modifier.height(8.dp))
 
-                Spacer(modifier = Modifier.height(16.dp))
                 val name = "Stephen Chacha"
                 Text(
                     text = name.uppercase(),
@@ -128,7 +129,7 @@ fun PinLockScreen(
 
                 )
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 if (showSuccess.value) {
                     LottieLoadingView(
@@ -156,14 +157,13 @@ fun PinLockScreen(
                     color = MaterialTheme.colorScheme.error,
                 )
 
-                Spacer(modifier = Modifier.height(30.dp))
             }
 
             Column(
                 modifier = Modifier
                     .wrapContentSize()
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 30.dp)
+                    .padding(top = 80.dp)
+                    .align(Alignment.Center)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),

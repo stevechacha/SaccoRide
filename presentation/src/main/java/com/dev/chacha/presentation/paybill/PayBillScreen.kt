@@ -1,5 +1,3 @@
-package com.dev.chacha.presentation.paybill
-
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.background
@@ -14,9 +12,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomSheetScaffold
+import androidx.compose.material.BottomSheetScaffoldState
+import androidx.compose.material.BottomSheetState
 import androidx.compose.material.BottomSheetValue
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.rememberBottomSheetScaffoldState
@@ -47,12 +48,17 @@ import com.dev.chacha.presentation.baybill.components.BillDialog
 import com.dev.chacha.presentation.common.components.AppTopBar
 import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.components.RideOutlinedTextField
+import com.dev.chacha.presentation.paybill.PayBill
 import com.dev.chacha.presentation.paybill.component.PayBillItem
+import com.dev.chacha.presentation.paybill.payBillItems
 import kotlinx.coroutines.launch
 
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun PayBills() {
+fun PayBills(
+    sheetState: BottomSheetState
+) {
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -61,7 +67,8 @@ fun PayBills() {
         Spacer(modifier = Modifier.height(24.dp))
         PayBillScreen(
             onPayBillClick = {},
-            onNavigateToBillConfirm = {}
+            onNavigateToBillConfirm = {},
+            sheetState = sheetState
         )
 
     }
@@ -78,6 +85,7 @@ fun PayBills() {
 fun PayBillScreen(
     onPayBillClick: (PayBill) -> Unit,
     onNavigateToBillConfirm: (PayBill) -> Unit,
+    sheetState: BottomSheetState
 ) {
 
     var businessNumber by rememberSaveable { mutableStateOf("") }
@@ -86,11 +94,6 @@ fun PayBillScreen(
     var date by rememberSaveable { mutableStateOf("") }
     val (amount, setAmount) = rememberSaveable { mutableStateOf("") }
 
-    val sheetState = rememberBottomSheetState(
-        initialValue = BottomSheetValue.Collapsed
-    )
-
-    val scaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = sheetState)
 
     val scope = rememberCoroutineScope()
 
@@ -123,161 +126,107 @@ fun PayBillScreen(
         )
     }
 
-    BottomSheetScaffold(
-        scaffoldState = scaffoldState,
-        sheetContent = {
-            Scaffold(
-                topBar = {
-                    AppTopBar(
-                        title = "Search PayBill",
-                        initialValue = "",
-                        onSearchParamChange = {},
-                        showSearchBar = true
-                    )
-                }
-            ) { paddingValues ->
-                Column(
+
+    Column(
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .background(MaterialTheme.colorScheme.background)
+
+    ) {
+
+        RideOutlinedTextField(
+            value = businessNumber,
+            onValueChange = {
+                businessNumber = it
+            },
+            keyboardType = KeyboardType.Phone,
+            hint = stringResource(id = R.string.businessNumber),
+            trailingIcon = {
+                Icon(
+                    imageVector = Icons.Outlined.Search,
+                    contentDescription = "Search",
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(paddingValues)
-                        .padding(horizontal = 12.dp)
-                ) {
-                    LazyColumn(
-                    ) {
-                        payBillItems.forEachIndexed { index, payBill ->
-                            item {
-                                PayBillItem(
-                                    payBill = payBill,
-                                    onPayBillClick = {
-                                        businessNumber = payBill.businessNumber
-                                        businessName = payBill.name
-                                        scope.launch {
-                                            sheetState.collapse()
-                                        }
-                                    }
-                                )
-
+                        .padding(8.dp)
+                        .size(24.dp)
+                        .clickable {
+                            scope.launch {
+                                if (sheetState.isCollapsed) {
+                                    sheetState.expand()
+                                } else {
+                                    sheetState.collapse()
+                                }
                             }
+                        },
+                    tint = LocalContentColor.current.copy(alpha = ContentAlpha.medium)
 
-                        }
-                    }
-                }
+                )
+            },
+            supportText = businessName
 
-            }
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        val accountNumberLimit = 20
 
-        },
-        sheetPeekHeight = 0.dp,
-        sheetBackgroundColor = Color.Unspecified.copy(alpha = 0F),
-        backgroundColor = MaterialTheme.colorScheme.background,
-        sheetShape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+        RideOutlinedTextField(
+            value = accountNumber,
+            onValueChange = {
+                accountNumber = it
+            },
+            keyboardType = KeyboardType.Text,
+            hint = stringResource(id = R.string.accountNumber),
+            accountNumberLength = "${accountNumber.length}/${accountNumberLimit}"
 
-        ) {
-        CompositionLocalProvider(
-            LocalOverscrollConfiguration provides null
-        ) {
-            Column(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .background(MaterialTheme.colorScheme.background)
+        )
+        Spacer(modifier = Modifier.height(10.dp))
 
-            ) {
+        RideOutlinedTextField(
+            value = amount,
+            onValueChange = {
+                setAmount(it)
+            },
+            keyboardType = KeyboardType.Number,
+            hint = stringResource(id = R.string.amount),
 
-                RideOutlinedTextField(
-                    value = businessNumber,
-                    onValueChange = {
-                        businessNumber = it
-                    },
-                    keyboardType = KeyboardType.Phone,
-                    hint = stringResource(id = R.string.businessNumber),
-                    trailingIcon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Search,
-                            contentDescription = "Search",
-                            modifier = Modifier.padding(8.dp).size(24.dp)
-                                .clickable {
-                                    scope.launch {
-                                        if (sheetState.isCollapsed) {
-                                            sheetState.expand()
-                                        } else {
-                                            sheetState.collapse()
-                                        }
-                                    }
-                                },
-                            tint = LocalContentColor.current.copy(alpha = ContentAlpha.medium)
+            )
 
+        Spacer(modifier = Modifier.height(16.dp))
+
+        ContinueButton(
+            text = stringResource(id = R.string.continuee),
+            onClick = {
+                showDialog = true
+            },
+            enable = businessNumber.isNotEmpty() && accountNumber.isNotEmpty() && amount.isNotEmpty()
+        )
+
+        Spacer(modifier = Modifier.height(25.dp))
+
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = "Frequent",
+                fontSize = 18.sp
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            LazyColumn {
+                payBillItems.forEachIndexed { index, payBill ->
+                    item {
+                        PayBillItem(
+                            payBill = payBill,
+                            onPayBillClick = {
+                                businessNumber = payBill.businessNumber
+                                businessName = payBill.name
+                            }
                         )
-                    },
-                    supportText = businessName
 
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                val accountNumberLimit = 20
-
-                RideOutlinedTextField(
-                    value = accountNumber,
-                    onValueChange = {
-                        accountNumber = it
-                    },
-                    keyboardType = KeyboardType.Text,
-                    hint = stringResource(id = R.string.accountNumber),
-                    accountNumberLength = "${accountNumber.length}/${accountNumberLimit}"
-
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-
-                RideOutlinedTextField(
-                    value = amount,
-                    onValueChange = {
-                        setAmount(it)
-                    },
-                    keyboardType = KeyboardType.Number,
-                    hint = stringResource(id = R.string.amount),
-
-                    )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                ContinueButton(
-                    text = stringResource(id = R.string.continuee),
-                    onClick = {
-                        showDialog = true
-                    },
-                    enable = businessNumber.isNotEmpty() && accountNumber.isNotEmpty() && amount.isNotEmpty()
-                )
-
-                Spacer(modifier = Modifier.height(25.dp))
-
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = "Frequent",
-                        fontSize = 18.sp
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    LazyColumn {
-                        payBillItems.forEachIndexed { index, payBill ->
-                            item {
-                                PayBillItem(
-                                    payBill = payBill,
-                                    onPayBillClick = {
-                                        businessNumber = payBill.businessNumber
-                                        businessName = payBill.name
-                                    }
-                                )
-
-                            }
-
-                        }
                     }
 
                 }
-
             }
+
         }
 
-
     }
-
 }
 
 @Composable

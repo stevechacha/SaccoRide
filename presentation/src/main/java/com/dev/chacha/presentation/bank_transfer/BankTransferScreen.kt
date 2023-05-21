@@ -2,6 +2,8 @@ package com.dev.chacha.presentation.bank_transfer
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -10,6 +12,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.rememberBottomSheetScaffoldState
@@ -42,6 +45,13 @@ fun BankTransferScreen(
     var showBankList by remember { mutableStateOf(false) }
 
     val modalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+    var expanded by remember { mutableStateOf(false) }
+
+
+    val interactionSource = remember { MutableInteractionSource() }
+
+    if (interactionSource.collectIsPressedAsState().value)
+        expanded = !expanded
 
 
     val accountList = listOf("Account 1", "Account 2", "Account 3")
@@ -56,7 +66,15 @@ fun BankTransferScreen(
                 title = { Text("SACCO Bank Transfer") },
                 colors = TopAppBarDefaults.smallTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background
-                )
+                ),
+                navigationIcon = {
+                    IconButton(onClick = { navigateBack() }) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBackIos,
+                            contentDescription = "Back"
+                        )
+                    }
+                }
             )
         }
     ) { padding ->
@@ -77,6 +95,7 @@ fun BankTransferScreen(
                         imageVector = Icons.Filled.Search,
                         contentDescription = "Search",
                         modifier = Modifier.clickable {
+                            expanded = !expanded
                             coroutineScope.launch {
                                 if (modalBottomSheetState.isVisible) {
                                     modalBottomSheetState.hide()
@@ -87,7 +106,8 @@ fun BankTransferScreen(
                             }
                         }
                     )
-                }
+                },
+                interactionSource = interactionSource
             )
 
             Spacer(modifier = Modifier.height(16.dp))

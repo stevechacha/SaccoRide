@@ -79,39 +79,27 @@ fun PinPromptScreen(
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
                 Box(
-                    modifier = Modifier
-                        .padding(top = 40.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.background)
-                        .size(80.dp)
-                        .clip(CircleShape),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.profile_icon),
-                        contentDescription = "profile image",
-                        modifier = Modifier
-                            .size(40.dp),
-                        alignment = Alignment.Center,
-                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground)
+                    modifier = Modifier.fillMaxWidth()
+                    .padding(top = 25.dp),
+                    contentAlignment = Alignment.TopCenter
+
+                ){
+                    val name = "Stephen Chacha"
+                    Text(
+                        text = name.uppercase(),
+                        style = MaterialTheme.typography.labelSmall
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Text(
+                        text = stringResource(id = R.string.enter_pin),
+                        style = MaterialTheme.typography.labelSmall
+
                     )
 
                 }
-
-                Spacer(modifier = Modifier.height(16.dp))
-                val name = "Stephen Chacha"
-                Text(
-                    text = name.uppercase(),
-                    style = MaterialTheme.typography.labelSmall
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-
-                Text(
-                    text = stringResource(id = R.string.enter_pin),
-                    style = MaterialTheme.typography.labelSmall
-
-                )
 
                 Spacer(modifier = Modifier.height(30.dp))
 
@@ -146,7 +134,7 @@ fun PinPromptScreen(
             Column(
                 modifier = Modifier
                     .wrapContentSize()
-                    .align(Alignment.BottomCenter)
+                    .align(Alignment.Center)
                     .padding(bottom = 30.dp)
             ) {
                 Row(
