@@ -53,7 +53,7 @@ fun TransactionCard(
                 )
                 TextImageItem(
                     onItemClick = onBankTransferClicked,
-                    drawable = R.drawable.shopping_cart,
+                    drawable = R.drawable.bank,
                     stringRes = R.string.bank_transfer
                 )
 

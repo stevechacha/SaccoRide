@@ -85,24 +85,3 @@ class MainActivity : ComponentActivity(), Biometric.AuthListener {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.P)
-@Composable
-fun MainScreen() {
-    val navController = rememberNavController()
-    val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        bottomBar = { if (bottomBarState.value) BottomNavigationBar(navController) }
-    ) { padding ->
-        Column(
-            modifier = Modifier
-                .padding(padding)
-        ) {
-            HomeNavGraph(
-                navController = navController,
-                showBottomBar = { bottomBarState.value = it },
-            )
-
-        }
-    }
-}

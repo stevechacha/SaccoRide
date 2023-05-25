@@ -66,7 +66,7 @@ fun TransactionScreen(
                     }
                     item {
                         HorizontalCardItem(
-                            drawable = R.drawable.shopping_cart,
+                            drawable = R.drawable.bank,
                             text = R.string.bank_transfer,
                             onItemClick = { onBankTransferClicked() })
 
@@ -105,7 +105,6 @@ fun TransactionScreen(
                         )
 
                     }
-
                     item {
                         HorizontalCardItem(
                             drawable = R.drawable.loan_icon,

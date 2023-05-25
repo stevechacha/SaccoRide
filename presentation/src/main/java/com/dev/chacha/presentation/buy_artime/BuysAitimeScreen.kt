@@ -1,6 +1,5 @@
 package com.dev.chacha.presentation.buy_artime
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -46,7 +45,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -59,31 +57,70 @@ import com.dev.chacha.presentation.common.theme.PrimaryColor
 import com.dev.chacha.presentation.contactList.ContactListViewModel
 import com.dev.chacha.presentation.contactList.ContactSelectionScreen
 import com.dev.chacha.presentation.contactList.ContactUiEvent
-import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
-@OptIn(
-    ExperimentalPagerApi::class, ExperimentalMaterialApi::class,
-    ExperimentalFoundationApi::class, ExperimentalCoroutinesApi::class
-)
-
+@OptIn(ExperimentalCoroutinesApi::class)
 @Composable
-fun BuyAirtimeScreen(
+fun BuysAirtimeScreen(
     navigateBack: () -> Unit
 ) {
     val buyAirtimeViewModel: BuyAirtimeViewModel = viewModel()
+    val buyAirtimeState = buyAirtimeViewModel.buyAirtimeState.collectAsState()
+
+    Scaffold(
+        topBar = {
+            AppToolbar(
+                title = stringResource(id = R.string.buy_airtime),
+                showBackArrow = true,
+                navigateBack = { navigateBack() }
+            )
+        },
+        content = { paddingValues ->
+
+            BuyAirtimeContentScreen(
+                modifier = Modifier.padding(paddingValues),
+                buyAirtimeState = buyAirtimeState.value,
+                onAmountChanged = { amount ->
+                    buyAirtimeViewModel.handleBuyAirtimeEvent(BuyAirtimeEvent.AmountChanged(amount))
+                },
+                onPhoneNumberChanged = { phoneNumber ->
+                    buyAirtimeViewModel.handleBuyAirtimeEvent(
+                        BuyAirtimeEvent.PhoneNumberChanged(
+                            phoneNumber
+                        )
+                    )
+                },
+                onBuyAirtimeClicked = {
+                    buyAirtimeViewModel.handleBuyAirtimeEvent(BuyAirtimeEvent.BuyAirtimeClicked)
+                },
+            )
+
+        }
+    )
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun BuyAirtimeContentScreen(
+    buyAirtimeState: BuyAirtimeState,
+    onPhoneNumberChanged: (String) -> Unit,
+    onAmountChanged: (String) -> Unit,
+    onBuyAirtimeClicked: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     val coroutineScope = rememberCoroutineScope()
-    var targetRadio by rememberSaveable { mutableStateOf(buyAirtimeViewModel.targetRadio) }
-    var selectedAccount by rememberSaveable { mutableStateOf(AccountType.AccountA) }
-    val buyAirtimeState by buyAirtimeViewModel.buyAirtimeState.collectAsState()
-    val viewModel = viewModel<ContactListViewModel>()
     val context = LocalContext.current
     val sheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
     val navController = rememberNavController()
     val scaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = sheetState)
+    val contactViewModel: ContactListViewModel = viewModel()
+    val buyAirtimeViewModel: BuyAirtimeViewModel = viewModel()
     var textfieldSize by remember { mutableStateOf(Size.Zero) }
-    var expanded by remember { mutableStateOf(false) }
+    var targetRadio by rememberSaveable { mutableStateOf(buyAirtimeViewModel.targetRadio) }
+
+
+    var selectedAccount by rememberSaveable { mutableStateOf(AccountType.AccountA) }
 
     BottomSheetScaffold(
         scaffoldState = scaffoldState,
@@ -91,12 +128,12 @@ fun BuyAirtimeScreen(
             ContactSelectionScreen(
                 onContactSelected = { contact ->
                     coroutineScope.launch {
-                        buyAirtimeViewModel.handleBuyAirtimeEvent(BuyAirtimeEvent.PhoneNumberChanged(contact.phoneNumber))
+                        onPhoneNumberChanged(contact.phoneNumber)
                         sheetState.collapse()
                     }
 
                 }, navController = navController,
-                viewModel = viewModel
+                viewModel = contactViewModel
             )
         },
         sheetPeekHeight = 0.dp,
@@ -105,91 +142,87 @@ fun BuyAirtimeScreen(
         modifier = Modifier.fillMaxSize(),
 
         ) {
-        Scaffold(
-            topBar = {
-                AppToolbar(
-                    title = stringResource(id = R.string.buy_airtime),
-                    showBackArrow = true,
-                    navigateBack = {}
-                )
-            },
-        ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp)
+        ) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp),
             ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 8.dp),
-                ) {
-                    Text(text = "Buy Airtime For:")
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        RadioButton(
-                            selected = targetRadio == "myself",
-                            onClick = {
-                                targetRadio = "myself"
-                                buyAirtimeViewModel.updateTargetRadio("myself")
-                            },
-                            colors = RadioButtonDefaults.colors(selectedColor = PrimaryColor)
-                        )
-                        Text(text = "Myself")
-                        RadioButton(
-                            selected = targetRadio == "someone_else",
-                            onClick = {
-                                targetRadio = "someone_else"
-                                buyAirtimeViewModel.updateTargetRadio("someone_else")
-                            },
-                            colors = RadioButtonDefaults.colors(selectedColor = PrimaryColor)
-                        )
-                        Text(text = "Someone Else")
-                    }
-                }
-
-                if (targetRadio == "someone_else") {
-                    RideOutlinedTextField(
-                        value = buyAirtimeState.phoneNumber,
-                        onValueChange = { phoneNumber->
-                            buyAirtimeViewModel.handleBuyAirtimeEvent(
-                                BuyAirtimeEvent.PhoneNumberChanged(phoneNumber)
-                            )
+                Text(text = "Buy Airtime For:")
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    RadioButton(
+                        selected = targetRadio == "myself",
+                        onClick = {
+                            targetRadio = "myself"
+                            buyAirtimeViewModel.updateTargetRadio("myself")
                         },
-                        keyboardType = KeyboardType.Phone,
-                        hint = stringResource(id = R.string.phoneNumber),
-                        trailingIcon = {
-                            Icon(
-                                imageVector = Icons.Outlined.Search,
-                                tint = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
-                                contentDescription = "Call",
-                                modifier = Modifier.padding(8.dp).size(24.dp)
-                                    .clickable {
-                                        coroutineScope.launch {
-                                            if (sheetState.isCollapsed) {
-                                                viewModel.send(ContactUiEvent.GetContacts, context)
-                                                sheetState.expand()
-                                            } else {
-                                                sheetState.collapse()
-                                            }
-                                        }
-                                    },
-                            )
-                        }
+                        colors = RadioButtonDefaults.colors(
+                            selectedColor = PrimaryColor
+                        )
                     )
+                    Text(text = "Myself")
+                    RadioButton(
+                        selected = targetRadio == "someone_else",
+                        onClick = {
+                            targetRadio = "someone_else"
+                            buyAirtimeViewModel.updateTargetRadio("someone_else")
+                        },
+                        colors = RadioButtonDefaults.colors(
+                            selectedColor = PrimaryColor
+                        )
+
+                    )
+                    Text(text = "Someone Else")
                 }
+            }
 
-                Spacer(modifier = Modifier.height(12.dp))
+            if (targetRadio == "someone_else") {
+                RideOutlinedTextField(
+                    value = buyAirtimeState.phoneNumber,
+                    onValueChange = { phoneNumber ->
+                        onPhoneNumberChanged(phoneNumber)
+                    },
+                    keyboardType = KeyboardType.Phone,
+                    hint = stringResource(id = R.string.phoneNumber),
+                    trailingIcon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Search,
+                            contentDescription = "Call",
+                            modifier = Modifier
+                                .padding(8.dp)
+                                .size(24.dp)
+                                .clickable {
+                                    coroutineScope.launch {
+                                        if (sheetState.isCollapsed) {
+                                            contactViewModel.send(
+                                                ContactUiEvent.GetContacts,
+                                                context
+                                            )
+                                            sheetState.expand()
+                                        } else {
+                                            sheetState.collapse()
+                                        }
+                                    }
+                                },
+                            tint = LocalContentColor.current.copy(alpha = ContentAlpha.medium)
+                        )
+                    }
+                )
+            }
 
+            Spacer(modifier = Modifier.height(12.dp))
+
+            if (buyAirtimeState.targetRadio == "myself" || buyAirtimeState.targetRadio == "someone_else") {
                 Column(modifier = Modifier.fillMaxWidth()) {
                     RideOutlinedTextField(
                         value = buyAirtimeState.amount,
                         onValueChange = { amount ->
-                            buyAirtimeViewModel.handleBuyAirtimeEvent(
-                                BuyAirtimeEvent.AmountChanged(amount)
-                            )
+                            onAmountChanged(amount)
                         },
-                        maxLength = 5,
                         keyboardType = KeyboardType.Phone,
                         hint = stringResource(id = R.string.amount),
                         supportText = stringResource(id = R.string.amount_support_text),
@@ -201,24 +234,30 @@ fun BuyAirtimeScreen(
                         trailingIcon = {
                             Row(
                                 modifier = Modifier
-                                    .clickable { expanded = !expanded }
+                                    .clickable {
+                                        buyAirtimeState.isExpanded = !buyAirtimeState.isExpanded
+                                    }
                                     .padding(end = 8.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Icon(
                                     selectedAccount.icon,
-                                    modifier = Modifier.size(24.dp),
-                                   contentDescription =  "contentDescription",
+                                    "contentDescription",
+                                    modifier = Modifier.size(24.dp)
                                 )
-                                Text(text = selectedAccount.name)
+                                Text(
+                                    text = selectedAccount.name,
+
+                                    )
                                 Icon(Icons.Filled.KeyboardArrowDown, "contentDescription")
                             }
 
-                        }
+                        },
+                        maxLength = 5
                     )
                     DropdownMenu(
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false },
+                        expanded = buyAirtimeState.isExpanded,
+                        onDismissRequest = { buyAirtimeState.isExpanded = false },
                         modifier = Modifier
                             .width(with(LocalDensity.current) { textfieldSize.width.toDp() }),
                     ) {
@@ -231,7 +270,7 @@ fun BuyAirtimeScreen(
                                 text = { Text(text = item.name) },
                                 onClick = {
                                     selectedAccount = item
-                                    expanded = false
+                                    buyAirtimeState.isExpanded = false
                                 },
                                 leadingIcon = {
                                     Icon(
@@ -248,37 +287,21 @@ fun BuyAirtimeScreen(
 
                 }
 
-                Spacer(modifier = Modifier.height(24.dp))
-
-                ContinueButton(
-                    text = stringResource(id = R.string.continuee),
-                    onClick = {},
-                    enable = buyAirtimeState.isBuyAirtimeEnabled
-                )
             }
 
 
-        }
 
+            Spacer(modifier = Modifier.height(24.dp))
+
+            ContinueButton(
+                text = stringResource(id = R.string.continuee),
+                onClick = {
+                    onBuyAirtimeClicked()
+                },
+                enable = buyAirtimeState.isBuyAirtimeEnabled
+            )
+        }
     }
 
-}
-
-
-val accountType = listOf(
-    AccountType.AccountA,
-    AccountType.AccountB,
-)
-
-
-@Composable
-@Preview
-fun BuyAirtimePreview() {
-    BuyAirtimeContentScreen(
-        buyAirtimeState = BuyAirtimeState(),
-        onPhoneNumberChanged = {},
-        onAmountChanged = {},
-        onBuyAirtimeClicked = {},
-    )
 
 }

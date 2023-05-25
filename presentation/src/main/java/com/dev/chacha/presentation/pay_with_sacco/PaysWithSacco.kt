@@ -27,10 +27,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dev.chacha.presentation.buy_goods.BayGoods
 import com.dev.chacha.presentation.common.components.AppTopBar
 import com.dev.chacha.presentation.common.theme.PrimaryColor
@@ -48,9 +51,12 @@ import kotlinx.coroutines.launch
 fun PayWithSacco(
     navigateBack: () -> Unit
 ) {
-    val sheetState = rememberBottomSheetState(
-        initialValue = BottomSheetValue.Collapsed
-    )
+    val payWithSaccoViewModel: PayWithSaccoViewModel = viewModel()
+    val sheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
+
+    val targetPayWithSacco by rememberSaveable { mutableStateOf(payWithSaccoViewModel.targetPayWithSacco) }
+    val buyGoodsWithSacco by rememberSaveable { mutableStateOf(payWithSaccoViewModel.buyGoodsWithSacco) }
+
 
     val scaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = sheetState)
     val tabselected = remember {
@@ -59,28 +65,25 @@ fun PayWithSacco(
     val tabs = listOf(
         TabItem.BuyGoods(scaffoldState = sheetState, tabselected = tabselected),
         TabItem.PayBill(scaffoldState = sheetState, tabselected = tabselected)
+
     )
     val pagerState = rememberPagerState()
-
-    val showPayBillSheet by remember { mutableStateOf(false) }
-    val showBuyGoodsSheet by remember { mutableStateOf(false) }
-
 
 
     BottomSheetScaffold(
         scaffoldState = scaffoldState,
         sheetContent = {
-            when (tabselected.value) {
-                0 -> Bayyy()
-                1 -> PaysBills()
+
+            if (targetPayWithSacco == "paybill"){
+                PaysBills()
             }
+
 
         },
         sheetPeekHeight = 0.dp,
         sheetBackgroundColor = Color.Unspecified.copy(alpha = 0F),
         backgroundColor = MaterialTheme.colorScheme.background,
         sheetShape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
-
 
     ) {
         CompositionLocalProvider(

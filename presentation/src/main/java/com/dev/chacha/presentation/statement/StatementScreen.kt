@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -187,42 +186,15 @@ data class Statement(
 )
 
 val statementList = listOf(
-    Statement(
-        transactionDetail = "Payment for Mpesa no",
-        recipientNo = "REIUYOBHY",
-        date = "12/20/2023",
-        moneyIn = 200.0,
-        moneyOut = 300.0,
-        moneyBalance = 3000.0
-    ),
     Statement("Payment received", "123456789", "2023-04-01", 100.0, 0.0, 100.0),
     Statement("Transfer to savings", "987654321", "2023-04-02", 0.0, 50.0, 50.0),
     Statement("Withdrawal", "555555555", "2023-04-03", 0.0, 20.0, 30.0),
     Statement("Payment received", "123456789", "2023-04-04", 50.0, 0.0, 80.0),
-    Statement(
-        transactionDetail = "Payment for Mpesa no",
-        recipientNo = "REIUYOBHY",
-        date = "12/20/2023",
-        moneyIn = 200.0,
-        moneyOut = 300.0,
-        moneyBalance = 3000.0
-    ),
-    Statement(
-        transactionDetail = "Payment for Mpesa no",
-        recipientNo = "REIUYOBHY",
-        date = "12/20/2023",
-        moneyIn = 200.0,
-        moneyOut = 300.0,
-        moneyBalance = 3000.0
-    ),
-    Statement(
-        transactionDetail = "Payment for Mpesa no",
-        recipientNo = "REIUYOBHY",
-        date = "12/20/2023",
-        moneyIn = 200.0,
-        moneyOut = 300.0,
-        moneyBalance = 3000.0
-    )
+    Statement("Payment received", "123456789", "2023-04-01", 100.0, 0.0, 100.0),
+    Statement("Transfer to savings", "987654321", "2023-04-02", 0.0, 50.0, 50.0),
+    Statement("Withdrawal", "555555555", "2023-04-03", 0.0, 20.0, 30.0),
+    Statement("Payment received", "123456789", "2023-04-04", 50.0, 0.0, 80.0),
+
 )
 
 
@@ -272,12 +244,7 @@ val totaMoneyOut: Double
     get() = transactionTypeList.sumOf { it.transactionAmountOut }
 
 
-enum class TransactionsType {
-    Withdraw,
-    BuyGoods,
-    BuyAirtime,
-    SendMoney,
-}
+
 
 
 @Composable

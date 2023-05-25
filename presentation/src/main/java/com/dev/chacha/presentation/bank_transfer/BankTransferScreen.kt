@@ -12,6 +12,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Search
@@ -21,10 +22,15 @@ import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.toSize
+import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.theme.PrimaryColor
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -46,13 +52,10 @@ fun BankTransferScreen(
 
     val modalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     var expanded by remember { mutableStateOf(false) }
-
-
+    var textfieldSize by remember { mutableStateOf(Size.Zero) }
     val interactionSource = remember { MutableInteractionSource() }
-
     if (interactionSource.collectIsPressedAsState().value)
         expanded = !expanded
-
 
     val accountList = listOf("Account 1", "Account 2", "Account 3")
     val bankList = listOf("Bank 1", "Bank 2", "Bank 3", "Bank 4", "Bank 5", "Bank 6")
@@ -63,14 +66,14 @@ fun BankTransferScreen(
     Scaffold(
         topBar = {
             SmallTopAppBar(
-                title = { Text("SACCO Bank Transfer") },
+                title = { Text("SACCO Bank Transfer", style = MaterialTheme.typography.labelSmall) },
                 colors = TopAppBarDefaults.smallTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background
                 ),
                 navigationIcon = {
                     IconButton(onClick = { navigateBack() }) {
                         Icon(
-                            imageVector = Icons.Filled.ArrowBackIos,
+                            imageVector = Icons.Filled.ArrowBack,
                             contentDescription = "Back"
                         )
                     }
@@ -88,7 +91,15 @@ fun BankTransferScreen(
                 value = fromAccount,
                 onValueChange = { fromAccount = it },
                 label = { Text("From Account") },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = dimensionResource(id = R.dimen.margin_10))
+                    .clickable {
+                        expanded = !expanded
+                    }
+                    .onGloballyPositioned { coordinates ->
+                        textfieldSize = coordinates.size.toSize()
+                    },
                 readOnly = true,
                 trailingIcon = {
                     Icon(

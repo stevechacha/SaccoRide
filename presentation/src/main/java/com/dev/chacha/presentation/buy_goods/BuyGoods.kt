@@ -1,10 +1,13 @@
 package com.dev.chacha.presentation.buy_goods
 
-data class BuyGoods(
+import android.os.Build
+import androidx.annotation.RequiresApi
+
+data class BuyGoods (
     val tillName: String,
     val tillNumber: String,
     val amount: Double,
-    val date: String? = null
+    val date: String? = null,
 )
 
 fun getTillNumber():List<BuyGoods> = listOf(

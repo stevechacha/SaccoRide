@@ -107,11 +107,6 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.1.0")
     implementation ("io.coil-kt:coil-gif:2.1.0")
 
-//    implementation("com.google.accompanist:accompanist-navigation-animation:0.28.0")
-    /*    implementation ("androidx.compose.animation:animation:1.4.3")
-        implementation ("androidx.compose.animation:animation-core:1.4.3")*/
-
-
 
     androidTestImplementation(libs.android.test.junit4)
     androidTestImplementation(libs.android.test.espresso)
@@ -164,6 +159,9 @@ kotlin {
         all {
             languageSettings.apply {
                 optIn("androidx.compose.material3.ExperimentalMaterial3Api")
+                optIn("androidx.compose.material.ExperimentalMaterialApi")
+                optIn("androidx.compose.ui.ExperimentalComposeUiApi")
+
             }
         }
     }

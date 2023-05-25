@@ -62,13 +62,12 @@ fun PinLockScreen(
     val context = LocalContext.current
     val isFingerprintEnabled = remember { mutableStateOf(false) }
     val loading = remember { mutableStateOf("Validating...") }
-
+    val name = "Stephen Chacha"
 
 
     if (inputPin.size == 4) {
         LaunchedEffect(true) {
             delay(300)
-
             if (inputPin.joinToString("") == password) {
                 showSuccess.value = true
                 loading.value = "Validating..."
@@ -82,8 +81,7 @@ fun PinLockScreen(
     }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -107,8 +105,7 @@ fun PinLockScreen(
                     Image(
                         painter = painterResource(id = R.drawable.profile_icon),
                         contentDescription = "profile image",
-                        modifier = Modifier
-                            .size(30.dp),
+                        modifier = Modifier.size(30.dp),
                         alignment = Alignment.Center,
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground)
                     )
@@ -116,7 +113,6 @@ fun PinLockScreen(
                 }
                 Spacer(modifier = Modifier.height(8.dp))
 
-                val name = "Stephen Chacha"
                 Text(
                     text = name.uppercase(),
                     style = MaterialTheme.typography.labelSmall
@@ -126,7 +122,6 @@ fun PinLockScreen(
                 Text(
                     text = stringResource(id = R.string.enter_pin),
                     style = MaterialTheme.typography.labelSmall
-
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -147,7 +142,6 @@ fun PinLockScreen(
                                 modifier = Modifier
                                     .padding(8.dp)
                                     .size(30.dp),
-//                                tint = Color.Black
                             )
                         }
                     }
@@ -222,8 +216,7 @@ fun PinLockScreen(
                 }
 
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth()
                         .padding(start = 10.dp),
                     horizontalArrangement = Arrangement.SpaceEvenly,
                     verticalAlignment = Alignment.CenterVertically
@@ -326,7 +319,6 @@ fun PinKeyItem(
         enabled = enabled,
     ) {
         val absoluteElevation = LocalAbsoluteTonalElevation.current + tonalElevation
-
         CompositionLocalProvider(
             LocalAbsoluteTonalElevation provides absoluteElevation
         ) {

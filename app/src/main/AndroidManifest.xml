@@ -26,6 +26,7 @@
         <activity
             android:name="com.dev.chacha.presentation.activity.MainActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:label="@string/app_name"
             android:theme="@style/Theme.MySplash">
             <intent-filter>

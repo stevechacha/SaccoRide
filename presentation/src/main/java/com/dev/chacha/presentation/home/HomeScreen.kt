@@ -47,7 +47,7 @@ fun HomeScreen(
     val topAppBarState = rememberTopAppBarScrollState()
     val decayAnimationSpec = rememberSplineBasedDecay<Float>()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec, topAppBarState)
-    var showAllTransactions by remember { mutableStateOf(false) }
+    val showAllTransactions by remember { mutableStateOf(false) }
 
 
     val now = Calendar.getInstance() // get the current time
