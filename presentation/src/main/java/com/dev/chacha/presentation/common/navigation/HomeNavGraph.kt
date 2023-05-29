@@ -28,7 +28,6 @@ import com.dev.chacha.presentation.baybill.BillScreen
 import com.dev.chacha.presentation.baybill.components.BillConfirmItem
 import com.dev.chacha.presentation.buy_artime.BuyAirtimeScreen
 import com.dev.chacha.presentation.buy_goods.BuyGoods
-import com.dev.chacha.presentation.buy_goods.BuyGoodsScreen
 import com.dev.chacha.presentation.buy_goods.components.BuyGoodConfirm
 import com.dev.chacha.presentation.deposit.DepositScreen
 import com.dev.chacha.presentation.home.HomeScreen
@@ -44,8 +43,8 @@ import com.dev.chacha.presentation.pin.LoanPinScreen
 import com.dev.chacha.presentation.pin.PinPromptScreen
 import com.dev.chacha.presentation.savings.SavingsScreen
 import com.dev.chacha.presentation.send_money.SendMoneyScreen
-import com.dev.chacha.presentation.setting.SettingsScreen
-import com.dev.chacha.presentation.setting.biometric_settings.BiometricSettingsScreen
+import com.dev.chacha.presentation.settings.SettingsScreen
+import com.dev.chacha.presentation.settings.biometric_settings.BiometricSettingsScreen
 import com.dev.chacha.presentation.statement.StatementScreen
 import com.dev.chacha.presentation.statement.component.StatementDetail
 import com.dev.chacha.presentation.theme.ThemeScreen
@@ -167,7 +166,7 @@ fun HomeNavGraph(
 
         composable(HomeAction.Withdraw.route) {
             WithdrawScreen(
-                navigateBack = { navController.navigateUp() }
+                ignoredNavigateBack = { navController.navigateUp() }
 
             )
         }
@@ -252,27 +251,27 @@ fun HomeNavGraph(
                 )
         }
 
-        composable(HomeAction.BuyGoods.route) {
-            BuyGoodsScreen(
-                navController = navController,
-                sheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed),
-                /*navigateWithData = { buyGoods->
-                    navController.navigate(
-                        HomeAction.TillConfirm.sendData(
-                            tillName = buyGoods.tillName,
-                            tillNumber = buyGoods.tillNumber,
-                            amount = buyGoods.amount.toDouble(),
-                            date = "12/12/2022"
-                        )
-                    )
-
-                }*/
-
-            )
-        }
+//        composable(HomeAction.BuyGoods.route) {
+//            BuyGoodsScreen(
+//                navController = navController,
+//                sheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed),
+//                /*navigateWithData = { buyGoods->
+//                    navController.navigate(
+//                        HomeAction.TillConfirm.sendData(
+//                            tillName = buyGoods.tillName,
+//                            tillNumber = buyGoods.tillNumber,
+//                            amount = buyGoods.amount.toDouble(),
+//                            date = "12/12/2022"
+//                        )
+//                    )
+//
+//                }*/
+//
+//            )
+//        }
 
         composable(
-            route = HomeAction.TillConfirm.route,
+            route = "TillConfirm?tillName={tillName}&tillNumber={tillNumber}&amount={amount}&date={date}",
             arguments = listOf(
                 navArgument("tillName") {
                     type = NavType.StringType
@@ -287,11 +286,10 @@ fun HomeNavGraph(
                 }
             )
         ) { entry ->
-
             val buyGoods = BuyGoods(
                 tillName = entry.arguments?.getString("tillName") ?: "",
                 tillNumber = entry.arguments?.getString("tillNumber") ?: "",
-                amount = entry.arguments?.getDouble("amount") ?: 0.0,
+                amount = entry.arguments?.getString("amount")?.toDoubleOrNull() ?: 0.0,
                 date = entry.arguments?.getString("date") ?: ""
             )
             BuyGoodConfirms(buyGoods = buyGoods)
@@ -322,8 +320,8 @@ fun HomeNavGraph(
 
         composable(HomeAction.PayWithSacco.route) {
             PayWithSacco(
-                navigateBack = { navController.navigateUp() }
-
+                navigateBack = { navController.navigateUp() },
+                navController
             )
         }
 
@@ -490,8 +488,7 @@ sealed class HomeAction(val route: String) {
         }
     }
 
-    object TillConfirm :
-        HomeAction("TillConfirm?tillName={tillName}/{tillNumber}/{amount}?date={date}") {
+    object TillConfirm : HomeAction("TillConfirm?tillName={tillName}&tillNumber={tillNumber}&amount={amount}&date={date}") {
         fun sendData(
             tillName: String = " ",
             tillNumber: String,
@@ -502,9 +499,10 @@ sealed class HomeAction(val route: String) {
             val encodedTillNumber = Uri.encode(tillNumber)
             val encodedAmount = Uri.encode(amount.toString())
             val encodedDate = Uri.encode(date)
-            return "TillConfirm/$encodedTillName/$encodedTillNumber/$encodedAmount?date=$encodedDate"
+            return "TillConfirm?tillName=$encodedTillName&tillNumber=$encodedTillNumber&amount=$encodedAmount&date=$encodedDate"
         }
     }
+
 
     object TillPaymentConfirm :
         HomeAction("TillPaymentConfirm/{tillName}/{tillNumber}/{amount}/{date}")

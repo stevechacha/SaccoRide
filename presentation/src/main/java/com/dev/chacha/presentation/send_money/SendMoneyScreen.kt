@@ -75,7 +75,6 @@ fun SendMoneyScreen(
     val scaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = sheetState)
     val viewModel = viewModel<ContactListViewModel>()
     val coroutineScope = rememberCoroutineScope()
-    val (mobileNumber, setMobileNumber) = rememberSaveable { mutableStateOf("") }
     val (amount, setAmount) = rememberSaveable { mutableStateOf("") }
     var selectedRecipient by rememberSaveable { mutableStateOf(RecipientProvider.Mpesa) }
     var phoneNumber by rememberSaveable { mutableStateOf("") }

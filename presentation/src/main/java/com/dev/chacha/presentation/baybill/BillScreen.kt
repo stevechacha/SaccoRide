@@ -211,7 +211,7 @@ fun BillScreen(
                                     item {
                                         PayBillItem(
                                             payBill = payBill,
-                                            onPayBillClick = {
+                                            onPayBillItemClick  = {
                                                 businessNumber = payBill.businessNumber
                                                 businessName = payBill.name
                                                 coroutineScope.launch {
@@ -350,7 +350,7 @@ fun BillScreen(
                         payBillItems.forEach { buyItem ->
                             PayBillItem(
                                 payBill = buyItem,
-                                onPayBillClick = {
+                                onPayBillItemClick = {
                                     businessNumber = buyItem.businessNumber
                                     businessName = buyItem.name
                                 }

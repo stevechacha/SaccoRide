@@ -14,8 +14,8 @@ import com.dev.chacha.presentation.auth.reset_password.ResetPasswordScreen
 import com.dev.chacha.presentation.auth.reset_pin.ResetPinScreen
 import com.dev.chacha.presentation.notification.NotificationsScreen
 import com.dev.chacha.presentation.pin.PinPromptScreen
-import com.dev.chacha.presentation.setting.SettingsScreen
-import com.dev.chacha.presentation.setting.biometric_settings.BiometricSettingsScreen
+import com.dev.chacha.presentation.settings.SettingsScreen
+import com.dev.chacha.presentation.settings.biometric_settings.BiometricSettingsScreen
 import com.dev.chacha.presentation.statement.component.StatementDetail
 import com.dev.chacha.presentation.theme.ThemeScreen
 

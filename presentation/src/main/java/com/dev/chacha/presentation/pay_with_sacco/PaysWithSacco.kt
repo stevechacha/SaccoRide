@@ -4,8 +4,11 @@ import PayBills
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomSheetScaffold
@@ -23,48 +26,57 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.buy_goods.BayGoods
 import com.dev.chacha.presentation.common.components.AppTopBar
 import com.dev.chacha.presentation.common.theme.PrimaryColor
+import com.dev.chacha.presentation.contactList.ContactSelectionScreen
+import com.dev.chacha.presentation.paybill.PayBillEvent
+import com.dev.chacha.presentation.paybill.PayBillSelection
+import com.dev.chacha.presentation.paybill.PayBillViewModel
 import com.dev.chacha.presentation.paybill.component.PayBillItem
 import com.dev.chacha.presentation.paybill.payBillItems
 import com.google.accompanist.pager.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
 
 @OptIn(
     ExperimentalPagerApi::class, ExperimentalMaterialApi::class,
-    ExperimentalFoundationApi::class, ExperimentalFoundationApi::class
+    ExperimentalFoundationApi::class, ExperimentalFoundationApi::class,
+    ExperimentalCoroutinesApi::class
 )
 @Composable
 fun PayWithSacco(
-    navigateBack: () -> Unit
+    navigateBack: () -> Unit,
+    navController: NavController
 ) {
-    val payWithSaccoViewModel: PayWithSaccoViewModel = viewModel()
     val sheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
-
-    val targetPayWithSacco by rememberSaveable { mutableStateOf(payWithSaccoViewModel.targetPayWithSacco) }
-    val buyGoodsWithSacco by rememberSaveable { mutableStateOf(payWithSaccoViewModel.buyGoodsWithSacco) }
-
-
     val scaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = sheetState)
-    val tabselected = remember {
-        mutableStateOf(-1)
-    }
+
+    val payBillViewModel : PayBillViewModel = viewModel()
+    val payBillState by payBillViewModel.payBillState.collectAsState()
+
+    val coroutineScope = rememberCoroutineScope()
+
     val tabs = listOf(
-        TabItem.BuyGoods(scaffoldState = sheetState, tabselected = tabselected),
-        TabItem.PayBill(scaffoldState = sheetState, tabselected = tabselected)
+        TabItem.BuyGoods(scaffoldState = sheetState,navController),
+        TabItem.PayBill(scaffoldState = sheetState)
 
     )
     val pagerState = rememberPagerState()
@@ -73,11 +85,22 @@ fun PayWithSacco(
     BottomSheetScaffold(
         scaffoldState = scaffoldState,
         sheetContent = {
-
-            if (targetPayWithSacco == "paybill"){
-                PaysBills()
+            if (pagerState.currentPage == 0) {
+                BayGood()
+            } else if (pagerState.currentPage == 1) {
+                PayBillSelection(
+                    onPayBillSelected = { payBill ->
+                        coroutineScope.launch {
+                            payBillViewModel.onPayBillEvent(PayBillEvent.BusinessNumberChanged(payBill.businessNumber))
+                            payBillViewModel.onPayBillEvent(PayBillEvent.AccountNameChanged(payBill.name))
+                            sheetState.collapse()
+                        }
+                    }, navController = navController,
+                    payBillViewModel = payBillViewModel
+                )
+            } else {
+                Text(text = "else")
             }
-
 
         },
         sheetPeekHeight = 0.dp,
@@ -115,62 +138,41 @@ fun PayWithSacco(
                 },
             ) { padding ->
                 Column(modifier = Modifier.padding(padding)) {
-                    Tabs(tabs = tabs, pagerState = pagerState, tabselected = tabselected)
-                    TabsContent(tabs = tabs, pagerState = pagerState, tabselected = tabselected)
+                    Tabs(tabs = tabs, pagerState = pagerState,)
+                    TabsContent(tabs = tabs, pagerState = pagerState)
                 }
             }
         }
-
 
     }
 
 
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun PaysBills() {
-    val scope = rememberCoroutineScope()
-    val sheetState = rememberBottomSheetState(
-        initialValue = BottomSheetValue.Collapsed
-    )
+fun BayGood() {
+    Scaffold { paddingValues ->
+     Column(
+         modifier = Modifier.padding(paddingValues)
+     ) {
+         LazyColumn(){
+             items(100){
+                 Row(
+                     modifier = Modifier.fillMaxWidth(),
+                     verticalAlignment = Alignment.CenterVertically
+                 ) {
+                     Icon(painter = painterResource(id = R.drawable.home_icon), contentDescription = null , modifier = Modifier.size(25.dp))
+                     Spacer(modifier = Modifier.weight(1f))
+                     Text(text = it.toString())
 
-    Scaffold(
-        topBar = {
-            AppTopBar(
-                title = "Search PayBill",
-                initialValue = "",
-                onSearchParamChange = {},
-                showSearchBar = true
-            )
-        }
-    ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(paddingValues)
-                .padding(horizontal = 12.dp)
-        ) {
-            LazyColumn {
-                payBillItems.forEachIndexed { index, payBill ->
-                    item {
-                        PayBillItem(
-                            payBill = payBill,
-                            onPayBillClick = {
-                                scope.launch {
-                                    sheetState.collapse()
-                                }
-                            }
-                        )
-
-                    }
-
-                }
-            }
-        }
-
+                 }
+             }
+         }
+     }
     }
 }
+
+
 
 @Composable
 fun Bayyy() {
@@ -180,15 +182,15 @@ fun Bayyy() {
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun Tabs(tabs: List<TabItem>, pagerState: PagerState, tabselected: MutableState<Int>) {
+fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
     val coroutineScope = rememberCoroutineScope()
 
     TabRow(
-        selectedTabIndex = tabselected.value,
+        selectedTabIndex = pagerState.currentPage,
         backgroundColor = MaterialTheme.colorScheme.background,
         divider = {
             TabRowDefaults.Divider(
-                thickness = 1.dp,
+                thickness = 0.5.dp,
             )
         },
         indicator = { tabPositions ->
@@ -201,15 +203,14 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState, tabselected: MutableState<
     ) {
         tabs.forEachIndexed { index, item ->
             Tab(
-                selected = tabselected.value == index,
+                selected = pagerState.currentPage == index,
                 onClick = {
-                    tabselected.value = index
                     coroutineScope.launch { pagerState.scrollToPage(index) }
                 },
                 text = {
                     Text(
                         text = item.title,
-                        color = if (tabselected.value == index) MaterialTheme.colorScheme.primary
+                        color = if (pagerState.currentPage == index) MaterialTheme.colorScheme.primary
                         else MaterialTheme.colorScheme.onBackground
                     )
                 },
@@ -222,48 +223,29 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState, tabselected: MutableState<
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun TabsContent(tabs: List<TabItem>, pagerState: PagerState, tabselected: MutableState<Int>) {
+fun TabsContent(tabs: List<TabItem>, pagerState: PagerState) {
     HorizontalPager(state = pagerState, count = tabs.size) { page ->
-        tabselected.value = page
         tabs[page].screen()
     }
 }
 
 
 typealias ComposableFun = @Composable () -> Unit
-
 sealed class TabItem @OptIn(ExperimentalMaterialApi::class) constructor(
     var title: String,
     var screen: ComposableFun,
 ) {
 
     @OptIn(ExperimentalMaterialApi::class)
-    data class BuyGoods(
-        val scaffoldState: BottomSheetState,
-        val tabselected: MutableState<Int>
-    ) : TabItem("BUY GOODS", screen = { BayGoods(scaffoldState) })
+    data class BuyGoods(val scaffoldState: BottomSheetState,
+        val navController: NavController
+    ) : TabItem("BUY GOODS", screen = { BayGoods(scaffoldState,navController) })
 
     @OptIn(ExperimentalMaterialApi::class)
     data class PayBill(
         val scaffoldState: BottomSheetState,
-        val tabselected: MutableState<Int>
     ) : TabItem(
         "PAYBILL",
         screen = { PayBills(scaffoldState) })
 }
 
-/*sealed class TabItem(
-    val title: String,
-    val tabselected: MutableState<Int>,
-    val screen: @Composable () -> Unit
-) {
-    class BuyGoods(
-        scaffoldState: BottomSheetState,
-        tabselected: MutableState<Int>
-    ) : TabItem("BUY GOODS", tabselected, screen = { Bayyy() })
-
-    class PayBill(
-        scaffoldState: BottomSheetState,
-        tabselected: MutableState<Int>
-    ) : TabItem("PAYBILL", tabselected, screen = { PaysBills() })
-}*/

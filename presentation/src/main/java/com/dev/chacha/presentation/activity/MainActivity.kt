@@ -39,10 +39,8 @@ class MainActivity : ComponentActivity(), Biometric.AuthListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
-//        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             val viewModel: ThemeViewModel = hiltViewModel()
-
             val themeValue by viewModel.theme.collectAsState(
                 initial = Theme.FOLLOW_SYSTEM.themeValue,
                 context = Dispatchers.Main.immediate
@@ -71,16 +69,17 @@ class MainActivity : ComponentActivity(), Biometric.AuthListener {
         }
     }
 
-    /*@RequiresApi(Build.VERSION_CODES.P)
-    private fun showBiometricPrompt() = lifecycleScope.launchWhenStarted{
-        BiometricChecker(this@MainActivity, navController,this@MainActivity).authenticate()
-    }*/
 
-    override fun onAuthSuccess(message: String) {
-        Timber.e("Message : $message")
+    override fun onAuthSuccess() {
+        Timber.e("Message : Auth Success")
     }
 
-    override fun onAuthError(error: String) {
+    override fun onAuthFailure() {
+        Timber.e("Error : Auth Failure")
+
+    }
+
+    fun onAuthError(error: String) {
         Timber.e("Error : $error")
     }
 }

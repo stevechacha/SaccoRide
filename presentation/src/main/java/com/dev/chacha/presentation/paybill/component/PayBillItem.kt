@@ -21,18 +21,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.dev.chacha.presentation.paybill.PayBill
+import kotlinx.coroutines.flow.update
 import kotlin.random.Random
 
 @Composable
 fun PayBillItem(
     payBill: PayBill,
-    onPayBillClick: (PayBill) -> Unit
+    onPayBillItemClick: ()->Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .clickable(onClick = { onPayBillClick(payBill) }),
+            .clickable(onClick = { onPayBillItemClick() }),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (payBill.image != null) {
@@ -103,6 +104,7 @@ fun randomColor(): Color {
     val blue = Random.nextInt(256)
     return Color(red, green, blue)
 }
+
 
 
 @Composable

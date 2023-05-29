@@ -30,7 +30,6 @@ fun BuyGoodsDialog(
     onDismiss: () -> Unit,
     buyGoods: BuyGoods,
     onClickSend: (BuyGoods) -> Unit,
-    viewModel: BuyGoodsViewModel
 ) {
     AlertDialog(
         containerColor = MaterialTheme.colorScheme.background,
@@ -112,7 +111,7 @@ fun BuyGoodsDialog(
                     Button(
                         onClick = {
                             onClickSend(buyGoods)
-                            onDismiss()
+//                            onDismiss()
                         },
                         modifier = Modifier.width(120.dp),
                         colors = ButtonDefaults.buttonColors(

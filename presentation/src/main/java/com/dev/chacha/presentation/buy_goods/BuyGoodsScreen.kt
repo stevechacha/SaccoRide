@@ -68,6 +68,7 @@ import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.components.RideOutlinedTextField
 import com.dev.chacha.presentation.common.navigation.HomeAction
 import com.dev.chacha.presentation.common.theme.PrimaryColor
+import com.dev.chacha.presentation.extensions.getInitials
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -79,11 +80,15 @@ import kotlinx.datetime.toJavaLocalDateTime
 import java.time.format.DateTimeFormatter
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun BayGoods(scaffoldState: BottomSheetState) {
+fun BayGoods(
+    scaffoldState: BottomSheetState,
+    navController: NavController
+) {
     BuyGoodsScreen(
-        navController = rememberNavController(),
+        navController = navController,
         sheetState = scaffoldState,
     )
 }
@@ -96,24 +101,14 @@ fun BuyGoodsScreen(
     navController: NavController,
     sheetState: BottomSheetState,
 
-) {
+    ) {
 
     val buyGoods = getTillNumber()
-
-
     val state by viewModel.state.collectAsState()
     var textfieldSize by remember { mutableStateOf(Size.Zero) }
     var expanded by remember { mutableStateOf(false) }
     val icon = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown
     val scope = rememberCoroutineScope()
-
-    val scaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = sheetState)
-
-    var showAccountList by remember { mutableStateOf(false) }
-
-    val date = "12/23/23"
-
-
 
     Column(
         modifier = Modifier
@@ -129,44 +124,24 @@ fun BuyGoodsScreen(
                     viewModel.onDialogDismissed()
                 },
                 buyGoods = BuyGoods(
-                    tillName =  state.tillName,
+                    tillName = state.tillName,
                     tillNumber = state.tillNumber.toString(),
                     amount = state.amount.toDouble(),
                     date = state.date
                 ),
-                onClickSend = { buyGoods->
+                onClickSend = { buyGoods ->
                     Timber.tag("BuyGoods").d(buyGoods.toString())
 
-                    /*navController.navigate(HomeAction.TillConfirm.route +
-                            "?tillName=${Uri.encode(buyGoods.tillName)}" +
-                            "&tillNumber=${Uri.encode(buyGoods.tillNumber)}" +
-                            "&amount=${buyGoods.amount}" +
-                            "&date=${Uri.encode(buyGoods.date)}"
-                    )*/
-
-                    /*navigateWithData.invoke(
-                        BuyGoods(
-                            tillName = buyGoods.tillName,
-                            tillNumber = buyGoods.tillNumber,
-                            amount = buyGoods.amount.toDouble(),
-                            date = System.currentTimeMillis().toString()
-                        )
-                    )*/
-
-                    navController.navigate(
-                        HomeAction.TillConfirm.sendData(
-                            tillName = buyGoods.tillName,
-                            tillNumber = buyGoods.tillNumber,
-                            amount = buyGoods.amount.toDouble(),
-                            date = getCurrentDateTime()
-
-                        )
+                    val route = HomeAction.TillConfirm.sendData(
+                        tillName = buyGoods.tillName,
+                        tillNumber = buyGoods.tillNumber,
+                        amount = buyGoods.amount.toDouble(),
+                        date = getCurrentDateTime()
                     )
+                    navController.navigate(route = route)
 
                 },
-                viewModel = viewModel,
-
-                )
+            )
         }
 
         Column(modifier = Modifier.fillMaxWidth()) {
@@ -191,11 +166,9 @@ fun BuyGoodsScreen(
             )
 
             Button(onClick = {
-
                 scope.launch {
                     if (sheetState.isCollapsed) {
                         sheetState.expand()
-                        showAccountList = true
                     } else {
                         sheetState.collapse()
                     }
@@ -224,23 +197,19 @@ fun BuyGoodsScreen(
                             expanded = false
                         },
                         leadingIcon = {
-                            val names = item.tillName.split(" ")
-                            val initials = (if (names.size >= 2) { names[0].trim().first().toString().trim() + names[1].trim().first().toString().trim()
-                            } else {
-                                names[0].trim().first().toString().trim()
-                            }).uppercase()
-                                Box(
-                                    modifier = Modifier
-                                        .size(40.dp)
-                                        .clip(CircleShape),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(
-                                        text = initials,
-                                        fontWeight = FontWeight.Normal,
-                                        textAlign = TextAlign.Center,
-                                        fontSize = 26.sp
-                                    )
+                            val buyGoodsInitials = item.tillName
+                            Box(
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .clip(CircleShape),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = getInitials(buyGoodsInitials),
+                                    fontWeight = FontWeight.Normal,
+                                    textAlign = TextAlign.Center,
+                                    fontSize = 26.sp
+                                )
 
                             }
 
@@ -271,32 +240,11 @@ fun BuyGoodsScreen(
             enable = viewModel.isInputValid()
         )
 
-
-    }
-    if (showAccountList) {
-        BottomSheetScaffold(
-            sheetBackgroundColor = Color.Unspecified.copy(alpha = 0F),
-            sheetShape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
-            scaffoldState = scaffoldState,
-            sheetContent = {
-                Column(
-                    modifier = Modifier
-                        .background(MaterialTheme.colorScheme.surfaceVariant),
-                    verticalArrangement = Arrangement.Center
-                ) {
-
-                    Text(text = "Home")
-                }
-            }
-        ) {
-            // Empty content
-        }
     }
 }
 
 
-
-
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 @Preview

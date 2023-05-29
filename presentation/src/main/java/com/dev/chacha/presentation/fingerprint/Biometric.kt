@@ -15,6 +15,7 @@ import android.os.CancellationSignal
 import androidx.activity.ComponentActivity
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.dev.chacha.presentation.activity.MainActivity
@@ -29,13 +30,7 @@ class Biometric(
     private val activity: ComponentActivity
 ) : BiometricPrompt.AuthenticationCallback(), Application.ActivityLifecycleCallbacks {
 
-    @RequiresApi(Build.VERSION_CODES.Q)
-    private val biometricManager: BiometricManager =
-        activity.getSystemService(Context.BIOMETRIC_SERVICE) as BiometricManager
-
-    private val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
-
-    private var currentScreen: NavBackStackEntry? = null
+    private var currentScreen: SavedStateHandle? = null
     private var authAttempts: Int = 0
 
     private var cancellationSignal: CancellationSignal? = null
@@ -67,10 +62,10 @@ class Biometric(
             notifyUser("Authentication Succeeded")
             super.onAuthenticationSucceeded(result)
             if (currentScreen == null) {
-                navController.navigate(Graph.HOME)
+                navController.popBackStack()
             } else {
-                navController.navigate(currentScreen!!.id){
-                    popUpTo(currentScreen!!.destination.id) {
+                navController.navigate(currentScreen.toString()) {
+                    popUpTo(currentScreen.toString()) {
                         inclusive = true
                     }
                 }
@@ -85,35 +80,32 @@ class Biometric(
 
     override fun onActivityPaused(activity: Activity) {
         if (!activity.isFinishing) {
-            currentScreen = navController.currentBackStackEntry
+            currentScreen = navController.currentBackStackEntry?.savedStateHandle
         }
 
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onActivityResumed(activity: Activity) {
-        if (!activity.isDestroyed){
-            currentScreen = navController.currentBackStackEntry
+        if (!activity.isDestroyed) {
+            currentScreen = navController.currentBackStackEntry?.savedStateHandle
         }
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
             val currentScreenId = savedInstanceState.getInt("currentScreen")
-            currentScreen = navController.getBackStackEntry(currentScreenId)
+            currentScreen = currentScreen
         }
-
-
     }
 
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
-        outState.putInt("currentScreen", currentScreen?.destination?.id ?: 0)
+        outState.putInt("currentScreen", currentScreen.toString().length)
     }
 
     override fun onActivityStopped(activity: Activity) {
         cancellationSignal?.cancel()
     }
-
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onActivityStarted(activity: Activity) {}
@@ -141,19 +133,17 @@ class Biometric(
         }
     }
 
-
     private fun checkBiometricSupport(): Boolean {
         val keyguardManager = activity.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
         if (!keyguardManager.isDeviceSecure) {
-            notifyUser("lock screen security not enabled in the setting")
+            notifyUser("Lock screen security not enabled in the settings")
             return false
         }
         if (ActivityCompat.checkSelfPermission(
                 activity,
-                Manifest.permission.USE_BIOMETRIC
-            ) != PackageManager.PERMISSION_GRANTED
+                Manifest.permission.USE_BIOMETRIC            ) != PackageManager.PERMISSION_GRANTED
         ) {
-            notifyUser("Finger print authentication permission not enabled")
+            notifyUser("Fingerprint authentication permission not enabled")
             return false
         }
         return activity.packageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)
@@ -162,7 +152,7 @@ class Biometric(
     private fun getCancellationSignal(): CancellationSignal {
         cancellationSignal = CancellationSignal()
         cancellationSignal?.setOnCancelListener {
-            notifyUser("Auth Cancelled via Signal")
+            notifyUser("Authentication Cancelled via Signal")
         }
         return cancellationSignal as CancellationSignal
     }
@@ -172,7 +162,8 @@ class Biometric(
     }
 
     interface AuthListener {
-        fun onAuthSuccess(message: String)
-        fun onAuthError(error: String)
+        fun onAuthSuccess()
+        fun onAuthFailure()
     }
 }
+

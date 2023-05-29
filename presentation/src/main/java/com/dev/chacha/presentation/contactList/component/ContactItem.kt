@@ -20,7 +20,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.dev.chacha.presentation.bank_transfer.BankList
 import com.dev.chacha.presentation.contactList.Contact
+import com.dev.chacha.presentation.extensions.getInitials
 import com.dev.chacha.presentation.paybill.component.randomColor
 import java.util.Locale
 
@@ -36,13 +38,7 @@ fun ContactItem(contact: Contact, onItemClick: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
-            val names = contact.name.split(" ")
-            val initials = (if (names.size >= 2) {
-                names[0].trim().first().toString().trim() + names[1].trim().first().toString().trim()
-            } else {
-                names[0].trim().first().toString().trim()
-            }).uppercase()
-
+            val contactInitials = contact.name
             Box(
                 modifier = Modifier
                     .size(48.dp)
@@ -51,7 +47,7 @@ fun ContactItem(contact: Contact, onItemClick: () -> Unit) {
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = initials,
+                    text = getInitials(contactInitials),
                     fontWeight = FontWeight.Normal,
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.headlineSmall
@@ -83,3 +79,7 @@ fun ContactItem(contact: Contact, onItemClick: () -> Unit) {
 
 
 }
+
+
+
+

@@ -29,6 +29,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.dev.chacha.presentation.extensions.getInitials
 import com.dev.chacha.presentation.transaction_history.TransactionsItem
 import com.dev.chacha.presentation.transaction_history.transactionsItem
 import java.text.SimpleDateFormat
@@ -72,8 +73,7 @@ fun TransHistoryItem(
                 }
 
             } else {
-                val names = transactionItem.name.split(" ")
-                val initials = names[0].first().toString() + names[1].first().toString()
+                val transactionInitials = transactionItem.name
                 Box(
                     modifier = Modifier
                         .size(45.dp)
@@ -82,7 +82,7 @@ fun TransHistoryItem(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = initials,
+                        text = getInitials(transactionInitials),
                         fontWeight = FontWeight.Normal,
                         textAlign = TextAlign.Center,
                         style = typography.headlineSmall
