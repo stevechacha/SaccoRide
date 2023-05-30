@@ -52,6 +52,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.os.bundleOf
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.baybill.components.BillDialog
@@ -64,37 +65,12 @@ import com.dev.chacha.presentation.paybill.component.PayBillItem
 import com.dev.chacha.presentation.paybill.payBillItems
 import kotlinx.coroutines.launch
 
-/*
-@Composable
-fun BillScreen(
-    onBack: () -> Unit,
-    onPay: () -> Unit,
-    onPayWithSacco: () -> Unit,
-    onPayWithWallet: () -> Unit,
-    onPayWithCard: () -> Unit,
-    onPayWithMpesa: () -> Unit,
-    onPayWithAirtel: () -> Unit,
-    onPayWithEquitel: () -> Unit,
-    onPayWithTigopesa: () -> Unit,
-    onPayWithBank: () -> Unit,
-) {
-
-}*/
-
-@Composable
-fun BillBayScreen() {
-    BillScreen(
-        navigateBack = { /*TODO*/ },
-        navigateToBillConfirm = {}
-    )
-
-}
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun BillScreen(
     navigateBack: () -> Unit,
-    navigateToBillConfirm: (PayBill) -> Unit,
+    navController : NavController
 ) {
 //    var bottomSheetContentState by remember { mutableStateOf(BottomSheetContentState()) }
     val modalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
@@ -131,7 +107,6 @@ fun BillScreen(
         )
     }*/
 
-    val navController = rememberNavController()
 
     var showDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -141,16 +116,15 @@ fun BillScreen(
             onDismiss = {
                 showDialog = false
             },
-            onClickSend = {
-                navigateToBillConfirm.invoke(
-                    PayBill(
-                        name = businessName,
-                        businessNumber = businessNumber,
-                        accountNumber = accountNumber,
-                        amount = amount.toDouble(),
-                        date = System.currentTimeMillis().toString()
-                    ),
+            onClickSend = {payBill->
+                val route = HomeAction.BillConfirm.sendData(
+                    accountName = payBill.name,
+                    businessNumber = payBill.businessNumber,
+                    accountNumber = payBill.accountNumber.toString(),
+                    amount = payBill.amount!!.toDouble(),
+                    date = payBill.date.toString()
                 )
+                navController.navigate(route = route)
             },
             payBill = PayBill(
                 name = businessName,
@@ -371,6 +345,6 @@ fun BillScreen(
 fun BillPreview() {
     BillScreen(
         navigateBack = {},
-        navigateToBillConfirm = {},
+        navController = rememberNavController()
     )
 }

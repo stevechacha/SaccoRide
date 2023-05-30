@@ -14,7 +14,7 @@ import androidx.navigation.NavController
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.activity.MainActivity
 import com.dev.chacha.presentation.common.navigation.AuthScreen
-import com.dev.chacha.presentation.common.navigation.Graph
+import com.dev.chacha.presentation.common.navigation.DestinationGraph
 import timber.log.Timber
 
 @RequiresApi(Build.VERSION_CODES.P)
@@ -39,12 +39,12 @@ class BiometricChecker(
 
         override fun onAuthenticationFailed() {
             super.onAuthenticationFailed()
-            navController.navigate(AuthScreen.PinLock.route)
+//            navController.navigate(AuthScreen.PinLock.route)
         }
         override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult?) {
             notifyUser("Authentication Succeeded")
             super.onAuthenticationSucceeded(result)
-            navController.navigate(Graph.HOME)
+            navController.navigate(DestinationGraph.HOME_SCREEN_ROUTE)
         }
     }
 
@@ -57,7 +57,7 @@ class BiometricChecker(
                 .setDescription("Scan your fingerprint ")
                 .setNegativeButton("CANCEL", activity.mainExecutor) { _, _ ->
                     notifyUser("Authentication cancelled")
-                    navController.navigate(AuthScreen.PinLock.route)
+//                    navController.navigate(AuthScreen.PinLock.route)
 
                 }
                 .build()

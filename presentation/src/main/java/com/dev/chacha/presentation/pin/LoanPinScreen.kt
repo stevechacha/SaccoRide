@@ -3,6 +3,12 @@ package com.dev.chacha.presentation.pin
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
+import android.util.Log
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,17 +21,24 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Backspace
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,24 +56,97 @@ import androidx.navigation.compose.rememberNavController
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.theme.Brutalista
 import com.dev.chacha.presentation.common.theme.PrimaryColor
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun LoanPinScreen(
     onClickAction: () -> Unit,
     navController: NavController
 ) {
+
     val inputPin = remember { mutableStateListOf<Int>() }
     val error = remember { mutableStateOf<String>("") }
     val showSuccess = remember { mutableStateOf(false) }
     val context = LocalContext.current
     val keyboardController = LocalSoftwareKeyboardController.current
     val pinInputsViewModel: PinInputsViewModel = viewModel()
+    val pinState by pinInputsViewModel.pinState.collectAsState()
     val interactionSource = remember { MutableInteractionSource() }
     val pinSizes = remember { mutableStateOf<Int>(4) }
     val pin = inputPin.joinToString("") { it.toString() }
     val name = "Stephen Chacha"
+
+
+    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    var networkCapabilities by remember {
+        mutableStateOf(
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        )
+    }
+    var isNetworkAvailable by remember {
+        mutableStateOf(
+            networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+        )
+    }
+    var isWifiConnected by remember {
+        mutableStateOf(
+            networkCapabilities?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true
+        )
+    }
+    var isCellularConnected by remember {
+        mutableStateOf(
+            networkCapabilities?.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) == true
+        )
+    }
+
+    DisposableEffect(Unit) {
+        val networkCallback = object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                super.onAvailable(network)
+                networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+                isNetworkAvailable =
+                    networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+                isWifiConnected =
+                    networkCapabilities?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true
+                isCellularConnected =
+                    networkCapabilities?.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) == true
+            }
+
+            override fun onLost(network: Network) {
+                super.onLost(network)
+                isNetworkAvailable = false
+                isWifiConnected = false
+                isCellularConnected = false
+            }
+        }
+        connectivityManager.registerDefaultNetworkCallback(networkCallback)
+
+        onDispose {
+            connectivityManager.unregisterNetworkCallback(networkCallback)
+        }
+    }
+
+    if (!isNetworkAvailable) {
+        AlertDialog(
+            onDismissRequest = { /* Handle dismiss */ },
+            title = { Text(text = "No Internet Connection") },
+            text = { Text(text = "Please check your internet connection and try again.") },
+            confirmButton = {
+                TextButton(onClick = { navController.navigateUp()}) {
+                    Text(
+                        text = "Retry",
+                    )
+                }
+            }
+        )
+        return
+    }
+
+
+
 
 
     if (inputPin.size == 4) {
@@ -72,7 +158,8 @@ fun LoanPinScreen(
                 onClickAction()
             } else {
                 inputPin.clear()
-                error.value = "Wrong pin, Please retry!"
+                pinState.error
+
             }
         }
     }
@@ -84,12 +171,12 @@ fun LoanPinScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxSize(),
-            contentAlignment = Alignment.Center
+            modifier = Modifier.fillMaxSize(),
         ) {
             Column(
-                modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp) ,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 100.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -102,15 +189,31 @@ fun LoanPinScreen(
                     style = MaterialTheme.typography.labelSmall
 
                 )
-                if (showSuccess.value) {
+                Spacer(modifier = Modifier.height(12.dp))
+
+                if (pinState.isLoading) {
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                    }
+                } else if(pinState.isSuccess) {
                     LottieLoadingView(
                         context = context,
                         file = "success.json",
                         iterations = 1,
                         modifier = Modifier.size(100.dp)
                     )
-                } else {
 
+                } else if (pinState.error.isNotEmpty()) {
+                    AlertDialog(
+                        onDismissRequest = { /* Handle dismiss */ },
+                        title = { Text(text = "Error") },
+                        confirmButton = {
+                            TextButton(onClick = { /* Handle retry */ }) {
+                                Text(text = "Retry")
+                            }
+                        }
+                    )
+                } else {
                     PinTextField(
                         value = pin,
                         onValueChange = { newValue ->
@@ -132,17 +235,17 @@ fun LoanPinScreen(
                         },
                         maxLength = 4,
                         interactionSource = interactionSource,
-
                     )
                 }
 
-            }
+
+        }
 
             Column(
                 modifier = Modifier
                     .wrapContentSize()
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 20.dp, top = 10.dp)
+                    .align(Alignment.Center)
+                    .padding(top = 10.dp)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -260,6 +363,7 @@ fun LoanPinScreen(
             }
         }
     }
+
 }
 
 @RequiresApi(Build.VERSION_CODES.P)

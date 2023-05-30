@@ -65,6 +65,7 @@ fun PinLockScreen(
     val name = "Stephen Chacha"
 
 
+
     if (inputPin.size == 4) {
         LaunchedEffect(true) {
             delay(300)
@@ -247,13 +248,6 @@ fun PinLockScreen(
                             modifier = Modifier
                                 .size(25.dp)
                                 .clickable {
-                                    Biometric(
-                                        context as MainActivity,
-                                        navController,
-                                        context,
-
-                                        ).authenticate()
-//                                    navController.navigate(AuthScreen.Biometric.route)
 
                                 }
                         )

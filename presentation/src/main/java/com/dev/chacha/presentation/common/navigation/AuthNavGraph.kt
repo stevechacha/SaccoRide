@@ -13,6 +13,8 @@ import com.dev.chacha.presentation.auth.forgot.ForgotPasswordScreen
 import com.dev.chacha.presentation.auth.login.LoginScreen
 import com.dev.chacha.presentation.auth.login.LoginViewModel
 import com.dev.chacha.presentation.auth.welcome.WelcomeScreen
+import com.dev.chacha.presentation.common.navigation.DestinationGraph.AUTHENTICATION_ROUTE
+import com.dev.chacha.presentation.common.navigation.DestinationGraph.HOME_SCREEN_ROUTE
 import com.dev.chacha.presentation.fingerprint.BiometricScreen
 import com.dev.chacha.presentation.onboard.OnBoardScreen
 import com.dev.chacha.presentation.pin.PinLockScreen
@@ -21,7 +23,7 @@ import com.dev.chacha.presentation.pin.PinLockScreen
 @RequiresApi(Build.VERSION_CODES.P)
 fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
     navigation(
-        route = Graph.AUTHENTICATION,
+        route = AUTHENTICATION_ROUTE,
         startDestination = AuthScreen.Onboard.route
     ) {
         composable(AuthScreen.Onboard.route) {
@@ -31,7 +33,6 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
                 },
                 navController = navController
             )
-
         }
         composable(AuthScreen.Welcome.route) {
             WelcomeScreen(
@@ -47,7 +48,7 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
             LoginScreen(
                 onClick = {
                     navController.popBackStack()
-                    navController.navigate(AuthScreen.PinLock.route)
+                    navController.navigate(HOME_SCREEN_ROUTE)
                 },
                 onSignUpClick = {
                     navController.navigate(AuthScreen.Register.route)
@@ -68,20 +69,11 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
                 }
             )
         }
-        composable(AuthScreen.PinLock.route) {
-            PinLockScreen(
-                onClickAction = {
-                    navController.popBackStack()
-                    navController.navigate(Graph.HOME)
-                },
-                navController = navController
-            )
-        }
         composable(route = AuthScreen.CreatePassword.route) {
             CreatePasswordScreen(
                 onClickAction = {
                     navController.popBackStack()
-                    navController.navigate(Graph.HOME)
+                    navController.navigate(HOME_SCREEN_ROUTE)
                 }
             )
         }
@@ -89,7 +81,7 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
             ForgotPasswordScreen(
                 onClick = {
                     navController.popBackStack()
-                    navController.navigate(Graph.HOME)
+                    navController.navigate(HOME_SCREEN_ROUTE)
                 },
                 onLoginClick = {
                     navController.navigate(AuthScreen.Login.route)
@@ -104,7 +96,6 @@ sealed class AuthScreen(val route: String) {
     object Onboard : AuthScreen("onboard_route")
     object Welcome : AuthScreen("welcome")
     object Login : AuthScreen(route = "LOGIN")
-    object PinLock : AuthScreen("PinLock")
     object Register : AuthScreen(route = "REGISTER")
     object Forgot : AuthScreen(route = "FORGOT")
     object CreatePassword : AuthScreen(route = "CREATE_ACCOUNT")

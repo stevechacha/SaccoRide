@@ -19,7 +19,11 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.dev.chacha.presentation.common.navigation.BottomBarScreen
+import com.dev.chacha.presentation.common.navigation.DestinationGraph.ACCOUNTS_SCREEN_ROUTE
+import com.dev.chacha.presentation.common.navigation.DestinationGraph.HOME_SCREEN_ROUTE
+import com.dev.chacha.presentation.common.navigation.DestinationGraph.LOANS_SCREEN_ROUTE
+import com.dev.chacha.presentation.common.navigation.DestinationGraph.MARKET_SCREEN_ROUTE
+import com.dev.chacha.presentation.common.navigation.DestinationGraph.TRANSACTION_SCREEN_ROUTE
 import com.dev.chacha.presentation.common.theme.Brutalista
 import com.dev.chacha.presentation.common.theme.PrimaryColor
 
@@ -30,25 +34,12 @@ fun BottomNavigationBar(navController: NavHostController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    val bottomNavigationItems = listOf(
-        BottomBarScreen.Home,
-        BottomBarScreen.Transaction,
-        BottomBarScreen.LoanPinScreen,
-        BottomBarScreen.OurMarket,
-        BottomBarScreen.AccountPinScreen
-    )
+    val isShowBottomBar = when (currentDestination?.route) {
+        HOME_SCREEN_ROUTE, TRANSACTION_SCREEN_ROUTE, LOANS_SCREEN_ROUTE,MARKET_SCREEN_ROUTE, ACCOUNTS_SCREEN_ROUTE, null -> true
+        else -> false
+    }
 
-    val showBottomBarScreen = listOf(
-        BottomBarScreen.Home,
-        BottomBarScreen.Transaction,
-        BottomBarScreen.OurMarket
-    )
-
-
-
-    val bottomBarDestination = showBottomBarScreen.any { it.route == currentDestination?.route }
-
-    if (bottomBarDestination){
+    if (isShowBottomBar){
         BottomNavigation(
             modifier = Modifier
                 .fillMaxWidth()
@@ -56,7 +47,7 @@ fun BottomNavigationBar(navController: NavHostController) {
             backgroundColor = MaterialTheme.colorScheme.background,
             elevation = 8.dp
         ) {
-            bottomNavigationItems.forEach { destination ->
+            BottomBarDestination.values().asList().forEach { destination ->
                 BottomNavigationItem(
                     selected = currentDestination?.hierarchy?.any { it.route == destination.route } == true,
                     icon = {
@@ -89,7 +80,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                     alwaysShowLabel = true,
                     onClick = {
                         navController.navigate(destination.route) {
-                            popUpTo(BottomBarScreen.Home.route) { inclusive = false }
+                            popUpTo(HOME_SCREEN_ROUTE) { inclusive = false }
                             launchSingleTop = false
                             restoreState = false
                         }
@@ -98,8 +89,6 @@ fun BottomNavigationBar(navController: NavHostController) {
             }
         }
     }
-
-
 
 }
 

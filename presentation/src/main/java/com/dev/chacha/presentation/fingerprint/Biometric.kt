@@ -20,7 +20,6 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.dev.chacha.presentation.activity.MainActivity
 import com.dev.chacha.presentation.common.navigation.AuthScreen
-import com.dev.chacha.presentation.common.navigation.Graph
 import timber.log.Timber
 
 @RequiresApi(Build.VERSION_CODES.P)
@@ -41,7 +40,7 @@ class Biometric(
             notifyUser("Authentication Error $errorCode")
             super.onAuthenticationError(errorCode, errString)
             if (++authAttempts >= 3) {
-                navController.navigate(AuthScreen.PinLock.route)
+//                navController.navigate(AuthScreen.PinLock.route)
             }
 
         }
@@ -53,7 +52,7 @@ class Biometric(
         override fun onAuthenticationFailed() {
             super.onAuthenticationFailed()
             if (++authAttempts >= 3) {
-                navController.navigate(AuthScreen.PinLock.route)
+//                navController.navigate(AuthScreen.PinLock.route)
             }
 
         }
@@ -121,7 +120,7 @@ class Biometric(
                 .setNegativeButton("USE PIN", activity.mainExecutor,
                     DialogInterface.OnClickListener { _, _ ->
                         notifyUser("Authentication cancelled")
-                        navController.navigate(AuthScreen.PinLock.route)
+//                        navController.navigate(AuthScreen.PinLock.route)
                     })
                 .build()
 

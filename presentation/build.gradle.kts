@@ -83,7 +83,15 @@ dependencies {
     implementation(libs.accompanist.flowlayout)
     implementation(libs.lottie.compose)
     implementation(libs.gson.gson)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.gf)
     implementation(libs.accompanist.swiperefresh)
+   /* implementation(libs.accompanist.permission)
+    implementation(libs.accompanist.indicator)
+    implementation(libs.accompanist.systemui)
+    implementation(libs.accompanist.pager)
+    implementation(libs.accompanist.animation)
+    implementation(libs.accompanist.navigation)*/
     implementation(libs.kotlin.coroutines.datetime)
     implementation(libs.zeko.query.builder)
     kapt(libs.android.hilt.compiler)
@@ -91,27 +99,9 @@ dependencies {
     kapt(libs.android.hilt.androidx.compiler)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
-    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.25.1")
-    implementation ("com.google.accompanist:accompanist-pager:0.28.0")
-    implementation  ("com.google.accompanist:accompanist-pager-indicators:0.28.0")
-    implementation("com.google.accompanist:accompanist-systemuicontroller:0.25.1")
-    implementation ("com.google.accompanist:accompanist-permissions:0.21.1-beta")
-    implementation ("androidx.biometric:biometric:1.1.0")
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
-    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
-    // Lottie
-    implementation ("com.airbnb.android:lottie-compose:5.0.3")
-
-    // Coil
-    implementation("io.coil-kt:coil-compose:2.1.0")
-    implementation ("io.coil-kt:coil-gif:2.1.0")
-
-
     androidTestImplementation(libs.android.test.junit4)
     androidTestImplementation(libs.android.test.espresso)
     androidTestImplementation(libs.compose.ui.test.junit)
-
     testImplementation(libs.test.junit4)
     testImplementation(libs.test.robolectric)
     testImplementation(libs.compose.ui.test.junit)
@@ -119,6 +109,23 @@ dependencies {
     testImplementation(libs.test.navigation)
     testImplementation(libs.test.mockk)
 
+
+
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.28.0")
+    implementation ("com.google.accompanist:accompanist-pager:0.28.0")
+    implementation  ("com.google.accompanist:accompanist-pager-indicators:0.28.0")
+    implementation  ("com.google.accompanist:accompanist-navigation-material:0.28.0")
+    implementation  ("com.google.accompanist:accompanist-navigation-animation:0.28.0")
+    implementation ("com.google.accompanist:accompanist-permissions:0.21.1-beta")
+    implementation ("androidx.biometric:biometric:1.1.0")
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    // Lottie
+    implementation ("com.airbnb.android:lottie-compose:5.0.3")
+    // Coil
+    implementation("io.coil-kt:coil-compose:2.1.0")
+    implementation ("io.coil-kt:coil-gif:2.1.0")
     implementation ("androidx.appcompat:appcompat:1.6.1")
     implementation ("com.google.android.material:material:1.9.0-alpha02")
     implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -136,9 +143,6 @@ dependencies {
     // SplashScreen Api
     implementation ("androidx.core:core-splashscreen:1.0.0")
     implementation ("com.google.guava:guava:30.1-jre")
-    // Accompanist - ViewPager
-    implementation ("com.google.accompanist:accompanist-pager:0.23.1")
-    implementation ("com.google.accompanist:accompanist-pager-indicators:0.23.1")
     //Navigation
     implementation ("androidx.navigation:navigation-fragment-ktx:2.5.3")
     implementation ("androidx.navigation:navigation-ui-ktx:2.5.3")
@@ -152,6 +156,8 @@ dependencies {
 
     implementation ("io.github.vanpra.compose-material-dialogs:datetime:0.8.1-rc")
     coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:2.0.3")
+
+
 }
 
 kotlin {
@@ -161,7 +167,6 @@ kotlin {
                 optIn("androidx.compose.material3.ExperimentalMaterial3Api")
                 optIn("androidx.compose.material.ExperimentalMaterialApi")
                 optIn("androidx.compose.ui.ExperimentalComposeUiApi")
-
             }
         }
     }

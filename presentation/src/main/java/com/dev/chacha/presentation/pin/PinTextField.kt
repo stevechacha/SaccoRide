@@ -30,8 +30,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.OffsetMapping
@@ -41,6 +43,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.util.TestTags
 import com.google.common.io.Files.append
@@ -89,7 +92,7 @@ fun PinTextField(
                 Text(
                     text = hint,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth().padding(start = 60.dp, end = 10.dp).align(Alignment.CenterHorizontally),
+                    modifier = Modifier.fillMaxWidth().padding(start = 50.dp,).align(Alignment.CenterHorizontally),
                     style = MaterialTheme.typography.labelSmall,
                     color = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
                     fontWeight = FontWeight.Bold,
@@ -155,8 +158,13 @@ fun PinTextField(
 private fun customVisualTransformation(text: String, context: Context): VisualTransformation {
     val obfuscatedText = buildAnnotatedString {
         repeat(text.length) {
-            append("*")
+            val dotSize = 28.sp  // Adjust the size based on your preference
+            val dotFont = FontFamily.SansSerif
+            withStyle(style = SpanStyle(fontSize = dotSize, fontFamily = dotFont)) {
+                append("*")
+            }
         }
     }
     return VisualTransformation { TransformedText(obfuscatedText, OffsetMapping.Identity) }
 }
+

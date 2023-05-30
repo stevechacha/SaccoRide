@@ -110,7 +110,7 @@ fun BuyAirtimeScreen(
                 AppToolbar(
                     title = stringResource(id = R.string.buy_airtime),
                     showBackArrow = true,
-                    navigateBack = {}
+                    navigateBack = {navigateBack()}
                 )
             },
         ) { paddingValues ->

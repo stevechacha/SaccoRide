@@ -3,10 +3,14 @@ package com.dev.chacha.presentation.buy_goods
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class BuyGoodsViewModel : ViewModel() {
     private val _state = MutableStateFlow(BuyGoodsState())
     val state: StateFlow<BuyGoodsState> = _state
+
+    private val _settledPage = MutableStateFlow<Int?>(null)
+    val settledPage = _settledPage.asStateFlow()
 
     private val _showDialog = MutableStateFlow(false)
     val showDialog: StateFlow<Boolean> = _showDialog

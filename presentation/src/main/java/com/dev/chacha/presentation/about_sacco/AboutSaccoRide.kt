@@ -55,7 +55,6 @@ fun AboutSaccoRide(
             TermsAndConditions()
             ServiceCharter()
 
-
         }
     }
 }

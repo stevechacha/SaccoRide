@@ -65,28 +65,18 @@ dependencies {
     implementation(libs.android.coreKtx)
     implementation(libs.android.appCompat)
     implementation(libs.android.material)
-
     implementation(libs.android.hilt)
     kapt(libs.android.hilt.compiler)
-
     implementation(libs.timber)
-
     androidTestImplementation(libs.android.test.junit4)
     androidTestImplementation(libs.android.test.espresso)
     androidTestImplementation(libs.android.hilt.testing)
     kaptAndroidTest(libs.android.hilt.compiler)
-
     testImplementation(libs.test.junit4)
     testImplementation(libs.android.hilt.compiler)
     kaptTest(libs.android.hilt.compiler)
-
     implementation(platform(libs.firebase.bom))
     implementation(libs.bundles.firebase)
-
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
-    // SystemUi
-    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
-
 
 
 }

@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import com.dev.chacha.presentation.buy_goods.BuyGoods
 import com.dev.chacha.presentation.buy_goods.BuyGoodsViewModel
 import com.dev.chacha.presentation.common.theme.PrimaryColor
@@ -33,10 +34,11 @@ fun BuyGoodsDialog(
 ) {
     AlertDialog(
         containerColor = MaterialTheme.colorScheme.background,
-        onDismissRequest = {
-            onDismiss()
-        },
+        onDismissRequest = { onDismiss() },
         shape = RoundedCornerShape(5.dp),
+        properties = DialogProperties(
+            usePlatformDefaultWidth = false
+        ),
         title = {},
         text = {
             Column(
@@ -73,7 +75,6 @@ fun BuyGoodsDialog(
 
                     )
                     Spacer(modifier = Modifier.height(10.dp))
-
                     Text(
                         text = "Amount",
                         style = MaterialTheme.typography.labelMedium,

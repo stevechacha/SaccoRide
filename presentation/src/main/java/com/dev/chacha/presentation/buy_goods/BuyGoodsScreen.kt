@@ -38,6 +38,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -47,6 +48,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -68,7 +71,9 @@ import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.components.RideOutlinedTextField
 import com.dev.chacha.presentation.common.navigation.HomeAction
 import com.dev.chacha.presentation.common.theme.PrimaryColor
+import com.dev.chacha.presentation.extensions.getCurrentDateTime
 import com.dev.chacha.presentation.extensions.getInitials
+import com.dev.chacha.presentation.send_money.recipientProvider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -109,6 +114,16 @@ fun BuyGoodsScreen(
     var expanded by remember { mutableStateOf(false) }
     val icon = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown
     val scope = rememberCoroutineScope()
+    val currentPage by viewModel.settledPage.collectAsState()
+    val focusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(key1 = currentPage) {
+        if (currentPage == 0) {
+            focusRequester.requestFocus()
+        }
+    }
+
+
 
     Column(
         modifier = Modifier
@@ -131,7 +146,6 @@ fun BuyGoodsScreen(
                 ),
                 onClickSend = { buyGoods ->
                     Timber.tag("BuyGoods").d(buyGoods.toString())
-
                     val route = HomeAction.TillConfirm.sendData(
                         tillName = buyGoods.tillName,
                         tillNumber = buyGoods.tillNumber,
@@ -159,10 +173,13 @@ fun BuyGoodsScreen(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
+                    .focusRequester(focusRequester)
                     .onGloballyPositioned { coordinates ->
                         textfieldSize = coordinates.size.toSize()
                     },
-                supportText = state.tillName
+                supportText = state.tillName,
+                error = if ( state.tillNumber.isEmpty() ) "Enter PhoneNumber" else "",
+                isError =  state.tillNumber.isEmpty()
             )
 
             Button(onClick = {
@@ -256,9 +273,3 @@ fun PreviewBuyGoods() {
 }
 
 
-@RequiresApi(Build.VERSION_CODES.O)
-fun getCurrentDateTime(): String {
-    val currentDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-    return currentDateTime.toJavaLocalDateTime().format(formatter)
-}

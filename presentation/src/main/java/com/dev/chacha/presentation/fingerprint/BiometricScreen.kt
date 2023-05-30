@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.dev.chacha.presentation.common.navigation.Graph
+import com.dev.chacha.presentation.common.navigation.DestinationGraph
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
@@ -23,7 +23,7 @@ fun BiometricScreen(navController: NavController) {
     val biometricChecker = remember { BiometricChecker(authListener = object : BiometricChecker.AuthListener {
         override fun onAuthSuccess(message: String) {
             // If authentication is successful, navigate to another screen
-            navController.navigate(Graph.HOME)
+            navController.navigate(DestinationGraph.HOME_SCREEN_ROUTE)
         }
 
         override fun onAuthError(error: String) {

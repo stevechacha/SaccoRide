@@ -12,7 +12,9 @@ import com.dev.chacha.presentation.about_sacco.AboutSaccoRide
 import com.dev.chacha.presentation.account.AccountScreen
 import com.dev.chacha.presentation.auth.reset_password.ResetPasswordScreen
 import com.dev.chacha.presentation.auth.reset_pin.ResetPinScreen
+import com.dev.chacha.presentation.common.navigation.DestinationGraph.ACCOUNTS_SCREEN_ROUTE
 import com.dev.chacha.presentation.notification.NotificationsScreen
+import com.dev.chacha.presentation.pin.AccountPinScreen
 import com.dev.chacha.presentation.pin.PinPromptScreen
 import com.dev.chacha.presentation.settings.SettingsScreen
 import com.dev.chacha.presentation.settings.biometric_settings.BiometricSettingsScreen
@@ -21,23 +23,25 @@ import com.dev.chacha.presentation.theme.ThemeScreen
 
 
 @RequiresApi(Build.VERSION_CODES.P)
-fun NavGraphBuilder.accountNavGraph(
-    navController: NavHostController,
-) {
+fun NavGraphBuilder.accountNavGraph(navController: NavHostController) {
     navigation(
-        route = Graph.ACCOUNT,
-        startDestination = BottomBarScreen.PinLock.route
+        route = ACCOUNTS_SCREEN_ROUTE,
+        startDestination = AccountActions.AccountPinScreen.route
     ) {
-        composable(BottomBarScreen.PinLock.route) {
-            PinPromptScreen(
+        composable(AccountActions.AccountPinScreen.route) {
+            AccountPinScreen(
                 onClickAction = {
-                    navController.navigate(AccountActions.Setting.route)
+                    navController.navigate(AccountActions.AccountScreen.route) {
+                        popUpTo(
+                            AccountActions.AccountPinScreen.route
+                        ) { inclusive = true }
+                    }
                 },
                 navController = navController
             )
         }
 
-        composable(BottomBarScreen.Account.route) {
+        composable(AccountActions.AccountScreen.route) {
             AccountScreen(
                 navigateBack = { navController.navigateUp() },
                 onNavigateToStatement = { navController.navigate(AccountActions.StatementDetail.route) },
@@ -112,8 +116,8 @@ fun NavGraphBuilder.accountNavGraph(
 
 
 sealed class AccountActions(val route: String, @DrawableRes val icon: Int, val title: String) {
-    object PinLock : AccountActions("PinLock", R.drawable.account_circle,"PinLock")
-    object Account: AccountActions("account",R.drawable.account_circle,"Account")
+    object AccountPinScreen : AccountActions("PinLock", R.drawable.account_circle,"PinLock")
+    object AccountScreen: AccountActions("account",R.drawable.account_circle,"Account")
     object StatementDetail : AccountActions("View Statement",R.drawable.account_circle,"Statement")
     object Setting : AccountActions("Settings",R.drawable.account_circle,"Setting")
     object Notification : AccountActions("Notification",R.drawable.account_circle,"Notification")

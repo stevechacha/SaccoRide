@@ -32,10 +32,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.baybill.components.BillDialog
 import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.components.RideOutlinedTextField
+import com.dev.chacha.presentation.common.navigation.HomeAction
 import com.dev.chacha.presentation.paybill.PayBill
 import com.dev.chacha.presentation.paybill.PayBillEvent
 import com.dev.chacha.presentation.paybill.PayBillViewModel
@@ -43,27 +45,31 @@ import com.dev.chacha.presentation.paybill.component.PayBillItem
 import com.dev.chacha.presentation.paybill.payBillItems
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun PayBills(
-    sheetState: BottomSheetState
+    sheetState: BottomSheetState,
+    navController: NavController
+
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(24.dp))
         PayBillScreen(
             onPayBillClick = {},
-            onNavigateToBillConfirm = {},
-            sheetState = sheetState
+            sheetState = sheetState,
+            navController = navController
+
         )
 
     }
-
 
 }
 
@@ -75,13 +81,15 @@ fun PayBills(
 @Composable
 fun PayBillScreen(
     onPayBillClick: (PayBill) -> Unit,
-    onNavigateToBillConfirm: (PayBill) -> Unit,
-    sheetState: BottomSheetState
+    sheetState: BottomSheetState,
+    navController: NavController
 ) {
 
     val payBillViewModel: PayBillViewModel = viewModel()
     val payBillState by payBillViewModel.payBillState.collectAsState()
     val scope = rememberCoroutineScope()
+    val dateTimeFormat = SimpleDateFormat("MMM dd yyyy, h:mm a", Locale.getDefault())
+    val currentDateTime = dateTimeFormat.format(Date())
 
     var showDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -90,16 +98,15 @@ fun PayBillScreen(
             onDismiss = {
                 showDialog = false
             },
-            onClickSend = {
-                onNavigateToBillConfirm.invoke(
-                    PayBill(
-                        name = payBillState.accountName,
-                        businessNumber = payBillState.businessNumber,
-                        accountNumber = payBillState.accountNumber,
-                        amount = payBillState.amount.toDouble(),
-                        date = System.currentTimeMillis().toString()
-                    ),
-                )
+            onClickSend = { payBill->
+               val route = HomeAction.BillConfirm.sendData(
+                        accountName = payBill.name,
+                        businessNumber = payBill.businessNumber,
+                        accountNumber = payBill.accountNumber.toString(),
+                        amount = payBill.amount!!.toDouble(),
+                        date = payBill.date.toString()
+                    )
+                navController.navigate(route = route)
             },
             payBill = PayBill(
                 name = payBillState.accountName,
@@ -181,7 +188,7 @@ fun PayBillScreen(
             onClick = {
                 showDialog = true
             },
-            enable = true
+            enable = payBillState.isPayBillEnabled
         )
 
         Spacer(modifier = Modifier.height(25.dp))

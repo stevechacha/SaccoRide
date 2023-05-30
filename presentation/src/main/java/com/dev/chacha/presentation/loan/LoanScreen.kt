@@ -58,7 +58,6 @@ import com.dev.chacha.presentation.piecharts.PieCharts
 @Composable
 fun LoanScreen(
     navController: NavController,
-    navigateToContact: () -> Unit
 ) {
     var isPayLoanExpanded by remember { mutableStateOf(false) }
     var isRequestLoanExpanded by remember { mutableStateOf(false) }
@@ -346,7 +345,6 @@ fun LoansssPreview() {
     ) {
         LoanScreen(
             navController = rememberNavController(),
-            navigateToContact = {}
         )
     }
 

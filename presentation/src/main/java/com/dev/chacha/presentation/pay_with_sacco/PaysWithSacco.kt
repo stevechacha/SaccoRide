@@ -1,6 +1,8 @@
 package com.dev.chacha.presentation.pay_with_sacco
 
 import PayBills
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.layout.Column
@@ -56,6 +58,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(
     ExperimentalPagerApi::class, ExperimentalMaterialApi::class,
     ExperimentalFoundationApi::class, ExperimentalFoundationApi::class,
@@ -76,7 +79,7 @@ fun PayWithSacco(
 
     val tabs = listOf(
         TabItem.BuyGoods(scaffoldState = sheetState,navController),
-        TabItem.PayBill(scaffoldState = sheetState)
+        TabItem.PayBill(scaffoldState = sheetState,navController)
 
     )
     val pagerState = rememberPagerState()
@@ -236,6 +239,7 @@ sealed class TabItem @OptIn(ExperimentalMaterialApi::class) constructor(
     var screen: ComposableFun,
 ) {
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @OptIn(ExperimentalMaterialApi::class)
     data class BuyGoods(val scaffoldState: BottomSheetState,
         val navController: NavController
@@ -244,8 +248,9 @@ sealed class TabItem @OptIn(ExperimentalMaterialApi::class) constructor(
     @OptIn(ExperimentalMaterialApi::class)
     data class PayBill(
         val scaffoldState: BottomSheetState,
+        val navController: NavController
     ) : TabItem(
         "PAYBILL",
-        screen = { PayBills(scaffoldState) })
+        screen = { PayBills(scaffoldState,navController) })
 }
 
