@@ -124,5 +124,7 @@
     <string name="bank_transfer">Bank Transfer</string>
     <string name="recipientProvider">Recipient Provider</string>
     <string name="accountType">Account Type</string>
+    <string name="all_recpient_with_emoji">🌎 Mpesa</string>
+    <string name="recipient_with_emoji">%1$s  %2$s</string>
 
 </resources>

@@ -102,14 +102,7 @@ fun SendMoneyTabsContent(tabs: List<SendMoneyTabItem>, pagerState: PagerState) {
 }
 
 
-@Composable
-@Preview
-fun SendMoneyPreview() {
-    SendMoneyScreen(
-        navigateBack = {}
-    )
 
-}
 
 typealias ComposableFun = @Composable () -> Unit
 

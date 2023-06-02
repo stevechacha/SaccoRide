@@ -59,7 +59,8 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
 
     composable(HomeAction.SendMoney.route) {
         SendMoneyScreen(
-            navigateBack = { navController.navigateUp() }
+            navigateBack = { navController.navigateUp() },
+            navController = navController
         )
 
     }
