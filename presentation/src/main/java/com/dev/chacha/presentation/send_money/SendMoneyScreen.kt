@@ -1,11 +1,9 @@
 package com.dev.chacha.presentation.send_money
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,11 +16,8 @@ import androidx.compose.material.BottomSheetValue
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBalanceWallet
-import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.material.rememberBottomSheetState
@@ -44,16 +39,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.components.AppToolbar
@@ -68,7 +64,8 @@ import timber.log.Timber
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SendMoneyScreen(
-    navigateBack:()->Unit
+    navigateBack:()->Unit,
+    navController: NavController
 
 ) {
     val sheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
@@ -81,7 +78,6 @@ fun SendMoneyScreen(
     var textfieldSize by remember { mutableStateOf(Size.Zero) }
     var expanded by remember { mutableStateOf(false) }
     val context = LocalContext.current
-    val navController = rememberNavController()
     val icon = if (expanded)
         Icons.Filled.KeyboardArrowUp
     else
@@ -253,16 +249,11 @@ fun SendMoneyScreen(
 }
 
 
-
-
-val recipientProvider = listOf(
-    RecipientProvider.Mpesa,
-    RecipientProvider.AirtelMoney,
-    RecipientProvider.Tkash
-)
-
-enum class RecipientProvider(val icon: ImageVector) {
-    Mpesa(Icons.Default.Phone),
-    AirtelMoney(Icons.Default.AttachMoney),
-    Tkash(Icons.Default.AccountBalanceWallet)
+@Composable
+@Preview
+fun PreviewSendMoneyScreen() {
+    SendMoneyScreen(
+        navigateBack = { /*TODO*/ },
+        navController = rememberNavController()
+    )
 }
