@@ -217,7 +217,8 @@ fun PinLockScreen(
                 }
 
                 Row(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .padding(start = 10.dp),
                     horizontalArrangement = Arrangement.SpaceEvenly,
                     verticalAlignment = Alignment.CenterVertically
@@ -322,13 +323,9 @@ fun PinKeyItem(
                 Box(
                     modifier = modifier
                         .defaultMinSize(minWidth = 64.dp, minHeight = 64.dp)
-                        .clickable(
-                            interactionSource = interactionSource,
-                            indication = rememberRipple(),
-                            enabled = enabled,
-                            role = Role.Button,
-                            onClick = onClick
-                        ),
+                        .clickable(MutableInteractionSource(), null, enabled, role = Role.Button) {
+                            onClick()
+                        },
                     contentAlignment = Alignment.Center
                 ) {
                     content()

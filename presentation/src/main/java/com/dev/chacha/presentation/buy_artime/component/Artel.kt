@@ -75,7 +75,7 @@ fun Artel() {
                         modalBottomSheetState.hide()
                     }
                 }, navController = navController,
-                viewModel = ContactListViewModel()
+//                viewModel = ContactListViewModel()
             )
         }
     ) {

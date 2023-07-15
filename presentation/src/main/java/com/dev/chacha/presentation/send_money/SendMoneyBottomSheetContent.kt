@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.BottomSheetScaffoldState
-import androidx.compose.material.BottomSheetState
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
@@ -34,26 +33,26 @@ fun SendMoneyBottomSheetContent(
     coroutineScope: CoroutineScope,
     scaffoldState: BottomSheetScaffoldState,
     sendMoneyState: SendMoneyState,
-    onPhoneNumberChanged: (String)->Unit,
-    onAmountChanged:(String)-> Unit,
-    contactListViewModel : ContactListViewModel,
-    onRecipientProvider: (RecipientProvider)->Unit
+    onPhoneNumberChanged: (String) -> Unit,
+    onAmountChanged: (String) -> Unit,
+    contactListViewModel: ContactListViewModel,
+    onRecipientProvider: (RecipientProvider) -> Unit
 ) {
     val context = LocalContext.current
-
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
+
         SendMoneyRecipientDropDown(
-            sendMoneyState = sendMoneyState ,
-            onRecipientProvider = { newValue->
+            sendMoneyState = sendMoneyState,
+            onRecipientProvider = { newValue ->
                 onRecipientProvider(newValue)
             }
         )
         RideOutlinedTextField(
             value = sendMoneyState.phoneNumber,
-            onValueChange = {phoneNumber->
+            onValueChange = { phoneNumber ->
                 onPhoneNumberChanged(phoneNumber)
             },
             keyboardType = KeyboardType.Phone,
@@ -63,28 +62,28 @@ fun SendMoneyBottomSheetContent(
                     imageVector = Icons.Outlined.Search,
                     contentDescription = "Call",
                     tint = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
-                    modifier = Modifier.padding(8.dp).size(24.dp)
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .size(24.dp)
                         .clickable {
-                                coroutineScope.launch {
-                                    if (scaffoldState.bottomSheetState.isCollapsed) {
-                                        contactListViewModel.send(ContactUiEvent.GetContacts, context)
-                                        scaffoldState.bottomSheetState.expand()
-
-                                    } else {
-                                        scaffoldState.bottomSheetState.collapse()
-                                    }
+                            coroutineScope.launch {
+                                if (scaffoldState.bottomSheetState.isCollapsed) {
+                                    contactListViewModel.send(ContactUiEvent.GetContacts, context)
+                                    scaffoldState.bottomSheetState.expand()
+                                } else {
+                                    scaffoldState.bottomSheetState.collapse()
                                 }
-
+                            }
                         },
                 )
             },
         )
         RideOutlinedTextField(
             value = sendMoneyState.amount,
-            onValueChange = { amount->
+            onValueChange = { amount ->
                 onAmountChanged(amount)
             },
-            keyboardType = KeyboardType.Phone,
+            keyboardType = KeyboardType.Number,
             hint = stringResource(id = R.string.amount),
             supportText = stringResource(id = R.string.amount_support_text),
 
@@ -98,5 +97,6 @@ fun SendMoneyBottomSheetContent(
             enable = sendMoneyState.phoneNumber.isNotBlank() && sendMoneyState.amount.isNotBlank()
         )
     }
-
 }
+
+

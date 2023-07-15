@@ -39,7 +39,7 @@ class BuyGoodsViewModel : ViewModel() {
 
         val isValidTillNumber = tillNumber.isNotEmpty() && tillNumber.length > 5
         val isValidAmount =
-            amount.isNotEmpty() && amount.toDouble() > 0 && amount.toDouble() < 300000
+            amount.isNotEmpty() && amount.toDouble() > 0
 
         return isValidTillNumber && isValidAmount
     }

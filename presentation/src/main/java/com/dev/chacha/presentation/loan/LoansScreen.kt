@@ -61,7 +61,7 @@ fun LoansScreen(
 
             LoanCard(
                 loan = Loan(
-                    balance = 10000000.0,
+                    balance = 100000.0,
                     limit = 100000.0,
                     dueDate = "12 June,2023"
                 )

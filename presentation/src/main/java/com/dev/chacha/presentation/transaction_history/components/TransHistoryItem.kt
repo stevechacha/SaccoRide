@@ -28,7 +28,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
+import com.dev.chacha.presentation.extensions.formatContact
+import com.dev.chacha.presentation.extensions.formatDate
+import com.dev.chacha.presentation.extensions.formatDateTime
 import com.dev.chacha.presentation.extensions.getInitials
 import com.dev.chacha.presentation.transaction_history.TransactionsItem
 import com.dev.chacha.presentation.transaction_history.transactionsItem
@@ -40,146 +44,116 @@ fun TransHistoryItem(
     transactionItem: TransactionsItem,
     onTransactionClick: (TransactionsItem) -> Unit
 ) {
-    Column(
+    ConstraintLayout(
         modifier = Modifier
             .padding(vertical = 5.dp)
-            .fillMaxWidth(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .fillMaxWidth()
     ) {
+        val (profileImage, nameText, amountText, contactText, dateTimeText) = createRefs()
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start
-        ) {
-            if (transactionItem.image != null) {
-                Box(
-                    modifier = Modifier
-                        .size(45.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08F)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    AsyncImage(
-                        model = transactionItem.image,
-                        contentDescription = "profile_image",
-                        modifier = Modifier
-                            .size(30.dp)
-                            .clip(shape = CircleShape),
-                        placeholder = null
-                    )
-                }
-
-            } else {
-                val transactionInitials = transactionItem.name
-                Box(
-                    modifier = Modifier
-                        .size(45.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08F)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = getInitials(transactionInitials),
-                        fontWeight = FontWeight.Normal,
-                        textAlign = TextAlign.Center,
-                        style = typography.headlineSmall
-                    )
-                }
-            }
-            Column(
+        if (transactionItem.image != null) {
+            Box(
                 modifier = Modifier
-                    .padding(start = 10.dp)
-                    .weight(1f),
-                verticalArrangement = Arrangement.Center
+                    .size(45.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08F))
+                    .constrainAs(profileImage) {
+                        start.linkTo(parent.start)
+                        centerVerticallyTo(parent)
+                    },
+                contentAlignment = Alignment.Center
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(
-                        text = transactionItem.name,
-                        style = typography.labelSmall,
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 1,
-                        textAlign = TextAlign.Start,
-                    )
-                    Text(
-                        text = "KSH${transactionItem.amount}",
-                        textAlign = TextAlign.End,
-                        style = typography.labelSmall,
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 1
-                    )
-                }
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    val formattedContact = formatContact(transactionItem.contact)
-                    Text(
-                        text = formattedContact,
-                        style = typography.labelSmall,
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 1,
-                        textAlign = TextAlign.Start,
-                    )
-
-                    Text(
-                        text = "${formatDate(transactionItem.date)},${transactionItem.time}",
-                        textAlign = TextAlign.End,
-                        style = typography.labelSmall,
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 1
-                    )
-
-                }
-
+                AsyncImage(
+                    model = transactionItem.image,
+                    contentDescription = "profile_image",
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clip(shape = CircleShape),
+                    placeholder = null
+                )
             }
-
+        } else {
+            val transactionInitials = transactionItem.name
+            Box(
+                modifier = Modifier
+                    .size(45.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08F))
+                    .constrainAs(profileImage) {
+                        start.linkTo(parent.start)
+                        centerVerticallyTo(parent)
+                    },
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = getInitials(transactionInitials),
+                    fontWeight = FontWeight.Normal,
+                    textAlign = TextAlign.Center,
+                    style = typography.headlineSmall
+                )
+            }
         }
+
+        Text(
+            text = transactionItem.name,
+            style = typography.labelSmall,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1,
+            textAlign = TextAlign.Start,
+            modifier = Modifier
+                .constrainAs(nameText) {
+                    start.linkTo(profileImage.end, margin = 10.dp)
+                    top.linkTo(amountText.top)
+                }
+        )
+
+        Text(
+            text = "KSH${transactionItem.amount}",
+            textAlign = TextAlign.End,
+            style = typography.labelSmall,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1,
+            modifier = Modifier
+                .constrainAs(amountText) {
+                    end.linkTo(parent.end)
+                    top.linkTo(parent.top)
+                }
+        )
+
+        val formattedContact = formatContact(transactionItem.contact)
+        Text(
+            text = formattedContact,
+            style = typography.labelSmall,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1,
+            textAlign = TextAlign.Start,
+            modifier = Modifier
+                .constrainAs(contactText) {
+                    start.linkTo(nameText.start)
+                    top.linkTo(nameText.bottom)
+                }
+        )
+
+        Text(
+            text = "${formatDate(transactionItem.date)}, ${transactionItem.time}",
+            textAlign = TextAlign.End,
+            style = typography.labelSmall,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1,
+            modifier = Modifier
+                .constrainAs(dateTimeText) {
+                    end.linkTo(amountText.end)
+                    top.linkTo(amountText.bottom)
+                }
+        )
     }
 }
 
 
-private fun formatDate(date: String): String? {
-    val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    val outputFormat = SimpleDateFormat("dd MMM", Locale.getDefault())
-    val parsedDate = inputFormat.parse(date)
-    return parsedDate?.let { outputFormat.format(it) }
-}
 
 
-private fun formatContact(contact: String): String {
-    val formattedContact: String =when {
-        contact.startsWith("254") -> {
-            val prefix = contact.substring(0, 6)
-            val lastThreeDigits = contact.substring(contact.length - 3)
-            "$prefix***$lastThreeDigits"
-        }
-        contact.startsWith("07") -> {
-            val prefix = contact.substring(0, 4)
-            val lastThreeDigits = contact.substring(contact.length - 3)
-            "$prefix***$lastThreeDigits"
-        }
-        contact.startsWith("+254") -> {
-            val prefix = contact.substring(0, 7)
-            val lastThreeDigits = contact.substring(contact.length - 3)
-            "$prefix***$lastThreeDigits"
-        }
-        contact.startsWith("01") -> {
-            val prefix = contact.substring(0, 4)
-            val lastThreeDigits = contact.substring(contact.length - 3)
-            "$prefix***$lastThreeDigits"
-        }
 
-        else -> contact
-    }
-    return formattedContact
-}
+
 
 
 @Composable

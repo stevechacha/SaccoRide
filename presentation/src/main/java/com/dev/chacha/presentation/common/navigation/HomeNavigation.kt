@@ -25,7 +25,7 @@ import com.dev.chacha.presentation.home.HomeScreen
 import com.dev.chacha.presentation.pay_with_sacco.PayWithSacco
 import com.dev.chacha.presentation.paybill.PayBill
 import com.dev.chacha.presentation.savings.SavingsScreen
-import com.dev.chacha.presentation.send_money.SendMoneyScreen
+import com.dev.chacha.presentation.send_money.SendsMoneyScreen
 import com.dev.chacha.presentation.statement.StatementScreen
 import com.dev.chacha.presentation.transactions_all.AllTransactionsScreen
 import com.dev.chacha.presentation.withdraw.WithdrawScreen
@@ -58,10 +58,8 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
     }
 
     composable(HomeAction.SendMoney.route) {
-        SendMoneyScreen(
-            navigateBack = { navController.navigateUp() },
-            navController = navController
-        )
+        SendsMoneyScreen(navigateBack = {navController.navigateUp()})
+//        SendMoneyScreen()
 
     }
     composable(HomeAction.BuyAirtime.route) {

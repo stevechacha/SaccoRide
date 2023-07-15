@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.components.AppToolbar
 import com.dev.chacha.presentation.common.theme.PrimaryColor
-import com.dev.chacha.presentation.send_money.SendMoneyScreen
 import com.dev.chacha.presentation.send_money.artel_money.ArtelMoneyScreen
 import com.dev.chacha.presentation.send_money.mpesa.MpesaScreen
 import com.dev.chacha.presentation.send_money.tkash.TkashScreen

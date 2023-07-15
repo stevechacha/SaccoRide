@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -23,19 +24,21 @@ import com.dev.chacha.presentation.common.theme.PrimaryColor
 
 @Composable
 fun HorizontalCardItem(
-    @DrawableRes drawable:  Int,
+    @DrawableRes drawable: Int,
     @StringRes text: Int,
-    onItemClick: ()-> Unit
+    onItemClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
             .height(110.dp)
             .width(110.dp)
-            .clickable(onClick = onItemClick),
+            .clickable(MutableInteractionSource(), null) {
+                onItemClick()
+            },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6F),
         ),
-    ){
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -43,13 +46,13 @@ fun HorizontalCardItem(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-           Image(
-               painter =  painterResource(id = drawable),
-               contentDescription = null,
-               modifier = Modifier
-                   .size(25.dp),
-               colorFilter = ColorFilter.tint(PrimaryColor)
-           )
+            Image(
+                painter = painterResource(id = drawable),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(25.dp),
+                colorFilter = ColorFilter.tint(PrimaryColor)
+            )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = stringResource(id = text),

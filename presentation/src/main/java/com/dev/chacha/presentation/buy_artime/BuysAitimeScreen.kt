@@ -133,7 +133,7 @@ fun BuyAirtimeContentScreen(
                     }
 
                 }, navController = navController,
-                viewModel = contactViewModel
+//       contactViewModel = ContactListViewModel()
             )
         },
         sheetPeekHeight = 0.dp,

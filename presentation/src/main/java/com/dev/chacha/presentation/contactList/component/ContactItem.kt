@@ -70,7 +70,7 @@ fun ContactItem(contact: Contact, onItemClick: () -> Unit) {
         }
 
         Divider(
-            modifier = Modifier.fillMaxWidth().padding(start = 12.dp, top = 5.dp),
+            modifier = Modifier.fillMaxWidth().padding(start = 8.dp, top = 5.dp),
             thickness = 1.dp,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08F)
         )

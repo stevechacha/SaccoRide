@@ -126,5 +126,19 @@
     <string name="accountType">Account Type</string>
     <string name="all_recpient_with_emoji">🌎 Mpesa</string>
     <string name="recipient_with_emoji">%1$s  %2$s</string>
+    <string name="pin">Enter Pin</string>
+    <string name="enter_your_loan">Enter your SACCO PIN to access your Loans</string>
+    <string name="apply">Apply</string>
+    <string name="select_finish_date_title">Select End Date</string>
+    <string name="today">Today</string>
+
+    <plurals name="finish_date">
+        <item quantity="one">%1$s (%2$s day)</item>
+        <item quantity="other">%1$s (%2$s days)</item>
+    </plurals>
+
+    <string name="not_found_email">not found\n</string>
+    <string name="copy_to_clipboard">copied to clopboard</string>
+
 
 </resources>

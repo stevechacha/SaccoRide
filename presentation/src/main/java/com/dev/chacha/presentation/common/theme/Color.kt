@@ -1,5 +1,8 @@
 package com.dev.chacha.presentation.common.theme
 
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Color
 
 val Purple200 = Color(0xFFBB86FC)
@@ -50,3 +53,39 @@ val OnErrorColor = Color(0xFF000000)
 
 val mainBackground = Color(0xFF1E2329)
 val Border = Color(0xFF535457)
+
+
+
+
+val colorBackground
+    @Composable
+    @ReadOnlyComposable
+    get() = MaterialTheme.colorScheme.surface
+
+val colorOnBackground
+    @Composable
+    @ReadOnlyComposable
+    get() = MaterialTheme.colorScheme.onSurface
+
+val colorButton
+    @Composable
+    @ReadOnlyComposable
+    get() =
+        MaterialTheme.colorScheme.secondaryContainer
+
+val colorOnButton
+    @Composable
+    @ReadOnlyComposable
+    get() =
+        MaterialTheme.colorScheme.onSurfaceVariant
+
+val colorEditor
+    @Composable
+    @ReadOnlyComposable
+    get() =
+        MaterialTheme.colorScheme.surface
+
+val colorOnEditor
+    @Composable
+    @ReadOnlyComposable
+    get() = MaterialTheme.colorScheme.onSurface

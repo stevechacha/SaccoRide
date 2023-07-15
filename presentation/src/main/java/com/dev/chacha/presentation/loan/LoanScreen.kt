@@ -6,6 +6,7 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -114,7 +115,7 @@ fun LoanScreen(
         ) {
             LoanCard(
                 loan = Loan(
-                    balance = 10000000.0,
+                    balance = 100000.0,
                     limit = 100000.0,
                     dueDate = "12 June,2023"
                 )
@@ -160,7 +161,11 @@ fun PayLoans(
     )
 
     Card(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+        modifier = Modifier.fillMaxWidth()
+            .clickable(MutableInteractionSource(),null) {
+                onExpandToggle()
+            }
+            .padding(horizontal = 16.dp),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 0.dp,
             pressedElevation = 0.dp,
@@ -174,13 +179,15 @@ fun PayLoans(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(12.dp)
-                .clickable(onClick = onExpandToggle),
+                .padding(12.dp),
             contentAlignment = Alignment.Center
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .clickable(MutableInteractionSource(),null){
+                        onExpandToggle()
+                    }
                     .padding(bottom = extraPaddingValues.coerceAtLeast(0.dp)),
                 verticalArrangement = Arrangement.Center
             ) {
@@ -198,7 +205,7 @@ fun PayLoans(
                         Icon(
                             painter = painterResource(id = R.drawable.loan_icon),
                             contentDescription = null,
-                            modifier = Modifier.clickable {
+                            modifier = Modifier.clickable(MutableInteractionSource(),null) {
                                 onExpandToggle()
                             }
                         )
@@ -256,10 +263,11 @@ fun RequestLoans(
     )
 
     Card(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-        onClick = {
-            onExpandToggle()
-        },
+        modifier = Modifier.fillMaxWidth()
+            .clickable(MutableInteractionSource(),null) {
+                onExpandToggle()
+            }
+            .padding(horizontal = 16.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6F),
         )
@@ -267,8 +275,7 @@ fun RequestLoans(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(12.dp)
-                .clickable(onClick = onExpandToggle),
+                .padding(12.dp),
             contentAlignment = Alignment.Center
         ) {
             Column(

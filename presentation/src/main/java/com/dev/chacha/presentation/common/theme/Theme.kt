@@ -107,11 +107,11 @@ fun SaccoRideTheme(
 @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
 private fun supportDynamicTheme() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
 
-enum class Theme(val themeValue: Int) {
-    MATERIAL_YOU(themeValue = 12),
-    FOLLOW_SYSTEM(themeValue = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM),
-    LIGHT_THEME(themeValue = AppCompatDelegate.MODE_NIGHT_NO),
-    DARK_THEME(themeValue = AppCompatDelegate.MODE_NIGHT_YES)
+enum class Theme(val themeValue: Int,val themeName: String?= null) {
+    MATERIAL_YOU(themeValue = 12,themeName = "Material You"),
+    FOLLOW_SYSTEM(themeValue = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM,themeName = "Follow System"),
+    LIGHT_THEME(themeValue = AppCompatDelegate.MODE_NIGHT_NO,themeName = "Light Theme"),
+    DARK_THEME(themeValue = AppCompatDelegate.MODE_NIGHT_YES,themeName = "Dark Theme")
 }
 
 private fun Context.findActivity(): Activity {

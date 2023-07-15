@@ -18,8 +18,10 @@ import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -28,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.dimensionResource
@@ -42,7 +45,7 @@ fun SendMoneyRecipientDropDown(
     sendMoneyState: SendMoneyState,
     onRecipientProvider: (RecipientProvider)->Unit
 ) {
-    val sendMoneyViewModel: SendMoneyViewModel = viewModel()
+//    val sendMoneyViewModel: SendMoneyViewModel = viewModel()
     var textfieldSize by remember { mutableStateOf(Size.Zero) }
     var expanded by remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
@@ -82,7 +85,15 @@ fun SendMoneyRecipientDropDown(
                         .clickable { expanded = !expanded }
                 )
             },
-            interactionSource = interactionSource
+            interactionSource = interactionSource,
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                containerColor = Color.Transparent,
+                focusedBorderColor = MaterialTheme.colorScheme.onBackground,
+                cursorColor = Color.Transparent,
+                focusedLabelColor = Color.Transparent
+
+
+            )
         )
         DropdownMenu(
             expanded = expanded,
@@ -98,7 +109,8 @@ fun SendMoneyRecipientDropDown(
                         .align(Alignment.CenterHorizontally),
                     text = { Text(text = item.name) },
                     onClick = {
-                        sendMoneyViewModel.onSendMoneyEvent(SendMoneyEvent.RecipientProviderSelected(item))
+                        onRecipientProvider(item)
+//                        sendMoneyViewModel.onSendMoneyEvent(SendMoneyEvent.RecipientProviderSelected(item))
                         expanded = false
                     },
                     leadingIcon = {
@@ -117,7 +129,7 @@ fun SendMoneyRecipientDropDown(
 
 }
 
-fun getRecipientProviderString(recipientProvider: String, context: Context): String {
+/*fun getRecipientProviderString(recipientProvider: String, context: Context): String {
     return if (recipientProvider.isEmpty() || recipientProvider == Constants.RECIPIENT_PROVIDER) {
         context.getString(R.string.all_recpient_with_emoji)
     } else {
@@ -143,5 +155,5 @@ fun getRecipientProviderIcon(recipientProvider: String): String {
         RecipientProvider.AirtelMoney -> Icons.Default.AttachMoney.toString()
         RecipientProvider.Tkash -> Icons.Default.AccountBalanceWallet.toString()
     }
-}
+}*/
 

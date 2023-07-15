@@ -40,7 +40,6 @@ fun WithdrawScreen(
         }
     ) { paddingValues ->
 
-
         val availableBalance = remember { mutableStateOf(10000.0) }
         var withdrawalAmount by remember { mutableStateOf("") }
 

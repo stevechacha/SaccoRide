@@ -71,7 +71,7 @@ fun BuyAirtimeScreeContent() {
                         modalBottomSheetState.hide()
                     }
                 }, navController = navController,
-                viewModel = ContactListViewModel()
+//       contactViewModel = ContactListViewModel()
             )
         },
     ) {

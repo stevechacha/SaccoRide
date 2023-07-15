@@ -1,22 +1,30 @@
 package com.dev.chacha.presentation.baybill.components
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.navigation.HomeAction
 import timber.log.Timber
 import java.text.SimpleDateFormat
@@ -33,37 +41,52 @@ fun BillConfirm(
     date: String
 
 ) {
-    Card(
+    val dateTimeFormat = SimpleDateFormat("MMM dd yyyy, h:mm a", Locale.getDefault())
+    val currentDateTime = dateTimeFormat.format(Date())
+    ConstraintLayout(
         modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
+            .fillMaxSize()
+            .padding(horizontal = 16.dp, vertical = 16.dp)
     ) {
-        Column(
+        val (card, button) = createRefs()
+
+        Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 12.dp, end = 12.dp, top = 16.dp, bottom = 10.dp)
+                .wrapContentHeight()
+                .constrainAs(card) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
         ) {
-
             Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 12.dp, end = 12.dp, top = 16.dp, bottom = 10.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Box(modifier = Modifier.size(46.dp)) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_home),
+                        contentDescription = "show error / success icon depending"
+                    )
+                }
+                Text(text = "Message Show or Success")
 
-                val dateTimeFormat = SimpleDateFormat("MMM dd yyyy, h:mm a", Locale.getDefault())
-                val currentDateTime = dateTimeFormat.format(Date())
-
-                Row(
+                ConstraintLayout(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
+                    val (payToColumn, infoColumn) = createRefs()
 
                     Column(
+                        modifier = Modifier.constrainAs(payToColumn) {
+                            top.linkTo(parent.top)
+                            start.linkTo(parent.start)
+                        },
                         horizontalAlignment = Alignment.Start,
                         verticalArrangement = Arrangement.Center,
-                        modifier = Modifier.width(100.dp)
                     ) {
-
                         Text(
                             text = "Pay to:",
                             maxLines = 1,
@@ -99,28 +122,34 @@ fun BillConfirm(
                             overflow = TextOverflow.Ellipsis
                         )
                     }
-                    Spacer(modifier = Modifier.weight(1f))
+
                     Column(
                         horizontalAlignment = Alignment.End,
-                        verticalArrangement = Arrangement.Center
+                        verticalArrangement = Arrangement.Center,
+                        modifier = Modifier
+                            .constrainAs(infoColumn) {
+                                top.linkTo(parent.top)
+                                start.linkTo(payToColumn.end, margin = 8.dp)
+                                end.linkTo(button.start, margin = 8.dp)
+                            }
                     ) {
                         Text(
-                            text = accountName,
+                            text = payBill.name,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
                         Text(
-                            text = businessNumber.toString(),
+                            text = payBill.businessNumber.toString(),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
                         Text(
-                            text = accountNumber.toString(),
+                            text = payBill.accountNumber.toString(),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
                         Text(
-                            text = amount.toString(),
+                            text = payBill.amount.toString(),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
@@ -129,31 +158,32 @@ fun BillConfirm(
                             maxLines = 5,
                             overflow = TextOverflow.Ellipsis
                         )
-                        Text(
-                            text = date.toString(),
-                            maxLines = 5,
-                            overflow = TextOverflow.Ellipsis
-                        )
                     }
 
-                }
-
-                Button(
-                    onClick = { /*TODO*/ },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(text = "Done")
+                    Button(
+                        onClick = { /*TODO*/ },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .constrainAs(button) {
+                                bottom.linkTo(parent.bottom)
+                                start.linkTo(parent.start)
+                                end.linkTo(parent.end)
+                            }
+                    ) {
+                        Text(text = "Done")
+                    }
                 }
             }
-
         }
-
     }
-
 }
 
 
+
+
+
 @Composable
+@Preview
 fun PayBillConfirmScreen() {
     Column {
         payBill.apply {
@@ -162,8 +192,8 @@ fun PayBillConfirmScreen() {
                     accountName = name,
                     accountNumber = payBill.accountNumber.toString(),
                     amount = payBill.amount!!.toDouble(),
-                    date = "",
-                    businessNumber = payBill.businessNumber.toString()
+                    date = "nnnnn",
+                    businessNumber = payBill.businessNumber
                 )
             }
         }

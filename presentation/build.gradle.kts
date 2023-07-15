@@ -86,12 +86,6 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.gf)
     implementation(libs.accompanist.swiperefresh)
-   /* implementation(libs.accompanist.permission)
-    implementation(libs.accompanist.indicator)
-    implementation(libs.accompanist.systemui)
-    implementation(libs.accompanist.pager)
-    implementation(libs.accompanist.animation)
-    implementation(libs.accompanist.navigation)*/
     implementation(libs.kotlin.coroutines.datetime)
     implementation(libs.zeko.query.builder)
     kapt(libs.android.hilt.compiler)

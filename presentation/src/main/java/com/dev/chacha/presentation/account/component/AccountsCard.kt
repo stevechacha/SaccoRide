@@ -26,7 +26,57 @@ import com.dev.chacha.presentation.common.theme.Brutalista
 fun AccountCard(
     onClick: (String) -> Unit,
     title: String,
-    icon: Int
+    icon: Int,
+
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+            .clickable { onClick(title) },
+        shape = RoundedCornerShape(8.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6F),
+        )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    painter = painterResource(id = icon),
+                    contentDescription = null,
+                    modifier = Modifier.size(25.dp)
+                )
+                Text(
+                    text = title,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    fontSize = 14.sp,
+                    fontFamily = Brutalista,
+                )
+            }
+            Icon(
+                painter = painterResource(id = R.drawable.chevron_right),
+                contentDescription = null
+            )
+        }
+    }
+}
+
+@Composable
+fun AccountCards(
+    onClick: (String) -> Unit,
+    title: String,
+    icon: Int,
+    onSelectTheme: (Int) -> Unit,
+    selectedTheme: Int,
 ) {
     Card(
         modifier = Modifier

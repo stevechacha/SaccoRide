@@ -63,7 +63,7 @@ fun BuyAirtimeTabScreens() {
                         modalBottomSheetState.hide()
                     }
                 }, navController = navController,
-                viewModel = ContactListViewModel()
+//       contactViewModel = ContactListViewModel()
             )
 
         }
