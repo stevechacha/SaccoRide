@@ -35,17 +35,15 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalCoroutinesApi::class)
 @Composable
-fun SendsMoneyScreen(
-    navigateBack:()->Unit,
-    navController: NavController
+fun SendsMoneyScreen(navigateBack:()->Unit, ) {
 
-) {
     val sendMoneyViewModel: SendMoneyViewModel = viewModel()
     val sendMoneyState by sendMoneyViewModel.sendMoneyState.collectAsState()
     val sheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
     val scaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = sheetState)
-    val contactListViewModel = viewModel<ContactListViewModel>()
+    val viewModel = viewModel<ContactListViewModel>()
     val coroutineScope = rememberCoroutineScope()
+    val navController = rememberNavController()
 
 
     BottomSheetScaffold(
@@ -53,12 +51,11 @@ fun SendsMoneyScreen(
         sheetContent = {
             ContactSelectionScreen(
                 onContactSelected = { contact ->
-                    sendMoneyViewModel.onSendMoneyEvent(SendMoneyEvent.PhoneNumberChanged(contact.phoneNumber))
                     coroutineScope.launch {
                         sendMoneyViewModel.onSendMoneyEvent(SendMoneyEvent.PhoneNumberChanged(contact.phoneNumber))
+                        sheetState.collapse()
                     }
                 }, navController = navController,
-                viewModel = contactListViewModel
             )
         },
         sheetPeekHeight = 0.dp,
@@ -78,10 +75,11 @@ fun SendsMoneyScreen(
             Column(
                 modifier = Modifier
                     .padding(padding)
+                    .padding(horizontal = 16.dp)
             ) {
                 SendMoneyBottomSheetContent(
-                    coroutineScope,
-                    scaffoldState,
+                    coroutineScope = coroutineScope,
+                    scaffoldState = scaffoldState,
                     sendMoneyState = sendMoneyState,
                     onPhoneNumberChanged = { phoneNumber->
                         sendMoneyViewModel.onSendMoneyEvent(SendMoneyEvent.PhoneNumberChanged(phoneNumber))
@@ -89,7 +87,7 @@ fun SendsMoneyScreen(
                     onAmountChanged = { amount ->
                         sendMoneyViewModel.onSendMoneyEvent(SendMoneyEvent.AmountChanged(amount))
                     },
-                    contactListViewModel = contactListViewModel,
+                    contactListViewModel = viewModel,
                     onRecipientProvider = {  newProvider->
                         sendMoneyViewModel.onSendMoneyEvent(SendMoneyEvent.RecipientProviderSelected(newProvider))
                     }
@@ -99,6 +97,15 @@ fun SendsMoneyScreen(
         }
     }
 
+
+}
+
+@Composable
+@Preview
+fun SendsMoneyScreenPreview() {
+    SendsMoneyScreen(
+        navigateBack = {}
+    )
 
 }
 

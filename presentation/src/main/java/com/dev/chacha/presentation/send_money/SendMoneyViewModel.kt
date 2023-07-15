@@ -19,19 +19,16 @@ class SendMoneyViewModel : ViewModel() {
 
     val sendMoneyState = MutableStateFlow(SendMoneyState())
 
-
     fun onSendMoneyEvent(event: SendMoneyEvent){
         when(event){
             is SendMoneyEvent.AmountChanged -> {
                 sendMoneyState.update { it.copy(amount = event.amount) }
             }
             SendMoneyEvent.CollapseSheet -> {
-                sendMoneyState.update { it.copy(expanded = false) }
-                sendMoneyState.update { it.copy(sheetState = BottomSheetState(initialValue = BottomSheetValue.Collapsed)) }
+
             }
             SendMoneyEvent.ExpandSheet -> {
-                sendMoneyState.update { it.copy(expanded = true) }
-                sendMoneyState.update { it.copy(sheetState = BottomSheetState(initialValue = BottomSheetValue.Expanded)) }
+
             }
             is SendMoneyEvent.PhoneNumberChanged -> {
                 sendMoneyState.update { it.copy(phoneNumber = event.phoneNumber) }
@@ -40,44 +37,6 @@ class SendMoneyViewModel : ViewModel() {
                 sendMoneyState.update { it.copy(selectedRecipient = event.selectedRecipient) }
             }
         }
-    }
-
-
-
-    private val _mobileNumber = mutableStateOf("")
-    val mobileNumber: State<String> = _mobileNumber
-
-    private val _amount = mutableStateOf("")
-    val amount: State<String> = _amount
-
-    private val _selectedRecipient = mutableStateOf(RecipientProvider.Mpesa)
-    val selectedRecipient: State<RecipientProvider> = _selectedRecipient
-
-    private val _phoneNumber = mutableStateOf("")
-    val phoneNumber: State<String> = _phoneNumber
-
-    private val _coroutineScope = viewModelScope
-    val coroutineScope: CoroutineScope = _coroutineScope
-
-    @OptIn(ExperimentalMaterialApi::class)
-    fun updateSheetState(state: BottomSheetValue) {
-        _sheetState.value = state
-    }
-
-    fun updateMobileNumber(number: String) {
-        _mobileNumber.value = number
-    }
-
-    fun updateAmount(amount: String) {
-        _amount.value = amount
-    }
-
-    fun updateSelectedRecipient(recipient: RecipientProvider) {
-        _selectedRecipient.value = recipient
-    }
-
-    fun updatePhoneNumber(number: String) {
-        _phoneNumber.value = number
     }
 
 }

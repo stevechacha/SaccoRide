@@ -10,6 +10,4 @@ class ThemeViewModel @Inject constructor(
      themeRepository: ThemeRepository
 ): ViewModel() {
     val theme = themeRepository.themeStream
-
-
 }

@@ -51,7 +51,7 @@ class ContactListViewModel : ViewModel() {
                         // Delay for 500ms to avoid frequent searches and showing loading icon
                         delay(500L)
                         val filteredContacts = initialContact.filter {
-                            it.name.contains(state.value.searchParams, ignoreCase = true) ||
+                            it.name.contains(state.value.searchParams, ignoreCase = true,) ||
                                     it.phoneNumber.contains(state.value.searchParams)
                         }
                         _state.value = state.value.copy(contact = filteredContacts, isLoading = false)

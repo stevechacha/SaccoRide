@@ -27,6 +27,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.dev.chacha.presentation.extensions.formatContact
+import com.dev.chacha.presentation.extensions.formatDate
+import com.dev.chacha.presentation.extensions.formatDateTime
 import com.dev.chacha.presentation.extensions.getInitials
 import com.dev.chacha.presentation.transaction_history.TransactionsItem
 import com.dev.chacha.presentation.transaction_history.transactionsItem
@@ -127,12 +130,13 @@ fun TransactionHistoryItem(
                     )
 
                     Text(
-                        text = "${formatDate(transactionItem.date)},${transactionItem.time}",
+                        text = "${formatDate(transactionItem.date)}, ${transactionItem.time}",
                         textAlign = TextAlign.End,
                         style = typography.labelSmall,
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 1
                     )
+
 
                 }
 
@@ -143,41 +147,10 @@ fun TransactionHistoryItem(
 }
 
 
-private fun formatDate(date: String): String? {
-    val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    val outputFormat = SimpleDateFormat("dd MMM", Locale.getDefault())
-    val parsedDate = inputFormat.parse(date)
-    return parsedDate?.let { outputFormat.format(it) }
-}
 
 
-private fun formatContact(contact: String): String {
-    val formattedContact: String =when {
-        contact.startsWith("254") -> {
-            val prefix = contact.substring(0, 6)
-            val lastThreeDigits = contact.substring(contact.length - 3)
-            "$prefix***$lastThreeDigits"
-        }
-        contact.startsWith("07") -> {
-            val prefix = contact.substring(0, 4)
-            val lastThreeDigits = contact.substring(contact.length - 3)
-            "$prefix***$lastThreeDigits"
-        }
-        contact.startsWith("+254") -> {
-            val prefix = contact.substring(0, 7)
-            val lastThreeDigits = contact.substring(contact.length - 3)
-            "$prefix***$lastThreeDigits"
-        }
-        contact.startsWith("01") -> {
-            val prefix = contact.substring(0, 4)
-            val lastThreeDigits = contact.substring(contact.length - 3)
-            "$prefix***$lastThreeDigits"
-        }
 
-        else -> contact
-    }
-    return formattedContact
-}
+
 
 
 

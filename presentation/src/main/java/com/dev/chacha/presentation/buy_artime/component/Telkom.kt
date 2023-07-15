@@ -78,7 +78,7 @@ fun Telkom() {
                         sheetState.collapse()
                     }
                 }, navController = navController,
-                viewModel = ContactListViewModel()
+//       contactViewModel = ContactListViewModel()
             )
         },
         sheetPeekHeight = 0.dp,

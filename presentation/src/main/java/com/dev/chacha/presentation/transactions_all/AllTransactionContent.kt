@@ -32,11 +32,11 @@ fun AllTransactionContent(
                 contentPadding = PaddingValues(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                val groupedTransactions = transactions.groupBy { it.date }
+                val sortedTransactions = transactions.sortedWith(compareByDescending<TransactionsItem> { it.date }.thenByDescending { it.time })
 
-                val sortedGroupedTransactions = groupedTransactions.toSortedMap(compareByDescending { it })
+                val groupedTransactions = sortedTransactions.groupBy { it.date }
 
-                sortedGroupedTransactions.forEach { (date, transactionsByDate) ->
+                groupedTransactions.forEach { (date, transactionsByDate) ->
                     val formattedDate = formatDate(date)
                     stickyHeader {
                         if (formattedDate != null) {
@@ -54,6 +54,7 @@ fun AllTransactionContent(
         }
     }
 }
+
 
 
 

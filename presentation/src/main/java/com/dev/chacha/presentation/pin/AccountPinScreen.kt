@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Backspace
+import androidx.compose.material.icons.outlined.Password
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -92,7 +93,7 @@ fun AccountPinScreen(
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
-                            painter =  painterResource(id = R.drawable.account_circle),
+                            imageVector = Icons.Outlined.Password,
                             contentDescription = null,
                             tint = PrimaryColor,
                             modifier = Modifier
@@ -120,7 +121,7 @@ fun AccountPinScreen(
                                 }
                             },
                             keyboardType = KeyboardType.NumberPassword,
-                            hint = stringResource(id = R.string.enter_pin),
+                            hint = stringResource(id = R.string.pin),
                             isPasswordVisible = pinInputsViewModel.showPin.value,
                             onPasswordToggleClick = {
                                 pinInputsViewModel.setShowPin(it)

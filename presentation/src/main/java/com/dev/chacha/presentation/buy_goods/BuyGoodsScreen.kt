@@ -67,6 +67,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.buy_goods.components.BuyGoodsDialog
+import com.dev.chacha.presentation.buy_goods.components.TillNumberDropDown
 import com.dev.chacha.presentation.common.components.ContinueButton
 import com.dev.chacha.presentation.common.components.RideOutlinedTextField
 import com.dev.chacha.presentation.common.navigation.HomeAction
@@ -105,15 +106,9 @@ fun BuyGoodsScreen(
     viewModel: BuyGoodsViewModel = viewModel(),
     navController: NavController,
     sheetState: BottomSheetState,
-
     ) {
 
-    val buyGoods = getTillNumber()
     val state by viewModel.state.collectAsState()
-    var textfieldSize by remember { mutableStateOf(Size.Zero) }
-    var expanded by remember { mutableStateOf(false) }
-    val icon = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown
-    val scope = rememberCoroutineScope()
     val currentPage by viewModel.settledPage.collectAsState()
     val focusRequester = remember { FocusRequester() }
 
@@ -123,13 +118,11 @@ fun BuyGoodsScreen(
         }
     }
 
-
-
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(start = 16.dp, end = 16.dp, top = 20.dp),
-        verticalArrangement = Arrangement.Top,
+            .padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -158,96 +151,25 @@ fun BuyGoodsScreen(
             )
         }
 
-        Column(modifier = Modifier.fillMaxWidth()) {
-            RideOutlinedTextField(
-                value = state.tillNumber,
-                onValueChange = { viewModel.onTillNumberChanged(it) },
-                hint = stringResource(id = R.string.tillNumber),
-                keyboardType = KeyboardType.Phone,
-                trailingIcon = {
-                    Icon(
-                        icon,
-                        "contentDescription",
-                        Modifier.clickable { expanded = !expanded }
-                    )
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .focusRequester(focusRequester)
-                    .onGloballyPositioned { coordinates ->
-                        textfieldSize = coordinates.size.toSize()
-                    },
-                supportText = state.tillName,
-                error = if ( state.tillNumber.isEmpty() ) "Enter PhoneNumber" else "",
-                isError =  state.tillNumber.isEmpty()
-            )
-
-            Button(onClick = {
-                scope.launch {
-                    if (sheetState.isCollapsed) {
-                        sheetState.expand()
-                    } else {
-                        sheetState.collapse()
-                    }
-                }
-            }) {
-                Text(text = "BottomSheet")
-
-            }
-
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false },
-                modifier = Modifier
-                    .width(with(LocalDensity.current) { textfieldSize.width.toDp() }),
-            ) {
-                buyGoods.forEach { item ->
-                    DropdownMenuItem(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp)
-                            .align(Alignment.CenterHorizontally),
-                        text = { Text(text = item.tillName) },
-                        onClick = {
-                            viewModel.onTillNumberChanged(item.tillNumber)
-                            item.tillName.let { viewModel.onTillNameChanged(it) }
-                            expanded = false
-                        },
-                        leadingIcon = {
-                            val buyGoodsInitials = item.tillName
-                            Box(
-                                modifier = Modifier
-                                    .size(40.dp)
-                                    .clip(CircleShape),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
-                                    text = getInitials(buyGoodsInitials),
-                                    fontWeight = FontWeight.Normal,
-                                    textAlign = TextAlign.Center,
-                                    fontSize = 26.sp
-                                )
-
-                            }
-
-                        }
-                    )
-                }
-
-            }
-
-        }
-        Spacer(modifier = Modifier.height(5.dp))
+        TillNumberDropDown(
+            state = state,
+            onTillNumberChanged = {
+                viewModel.onTillNumberChanged(it)
+            },
+            onTillNameChanged = {
+                viewModel.onTillNameChanged(it)
+            },
+        )
 
         RideOutlinedTextField(
             value = state.amount,
             onValueChange = { viewModel.onAmountChanged(it) },
-            keyboardType = KeyboardType.Phone,
             hint = stringResource(id = R.string.amount),
-            maxLength = 6
-        )
+            maxLength = 7,
+            keyboardType = KeyboardType.Number,
+            )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         ContinueButton(
             text = stringResource(id = R.string.continuee),
@@ -256,7 +178,6 @@ fun BuyGoodsScreen(
             },
             enable = viewModel.isInputValid()
         )
-
     }
 }
 

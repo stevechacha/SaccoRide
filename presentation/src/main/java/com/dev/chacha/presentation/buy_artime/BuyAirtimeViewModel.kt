@@ -8,14 +8,12 @@ import kotlinx.coroutines.flow.update
 class BuyAirtimeViewModel : ViewModel(){
 
     val buyAirtimeState = MutableStateFlow(BuyAirtimeState())
-
     private val _targetRadio = MutableStateFlow("myself")
     var targetRadio =_targetRadio.asStateFlow().value
 
     init {
         validateInput()
     }
-
 
     fun handleBuyAirtimeEvent(buyAirtimeEvent: BuyAirtimeEvent) {
         when(buyAirtimeEvent){
@@ -35,8 +33,6 @@ class BuyAirtimeViewModel : ViewModel(){
         }
     }
 
-
-
     private fun validateInput() {
         val amount = buyAirtimeState.value.amount
         val phoneNumber = buyAirtimeState.value.phoneNumber
@@ -55,8 +51,6 @@ class BuyAirtimeViewModel : ViewModel(){
         targetRadio = newTargetRadio
         validateInput()
     }
-
-
 
 
 }

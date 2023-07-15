@@ -73,15 +73,20 @@ fun BuyAirtimeScreen(
     navigateBack: () -> Unit
 ) {
     val buyAirtimeViewModel: BuyAirtimeViewModel = viewModel()
-    val coroutineScope = rememberCoroutineScope()
-    var targetRadio by rememberSaveable { mutableStateOf(buyAirtimeViewModel.targetRadio) }
-    var selectedAccount by rememberSaveable { mutableStateOf(AccountType.AccountA) }
     val buyAirtimeState by buyAirtimeViewModel.buyAirtimeState.collectAsState()
     val viewModel = viewModel<ContactListViewModel>()
+    val coroutineScope = rememberCoroutineScope()
+
+
+    var targetRadio by rememberSaveable { mutableStateOf(buyAirtimeViewModel.targetRadio) }
+    var selectedAccount by rememberSaveable { mutableStateOf(AccountType.AccountA) }
+
     val context = LocalContext.current
     val sheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
-    val navController = rememberNavController()
     val scaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = sheetState)
+
+    val navController = rememberNavController()
+
     var textfieldSize by remember { mutableStateOf(Size.Zero) }
     var expanded by remember { mutableStateOf(false) }
 
@@ -94,9 +99,7 @@ fun BuyAirtimeScreen(
                         buyAirtimeViewModel.handleBuyAirtimeEvent(BuyAirtimeEvent.PhoneNumberChanged(contact.phoneNumber))
                         sheetState.collapse()
                     }
-
                 }, navController = navController,
-                viewModel = viewModel
             )
         },
         sheetPeekHeight = 0.dp,
@@ -190,7 +193,7 @@ fun BuyAirtimeScreen(
                             )
                         },
                         maxLength = 5,
-                        keyboardType = KeyboardType.Phone,
+                        keyboardType = KeyboardType.Number,
                         hint = stringResource(id = R.string.amount),
                         supportText = stringResource(id = R.string.amount_support_text),
                         modifier = Modifier

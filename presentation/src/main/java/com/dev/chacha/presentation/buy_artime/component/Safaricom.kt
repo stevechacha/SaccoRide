@@ -57,7 +57,7 @@ fun Safaricom() {
                         modalBottomSheetState.hide()
                     }
                 } , navController = navController,
-                viewModel = ContactListViewModel()
+//       contactViewModel = ContactListViewModel()
             )
         }
     ) {

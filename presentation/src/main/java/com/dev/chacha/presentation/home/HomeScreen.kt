@@ -108,8 +108,7 @@ fun HomeScreen(
                     )
                 }
                 item {
-                    Spacer(modifier = Modifier.height(10.dp))
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(30.dp))
                     HomeServiceCard(
                         onLoanClicked = onLoanClicked,
                         onMarketClicked = onMarketClicked,
@@ -145,6 +144,7 @@ fun HomeScreen(
 
 
                 }
+
                 if (showAllTransactions) {
                     items(transactionsItem) { transaction ->
                         TransHistoryItem(

@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -18,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.dev.chacha.presentation.R
 import com.dev.chacha.presentation.common.components.AppTopBar
@@ -31,12 +33,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @OptIn(ExperimentalPermissionsApi::class, ExperimentalCoroutinesApi::class)
 @Composable
 fun ContactSelectionScreen(
-    viewModel: ContactListViewModel,
+    contactViewModel: ContactListViewModel = viewModel(),
     navController: NavController,
     onContactSelected: (Contact) -> Unit,
 ) {
     val context = LocalContext.current
-    val contactState by viewModel.state.collectAsState()
+    val contactState by contactViewModel.state.collectAsState()
     val lazyState = rememberLazyListState()
 
     // Check for permission to read contacts
@@ -44,7 +46,7 @@ fun ContactSelectionScreen(
 
     LaunchedEffect(permissionState) {
         if (permissionState.hasPermission) {
-            viewModel.send(ContactUiEvent.GetContacts, context)
+            contactViewModel.send(ContactUiEvent.GetContacts, context)
         } else {
             permissionState.launchPermissionRequest()
         }
@@ -56,7 +58,7 @@ fun ContactSelectionScreen(
                 title = "Search Contact",
                 initialValue = contactState.searchParams,
                 onSearchParamChange = { searchParams ->
-                    viewModel.send(ContactUiEvent.SearchContact(searchParams), context)
+                    contactViewModel.send(ContactUiEvent.SearchContact(searchParams), context)
                 },
                 showBackArrow = true,
                 showSearchBar = true,
@@ -69,6 +71,7 @@ fun ContactSelectionScreen(
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
         } else if (contactState.contact.isNotEmpty()) {
+            Text(text = contactState.contact.size.toString())
             LazyColumn(
                 modifier = Modifier
                     .padding(paddingValues)
@@ -79,11 +82,23 @@ fun ContactSelectionScreen(
                 val contacts = contactState.contact
                 items(contacts) { contact ->
                     ContactItem(contact = contact) {
-                        // Call the onContactSelected function to update the phone number
-                        // viewModel.send(ContactUiEvent.SearchContact(""),context) // clear search field
-                        viewModel.send(ContactUiEvent.GetContacts, context) // refresh the contact list
+                        val updatedPhoneNumber = contact.phoneNumber
+                        if (updatedPhoneNumber.length > 10 && updatedPhoneNumber.startsWith("+")) {
+                            val formattedPhoneNumber = "0${updatedPhoneNumber.substring(4)}"
+                            val updatedContacts = contact.copy(phoneNumber = formattedPhoneNumber)
+                            onContactSelected(updatedContacts)
+
+                            if (formattedPhoneNumber.length<10){
+                                val secondUpdate = "0${formattedPhoneNumber}"
+                                val secondUpdatedContacts = contact.copy(phoneNumber = secondUpdate)
+                                onContactSelected(secondUpdatedContacts)
+                            }
+                        } else {
+                            onContactSelected(contact)
+                        }
+                        // Refresh the contact list
+                        contactViewModel.send(ContactUiEvent.GetContacts, context)
                         navController.previousBackStackEntry?.savedStateHandle?.set("selectedContact", contact)
-                        onContactSelected(contact)
                         navController.popBackStack()
                     }
                 }
@@ -92,7 +107,7 @@ fun ContactSelectionScreen(
             RetryButton(
                 error = contactState.error,
                 onRetryEvent = {
-                    viewModel.send(ContactUiEvent.GetContacts, context)
+                    contactViewModel.send(ContactUiEvent.GetContacts, context)
                 }
             )
         } else {

@@ -45,12 +45,16 @@ fun MainScreen(
         initial = Theme.FOLLOW_SYSTEM.themeValue,
         context = Dispatchers.Main.immediate
     )
+    val themeName by viewModel.theme.collectAsState(
+        initial = Theme.FOLLOW_SYSTEM.themeName,
+        context = Dispatchers.Main.immediate
+    )
+
     SaccoRideTheme(theme = themeValue) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            ModalBottomSheetLayout(bottomSheetNavigator = bottomSheetNavigator) {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     bottomBar = { BottomNavigationBar(navController = navController) }
@@ -67,7 +71,7 @@ fun MainScreen(
 
             }
 
-        }
+
 
     }
 

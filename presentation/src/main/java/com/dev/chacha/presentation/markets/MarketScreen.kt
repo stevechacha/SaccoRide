@@ -2,16 +2,21 @@ package com.dev.chacha.presentation.markets
 
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
@@ -47,111 +52,137 @@ fun MarketScreen(
 ) {
     Scaffold(
         topBar = {
-           MarketTopBar(
-               title = "Market"
-           )
+            MarketTopBar(
+                title = "Market"
+            )
         },
     ) { paddingValues ->
 
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(paddingValues)
-                .padding(horizontal = 16.dp)
-        ) {
-            val  cardsItems = getCardImages()
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ){
-                item {
-                    Text(text = stringResource(id = R.string.our_market))
-                }
-                item {
-                    AnimatedCardPager(cards =   cardsItems)
-                }
+        val cardsItems = getCardImages()
 
-                item {
-                    AnimatedCardPagerIndicator(cards =   cardsItems)
-                }
-            }
-            Spacer(modifier = Modifier.height(16.dp))
+
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(horizontal = 16.dp),
+        ) {
+
 
             LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                modifier = Modifier
-                    .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(10.dp),
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-                userScrollEnabled = true
+                columns = GridCells.Adaptive(170.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
 
-                item {
-                    ShopCard(
-                        drawable = R.drawable.home_icon,
-                        title = R.string.electronics,
-                        subTitle = R.string.electronics,
-                        onClickCard = {}
-                    )
-                }
-                item {
-                    ShopCard(
-                        drawable = R.drawable.home_icon,
-                        title = R.string.electronics,
-                        subTitle = R.string.electronics,
-                        onClickCard = {}
+                items(marketTypeOption.size) { index ->
+                    MarketTypeCard(
+                        title = marketTypeOption[index].title,
+                        subTitle = marketTypeOption[index].subTitle,
+                        imageResourceId = marketTypeOption[index].imageResourceId,
+                        containerColor = marketTypeOption[index].containerColor,
+                        onClick = { marketTypeOption ->
+                            when (marketTypeOption) {
+                                "title" -> {
+
+                                }
+
+                                "title" -> {
+
+                                }
+
+                                "title" -> {
+
+                                }
+
+                            }
+
+                        },
                     )
                 }
 
-                item {
-                    ShopCard(
-                        drawable = R.drawable.home_icon,
-                        title = R.string.electronics,
-                        subTitle = R.string.electronics,
-                        onClickCard = {}
-                    )
-                }
 
-                item {
-                    ShopCard(
-                        drawable = R.drawable.home_icon,
-                        title = R.string.electronics,
-                        subTitle = R.string.electronics,
-                        onClickCard = {}
-                    )
-                }
-                item {
-                    ShopCard(
-                        drawable = R.drawable.home_icon,
-                        title = R.string.electronics,
-                        subTitle = R.string.electronics,
-                        onClickCard = {}
-                    )
-                }
-
-                item {
-                    ShopCard(
-                        drawable = R.drawable.home_icon,
-                        title = R.string.electronics,
-                        subTitle = R.string.electronics,
-                        onClickCard = {}
-                    )
-                }
 
             }
 
-            Spacer(modifier = Modifier.weight(1f))
-
-
         }
+
     }
 }
 
-fun randommColor(): Color {
-    val red = Random.nextInt(256)
-    val green = Random.nextInt(256)
-    val blue = Random.nextInt(256)
-    return Color(red, green, blue)
-}
+
+
+private val marketTypeOption = listOf(
+    MarketType(
+        title = "title",
+        subTitle = "subTitle",
+        imageResourceId = R.drawable.home_icon,
+        containerColor = Color(0, 48, 72)
+    ),
+    MarketType(
+        title = "title",
+        subTitle = "subTitle",
+        imageResourceId = R.drawable.home_icon,
+        containerColor = Color(71, 126, 149)
+    ),
+    MarketType(
+        title = "title",
+        subTitle = "subTitle",
+        imageResourceId = R.drawable.home_icon,
+        containerColor = Color(141, 103, 171)
+    ),
+    MarketType(
+        title = "title",
+        subTitle = "subTitle",
+        imageResourceId = R.drawable.home_icon,
+        containerColor = Color(140, 25, 50)
+    ),
+    MarketType(
+        title = "title",
+        subTitle = "subTitle",
+        imageResourceId = R.drawable.home_icon,
+        containerColor = Color(186, 93, 7)
+    ),
+    MarketType(
+        title = "title",
+        subTitle = "subTitle",
+        imageResourceId = R.drawable.home_icon,
+        containerColor = Color(119, 119, 119)
+    ),
+    MarketType(
+        title = "title",
+        subTitle = "subTitle",
+        imageResourceId = R.drawable.home_icon,
+        containerColor = Color(144, 168, 192)
+    ),
+    MarketType(
+        title = "title",
+        subTitle = "subTitle",
+        imageResourceId = R.drawable.home_icon,
+        containerColor = Color(230, 30, 50)
+    ),
+    MarketType(
+        title = "title",
+        subTitle = "subTitle",
+        imageResourceId = R.drawable.home_icon,
+        containerColor = Color(71, 125, 149)
+    ),
+    MarketType(
+        title = "title",
+        subTitle = "subTitle",
+        imageResourceId = R.drawable.home_icon,
+        containerColor = Color(141, 103, 171)
+    ),
+    MarketType(
+        title = "title",
+        subTitle = "subTitle",
+        imageResourceId = R.drawable.home_icon,
+        containerColor = Color(30, 50, 100)
+    ),
+
+    )
+
 
 
 @Composable

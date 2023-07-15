@@ -180,12 +180,9 @@ fun LoanPinScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
+
                 Text(
-                    text = name.uppercase(),
-                    style = MaterialTheme.typography.labelSmall
-                )
-                Text(
-                    text = stringResource(id = R.string.enter_pin),
+                    text = stringResource(id = R.string.enter_your_loan),
                     style = MaterialTheme.typography.labelSmall
 
                 )
@@ -228,7 +225,7 @@ fun LoanPinScreen(
                             }
                         },
                         keyboardType = KeyboardType.NumberPassword,
-                        hint = stringResource(id = R.string.confirmPassword),
+                        hint = stringResource(id = R.string.pin),
                         isPasswordVisible = pinInputsViewModel.showPin.value,
                         onPasswordToggleClick = {
                             pinInputsViewModel.setShowPin(it)

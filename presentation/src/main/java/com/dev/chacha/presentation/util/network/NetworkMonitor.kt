@@ -36,7 +36,6 @@ class NetworkMonitor constructor(val context: Context) {
                 isCellularConnected = true
 
             }
-
             override fun onLost(network: Network) {
                 // Perform necessary actions when network is lost
                 isNetworkAvailable = false

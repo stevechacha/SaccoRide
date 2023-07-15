@@ -20,14 +20,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.dev.chacha.presentation.buy_artime.BayAirtime
 import com.dev.chacha.presentation.common.theme.PrimaryColor
 import com.dev.chacha.presentation.paybill.PayBill
 
 @Composable
 fun BuyAirtimeDialog(
     onDismiss: () -> Unit,
-    onClickSend: (PayBill) -> Unit,
-    payBill: PayBill,
+    onClickSend: (BayAirtime) -> Unit,
+    bayAirtime: BayAirtime
 ) {
     AlertDialog(
         containerColor = MaterialTheme.colorScheme.background,
@@ -52,7 +53,7 @@ fun BuyAirtimeDialog(
                         color = PrimaryColor
                     )
                     Text(
-                        text = payBill.name,
+                        text = bayAirtime.phoneNumber,
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.Bold
                     )
@@ -63,7 +64,7 @@ fun BuyAirtimeDialog(
                         color = LocalContentColor.current.copy(alpha = ContentAlpha.medium)
                     )
                     Text(
-                        text = payBill.businessNumber,
+                        text = bayAirtime.amount,
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.Bold
 
@@ -77,7 +78,7 @@ fun BuyAirtimeDialog(
 
                     )
                     Text(
-                        text = "${payBill.accountNumber}",
+                        text = bayAirtime.date,
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.Bold
 
@@ -91,7 +92,7 @@ fun BuyAirtimeDialog(
 
                     )
                     Text(
-                        text = "Ksh${payBill.amount}",
+                        text = "Ksh${bayAirtime.amount}",
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.Bold
 
@@ -119,7 +120,7 @@ fun BuyAirtimeDialog(
                     Spacer(modifier = Modifier.weight(1f))
                     Button(
                         onClick = {
-                            onClickSend(payBill)
+                            onClickSend(bayAirtime)
                         },
                         modifier = Modifier.width(120.dp),
                         colors = ButtonDefaults.buttonColors(
