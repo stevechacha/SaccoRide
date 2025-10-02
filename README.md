@@ -1,5 +1,5 @@
 # SaccoRide
-A SACCO app is a mobile application designed to provide members of SACCOs with a convenient and accessible way to access SACCO services and manage their accounts on-the-go.
+A SACCO app is a mobile application designed to provide SACCO members with a convenient and accessible way to access SACCO services and manage their accounts on the go.
 
 
 
